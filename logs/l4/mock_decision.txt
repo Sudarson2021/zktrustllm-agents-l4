@@ -1,0 +1,6 @@
+Submitted mock decision tx -> 5c73101b967b52f748fe2163522b335dce2daa720caf46624981f4e4b203f069
+Decision count -> 4
+Stored decision agentId -> edge-telemetry-01
+Stored policyClass -> context-collect
+Stored action -> isolate
+Stored traceCID -> QmUhRAjNW5frziU2A1aD6EzyF1T2GjQCCvzrAPRUaejgSM

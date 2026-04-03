@@ -1,0 +1,1 @@
+{"reported":true,"payloadKeys":["taskId","severity","flags","linkedTraceCID","traceCommitment","recommendedMitigation","timestamp","anomalyCommitment"]}
