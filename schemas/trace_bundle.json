@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TraceBundle",
+  "type": "object",
+  "required": [
+    "taskId",
+    "contextHash",
+    "traceCommitment",
+    "policyAction",
+    "timestamp"
+  ],
+  "properties": {
+    "taskId": { "type": "string" },
+    "contextHash": { "type": "string" },
+    "promptHash": { "type": "string" },
+    "responseHash": { "type": "string" },
+    "traceCommitment": { "type": "string" },
+    "anomalyFlags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "policyAction": { "type": "string" },
+    "timestamp": { "type": "integer" }
+  }
+}
