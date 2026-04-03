@@ -78,6 +78,11 @@ ANOM_RESP="$(curl -s -X POST http://127.0.0.1:8081/anomaly/report \
 echo "$ANOM_RESP" | tee logs/l4/anomaly_report.json
 log_event "anomaly_report" "ok" "$ANOM_RESP"
 
+echo "[L4 demo] log anomaly on-chain"
+ANOM_CHAIN_OUT="$(python3 scripts/l4/log_anomaly_onchain.py)"
+echo "$ANOM_CHAIN_OUT" | tee logs/l4/anomaly_onchain.txt
+log_event "anomaly_onchain" "ok" "$ANOM_CHAIN_OUT"
+
 echo "[L4 demo] submit mock decision"
 DECISION_OUT="$(python3 scripts/l4/submit_agent_decision_mock.py)"
 echo "$DECISION_OUT" | tee logs/l4/mock_decision.txt
@@ -86,6 +91,7 @@ log_event "submit_mock_decision" "ok" "$DECISION_OUT"
 echo
 echo "=== L4 DEMO SUMMARY ==="
 echo "CID: $CID"
+echo "$ANOM_CHAIN_OUT"
 echo "$DECISION_OUT"
 echo
 echo "NDJSON log -> $NDJSON_OUT"
