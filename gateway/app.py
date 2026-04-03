@@ -2,7 +2,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import time
 
+from gateway.chain_guard import ChainGuard
+
 app = FastAPI(title="ZKTrustLLM-Agents Secure Gateway")
+guard = ChainGuard()
 
 class AgentMessage(BaseModel):
     senderAgentId: str
@@ -35,6 +38,20 @@ def validate_message(msg: AgentMessage):
     if not msg.policyClass:
         raise HTTPException(status_code=400, detail="missing policy class")
 
+    if not guard.is_registered(msg.senderAgentId):
+        raise HTTPException(status_code=403, detail="sender not registered")
+
+    if not guard.capability_valid(msg.capabilityId):
+        raise HTTPException(status_code=403, detail="capability invalid or expired")
+
+    cap = guard.get_capability(msg.capabilityId)
+    if cap["policyClass"] != msg.policyClass:
+        raise HTTPException(status_code=403, detail="policy class mismatch")
+
+    expected_agent_key = guard.agent_key(msg.senderAgentId)
+    if cap["agentKey"] != expected_agent_key:
+        raise HTTPException(status_code=403, detail="capability does not belong to sender")
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
@@ -42,7 +59,7 @@ def health():
 @app.post("/message/validate")
 def message_validate(msg: AgentMessage):
     validate_message(msg)
-    return {"accepted": True, "taskId": msg.taskId}
+    return {"accepted": True, "taskId": msg.taskId, "sender": msg.senderAgentId}
 
 @app.post("/tool/authorize")
 def tool_authorize(msg: AgentMessage):
