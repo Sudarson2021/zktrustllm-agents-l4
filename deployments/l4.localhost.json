@@ -3,5 +3,8 @@
   "deployedAt": "2026-04-03T17:14:01.105Z",
   "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
   "agentRegistry": "0x74Cf9087AD26D541930BaC724B7ab21bA8F00a27",
-  "capabilityManager": "0xefAB0Beb0A557E452b398035eA964948c750b2Fd"
+  "capabilityManager": "0xefAB0Beb0A557E452b398035eA964948c750b2Fd",
+  "decisionAttestor": "0xaB7B4c595d3cE8C85e16DA86630f2fc223B05057",
+  "updatedAt": "2026-04-03T21:44:14.963Z",
+  "anomalyLedger": "0x045857BDEAE7C1c7252d611eB24eB55564198b4C"
 }
