@@ -1,5 +1,6 @@
 import json
 import os
+import subprocess
 from pathlib import Path
 from web3 import Web3
 
@@ -38,6 +39,16 @@ def send_tx(w3, account, tx):
     receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     return receipt
 
+def ensure_local_artifacts():
+    if not REG_FILE.exists():
+        subprocess.run(["python3", "scripts/l4/export_registered_agents.py"], check=True)
+
+    if not TRACE_FILE.exists():
+        subprocess.run(["python3", "scripts/l4/create_trace_bundle.py"], check=True)
+
+    if not CID_FILE.exists():
+        subprocess.run(["python3", "scripts/l4/pin_trace_bundle.py"], check=True)
+
 def recover_agent_from_chain(w3, dep):
     ar_art = load_json(AR_ART)
     cm_art = load_json(CM_ART)
@@ -55,10 +66,9 @@ def recover_agent_from_chain(w3, dep):
         raise RuntimeError(f"{TARGET_AGENT} is not registered on-chain")
 
     target_agent_key = ar.functions.agentKey(TARGET_AGENT).call().hex().lower()
-
     events = cm.events.CapabilityIssued().get_logs(from_block=0, to_block='latest')
-    latest = None
 
+    latest = None
     for ev in events:
         capability_id = ev["args"]["capabilityId"].hex().lower()
         agent_key = ev["args"]["agentKey"].hex().lower()
@@ -94,6 +104,8 @@ def load_or_recover_agent(w3, dep):
     return recover_agent_from_chain(w3, dep)
 
 def main():
+    ensure_local_artifacts()
+
     dep = load_json(DEPLOY_FILE)
     att_art = load_json(ATT_ART)
     trace = load_json(TRACE_FILE)
