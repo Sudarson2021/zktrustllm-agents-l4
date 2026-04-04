@@ -1,5 +1,6 @@
-// auth_v1 circuit skeleton
-// Purpose: lock field order and compile path before the full proof relation is implemented.
+// auth_v1 relation-aware v0
+// Purpose: keep the fixed interface while upgrading the circuit from a pure
+// placeholder into a first semantically meaningful relation skeleton.
 
 def main(
     field agentKey,
@@ -15,7 +16,7 @@ def main(
     private field domainSepCapability,
     private field domainSepAction
 ) {
-    // Basic bounded checks for the placeholder phase
+    // Core public bindings must exist
     assert(agentKey > 0);
     assert(capabilityId > 0);
     assert(policyClassHash > 0);
@@ -24,17 +25,36 @@ def main(
     assert(actionHash > 0);
     assert(expiryBucket > 0);
 
-    // Action code must stay in the current bounded set: 1..5
-    assert(actionCode > 0);
-    assert(actionCode < 6);
-
-    // Private witness values are expected to exist
+    // Core witness bindings must exist
     assert(scopeHash > 0);
     assert(domainSepCapability > 0);
     assert(domainSepAction > 0);
 
-    // capabilitySalt may be zero in the current placeholder flow,
-    // so we do not constrain it here yet.
+    // Bounded mitigation set
+    // 1=keep, 2=rekey, 3=rotate, 4=isolate, 5=quarantine
+    assert(actionCode > 0);
+    assert(actionCode < 6);
+
+    // Relation-aware v0 consistency constraints
+    assert(agentKey != capabilityId);
+    assert(agentKey != policyClassHash);
+    assert(policyClassHash != actionHash);
+    assert(contextHash != traceCommitment);
+
+    // Domain separators must remain distinct
+    assert(domainSepCapability != domainSepAction);
+
+    // Scope must be distinct from the domain separators
+    assert(scopeHash != domainSepCapability);
+    assert(scopeHash != domainSepAction);
+
+    // Expiry bucket must dominate the bounded action code
+    // This is still a weak placeholder relation, but it binds the action to
+    // the time-window field without changing the interface.
+    assert(expiryBucket > actionCode);
+
+    // capabilitySalt is intentionally left flexible in v0 because the current
+    // placeholder runtime may still emit zero.
 
     return;
 }
