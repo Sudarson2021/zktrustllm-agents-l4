@@ -1,0 +1,75 @@
+{
+  "schema": "auth_v1_real_proof_placeholder",
+  "meta": {
+    "taskId": "task-0001",
+    "targetAgent": "edge-telemetry-01",
+    "traceCID": "QmZsbsz15Q7CNZfGW7XizGQvpL9WNJHUwdRHX2egJ23woR",
+    "sourceWitnessFile": "/home/sk02352/zktrustllm-phase1/artifacts/out_l4/witness_input.auth_v1.json",
+    "sourceTemplateFile": "/home/sk02352/zktrustllm-phase1/configs/l4/auth_v1_circuit_template.json"
+  },
+  "proofSystem": "groth16_placeholder",
+  "circuitName": "auth_v1",
+  "publicInputOrder": [
+    "agentKey",
+    "capabilityId",
+    "policyClassHash",
+    "contextHash",
+    "traceCommitment",
+    "actionHash",
+    "expiryBucket"
+  ],
+  "publicInputs": [
+    "108855681802697424104929667874112524215480163517180605411567884463644623816616",
+    "51565576034964399748355415238325946659676183827343874937797421516162336240991",
+    "57490963693335479458181337046785228493758286507436281847073169561674035024910",
+    "94145860428191724745771862859348840104365229306339165590866359965195496056881",
+    "40966220581358179687668697968665903968582205571346225424348175708821384937354",
+    "58051803697056927413267477492930677791892655496201457695737856713635925856459",
+    "493128"
+  ],
+  "proof": {
+    "proofBlobHex": "0x",
+    "proofPoints": {
+      "a": [
+        "0",
+        "0"
+      ],
+      "b": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0"
+        ]
+      ],
+      "c": [
+        "0",
+        "0"
+      ]
+    },
+    "verifierCalldata": [],
+    "note": "Placeholder only. Replace with real prover output later."
+  },
+  "derived": {
+    "proofDigest": "0xbdd8a11bd4d8f0c2f5518bd28210331552d17b206dec2d20e0dfbe7956a513fe",
+    "boundedActionMap": {
+      "keep": 1,
+      "rekey": 2,
+      "rotate": 3,
+      "isolate": 4,
+      "quarantine": 5
+    }
+  },
+  "runtime": {
+    "agentId": "edge-telemetry-01",
+    "policyClass": "context-collect",
+    "action": "isolate",
+    "traceCID": "QmZsbsz15Q7CNZfGW7XizGQvpL9WNJHUwdRHX2egJ23woR"
+  },
+  "proverNotes": {
+    "status": "real-proof-schema-placeholder",
+    "nextStep": "replace placeholder proof fields with actual Groth16 prover output"
+  }
+}
