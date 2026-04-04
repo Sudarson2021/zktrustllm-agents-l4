@@ -1,0 +1,49 @@
+{
+  "schema": "auth_v1_proof_payload",
+  "meta": {
+    "taskId": "task-0001",
+    "targetAgent": "edge-telemetry-01",
+    "generatedAt": 1775261836,
+    "traceCID": "QmZsbsz15Q7CNZfGW7XizGQvpL9WNJHUwdRHX2egJ23woR"
+  },
+  "publicInputs": {
+    "agentKey": "0xf0aa21eccc62b1c470995fd57101a02966b0211d17f26c8e860760edb0e8c7a8",
+    "capabilityId": "0x720114eded21e5656bd60bb0d7012f0b12fe3538e6a73b71c3ecd3c89f17355f",
+    "policyClassHash": "7f1abb79671581d663e649cb10d21f8c10f6815294eb3be22f06ece19c44d40e",
+    "contextHash": "0xd024ab2d9ebdbb279e55000ec78df40123b2eceb510174c0f523a9c5fb13e831",
+    "traceCommitment": "0x5a920f258206a579234572f2f449480e533a2afaa2b854e56f33f839107d3f8a",
+    "actionHash": "8058281150f404db63d2b6c2421eb0794bd7ee9a64bb0c425c0f85a023dc10cb",
+    "expiryBucket": 493128
+  },
+  "witnessPlaceholders": {
+    "scopeText": "tenant-3:collect-context",
+    "scopeHash": "526de7c7b734ad50292e077634381fb0f073f928c5e5b24582060226135078d1",
+    "capabilitySalt": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "actionCode": 4,
+    "domainSepCapability": "727bc365ffcff5c3610aa0952fa2f630116d7b7bbbef17832f209e4bd1e5732a",
+    "domainSepAction": "43a71ca98dbdffd42fb842bb3568a7da0a917e01eadf1bcb4d5ba8d93f942dae"
+  },
+  "derivedDigests": {
+    "capabilityWitnessDigestDraft": "eff85e7e0c744e6e3b62c3bdc8eae4bc8cdfdc7ef622f1c5ab2c578dad1c5eaa",
+    "actionWitnessDigestDraft": "d6e5c4cf3edd2e2f4c012c3ee4efe06a92c76ad3ee936682f86e7e0a491431a6",
+    "publicInputDigest": "616474641f6d37bfca9a47a6ee21192a33f978c4e2aae384692af1dadf619e75"
+  },
+  "runtime": {
+    "agentId": "edge-telemetry-01",
+    "policyClass": "context-collect",
+    "action": "isolate",
+    "traceCID": "QmZsbsz15Q7CNZfGW7XizGQvpL9WNJHUwdRHX2egJ23woR"
+  },
+  "proverHints": {
+    "circuitName": "auth_v1",
+    "proofSystem": "planned_groth16_or_equivalent",
+    "currentStage": "pre-prover-payload",
+    "expectedBoundedActionSet": {
+      "keep": 1,
+      "rekey": 2,
+      "rotate": 3,
+      "isolate": 4,
+      "quarantine": 5
+    }
+  }
+}
