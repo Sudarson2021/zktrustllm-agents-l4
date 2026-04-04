@@ -58,7 +58,7 @@ def main():
     public_input_digest = norm_hex(data["derivedDigests"]["publicInputDigest"])
 
     proof_blob_bytes = Web3.to_bytes(hexstr=proof_blob_hex)
-    recomputed_digest = Web3.keccak(proof_blob_bytes).hex()
+    recomputed_digest = norm_hex(Web3.keccak(proof_blob_bytes).hex())
 
     if proof_digest != recomputed_digest:
         raise ValueError(
