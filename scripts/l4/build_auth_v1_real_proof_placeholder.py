@@ -21,10 +21,10 @@ def main():
 
     digest_material = json.dumps(
         {
+            "proofSystem": "groth16_placeholder",
             "circuitName": template["circuitName"],
             "publicInputs": public_inputs,
             "publicInputOrder": public_input_order,
-            "privateWitness": witness["privateWitness"],
         },
         sort_keys=True,
     ).encode()
