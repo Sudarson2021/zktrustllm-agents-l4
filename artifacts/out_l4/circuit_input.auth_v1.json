@@ -1,0 +1,72 @@
+{
+  "schema": "auth_v1_circuit_input",
+  "meta": {
+    "taskId": "task-0001",
+    "targetAgent": "edge-telemetry-01",
+    "traceCID": "QmZsbsz15Q7CNZfGW7XizGQvpL9WNJHUwdRHX2egJ23woR",
+    "sourcePayload": "/home/sk02352/zktrustllm-phase1/artifacts/out_l4/proof_payload.auth_v1.json"
+  },
+  "public_inputs_raw": {
+    "agentKey": "0xf0aa21eccc62b1c470995fd57101a02966b0211d17f26c8e860760edb0e8c7a8",
+    "capabilityId": "0x720114eded21e5656bd60bb0d7012f0b12fe3538e6a73b71c3ecd3c89f17355f",
+    "policyClassHash": "0x7f1abb79671581d663e649cb10d21f8c10f6815294eb3be22f06ece19c44d40e",
+    "contextHash": "0xd024ab2d9ebdbb279e55000ec78df40123b2eceb510174c0f523a9c5fb13e831",
+    "traceCommitment": "0x5a920f258206a579234572f2f449480e533a2afaa2b854e56f33f839107d3f8a",
+    "actionHash": "0x8058281150f404db63d2b6c2421eb0794bd7ee9a64bb0c425c0f85a023dc10cb",
+    "expiryBucket": 493128
+  },
+  "public_inputs_field": {
+    "agentKey": "108855681802697424104929667874112524215480163517180605411567884463644623816616",
+    "capabilityId": "51565576034964399748355415238325946659676183827343874937797421516162336240991",
+    "policyClassHash": "57490963693335479458181337046785228493758286507436281847073169561674035024910",
+    "contextHash": "94145860428191724745771862859348840104365229306339165590866359965195496056881",
+    "traceCommitment": "40966220581358179687668697968665903968582205571346225424348175708821384937354",
+    "actionHash": "58051803697056927413267477492930677791892655496201457695737856713635925856459",
+    "expiryBucket": "493128"
+  },
+  "private_witness_raw": {
+    "scopeHash": "0x526de7c7b734ad50292e077634381fb0f073f928c5e5b24582060226135078d1",
+    "capabilitySalt": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "domainSepCapability": "0x727bc365ffcff5c3610aa0952fa2f630116d7b7bbbef17832f209e4bd1e5732a",
+    "domainSepAction": "0x43a71ca98dbdffd42fb842bb3568a7da0a917e01eadf1bcb4d5ba8d93f942dae",
+    "actionCode": 4
+  },
+  "private_witness_field": {
+    "scopeHash": "37283839601618002559800039402289914390131385902640905639594834646403386472657",
+    "capabilitySalt": "0",
+    "domainSepCapability": "51782335517892531251809456736984920653253494382566776335360650678447024468778",
+    "domainSepAction": "30600222134952729405014232454239635646913531190363012873236073549960884530606",
+    "actionCode": "4"
+  },
+  "runtime": {
+    "agentId": "edge-telemetry-01",
+    "policyClass": "context-collect",
+    "action": "isolate",
+    "traceCID": "QmZsbsz15Q7CNZfGW7XizGQvpL9WNJHUwdRHX2egJ23woR"
+  },
+  "derivedDigests": {
+    "capabilityWitnessDigestDraft": "0xeff85e7e0c744e6e3b62c3bdc8eae4bc8cdfdc7ef622f1c5ab2c578dad1c5eaa",
+    "actionWitnessDigestDraft": "0xd6e5c4cf3edd2e2f4c012c3ee4efe06a92c76ad3ee936682f86e7e0a491431a6",
+    "publicInputDigest": "0x616474641f6d37bfca9a47a6ee21192a33f978c4e2aae384692af1dadf619e75"
+  },
+  "prover_notes": {
+    "intendedCircuit": "auth_v1",
+    "fieldEncoding": "decimal strings for compatibility with common circuit toolchains",
+    "publicInputOrder": [
+      "agentKey",
+      "capabilityId",
+      "policyClassHash",
+      "contextHash",
+      "traceCommitment",
+      "actionHash",
+      "expiryBucket"
+    ],
+    "privateWitnessOrder": [
+      "scopeHash",
+      "capabilitySalt",
+      "actionCode",
+      "domainSepCapability",
+      "domainSepAction"
+    ]
+  }
+}
