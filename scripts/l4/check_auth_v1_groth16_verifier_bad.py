@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from web3 import Web3
+from web3.exceptions import ContractLogicError
 
 root = Path.cwd()
 
@@ -20,4 +21,13 @@ c = [int(x, 16) for x in proof["proof"]["c"]]
 inputs = [int(x, 16) for x in proof["inputs"]]
 
 print("Verifier ->", dep["authV1Groth16Verifier"])
-print("Bad proof verifyTx ->", v.functions.verifyTx((a, b, c), inputs).call())
+
+try:
+    result = v.functions.verifyTx((a, b, c), inputs).call()
+    print("Bad proof verifyTx ->", result)
+    if result is True:
+        raise SystemExit("Unexpected verifier acceptance")
+    print("Expected direct verifier rejection captured")
+except ContractLogicError as e:
+    print("Expected direct verifier rejection captured")
+    print(e)

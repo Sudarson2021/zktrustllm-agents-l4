@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from web3 import Web3
+from web3.exceptions import ContractLogicError
 
 root = Path.cwd()
 
@@ -21,4 +22,13 @@ inputs = [int(x, 16) for x in proof["inputs"]]
 
 print("Wrapper ->", dep["decisionAttestorGroth16"])
 print("Wrapper verifierAddress() ->", ctt.functions.verifierAddress().call())
-print("Bad proof checkProof() ->", ctt.functions.checkProof(a, b, c, inputs).call({"gas": 12000000}))
+
+try:
+    result = ctt.functions.checkProof(a, b, c, inputs).call({"gas": 12000000})
+    print("Bad proof checkProof() ->", result)
+    if result is True:
+        raise SystemExit("Unexpected wrapper acceptance")
+    print("Expected wrapper rejection captured")
+except ContractLogicError as e:
+    print("Expected wrapper rejection captured")
+    print(e)
