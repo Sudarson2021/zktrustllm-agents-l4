@@ -1,0 +1,38 @@
+{
+  "schema": "auth_v1_circuit_template",
+  "circuitName": "auth_v1",
+  "proofSystemTarget": "groth16_or_equivalent",
+  "publicInputOrder": [
+    "agentKey",
+    "capabilityId",
+    "policyClassHash",
+    "contextHash",
+    "traceCommitment",
+    "actionHash",
+    "expiryBucket"
+  ],
+  "privateWitnessOrder": [
+    "scopeHash",
+    "capabilitySalt",
+    "actionCode",
+    "domainSepCapability",
+    "domainSepAction"
+  ],
+  "boundedActionMap": {
+    "keep": 1,
+    "rekey": 2,
+    "rotate": 3,
+    "isolate": 4,
+    "quarantine": 5
+  },
+  "relations": {
+    "capabilityWitnessDigestDraft": "keccak256(abi.encode(domainSepCapability, agentKey, policyClassHash, scopeHash, expiryBucket, capabilitySalt))",
+    "actionWitnessDigestDraft": "keccak256(abi.encode(domainSepAction, actionCode))",
+    "publicInputDigest": "keccak256(abi.encode(agentKey, capabilityId, policyClassHash, contextHash, traceCommitment, actionHash, expiryBucket))"
+  },
+  "notes": [
+    "Keep field names and order stable across witness generation and proof generation.",
+    "Current capabilityId remains runtime-issued; witness digest draft is for future proof-native authorization relation.",
+    "This template is the source of truth for future circuit and prover adapters."
+  ]
+}
