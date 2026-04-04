@@ -173,3 +173,18 @@ toward:
 
 for secure 5G/O-RAN edge multicast.
 
+### 11. V2 verifier milestone
+Implemented:
+- `MockAuthorizationVerifierV2.sol`
+- `scripts/l4/deploy_zk_stack_v2.js`
+- `scripts/l4/submit_agent_decision_zk_v2_mock.py`
+
+Working features:
+- structured public-input consistency checking
+- proof blob digest bound to submission inputs
+- successful V2 ZK-style submission stored on-chain
+- support for rejection testing with malformed proof blobs
+
+### Additional tag
+- `l4-zk-v2-demo`
+
