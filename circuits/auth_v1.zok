@@ -1,0 +1,40 @@
+// auth_v1 circuit skeleton
+// Purpose: lock field order and compile path before the full proof relation is implemented.
+
+def main(
+    field agentKey,
+    field capabilityId,
+    field policyClassHash,
+    field contextHash,
+    field traceCommitment,
+    field actionHash,
+    field expiryBucket,
+    private field scopeHash,
+    private field capabilitySalt,
+    private field actionCode,
+    private field domainSepCapability,
+    private field domainSepAction
+) {
+    // Basic bounded checks for the placeholder phase
+    assert(agentKey > 0);
+    assert(capabilityId > 0);
+    assert(policyClassHash > 0);
+    assert(contextHash > 0);
+    assert(traceCommitment > 0);
+    assert(actionHash > 0);
+    assert(expiryBucket > 0);
+
+    // Action code must stay in the current bounded set: 1..5
+    assert(actionCode > 0);
+    assert(actionCode < 6);
+
+    // Private witness values are expected to exist
+    assert(scopeHash > 0);
+    assert(domainSepCapability > 0);
+    assert(domainSepAction > 0);
+
+    // capabilitySalt may be zero in the current placeholder flow,
+    // so we do not constrain it here yet.
+
+    return;
+}
