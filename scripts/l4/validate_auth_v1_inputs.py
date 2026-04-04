@@ -114,9 +114,9 @@ def main():
             f"actionCode mismatch: expected {expected_action_code}, got {wit['actionCode']}"
         )
 
-    expected_policy_hash = h(run["policyClass"])
-    expected_action_hash = h(run["action"])
-    expected_scope_hash = h(wit["scopeText"])
+    expected_policy_hash = norm32(h(run["policyClass"]))
+    expected_action_hash = norm32(h(run["action"]))
+    expected_scope_hash = norm32(h(wit["scopeText"]))
 
     if pub["policyClassHash"] != expected_policy_hash:
         raise ValueError(
@@ -133,7 +133,7 @@ def main():
             f"scopeHash mismatch: expected {expected_scope_hash}, got {wit['scopeHash']}"
         )
 
-    public_input_digest = Web3.keccak(
+    public_input_digest = norm32(Web3.keccak(
         Web3().codec.encode(
             ["bytes32", "bytes32", "bytes32", "bytes32", "bytes32", "bytes32", "uint256"],
             [
@@ -146,7 +146,7 @@ def main():
                 pub["expiryBucket"],
             ],
         )
-    ).hex()
+    ).hex())
 
     if dig["publicInputDigest"] != public_input_digest:
         raise ValueError(
