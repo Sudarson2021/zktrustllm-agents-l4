@@ -9,7 +9,7 @@ OUT_FILE = ROOT / "artifacts" / "out_l4" / "relation_notes.auth_v1.v0.json"
 
 CURRENT_CONSTRAINTS = [
     "all public binding fields are non-zero",
-    "all key witness binding fields are non-zero except capabilitySalt which remains flexible in v0",
+    "all key witness binding fields are non-zero and capabilitySalt is weakly anchored through saltAnchor = capabilitySalt + expiryBucket",
     "actionCode is bounded to the placeholder mitigation set 1..5",
     "agentKey != capabilityId",
     "agentKey != policyClassHash",
@@ -19,6 +19,7 @@ CURRENT_CONSTRAINTS = [
     "scopeHash != domainSepCapability",
     "scopeHash != domainSepAction",
     "expiryBucket > actionCode",
+    "saltAnchor = capabilitySalt + expiryBucket and saltAnchor != 0",
 ]
 
 NEXT_RELATION_TARGETS = [

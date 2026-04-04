@@ -49,12 +49,11 @@ def main(
     assert(scopeHash != domainSepAction);
 
     // Expiry bucket must dominate the bounded action code
-    // This is still a weak placeholder relation, but it binds the action to
-    // the time-window field without changing the interface.
     assert(expiryBucket > actionCode);
 
-    // capabilitySalt is intentionally left flexible in v0 because the current
-    // placeholder runtime may still emit zero.
+    // Weak v0 anchor for capabilitySalt so it participates in the relation
+    field saltAnchor = capabilitySalt + expiryBucket;
+    assert(saltAnchor != 0);
 
     return;
 }
