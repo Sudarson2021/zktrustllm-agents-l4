@@ -21,3 +21,16 @@ Scoring / reputation:
 Evidence vs media delivery (important):
 - Live media delivery: DTLS/RTP/multicast plane
 - Evidence storage: IPFS (CID) + on-chain commitments for auditability
+
+## L4 AUTH_V1 Groth16 artifact path
+
+Primary runner:
+- `scripts/l4/run_auth_v1_groth16_repro.sh`
+
+Summary note:
+- `docs/l4/AUTH_V1_ARTIFACT_SUMMARY.md`
+
+Key milestone tags:
+- `l4-auth-v1-first-real-groth16-submit`
+- `l4-auth-v1-groth16-negative-test`
+- `l4-auth-v1-groth16-repro`
