@@ -26,7 +26,8 @@ def main():
 
     circuit_input = {
         "scheme": "auth_v2",
-        "description": "First control-plane-aware AUTH_V2 circuit input",
+        "relationVersion": payload["relationVersion"],
+        "description": "First control-plane-aware AUTH_V2 circuit input using relation v0",
         "publicInputOrder": public_input_order,
         "publicInputs": public_inputs,
         "publicInputsHex": {
@@ -34,12 +35,12 @@ def main():
             for k, v in public_inputs.items()
         },
         "privateInputs": {
+            "bindingNonce": payload["bindingNonce"],
             "agentId": payload["agentId"],
             "capabilityIdText": payload["capabilityIdText"],
             "policyClassText": payload["policyClassText"],
             "actionClassText": payload["actionClassText"],
             "contextText": payload["contextText"],
-            "traceText": payload["traceText"],
         }
     }
 
@@ -47,8 +48,10 @@ def main():
         json.dump(circuit_input, f, indent=2)
 
     print("Saved AUTH_V2 circuit input ->", OUT_FILE)
+    print("relationVersion ->", payload["relationVersion"])
     print("Public input count ->", len(public_input_order))
     print("Ordered public inputs ->", public_input_order)
+    print("bindingNonce ->", payload["bindingNonce"])
 
 if __name__ == "__main__":
     main()
