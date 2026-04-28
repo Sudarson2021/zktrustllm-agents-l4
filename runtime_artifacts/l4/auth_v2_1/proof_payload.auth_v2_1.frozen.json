@@ -1,0 +1,25 @@
+{
+  "relationVersion": "auth_v2_1_relation",
+  "agentId": "policy-lkh-01",
+  "agentKey": 6382991560451003509609630462629122169080184501907354257529275200469594938870,
+  "capabilityIdText": "cap-policy-01",
+  "capabilityIdHex": "68911b8861adc88566c9d11a778a18515b52e9449f8e8890c64c7cc0323a0140",
+  "capabilityId": 3520433357364912340769686928290224164287993278142077721320623474089102278974,
+  "policyClassText": "policy-enforce",
+  "policyClassHashHex": "dc5f6690e0bb656fd461a03c71f6134e28c7190e587a365b932c63634898397b",
+  "policyClassHash": 12124413556142187446174468869555911432552306794462032435904340627421673306487,
+  "actionClassText": "isolate",
+  "actionClass": 3,
+  "contextText": "ctx-policy",
+  "contextHashHex": "e872bb8c2e122f0e4b7f965af35518f6fdf47c4dadc6967fbd756a9a73225512",
+  "contextHash": 17586324355156666066796195221139667620524956084515964877408700420579150419214,
+  "expiryBucket": 493128,
+  "policyAdmissibilityFlag": 1,
+  "bindingNonce": 20260429,
+  "traceCommitment": 17725919957275494141103575736357650297897076258611394948464735535983733201489,
+  "traceCommitmentHex": "0x273083e152399fa18c9db26edd3262646c8ee98287db4f6ff647ca2455af5a51",
+  "notes": {
+    "purpose": "First AUTH_V2.1 control-plane-aware proof payload with policy admissibility",
+    "source": "Aligned with positive policy-enforce/isolate admissible path"
+  }
+}
