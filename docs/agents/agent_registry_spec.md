@@ -262,11 +262,3 @@ The initial registry should not:
 ## 10. Status
 
 This document freezes the initial contract-facing specification for `AgentRegistry` in the L4 ZKTrustLLM-Agents control plane.
-
-## 10. Status
-
-This document freezes the initial contract-facing specification for `AgentRegistry` in the L4 ZKTrustLLM-Agents control plane.
-
-## 10. Status
-
-This document freezes the initial contract-facing specification for `AgentRegistry` in the L4 ZKTrustLLM-Agents control plane.
