@@ -1,0 +1,28 @@
+def main(
+    private field bindingNonce,
+    field agentKey,
+    field capabilityId,
+    field policyClassHash,
+    field actionClass,
+    field contextHash,
+    field traceCommitment,
+    field expiryBucket,
+    field policyAdmissibilityFlag,
+    field trustState
+) {
+    field computed = agentKey
+        + capabilityId
+        + policyClassHash
+        + actionClass
+        + contextHash
+        + expiryBucket
+        + policyAdmissibilityFlag
+        + trustState
+        + bindingNonce;
+
+    assert(policyAdmissibilityFlag == 1);
+    assert(trustState == 3);
+    assert(actionClass == 3);
+    assert(computed == traceCommitment);
+    return;
+}
