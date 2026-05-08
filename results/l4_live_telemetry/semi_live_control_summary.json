@@ -1,0 +1,59 @@
+{
+  "experiment": "step86_semi_live_control_plane_telemetry",
+  "importantNote": "These results are semi-live MCP/A2A control-plane telemetry measurements. They measure actual local MCP tool invocation and control-loop timings, but they are not yet live VLC/DTLS/RTP media telemetry.",
+  "summary": {
+    "baseline_direct_agent": {
+      "runs": 20,
+      "successCount": 20,
+      "failureCount": 0,
+      "successRate": 1.0,
+      "controlFailureRatePct": 0.0,
+      "avgControlResponseMs": 0.001,
+      "p50ControlResponseMs": 0.001,
+      "p95ControlResponseMs": 0.001,
+      "jitterStdMs": 0.0,
+      "avgControlMessageBytes": 159.55,
+      "minControlMessageBytes": 159,
+      "maxControlMessageBytes": 160
+    },
+    "l4_raw_context": {
+      "runs": 20,
+      "successCount": 20,
+      "failureCount": 0,
+      "successRate": 1.0,
+      "controlFailureRatePct": 0.0,
+      "avgControlResponseMs": 72.793,
+      "p50ControlResponseMs": 72.974,
+      "p95ControlResponseMs": 77.039,
+      "jitterStdMs": 3.119,
+      "avgControlMessageBytes": 3477.25,
+      "minControlMessageBytes": 3476,
+      "maxControlMessageBytes": 3478
+    },
+    "l4_ref_mcp_a2a": {
+      "runs": 20,
+      "successCount": 20,
+      "failureCount": 0,
+      "successRate": 1.0,
+      "controlFailureRatePct": 0.0,
+      "avgControlResponseMs": 34.918,
+      "p50ControlResponseMs": 35.556,
+      "p95ControlResponseMs": 36.155,
+      "jitterStdMs": 1.406,
+      "avgControlMessageBytes": 72.55,
+      "minControlMessageBytes": 72,
+      "maxControlMessageBytes": 73
+    },
+    "comparison": {
+      "l4RefLatencyReductionVsRawPct": 52.03,
+      "l4RefMessageReductionVsRawPct": 97.91
+    }
+  },
+  "files": {
+    "eventsCsv": "results/l4_live_telemetry/semi_live_control_events.csv",
+    "summaryJson": "results/l4_live_telemetry/semi_live_control_summary.json",
+    "summaryMarkdown": "results/l4_live_telemetry/semi_live_control_summary.md",
+    "latencyFigurePng": "results/l4_live_telemetry/figure_5_5_semi_live_control_latency.png",
+    "summaryFigurePng": "results/l4_live_telemetry/figure_5_6_semi_live_control_summary.png"
+  }
+}

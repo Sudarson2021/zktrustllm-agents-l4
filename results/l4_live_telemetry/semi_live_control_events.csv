@@ -1,0 +1,61 @@
+run_id,mode,success,control_response_ms,control_message_bytes,proof_governed,reference_bound,notes
+1,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+1,l4_raw_context,true,68.382,3477,true,false,MCP decision+reference+bundle retrieval
+1,l4_ref_mcp_a2a,true,35.425,72,true,true,compact A2A reference plus MCP bundle verification
+2,baseline_direct_agent,true,0.002,159,false,false,local direct policy decision only
+2,l4_raw_context,true,72.471,3476,true,false,MCP decision+reference+bundle retrieval
+2,l4_ref_mcp_a2a,true,35.612,72,true,true,compact A2A reference plus MCP bundle verification
+3,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+3,l4_raw_context,true,73.001,3477,true,false,MCP decision+reference+bundle retrieval
+3,l4_ref_mcp_a2a,true,35.864,72,true,true,compact A2A reference plus MCP bundle verification
+4,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+4,l4_raw_context,true,73.364,3476,true,false,MCP decision+reference+bundle retrieval
+4,l4_ref_mcp_a2a,true,31.887,72,true,true,compact A2A reference plus MCP bundle verification
+5,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+5,l4_raw_context,true,73.301,3477,true,false,MCP decision+reference+bundle retrieval
+5,l4_ref_mcp_a2a,true,34.51,72,true,true,compact A2A reference plus MCP bundle verification
+6,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+6,l4_raw_context,true,71.289,3477,true,false,MCP decision+reference+bundle retrieval
+6,l4_ref_mcp_a2a,true,36.066,72,true,true,compact A2A reference plus MCP bundle verification
+7,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+7,l4_raw_context,true,71.397,3477,true,false,MCP decision+reference+bundle retrieval
+7,l4_ref_mcp_a2a,true,36.155,72,true,true,compact A2A reference plus MCP bundle verification
+8,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+8,l4_raw_context,true,70.402,3477,true,false,MCP decision+reference+bundle retrieval
+8,l4_ref_mcp_a2a,true,33.248,72,true,true,compact A2A reference plus MCP bundle verification
+9,baseline_direct_agent,true,0.001,159,false,false,local direct policy decision only
+9,l4_raw_context,true,76.335,3477,true,false,MCP decision+reference+bundle retrieval
+9,l4_ref_mcp_a2a,true,35.69,72,true,true,compact A2A reference plus MCP bundle verification
+10,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+10,l4_raw_context,true,67.88,3477,true,false,MCP decision+reference+bundle retrieval
+10,l4_ref_mcp_a2a,true,33.782,73,true,true,compact A2A reference plus MCP bundle verification
+11,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+11,l4_raw_context,true,73.08,3477,true,false,MCP decision+reference+bundle retrieval
+11,l4_ref_mcp_a2a,true,36.032,73,true,true,compact A2A reference plus MCP bundle verification
+12,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+12,l4_raw_context,true,80.922,3478,true,false,MCP decision+reference+bundle retrieval
+12,l4_ref_mcp_a2a,true,34.443,73,true,true,compact A2A reference plus MCP bundle verification
+13,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+13,l4_raw_context,true,77.039,3478,true,false,MCP decision+reference+bundle retrieval
+13,l4_ref_mcp_a2a,true,35.873,73,true,true,compact A2A reference plus MCP bundle verification
+14,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+14,l4_raw_context,true,72.095,3477,true,false,MCP decision+reference+bundle retrieval
+14,l4_ref_mcp_a2a,true,32.708,73,true,true,compact A2A reference plus MCP bundle verification
+15,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+15,l4_raw_context,true,73.814,3478,true,false,MCP decision+reference+bundle retrieval
+15,l4_ref_mcp_a2a,true,36.027,73,true,true,compact A2A reference plus MCP bundle verification
+16,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+16,l4_raw_context,true,66.713,3478,true,false,MCP decision+reference+bundle retrieval
+16,l4_ref_mcp_a2a,true,32.0,73,true,true,compact A2A reference plus MCP bundle verification
+17,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+17,l4_raw_context,true,72.782,3478,true,false,MCP decision+reference+bundle retrieval
+17,l4_ref_mcp_a2a,true,36.552,73,true,true,compact A2A reference plus MCP bundle verification
+18,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+18,l4_raw_context,true,74.726,3478,true,false,MCP decision+reference+bundle retrieval
+18,l4_ref_mcp_a2a,true,35.901,73,true,true,compact A2A reference plus MCP bundle verification
+19,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+19,l4_raw_context,true,72.946,3478,true,false,MCP decision+reference+bundle retrieval
+19,l4_ref_mcp_a2a,true,35.499,73,true,true,compact A2A reference plus MCP bundle verification
+20,baseline_direct_agent,true,0.001,160,false,false,local direct policy decision only
+20,l4_raw_context,true,73.928,3477,true,false,MCP decision+reference+bundle retrieval
+20,l4_ref_mcp_a2a,true,35.088,73,true,true,compact A2A reference plus MCP bundle verification
