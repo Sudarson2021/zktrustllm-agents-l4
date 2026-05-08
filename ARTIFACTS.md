@@ -344,3 +344,37 @@ This report converts the implementation, KPI analysis, negative-security evidenc
 Boundary:
 
 The report clearly states that current measurements are blockchain/MCP/A2A control-plane measurements and are not yet live VLC/DTLS/RTP media-plane measurements.
+
+## L4 Step 89 Live RTP Media-Plane Telemetry
+
+This section adds live RTP media-plane telemetry to the Level 4 evaluation workflow.
+
+Main artifacts:
+
+- RTP media telemetry runner: `scripts/l4/run_live_rtp_media_telemetry.py`
+- RTP packet event CSV: `results/l4_live_rtp_media/rtp_packet_events.csv`
+- RTP media summary JSON: `results/l4_live_rtp_media/rtp_media_summary.json`
+- RTP media summary Markdown: `results/l4_live_rtp_media/rtp_media_summary.md`
+- Figure 5.10 PNG/PDF/SVG: `results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.*`
+- Figure 5.11 PNG/PDF/SVG: `results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.*`
+- Figure 5.12 PNG/PDF/SVG: `results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.*`
+- Documentation: `docs/l4/live_rtp_media/LIVE_RTP_MEDIA_TELEMETRY.md`
+
+Measured result:
+
+- Received RTP packets: 2328
+- Expected RTP packets: 2328
+- Lost packets: 0
+- Packet loss: 0.0%
+- Average bitrate: 833.605 kbps
+- Average jitter component: 0.229169 ms
+- P50 jitter component: 0.069357 ms
+- Maximum jitter component: 4.163946 ms
+
+Research meaning:
+
+This step moves the project from control-plane-only MCP/A2A telemetry toward live media-plane validation by measuring RTP packet continuity, jitter, bitrate, and packet loss.
+
+Boundary:
+
+This is live RTP media-plane telemetry over localhost. It is not yet DTLS-secured. The next step should add DTLS-secured RTP validation.

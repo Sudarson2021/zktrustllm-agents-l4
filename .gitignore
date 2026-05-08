@@ -76,3 +76,4 @@ SHA256SUMS
 abi.json
 out.r1cs
 out.wtns
+media_samples/*.mp4

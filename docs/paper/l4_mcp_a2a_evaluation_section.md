@@ -283,3 +283,15 @@ The measured result shows that L4-ref MCP/A2A reduces latency by 52.40% to 58.50
 The throughput gain of the L4-ref mode ranges from 110.02% to 139.83% compared with the raw-context mode. This supports the claim that compact authenticated references improve multi-agent coordination scalability while preserving proof-governed, blockchain-authenticated decision semantics.
 
 These results remain semi-live control-plane measurements. They are not yet live VLC/DTLS/RTP media-plane measurements.
+
+## 16. Live RTP Media-Plane Telemetry
+
+Step 89 extends the Level 4 evaluation from control-plane telemetry to live RTP media-plane measurement.
+
+The experiment streams a deterministic 30-second H.264 test video over RTP on localhost and captures RTP packets using a Python UDP receiver. The receiver extracts RTP sequence numbers, RTP timestamps, packet sizes, and packet arrival times.
+
+The measured RTP media-plane results show 2328 received packets, 2328 expected packets, 0 lost packets, and 0.0% packet loss during the 25-second capture window. The average bitrate was 833.605 kbps. The average jitter component was 0.229169 ms, with a p50 jitter component of 0.069357 ms and a maximum jitter component of 4.163946 ms.
+
+These results provide the first live media-plane validation layer for the Level 4 architecture. Earlier steps established proof-governed MCP/A2A control-plane behaviour, reference-bound decision verification, negative-security rejection, and multi-agent scaling. Step 89 adds direct RTP packet-level evidence, which is necessary for connecting agentic control decisions to multimedia delivery behaviour.
+
+This step is intentionally limited to RTP media-plane telemetry. The next experimental step should add DTLS-secured RTP validation, so that the media-plane KPIs can be compared under unsecured RTP and DTLS-protected RTP transport.

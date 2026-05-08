@@ -138,3 +138,29 @@ Note: These are semi-live MCP/A2A control-plane measurements, not live VLC/DTLS/
 | Figure 5.9 throughput PNG | `results/l4_multi_agent_scaling/figure_5_9_multi_agent_throughput.png` |
 
 Note: These are semi-live MCP/A2A control-plane scaling measurements, not live VLC/DTLS/RTP media measurements.
+
+## Table 12: Step 89 Live RTP Media-Plane Telemetry Results
+
+| KPI | Result | Interpretation |
+|---|---:|---|
+| Capture duration | 25 seconds | Live RTP capture window |
+| RTP endpoint | 127.0.0.1:5004 | Local RTP media-plane test |
+| Received RTP packets | 2328 | Packets captured by Python RTP receiver |
+| Expected RTP packets | 2328 | Packets expected from RTP sequence continuity |
+| Lost packets | 0 | No sequence-gap loss observed |
+| Packet loss | 0.0% | RTP sequence continuity preserved |
+| Average bitrate | 833.605 kbps | RTP media throughput during capture |
+| Average jitter component | 0.229169 ms | Low RTP timing variation on localhost |
+| P50 jitter component | 0.069357 ms | Median RTP timing variation |
+| Maximum jitter component | 4.163946 ms | Largest observed RTP timing deviation |
+
+## Table 13: Step 89 RTP Media-Plane Result Files
+
+| Artifact | Path |
+|---|---|
+| RTP packet event CSV | `results/l4_live_rtp_media/rtp_packet_events.csv` |
+| RTP summary JSON | `results/l4_live_rtp_media/rtp_media_summary.json` |
+| RTP summary Markdown | `results/l4_live_rtp_media/rtp_media_summary.md` |
+| Figure 5.10 RTP jitter | `results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.png` |
+| Figure 5.11 RTP bitrate | `results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.png` |
+| Figure 5.12 RTP sequence progress | `results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.png` |
