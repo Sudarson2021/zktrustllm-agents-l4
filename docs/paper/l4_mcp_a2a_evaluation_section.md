@@ -249,3 +249,21 @@ The benchmark figures support the security-efficiency argument of the Level 4 de
 The direct-agent baseline has lower simple control overhead but lacks proof governance and authenticated state verification. L4 raw-context coordination improves trust but increases coordination cost. The proposed L4-ref MCP/A2A design provides a stronger balance by reducing raw coordination overhead while preserving proof-governed and reference-bound decision semantics.
 
 The current figures are deterministic benchmark/emulation figures. They should be replaced or extended with live DTLS/RTP/VLC telemetry in the next experimental stage.
+
+## 14. Semi-Live Control-Plane Telemetry
+
+Step 86 adds semi-live measured MCP/A2A control-plane telemetry. Unlike the deterministic Step 83 telemetry-emulation, this experiment measures actual repeated local MCP tool invocation and control-loop timings.
+
+The experiment compares:
+
+- baseline direct-agent control,
+- L4 raw-context MCP/A2A coordination,
+- proposed L4-ref MCP/A2A coordination.
+
+The measured KPIs include control response time, p50 and p95 response time, control-loop jitter, control-message size, and success rate.
+
+Across 20 runs per mode, the L4 raw-context path achieved an average control response time of 72.793 ms, while the proposed L4-ref MCP/A2A path achieved an average control response time of 34.918 ms. This corresponds to a 52.03% latency reduction compared with L4 raw-context coordination.
+
+The measured average control-message size also decreased from 3477.25 bytes in the L4 raw-context path to 72.55 bytes in the L4-ref MCP/A2A path, corresponding to a 97.91% control-message reduction.
+
+This step strengthens the evaluation by moving from deterministic emulation toward live measured control-plane behaviour. However, the results are still not live VLC/DTLS/RTP media measurements. They should be interpreted as semi-live control-plane telemetry and used as a bridge toward full multimedia/network validation.
