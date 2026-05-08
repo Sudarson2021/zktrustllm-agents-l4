@@ -1,0 +1,31 @@
+{
+  "experiment": "step89_live_rtp_media_plane_telemetry",
+  "importantNote": "This is live RTP media-plane telemetry over localhost. It is not yet DTLS-secured.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "rtpHost": "127.0.0.1",
+  "rtpPort": 5004,
+  "captureSeconds": 25,
+  "receivedPackets": 2328,
+  "totalBytes": 2605016,
+  "avgBitrateKbps": 833.605,
+  "packetLoss": {
+    "expected_packets": 2328,
+    "received_packets": 2328,
+    "lost_packets": 0,
+    "packet_loss_pct": 0.0
+  },
+  "jitter": {
+    "samples": 2327,
+    "avgJitterComponentMs": 0.272964,
+    "p50JitterComponentMs": 0.078586,
+    "maxJitterComponentMs": 27.549643
+  },
+  "files": {
+    "eventsCsv": "results/l4_live_rtp_media/rtp_packet_events.csv",
+    "summaryJson": "results/l4_live_rtp_media/rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_live_rtp_media/rtp_media_summary.md",
+    "figureJitter": "results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.png",
+    "figureBitrate": "results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.png",
+    "figureSequence": "results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.png"
+  }
+}

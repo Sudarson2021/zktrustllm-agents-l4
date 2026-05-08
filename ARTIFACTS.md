@@ -406,3 +406,22 @@ Measured result:
 Research meaning:
 
 This step moves the Level 4 workflow from plain RTP media-plane telemetry to secured DTLS-wrapped RTP media-plane validation.
+
+## L4 Step 91 Network-Impairment Plain RTP vs DTLS-RTP Evaluation
+
+This section adds controlled network-impairment evaluation for plain RTP and DTLS-wrapped RTP media-plane validation.
+
+Main artifacts:
+
+- Impairment runner: `scripts/l4/run_step91_network_impairment_matrix.py`
+- Summary JSON: `results/l4_network_impairment/network_impairment_summary.json`
+- Summary CSV: `results/l4_network_impairment/network_impairment_summary.csv`
+- Summary Markdown: `results/l4_network_impairment/network_impairment_summary.md`
+- Packet-loss figure: `results/l4_network_impairment/figure_5_16_plain_vs_dtls_impairment_packet_loss.*`
+- Bitrate figure: `results/l4_network_impairment/figure_5_17_plain_vs_dtls_impairment_bitrate.*`
+- Arrival-gap jitter figure: `results/l4_network_impairment/figure_5_18_plain_vs_dtls_impairment_jitter.*`
+- Documentation: `docs/l4/network_impairment/NETWORK_IMPAIRMENT_PLAIN_VS_DTLS.md`
+
+Research meaning:
+
+Step 91 compares plain RTP and DTLS-wrapped RTP under controlled delay, jitter, and packet-loss impairment. This strengthens the Level 4 journal evaluation by connecting proof-governed control-plane work with stressed media-plane behaviour.

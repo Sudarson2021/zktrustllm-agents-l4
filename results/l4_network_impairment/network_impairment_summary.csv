@@ -1,0 +1,9 @@
+profile,description,mode,receivedPackets,expectedPackets,lostPackets,packetLossPct,avgBitrateKbps,avgJitterMs,p50JitterMs,p95JitterMs,maxJitterMs,medianArrivalGapMs,ignoredReorderOrWrapEvents,status
+clean_baseline,No artificial impairment on loopback,plain_rtp,2328,2328,0,0.0,833.60512,10.709105,0.045,34.019,46.905,0.066,0,measured_from_packet_events
+clean_baseline,No artificial impairment on loopback,dtls_rtp,769,769,0,0.0,102.16992,0.926337,0.1165,0.4245,33.3135,33.3275,0,measured_from_packet_events
+delay_20ms,20 ms fixed delay,plain_rtp,2328,2328,0,0.0,833.60512,10.703096,0.057,33.846,60.803,0.08,0,measured_from_packet_events
+delay_20ms,20 ms fixed delay,dtls_rtp,769,769,0,0.0,102.41888,0.98316,0.1665,0.5325,33.3085,33.3235,0,measured_from_packet_events
+delay_20ms_jitter_5ms,20 ms delay with 5 ms jitter,plain_rtp,2328,3265,937,28.698315,833.70944,8.326312,4.855,24.453,33.344,5.97,937,measured_from_packet_events
+delay_20ms_jitter_5ms,20 ms delay with 5 ms jitter,dtls_rtp,769,788,19,2.411168,102.41888,10.276802,8.8005,24.8545,50.5305,32.9295,19,measured_from_packet_events
+delay_30ms_jitter_10ms_loss_1pct,"30 ms delay, 10 ms jitter, 1% packet loss",plain_rtp,2300,3219,919,28.549239,823.69248,6.975492,5.834,19.719,41.223,8.809,891,measured_from_packet_events
+delay_30ms_jitter_10ms_loss_1pct,"30 ms delay, 10 ms jitter, 1% packet loss",dtls_rtp,737,854,117,13.700234,98.3696,17.46476,15.8885,37.8075,64.6595,32.4555,84,measured_from_packet_events

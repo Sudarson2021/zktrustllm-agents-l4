@@ -1,0 +1,189 @@
+{
+  "experiment": "step91_network_impairment_plain_vs_dtls",
+  "measurementNote": "Jitter is recomputed from packet arrival-gap variation to avoid raw RTP timestamp artefacts.",
+  "profiles": [
+    {
+      "name": "clean_baseline",
+      "description": "No artificial impairment on loopback",
+      "netem": null
+    },
+    {
+      "name": "delay_20ms",
+      "description": "20 ms fixed delay",
+      "netem": [
+        "delay",
+        "20ms"
+      ]
+    },
+    {
+      "name": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "netem": [
+        "delay",
+        "20ms",
+        "5ms",
+        "distribution",
+        "normal"
+      ]
+    },
+    {
+      "name": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "netem": [
+        "delay",
+        "30ms",
+        "10ms",
+        "distribution",
+        "normal",
+        "loss",
+        "1%"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2328,
+      "expectedPackets": 2328,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 833.60512,
+      "avgJitterMs": 10.709105,
+      "p50JitterMs": 0.045,
+      "p95JitterMs": 34.019,
+      "maxJitterMs": 46.905,
+      "medianArrivalGapMs": 0.066,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "clean_baseline",
+      "description": "No artificial impairment on loopback"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 769,
+      "expectedPackets": 769,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 102.16992,
+      "avgJitterMs": 0.926337,
+      "p50JitterMs": 0.1165,
+      "p95JitterMs": 0.4245,
+      "maxJitterMs": 33.3135,
+      "medianArrivalGapMs": 33.3275,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "clean_baseline",
+      "description": "No artificial impairment on loopback"
+    },
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2328,
+      "expectedPackets": 2328,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 833.60512,
+      "avgJitterMs": 10.703096,
+      "p50JitterMs": 0.057,
+      "p95JitterMs": 33.846,
+      "maxJitterMs": 60.803,
+      "medianArrivalGapMs": 0.08,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms",
+      "description": "20 ms fixed delay"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 769,
+      "expectedPackets": 769,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 102.41888,
+      "avgJitterMs": 0.98316,
+      "p50JitterMs": 0.1665,
+      "p95JitterMs": 0.5325,
+      "maxJitterMs": 33.3085,
+      "medianArrivalGapMs": 33.3235,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms",
+      "description": "20 ms fixed delay"
+    },
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2328,
+      "expectedPackets": 3265,
+      "lostPackets": 937,
+      "packetLossPct": 28.698315,
+      "avgBitrateKbps": 833.70944,
+      "avgJitterMs": 8.326312,
+      "p50JitterMs": 4.855,
+      "p95JitterMs": 24.453,
+      "maxJitterMs": 33.344,
+      "medianArrivalGapMs": 5.97,
+      "ignoredReorderOrWrapEvents": 937,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 769,
+      "expectedPackets": 788,
+      "lostPackets": 19,
+      "packetLossPct": 2.411168,
+      "avgBitrateKbps": 102.41888,
+      "avgJitterMs": 10.276802,
+      "p50JitterMs": 8.8005,
+      "p95JitterMs": 24.8545,
+      "maxJitterMs": 50.5305,
+      "medianArrivalGapMs": 32.9295,
+      "ignoredReorderOrWrapEvents": 19,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter"
+    },
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2300,
+      "expectedPackets": 3219,
+      "lostPackets": 919,
+      "packetLossPct": 28.549239,
+      "avgBitrateKbps": 823.69248,
+      "avgJitterMs": 6.975492,
+      "p50JitterMs": 5.834,
+      "p95JitterMs": 19.719,
+      "maxJitterMs": 41.223,
+      "medianArrivalGapMs": 8.809,
+      "ignoredReorderOrWrapEvents": 891,
+      "status": "measured_from_packet_events",
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 737,
+      "expectedPackets": 854,
+      "lostPackets": 117,
+      "packetLossPct": 13.700234,
+      "avgBitrateKbps": 98.3696,
+      "avgJitterMs": 17.46476,
+      "p50JitterMs": 15.8885,
+      "p95JitterMs": 37.8075,
+      "maxJitterMs": 64.6595,
+      "medianArrivalGapMs": 32.4555,
+      "ignoredReorderOrWrapEvents": 84,
+      "status": "measured_from_packet_events",
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss"
+    }
+  ],
+  "files": {
+    "summaryJson": "results/l4_network_impairment/network_impairment_summary.json",
+    "summaryCsv": "results/l4_network_impairment/network_impairment_summary.csv",
+    "summaryMarkdown": "results/l4_network_impairment/network_impairment_summary.md",
+    "packetLossFigure": "results/l4_network_impairment/figure_5_16_plain_vs_dtls_impairment_packet_loss.png",
+    "bitrateFigure": "results/l4_network_impairment/figure_5_17_plain_vs_dtls_impairment_bitrate.png",
+    "jitterFigure": "results/l4_network_impairment/figure_5_18_plain_vs_dtls_impairment_jitter.png"
+  }
+}

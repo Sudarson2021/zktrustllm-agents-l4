@@ -187,3 +187,16 @@ Note: These are semi-live MCP/A2A control-plane scaling measurements, not live V
 | Figure 5.13 DTLS/RTP jitter | `results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png` |
 | Figure 5.14 plain vs DTLS packet loss | `results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png` |
 | Figure 5.15 plain vs DTLS bitrate | `results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png` |
+
+## Table 16: Step 91 Network-Impairment Plain RTP vs DTLS-RTP Result Files
+
+| Artifact | Path |
+|---|---|
+| Step 91 summary JSON | `results/l4_network_impairment/network_impairment_summary.json` |
+| Step 91 summary CSV | `results/l4_network_impairment/network_impairment_summary.csv` |
+| Step 91 summary Markdown | `results/l4_network_impairment/network_impairment_summary.md` |
+| Figure 5.16 packet loss | `results/l4_network_impairment/figure_5_16_plain_vs_dtls_impairment_packet_loss.png` |
+| Figure 5.17 bitrate | `results/l4_network_impairment/figure_5_17_plain_vs_dtls_impairment_bitrate.png` |
+| Figure 5.18 arrival-gap jitter | `results/l4_network_impairment/figure_5_18_plain_vs_dtls_impairment_jitter.png` |
+
+Step 91 compares plain RTP and DTLS-wrapped RTP under controlled loopback impairment using Linux `tc netem`. Jitter is reported as arrival-gap jitter to avoid raw RTP timestamp artefacts.

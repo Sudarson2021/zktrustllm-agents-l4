@@ -307,3 +307,15 @@ The DTLS handshake completed successfully using the PSK identity `zktrustllm-l4-
 For jitter, the result uses arrival-gap jitter rather than raw RTP timestamp-delta jitter. This is necessary because H.264 RTP timestamps can appear non-monotonic in packet capture order due to frame ordering. Arrival-gap jitter gives a safer media-plane timing metric for this controlled DTLS tunnel baseline.
 
 This step is important because it provides the first secured media-plane validation layer for the Level 4 workflow. Earlier steps measured proof-governed MCP/A2A control behaviour, negative-security rejection, multi-agent scaling, and plain RTP delivery. Step 90 shows that RTP packets can also be carried through a DTLS-protected tunnel and measured after recovery.
+
+## 18. Network-Impairment Evaluation: Plain RTP vs DTLS-Wrapped RTP
+
+Step 91 extends the media-plane evaluation by introducing controlled network impairment.
+
+The experiment compares plain RTP and DTLS-wrapped RTP under multiple loopback impairment profiles. The impairment profiles include clean baseline delivery, fixed delay, delay with jitter, and delay with jitter plus packet loss.
+
+The measured KPIs include RTP packet continuity, packet loss, bitrate, and arrival-gap jitter. Arrival-gap jitter is used because raw RTP timestamp deltas can produce misleading artefacts for H.264 packet streams.
+
+This step is important because the previous media-plane experiments validated RTP delivery under clean localhost conditions. Step 91 moves the evaluation closer to realistic network behaviour by adding delay, jitter, and loss.
+
+The results are stored in `results/l4_network_impairment/` and can support the journal-level claim that the Level 4 workflow connects proof-governed MCP/A2A control decisions with measurable secure multimedia delivery behaviour.

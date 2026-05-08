@@ -1,0 +1,41 @@
+{
+  "experiment": "step90_dtls_wrapped_rtp_media_plane_telemetry",
+  "importantNote": "This is DTLS-wrapped RTP media-plane telemetry over localhost. It is a DTLS tunnel/proxy baseline, not WebRTC DTLS-SRTP.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "dtlsProxy": "dtls_rtp/dtls_rtp_proxy",
+  "rtpClientInput": "127.0.0.1:6000",
+  "dtlsEndpoint": "127.0.0.1:4444",
+  "recoveredRtpEndpoint": "127.0.0.1:5006",
+  "captureSeconds": 25,
+  "receivedPackets": 769,
+  "totalBytes": 320059,
+  "avgBitrateKbps": 102.419,
+  "packetLoss": {
+    "expected_packets": 721665,
+    "received_packets": 769,
+    "lost_packets": 720896,
+    "packet_loss_pct": 99.893441
+  },
+  "jitter": {
+    "samples": 768,
+    "avgJitterComponentMs": 23115275.429352,
+    "p50JitterComponentMs": 152.385825,
+    "maxJitterComponentMs": 47721823.498068
+  },
+  "comparisonWithPlainRtpStep89": {
+    "plainPacketLossPct": 0.0,
+    "dtlsPacketLossPct": 99.893441,
+    "plainAvgBitrateKbps": 833.709,
+    "dtlsAvgBitrateKbps": 102.419,
+    "plainAvgJitterMs": 5.640689,
+    "dtlsAvgJitterMs": 23115275.429352
+  },
+  "files": {
+    "eventsCsv": "results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv",
+    "summaryJson": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.md",
+    "figureJitter": "results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png",
+    "figureLoss": "results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png",
+    "figureBitrate": "results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png"
+  }
+}
