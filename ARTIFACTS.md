@@ -61,3 +61,31 @@ Demonstrated result:
 Research meaning:
 
 Agent A creates a proof-backed authenticated decision on-chain. Agent B can then rely on a compact reference to that decision instead of receiving the full raw decision, policy, or evidence payload. This demonstrates blockchain-anchored authenticated state as a coordination substrate for Level 4 agent-to-agent interaction.
+
+## L4 Proper MCP Context Server
+
+This section adds a proper read-only MCP server for Level 4 proof-governed coordination.
+
+Main artifacts:
+
+- MCP server: `mcp_l4/server.py`
+- MCP server README: `mcp_l4/README.md`
+- MCP client test: `scripts/l4/test_mcp_l4_server.py`
+- MCP test result: `results/l4_mcp_server/mcp_tool_test_results.json`
+- MCP bundle verification result: `results/l4_mcp_server/mcp_reference_bundle_verification.json`
+- MCP integration analysis: `docs/l4/mcp_a2a_kpi/PROPER_MCP_INTEGRATION.md`
+- MCP Python requirements: `requirements-l4-mcp.txt`
+
+Measured result:
+
+- MCP tools listed: 5
+- successful MCP tool calls: 5/5
+- MCP context retrieval success rate: 1.0
+- average tool invocation latency: 29.711 ms
+- maximum tool invocation latency: 39.757 ms
+- reference bundle validity: true
+- reference bundle verification latency: 32.298 ms
+
+Research meaning:
+
+A2A provides compact inter-agent reference exchange. MCP provides structured access to the authenticated blockchain context behind those references. The implemented MCP tools allow an agent to retrieve and verify AUTH_V2.2 decisions and A2A references without directly receiving full raw decision or evidence payloads.
