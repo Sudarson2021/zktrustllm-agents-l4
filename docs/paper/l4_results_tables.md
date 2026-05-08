@@ -57,3 +57,35 @@
 ## Note
 
 The network KPI results are deterministic telemetry-emulation values derived from measured MCP/A2A control values. They are not yet live VLC/DTLS/RTP media measurements.
+
+## Table 6: Figure 5.3 Agent-Scaling Benchmark Summary
+
+| Method | Mean coordination latency ms | Interpretation |
+|---|---:|---|
+| Direct agent baseline | 111.8 | Lowest simple control overhead but no proof governance or authenticated reference binding |
+| Heuristic policy agent | 143.2 | Local heuristic decision path without blockchain-authenticated context verification |
+| L4 raw-context | 186.4 | Proof-governed but larger raw context exchange increases coordination cost |
+| Proposed L4-ref MCP/A2A | 144.2 | Reference-bound, proof-governed coordination with lower latency than L4 raw-context |
+
+## Table 7: Figure 5.4 Decision-Utility Benchmark Summary
+
+| Method | Mean decision utility | Interpretation |
+|---|---:|---|
+| Direct agent baseline | 0.696 | Direct agent decision without authenticated state or proof governance |
+| Heuristic policy agent | 0.736 | Rule-based local policy decision |
+| L4 raw-context | 0.840 | Stronger proof-governed decision path but with larger context exchange |
+| Proposed L4-ref MCP/A2A | 0.926 | Highest decision utility due to compact references, MCP context verification, and AUTH_V2.3 binding |
+
+## Figure References
+
+- Figure 5.3 source files:
+  - `results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.png`
+  - `results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.pdf`
+  - `results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.svg`
+
+- Figure 5.4 source files:
+  - `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.png`
+  - `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.pdf`
+  - `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.svg`
+
+Note: These figures are deterministic benchmark/emulation figures. They are not yet live DTLS/RTP/VLC measurements.
