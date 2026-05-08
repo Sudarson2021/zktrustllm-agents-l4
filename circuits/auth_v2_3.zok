@@ -1,0 +1,50 @@
+// AUTH_V2.3 reference-bound admissibility relation.
+//
+// This relation extends AUTH_V2.2 by binding the accepted decision
+// to a reference-aware MCP/A2A coordination context.
+//
+// Private input:
+// - bindingNonce
+//
+// Public inputs:
+// - agentKey
+// - capabilityId
+// - policyClassHash
+// - actionClass
+// - contextHash
+// - traceCommitment
+// - expiryBucket
+// - policyAdmissibilityFlag
+// - trustState
+// - referenceContextHash
+// - coordinationSessionId
+//
+// Relation:
+// - policyAdmissibilityFlag must be 1
+// - trustState must be 3
+// - actionClass must be 3
+// - traceCommitment must bind referenceContextHash, coordinationSessionId, and bindingNonce
+
+def main(
+    private field bindingNonce,
+    field agentKey,
+    field capabilityId,
+    field policyClassHash,
+    field actionClass,
+    field contextHash,
+    field traceCommitment,
+    field expiryBucket,
+    field policyAdmissibilityFlag,
+    field trustState,
+    field referenceContextHash,
+    field coordinationSessionId
+) -> bool {
+    assert(policyAdmissibilityFlag == 1);
+    assert(trustState == 3);
+    assert(actionClass == 3);
+
+    field expectedTraceCommitment = referenceContextHash + coordinationSessionId + bindingNonce;
+    assert(expectedTraceCommitment == traceCommitment);
+
+    return true;
+}
