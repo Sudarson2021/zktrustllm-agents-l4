@@ -115,3 +115,26 @@ Figure source files:
 - `results/l4_live_telemetry/figure_5_6_semi_live_control_summary.svg`
 
 Note: These are semi-live MCP/A2A control-plane measurements, not live VLC/DTLS/RTP media measurements.
+
+## Table 10: Step 87 Multi-Agent Scaling Improvement Summary
+
+| Agents | L4-ref latency reduction vs raw | L4-ref message reduction vs raw | L4-ref throughput gain vs raw |
+|---:|---:|---:|---:|
+| 5 | 53.14% | 97.75% | 113.51% |
+| 10 | 53.67% | 97.76% | 116.03% |
+| 15 | 58.50% | 97.75% | 139.83% |
+| 20 | 54.69% | 97.74% | 120.75% |
+| 25 | 52.40% | 97.74% | 110.02% |
+
+## Table 11: Step 87 Multi-Agent Scaling Result Files
+
+| Artifact | Path |
+|---|---|
+| Event-level CSV | `results/l4_multi_agent_scaling/multi_agent_scaling_events.csv` |
+| Summary JSON | `results/l4_multi_agent_scaling/multi_agent_scaling_summary.json` |
+| Summary Markdown | `results/l4_multi_agent_scaling/multi_agent_scaling_summary.md` |
+| Figure 5.7 latency PNG | `results/l4_multi_agent_scaling/figure_5_7_multi_agent_scaling_latency.png` |
+| Figure 5.8 control bytes PNG | `results/l4_multi_agent_scaling/figure_5_8_multi_agent_control_bytes.png` |
+| Figure 5.9 throughput PNG | `results/l4_multi_agent_scaling/figure_5_9_multi_agent_throughput.png` |
+
+Note: These are semi-live MCP/A2A control-plane scaling measurements, not live VLC/DTLS/RTP media measurements.
