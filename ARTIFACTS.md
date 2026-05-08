@@ -224,3 +224,29 @@ Main artifacts:
 Research meaning:
 
 This step converts the Level 4 implementation and evaluation evidence into a journal/report-ready narrative. It connects the supervisor comments with the implemented architecture, agent KPIs, network KPIs, AUTH_V2.3 reference-bound proof, negative-security results, and telemetry-emulation results.
+
+## L4 Step 85 Benchmark Result Figures
+
+This section adds benchmark result figures aligned with supervisor feedback.
+
+Main artifacts:
+
+- Benchmark figure generator: `scripts/l4/generate_l4_benchmark_figures.py`
+- Figure 5.3 CSV: `results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.csv`
+- Figure 5.3 PNG: `results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.png`
+- Figure 5.3 PDF: `results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.pdf`
+- Figure 5.3 SVG: `results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.svg`
+- Figure 5.4 CSV: `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.csv`
+- Figure 5.4 PNG: `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.png`
+- Figure 5.4 PDF: `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.pdf`
+- Figure 5.4 SVG: `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.svg`
+- Figure summary JSON: `results/l4_benchmark_figures/benchmark_figure_summary.json`
+- Figure analysis: `docs/l4/benchmark_figures/BENCHMARK_FIGURE_ANALYSIS.md`
+
+Research meaning:
+
+Figure 5.3 shows agent-scaling coordination latency. Figure 5.4 shows decision utility across agent positions. Together, they visually support the claim that the proposed L4-ref MCP/A2A method improves coordination efficiency and decision quality compared with raw-context and heuristic benchmark methods, while preserving proof-governed and reference-bound semantics.
+
+Important boundary:
+
+These figures are deterministic benchmark/emulation figures and are not yet live DTLS/RTP/VLC measurements.
