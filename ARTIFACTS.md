@@ -123,3 +123,35 @@ Measured/derived result:
 Research meaning:
 
 This analysis directly addresses the Level 4 MCP/A2A evaluation requirement. MCP provides structured context/tool access. A2A provides compact inter-agent coordination. Blockchain provides authenticated shared state. AUTH_V2.2 provides proof-governed admissibility. Network KPIs are defined for the next control/media telemetry experiment.
+
+## L4 AUTH_V2.3 Reference-Bound Proof
+
+This section adds AUTH_V2.3, a reference-bound proof relation for Level 4 MCP/A2A coordination.
+
+Main artifacts:
+
+- AUTH_V2.3 circuit: `circuits/auth_v2_3.zok`
+- AUTH_V2.3 relation documentation: `docs/zk/auth_v2_3_reference_binding.md`
+- AUTH_V2.3 generated verifier: `contracts/l4/generated/AuthV2_3Verifier.sol`
+- AUTH_V2.3 decision attestor: `contracts/l4/DecisionAttestorAuthV2_3.sol`
+- AUTH_V2.3 payload builder: `scripts/l4/build_auth_v2_3_reference_payload.py`
+- AUTH_V2.3 verifier debug check: `scripts/l4/debug_auth_v2_3_verifier.js`
+- AUTH_V2.3 deployment script: `scripts/l4/deploy_auth_v2_3_wrapper.js`
+- AUTH_V2.3 submit script: `scripts/l4/submit_auth_v2_3_reference_bound.js`
+- AUTH_V2.3 runtime artifacts: `runtime_artifacts/l4/auth_v2_3/`
+- AUTH_V2.3 result: `results/l4_auth_v2_3/reference_bound_decision.json`
+
+Measured result:
+
+- AUTH_V2.3 decision ID: `1`
+- Proof output: `1`
+- Policy admissibility flag: `1`
+- Trust state: `3`
+- Action class: `3`
+- AUTH_V2.3 gas used: `671779`
+- Reference context hash: `13910625391943923264185798681093047247761942130660331693554321209527545263200`
+- Coordination session ID: `12343182470573131826629052782455202610058935007512043442711127914022411250849`
+
+Research meaning:
+
+AUTH_V2.3 extends AUTH_V2.2 by binding the proof-backed decision to an MCP/A2A reference context. This moves the Level 4 design from reference-after-decision to reference-bound proof-governed multi-agent coordination.
