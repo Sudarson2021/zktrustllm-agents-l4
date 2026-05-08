@@ -311,3 +311,36 @@ This step evaluates how the proposed L4-ref MCP/A2A coordination path behaves as
 Boundary:
 
 These are semi-live MCP/A2A control-plane scaling measurements and are not yet live VLC/DTLS/RTP media-plane measurements.
+
+## L4 Step 88 Journal Technical Report PDF
+
+This section adds a supervisor-ready technical report PDF covering the Level 4 workflow from Step 77 to Step 87.
+
+Main artifacts:
+
+- Report builder: `scripts/l4/build_l4_technical_report_pdf.py`
+- Report README: `docs/report/README.md`
+- Markdown report source: `docs/report/zktrustllm_l4_technical_report_steps77_87.md`
+- PDF report: `results/l4_report_pdf/zktrustllm_l4_technical_report_steps77_87.pdf`
+- Report Python requirements: `requirements-l4-report.txt`
+
+Report coverage:
+
+- Step 77: A2A reference-aware coordination
+- Step 79: Proper MCP context server
+- Step 80: MCP/A2A KPI analysis
+- Step 81: AUTH_V2.3 reference-bound proof
+- Step 82: Negative-security tests
+- Step 83: Network KPI telemetry-emulation
+- Step 84: Journal-ready evaluation write-up
+- Step 85: Benchmark result figures
+- Step 86: Semi-live MCP/A2A control-plane telemetry
+- Step 87: Multi-agent scaling telemetry
+
+Research meaning:
+
+This report converts the implementation, KPI analysis, negative-security evidence, benchmark figures, semi-live telemetry, and multi-agent scaling results into a single technical document for supervisor review and future journal writing.
+
+Boundary:
+
+The report clearly states that current measurements are blockchain/MCP/A2A control-plane measurements and are not yet live VLC/DTLS/RTP media-plane measurements.
