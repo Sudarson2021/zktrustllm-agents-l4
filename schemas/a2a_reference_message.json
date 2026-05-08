@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A2AReferenceMessage",
+  "type": "object",
+  "required": [
+    "senderAgentId",
+    "receiverAgentId",
+    "taskId",
+    "referenceId",
+    "sourceDecisionId",
+    "sourceBlockNumber",
+    "capabilityId",
+    "policyClassHash",
+    "actionClass",
+    "contextHash",
+    "traceCommitment",
+    "cidHash",
+    "proofRef",
+    "expiryBucket",
+    "timestamp",
+    "signature"
+  ],
+  "properties": {
+    "senderAgentId": { "type": "string" },
+    "receiverAgentId": { "type": "string" },
+    "taskId": { "type": "string" },
+    "referenceId": { "type": "integer", "minimum": 1 },
+    "sourceDecisionId": { "type": "integer", "minimum": 1 },
+    "sourceBlockNumber": { "type": "integer", "minimum": 1 },
+    "capabilityId": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "policyClassHash": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "actionClass": { "type": "integer", "minimum": 0 },
+    "contextHash": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "traceCommitment": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "cidHash": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "proofRef": { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "expiryBucket": { "type": "integer", "minimum": 0 },
+    "timestamp": { "type": "integer" },
+    "signature": { "type": "string" }
+  }
+}
