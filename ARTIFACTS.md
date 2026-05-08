@@ -155,3 +155,27 @@ Measured result:
 Research meaning:
 
 AUTH_V2.3 extends AUTH_V2.2 by binding the proof-backed decision to an MCP/A2A reference context. This moves the Level 4 design from reference-after-decision to reference-bound proof-governed multi-agent coordination.
+
+## L4 Step 82 MCP/A2A Negative Security Tests
+
+This section adds negative-security evidence for the Level 4 proof-governed MCP/A2A coordination workflow.
+
+Main artifacts:
+
+- AUTH_V2.3 negative test script: `scripts/l4/test_auth_v2_3_negative_cases.js`
+- AUTH_V2.3 negative result: `results/l4_auth_v2_3_negative/auth_v2_3_negative_summary.json`
+- MCP/A2A negative test script: `scripts/l4/test_mcp_a2a_negative_cases.py`
+- MCP/A2A negative result: `results/l4_mcp_a2a_security/mcp_a2a_negative_summary.json`
+- Negative-security documentation: `docs/l4/mcp_a2a_security/NEGATIVE_SECURITY_RESULTS.md`
+- Step 82 summary script: `scripts/l4/summarize_step82_negative_security.py`
+- Step 82 summary: `results/l4_mcp_a2a_security/step82_negative_security_summary.md`
+
+Measured result:
+
+- AUTH_V2.3 valid proof path accepted
+- AUTH_V2.3 tampered proof/input rejection rate: 1.0
+- MCP/A2A invalid-context rejection rate: 1.0
+
+Research meaning:
+
+These tests show that the Level 4 design accepts valid reference-bound proof paths while rejecting tampered proof inputs, malformed verifier inputs, invalid decision lookups, and invalid A2A reference contexts.
