@@ -11,11 +11,20 @@ function loadJson(p) {
 
 function proofArg(proofJson) {
   const p = proofJson.proof;
-  return [
-    [p.a[0], p.a[1]],
-    [[p.b[0][0], p.b[0][1]], [p.b[1][0], p.b[1][1]]],
-    [p.c[0], p.c[1]]
-  ];
+  return {
+    a: {
+      X: BigInt(p.a[0]),
+      Y: BigInt(p.a[1]),
+    },
+    b: {
+      X: [BigInt(p.b[0][0]), BigInt(p.b[0][1])],
+      Y: [BigInt(p.b[1][0]), BigInt(p.b[1][1])],
+    },
+    c: {
+      X: BigInt(p.c[0]),
+      Y: BigInt(p.c[1]),
+    },
+  };
 }
 
 async function main() {
@@ -64,12 +73,10 @@ async function main() {
     attestorAddress
   );
 
-  const inputs = payload.publicInputsOrder.map((key) =>
-    BigInt(payload.publicInputs[key])
-  );
+  const inputs = proof.inputs.map((x) => BigInt(x));
 
-  if (inputs.length !== 11) {
-    throw new Error(`Expected 11 AUTH_V2.3 public inputs, got ${inputs.length}`);
+  if (inputs.length !== 12) {
+    throw new Error(`Expected 12 AUTH_V2.3 verifier inputs, got ${inputs.length}`);
   }
 
   console.log("AUTH_V2.3 Verifier:", deployment.authV2_3Groth16Verifier);
@@ -114,7 +121,8 @@ async function main() {
     trustState: decision[9].toString(),
     referenceContextHash: decision[10].toString(),
     coordinationSessionId: decision[11].toString(),
-    timestamp: decision[12].toString(),
+    proofOutput: decision[12].toString(),
+    timestamp: decision[13].toString(),
     relationVersion: payload.relationVersion,
     referenceBinding: payload.referenceBinding
   };
