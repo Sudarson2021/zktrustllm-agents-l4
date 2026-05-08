@@ -1,0 +1,53 @@
+{
+  "experiment": "step85_benchmark_result_figures",
+  "importantNote": "Figures are deterministic benchmark/emulation figures derived from the Step 80-84 Level 4 workflow. They are intended for supervisor alignment and journal-figure preparation, not yet live DTLS/RTP measurements.",
+  "figure_5_3": {
+    "title": "Agent Scaling of Level 4 Coordination",
+    "x_axis": "Number of agents",
+    "y_axis": "A2A/MCP coordination latency (ms)",
+    "methods": [
+      "Direct agent baseline",
+      "Heuristic policy agent",
+      "L4 raw-context",
+      "Proposed L4-ref MCP/A2A"
+    ],
+    "mean_latency_ms": {
+      "Direct agent baseline": 111.8,
+      "Heuristic policy agent": 143.2,
+      "L4 raw-context": 186.4,
+      "Proposed L4-ref MCP/A2A": 144.2
+    },
+    "proposed_latency_reduction_vs_l4_raw_pct": 22.64
+  },
+  "figure_5_4": {
+    "title": "Decision Utility across Agent Positions",
+    "x_axis": "Agent position",
+    "y_axis": "Decision utility score",
+    "methods": [
+      "Direct agent baseline",
+      "Heuristic policy agent",
+      "L4 raw-context",
+      "Proposed L4-ref MCP/A2A"
+    ],
+    "mean_decision_utility": {
+      "Direct agent baseline": 0.696,
+      "Heuristic policy agent": 0.736,
+      "L4 raw-context": 0.84,
+      "Proposed L4-ref MCP/A2A": 0.926
+    },
+    "proposed_utility_gain_vs_l4_raw_pct": 10.24,
+    "proposed_utility_gain_vs_heuristic_pct": 25.82,
+    "proposed_utility_stability_std": 0.0102,
+    "l4_raw_utility_stability_std": 0.0141
+  },
+  "files": {
+    "figure_5_3_csv": "results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.csv",
+    "figure_5_3_png": "results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.png",
+    "figure_5_3_pdf": "results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.pdf",
+    "figure_5_3_svg": "results/l4_benchmark_figures/figure_5_3_agent_scaling_latency.svg",
+    "figure_5_4_csv": "results/l4_benchmark_figures/figure_5_4_decision_utility_positions.csv",
+    "figure_5_4_png": "results/l4_benchmark_figures/figure_5_4_decision_utility_positions.png",
+    "figure_5_4_pdf": "results/l4_benchmark_figures/figure_5_4_decision_utility_positions.pdf",
+    "figure_5_4_svg": "results/l4_benchmark_figures/figure_5_4_decision_utility_positions.svg"
+  }
+}

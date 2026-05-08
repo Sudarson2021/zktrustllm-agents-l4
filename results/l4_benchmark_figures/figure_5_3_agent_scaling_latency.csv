@@ -1,0 +1,21 @@
+figure,method,agent_count,coordination_latency_ms
+5.3,Direct agent baseline,5,88
+5.3,Direct agent baseline,10,96
+5.3,Direct agent baseline,15,108
+5.3,Direct agent baseline,20,124
+5.3,Direct agent baseline,25,143
+5.3,Heuristic policy agent,5,104
+5.3,Heuristic policy agent,10,118
+5.3,Heuristic policy agent,15,138
+5.3,Heuristic policy agent,20,163
+5.3,Heuristic policy agent,25,193
+5.3,L4 raw-context,5,126
+5.3,L4 raw-context,10,150
+5.3,L4 raw-context,15,181
+5.3,L4 raw-context,20,217
+5.3,L4 raw-context,25,258
+5.3,Proposed L4-ref MCP/A2A,5,112
+5.3,Proposed L4-ref MCP/A2A,10,127
+5.3,Proposed L4-ref MCP/A2A,15,143
+5.3,Proposed L4-ref MCP/A2A,20,160
+5.3,Proposed L4-ref MCP/A2A,25,179

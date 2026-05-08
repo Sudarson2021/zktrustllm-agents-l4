@@ -1,0 +1,21 @@
+figure,method,agent_position,decision_utility_score
+5.4,Direct agent baseline,pos0,0.71
+5.4,Direct agent baseline,pos1,0.73
+5.4,Direct agent baseline,pos2,0.7
+5.4,Direct agent baseline,pos3,0.68
+5.4,Direct agent baseline,pos4,0.66
+5.4,Heuristic policy agent,pos0,0.76
+5.4,Heuristic policy agent,pos1,0.78
+5.4,Heuristic policy agent,pos2,0.74
+5.4,Heuristic policy agent,pos3,0.71
+5.4,Heuristic policy agent,pos4,0.69
+5.4,L4 raw-context,pos0,0.84
+5.4,L4 raw-context,pos1,0.86
+5.4,L4 raw-context,pos2,0.85
+5.4,L4 raw-context,pos3,0.83
+5.4,L4 raw-context,pos4,0.82
+5.4,Proposed L4-ref MCP/A2A,pos0,0.91
+5.4,Proposed L4-ref MCP/A2A,pos1,0.93
+5.4,Proposed L4-ref MCP/A2A,pos2,0.94
+5.4,Proposed L4-ref MCP/A2A,pos3,0.93
+5.4,Proposed L4-ref MCP/A2A,pos4,0.92
