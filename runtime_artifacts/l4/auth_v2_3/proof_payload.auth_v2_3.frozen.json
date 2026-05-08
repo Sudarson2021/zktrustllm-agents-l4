@@ -1,0 +1,59 @@
+{
+  "relationVersion": "auth_v2_3_reference_bound_relation",
+  "agentId": "policy-lkh-01",
+  "receiverAgentId": "policy-lkh-agent-01",
+  "description": "AUTH_V2.3 proof binds policy-admissible decision to MCP/A2A reference context.",
+  "privateInputs": {
+    "bindingNonce": 20260508
+  },
+  "publicInputsOrder": [
+    "agentKey",
+    "capabilityId",
+    "policyClassHash",
+    "actionClass",
+    "contextHash",
+    "traceCommitment",
+    "expiryBucket",
+    "policyAdmissibilityFlag",
+    "trustState",
+    "referenceContextHash",
+    "coordinationSessionId"
+  ],
+  "publicInputs": {
+    "agentKey": "204383764425912357344551784929155092496250042244735986288868848318712185394",
+    "capabilityId": "1027075951165927055604932380192364832073896569258232154474401687131475375010",
+    "policyClassHash": "20703034287204949960094393193580849873403727892708207801496774082650576489658",
+    "actionClass": "3",
+    "contextHash": "11879262986391029320906634214378984522988163251428436525276861488767230886045",
+    "traceCommitment": "4365564990677779868568445718290974769272512737756340792567244936974168278940",
+    "expiryBucket": "493129",
+    "policyAdmissibilityFlag": "1",
+    "trustState": "3",
+    "referenceContextHash": "13910625391943923264185798681093047247761942130660331693554321209527545263200",
+    "coordinationSessionId": "12343182470573131826629052782455202610058935007512043442711127914022411250849"
+  },
+  "publicInputsHex": {
+    "agentKey": "0x0073ad57293d5a8306d27d80ad7031c9dc5a039632b0b641570914a9ec490232",
+    "capabilityId": "0x02454dec5a5634cbf38d9bb1040af2b29519ef616e77bd3f1cf3f6f131d773a2",
+    "policyClassHash": "0x2dc5808d28f1498d5555f7973681a683afd3f33afef078c3a4e1b32779c78cba",
+    "actionClass": "0x0000000000000000000000000000000000000000000000000000000000000003",
+    "contextHash": "0x1a436cb158f90ebc9b7534f1404d233e064cd023f355a79dd7e7814706b9409d",
+    "traceCommitment": "0x09a6d27d257f83adf5730ee8bd37a9d26d3486e8136888b50a58e74b0b24c79c",
+    "expiryBucket": "0x0000000000000000000000000000000000000000000000000000000000078649",
+    "policyAdmissibilityFlag": "0x0000000000000000000000000000000000000000000000000000000000000001",
+    "trustState": "0x0000000000000000000000000000000000000000000000000000000000000003",
+    "referenceContextHash": "0x1ec1228ca31708b09572e8f2932220d167e0680ddacb89ff64ff9fdebc567460",
+    "coordinationSessionId": "0x1b49fe63639a1b2718506bacab96e15e2d880722b2566f46e93b3d003d992ca1"
+  },
+  "referenceBinding": {
+    "sourceDecisionId": "1",
+    "referenceId": "1",
+    "referenceContextHash": "13910625391943923264185798681093047247761942130660331693554321209527545263200",
+    "referenceContextHashHex": "0x1ec1228ca31708b09572e8f2932220d167e0680ddacb89ff64ff9fdebc567460",
+    "coordinationSessionId": "12343182470573131826629052782455202610058935007512043442711127914022411250849",
+    "coordinationSessionIdHex": "0x1b49fe63639a1b2718506bacab96e15e2d880722b2566f46e93b3d003d992ca1",
+    "traceCommitment": "4365564990677779868568445718290974769272512737756340792567244936974168278940",
+    "traceCommitmentHex": "0x09a6d27d257f83adf5730ee8bd37a9d26d3486e8136888b50a58e74b0b24c79c",
+    "bindingFormula": "traceCommitment = referenceContextHash + coordinationSessionId + bindingNonce"
+  }
+}
