@@ -209,3 +209,18 @@ This step turns the Level 4 MCP/A2A workflow into a network-facing KPI evaluatio
 Important boundary:
 
 The current results are deterministic telemetry-emulation results, not live VLC/DTLS/RTP measurements. The next step is to replace the emulated telemetry values with real media/network logs.
+
+## L4 Step 84 Journal-Ready Evaluation Write-Up
+
+This section adds paper-ready write-up material for the Level 4 MCP/A2A reference-bound proof-governed coordination workflow.
+
+Main artifacts:
+
+- Main evaluation section: `docs/paper/l4_mcp_a2a_evaluation_section.md`
+- Results tables: `docs/paper/l4_results_tables.md`
+- Supervisor alignment summary: `docs/paper/l4_supervisor_alignment_summary.md`
+- Limitations and next steps: `docs/paper/l4_limitations_and_next_steps.md`
+
+Research meaning:
+
+This step converts the Level 4 implementation and evaluation evidence into a journal/report-ready narrative. It connects the supervisor comments with the implemented architecture, agent KPIs, network KPIs, AUTH_V2.3 reference-bound proof, negative-security results, and telemetry-emulation results.
