@@ -1,0 +1,74 @@
+{
+  "experiment": "l4_network_kpi_telemetry_emulation",
+  "importantNote": "These are deterministic telemetry-emulation results derived from measured MCP/A2A control values. They are not yet live VLC/DTLS/RTP measurements.",
+  "measuredInputs": {
+    "rawA2AMessageBytes": 1239,
+    "referenceA2AMessageBytes": 680,
+    "mcpAverageToolInvocationLatencyMs": 29.711,
+    "mcpBundleVerificationLatencyMs": 32.298,
+    "authV2_3GasUsed": 671779,
+    "authV2_3TamperedRejectionRate": 1.0,
+    "mcpA2AInvalidContextRejectionRate": 1.0
+  },
+  "scenarioSummary": {
+    "baseline_direct_agent": {
+      "description": "Agent-only direct control without blockchain/MCP/A2A reference verification.",
+      "controlMessageBytes": 420,
+      "controlOverheadVsBaseline": 1.0,
+      "controlMessageReductionVsRawPct": -66.1,
+      "proofOrVerificationGas": 0,
+      "avgControlResponseTimeMs": 89.6,
+      "avgJitterDuringControlEventMs": 5.58,
+      "avgPacketLossDuringOrchestrationPct": 0.442,
+      "avgContainmentTimeMs": 127.6,
+      "avgServiceInterruptionMs": 187.6,
+      "avgRecoveryTimeMs": 266,
+      "proofGoverned": false,
+      "referenceBound": false,
+      "tamperedRejectionRate": null,
+      "invalidContextRejectionRate": null
+    },
+    "l4_raw_context": {
+      "description": "Level 4 raw mode where agents exchange expanded context payloads.",
+      "controlMessageBytes": 1239,
+      "controlOverheadVsBaseline": 2.95,
+      "controlMessageReductionVsRawPct": 0.0,
+      "proofOrVerificationGas": 671779,
+      "avgControlResponseTimeMs": 150.098,
+      "avgJitterDuringControlEventMs": 5.14,
+      "avgPacketLossDuringOrchestrationPct": 0.394,
+      "avgContainmentTimeMs": 151.2,
+      "avgServiceInterruptionMs": 171.2,
+      "avgRecoveryTimeMs": 241.2,
+      "proofGoverned": true,
+      "referenceBound": false,
+      "tamperedRejectionRate": 1.0,
+      "invalidContextRejectionRate": 1.0
+    },
+    "l4_ref_mcp_a2a": {
+      "description": "Level 4 reference mode where A2A exchanges compact references and MCP resolves authenticated context.",
+      "controlMessageBytes": 680,
+      "controlOverheadVsBaseline": 1.619,
+      "controlMessageReductionVsRawPct": -45.12,
+      "proofOrVerificationGas": 671779,
+      "avgControlResponseTimeMs": 127.111,
+      "avgJitterDuringControlEventMs": 4.28,
+      "avgPacketLossDuringOrchestrationPct": 0.312,
+      "avgContainmentTimeMs": 135,
+      "avgServiceInterruptionMs": 143.8,
+      "avgRecoveryTimeMs": 214.2,
+      "proofGoverned": true,
+      "referenceBound": true,
+      "tamperedRejectionRate": 1.0,
+      "invalidContextRejectionRate": 1.0
+    }
+  },
+  "interpretation": {
+    "l4RefControlMessageReductionVsRawPct": 45.12,
+    "l4RefControlResponseVsRawPct": -15.31,
+    "l4RefJitterVsRawPct": -16.73,
+    "l4RefPacketLossVsRawPct": -20.81,
+    "l4RefServiceInterruptionVsBaselinePct": -23.35,
+    "securityClaim": "L4-ref is proof-governed and reference-bound, with measured AUTH_V2.3 tampered rejection and MCP/A2A invalid-context rejection."
+  }
+}
