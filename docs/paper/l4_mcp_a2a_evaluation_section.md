@@ -267,3 +267,19 @@ Across 20 runs per mode, the L4 raw-context path achieved an average control res
 The measured average control-message size also decreased from 3477.25 bytes in the L4 raw-context path to 72.55 bytes in the L4-ref MCP/A2A path, corresponding to a 97.91% control-message reduction.
 
 This step strengthens the evaluation by moving from deterministic emulation toward live measured control-plane behaviour. However, the results are still not live VLC/DTLS/RTP media measurements. They should be interpreted as semi-live control-plane telemetry and used as a bridge toward full multimedia/network validation.
+
+## 15. Multi-Agent Scaling Telemetry
+
+Step 87 extends the semi-live control-plane evaluation by measuring MCP/A2A coordination under increasing agent counts.
+
+The experiment evaluates 5, 10, 15, 20, and 25 agents, with three repetitions per setting. The compared modes are baseline direct-agent control, L4 raw-context coordination, and proposed L4-ref MCP/A2A coordination.
+
+The measured KPIs include total coordination latency, latency per agent, p50 and p95 latency, jitter, control-message size, accepted agents per second, and success rate.
+
+The purpose of this experiment is to show how compact reference-based coordination scales compared with raw-context coordination. In the raw-context mode, each agent triggers MCP retrieval of the source decision, A2A reference, and reference bundle. In the proposed L4-ref mode, each agent exchanges a compact reference and verifies the authenticated bundle through MCP.
+
+The measured result shows that L4-ref MCP/A2A reduces latency by 52.40% to 58.50% compared with L4 raw-context coordination across 5 to 25 agents. It also reduces control-message size by approximately 97.74% to 97.76% across all tested agent counts.
+
+The throughput gain of the L4-ref mode ranges from 110.02% to 139.83% compared with the raw-context mode. This supports the claim that compact authenticated references improve multi-agent coordination scalability while preserving proof-governed, blockchain-authenticated decision semantics.
+
+These results remain semi-live control-plane measurements. They are not yet live VLC/DTLS/RTP media-plane measurements.
