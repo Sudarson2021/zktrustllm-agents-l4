@@ -280,3 +280,34 @@ This step moves the evaluation from deterministic network KPI emulation toward a
 Boundary:
 
 These are semi-live control-plane measurements and are not yet live VLC/DTLS/RTP media-plane measurements.
+
+## L4 Step 87 Multi-Agent Scaling Telemetry
+
+This section adds repeated semi-live MCP/A2A scaling telemetry across increasing agent counts.
+
+Main artifacts:
+
+- Scaling runner: `scripts/l4/run_l4_multi_agent_scaling_telemetry.py`
+- Event-level scaling CSV: `results/l4_multi_agent_scaling/multi_agent_scaling_events.csv`
+- Scaling summary JSON: `results/l4_multi_agent_scaling/multi_agent_scaling_summary.json`
+- Scaling summary Markdown: `results/l4_multi_agent_scaling/multi_agent_scaling_summary.md`
+- Figure 5.7 PNG/PDF/SVG: `results/l4_multi_agent_scaling/figure_5_7_multi_agent_scaling_latency.*`
+- Figure 5.8 PNG/PDF/SVG: `results/l4_multi_agent_scaling/figure_5_8_multi_agent_control_bytes.*`
+- Figure 5.9 PNG/PDF/SVG: `results/l4_multi_agent_scaling/figure_5_9_multi_agent_throughput.*`
+- Documentation: `docs/l4/multi_agent_scaling/MULTI_AGENT_SCALING_TELEMETRY.md`
+
+Measured result:
+
+- 5 agents: L4-ref latency reduction 53.14%, message reduction 97.75%, throughput gain 113.51%
+- 10 agents: L4-ref latency reduction 53.67%, message reduction 97.76%, throughput gain 116.03%
+- 15 agents: L4-ref latency reduction 58.50%, message reduction 97.75%, throughput gain 139.83%
+- 20 agents: L4-ref latency reduction 54.69%, message reduction 97.74%, throughput gain 120.75%
+- 25 agents: L4-ref latency reduction 52.40%, message reduction 97.74%, throughput gain 110.02%
+
+Research meaning:
+
+This step evaluates how the proposed L4-ref MCP/A2A coordination path behaves as the number of agents increases. It provides measured scaling evidence for compact reference exchange compared with raw-context coordination.
+
+Boundary:
+
+These are semi-live MCP/A2A control-plane scaling measurements and are not yet live VLC/DTLS/RTP media-plane measurements.
