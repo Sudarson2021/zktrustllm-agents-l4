@@ -1,0 +1,3 @@
+[client] connecting DTLS to 127.0.0.1:4444
+[client] DTLS handshake complete
+[client] waiting for local RTP on 127.0.0.1:6000

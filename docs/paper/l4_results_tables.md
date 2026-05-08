@@ -164,3 +164,26 @@ Note: These are semi-live MCP/A2A control-plane scaling measurements, not live V
 | Figure 5.10 RTP jitter | `results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.png` |
 | Figure 5.11 RTP bitrate | `results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.png` |
 | Figure 5.12 RTP sequence progress | `results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.png` |
+
+## Table 14: Step 90 DTLS-Wrapped RTP Media-Plane Results
+
+| KPI | Result | Interpretation |
+|---|---:|---|
+| DTLS endpoint | 127.0.0.1:4444 | Local DTLS tunnel endpoint |
+| Recovered RTP endpoint | 127.0.0.1:5006 | RTP receiver after DTLS recovery |
+| Recovered RTP packets | 769 | RTP packets captured after DTLS protection |
+| Lost packets | 0 | No sequence-gap loss observed |
+| Packet loss | 0.0% | RTP sequence continuity preserved |
+| Average bitrate | 102.17 kbps | Recovered DTLS-wrapped RTP throughput |
+| Jitter metric | arrival-gap jitter | Avoids H.264 timestamp reordering artefacts |
+
+## Table 15: Step 90 DTLS/RTP Result Files
+
+| Artifact | Path |
+|---|---|
+| DTLS/RTP event CSV | `results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv` |
+| DTLS/RTP summary JSON | `results/l4_dtls_rtp_media/dtls_rtp_media_summary.json` |
+| DTLS/RTP summary Markdown | `results/l4_dtls_rtp_media/dtls_rtp_media_summary.md` |
+| Figure 5.13 DTLS/RTP jitter | `results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png` |
+| Figure 5.14 plain vs DTLS packet loss | `results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png` |
+| Figure 5.15 plain vs DTLS bitrate | `results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png` |

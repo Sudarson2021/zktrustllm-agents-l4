@@ -378,3 +378,31 @@ This step moves the project from control-plane-only MCP/A2A telemetry toward liv
 Boundary:
 
 This is live RTP media-plane telemetry over localhost. It is not yet DTLS-secured. The next step should add DTLS-secured RTP validation.
+
+## L4 Step 90 DTLS-Wrapped RTP Media-Plane Validation
+
+This section adds DTLS-wrapped RTP media-plane validation.
+
+Main artifacts:
+
+- DTLS/RTP proxy source: `dtls_rtp/dtls_rtp_proxy.c`
+- DTLS/RTP build script: `dtls_rtp/build.sh`
+- DTLS/RTP telemetry runner: `scripts/l4/run_dtls_rtp_media_telemetry.py`
+- DTLS/RTP jitter recomputation script: `scripts/l4/recompute_dtls_rtp_arrival_jitter.py`
+- DTLS/RTP packet event CSV: `results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv`
+- DTLS/RTP summary JSON: `results/l4_dtls_rtp_media/dtls_rtp_media_summary.json`
+- DTLS/RTP summary Markdown: `results/l4_dtls_rtp_media/dtls_rtp_media_summary.md`
+- DTLS/RTP figures: `results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.*`
+- Plain-vs-DTLS comparison figures: `results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.*`, `results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.*`
+- Documentation: `docs/l4/dtls_rtp_media/DTLS_RTP_MEDIA_VALIDATION.md`
+
+Measured result:
+
+- DTLS handshake completed successfully.
+- Recovered RTP packets: 769.
+- Packet loss: 0.0%.
+- Average recovered bitrate: 102.17 kbps.
+
+Research meaning:
+
+This step moves the Level 4 workflow from plain RTP media-plane telemetry to secured DTLS-wrapped RTP media-plane validation.

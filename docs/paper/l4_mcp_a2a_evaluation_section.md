@@ -295,3 +295,15 @@ The measured RTP media-plane results show 2328 received packets, 2328 expected p
 These results provide the first live media-plane validation layer for the Level 4 architecture. Earlier steps established proof-governed MCP/A2A control-plane behaviour, reference-bound decision verification, negative-security rejection, and multi-agent scaling. Step 89 adds direct RTP packet-level evidence, which is necessary for connecting agentic control decisions to multimedia delivery behaviour.
 
 This step is intentionally limited to RTP media-plane telemetry. The next experimental step should add DTLS-secured RTP validation, so that the media-plane KPIs can be compared under unsecured RTP and DTLS-protected RTP transport.
+
+## 17. DTLS-Wrapped RTP Media-Plane Validation
+
+Step 90 extends the Step 89 plain RTP media-plane baseline by adding DTLS protection around RTP delivery.
+
+The experiment uses a local DTLS tunnel/proxy. FFmpeg sends RTP packets to a DTLS client proxy. The client protects each RTP packet as a DTLS record and sends it to a DTLS server proxy. The server recovers the RTP packet and forwards it to a local RTP receiver for packet-level telemetry.
+
+The DTLS handshake completed successfully using the PSK identity `zktrustllm-l4-client`. The recovered RTP receiver captured 769 packets during the measurement window, with 0 lost packets and 0.0% packet loss. The measured recovered bitrate was 102.17 kbps.
+
+For jitter, the result uses arrival-gap jitter rather than raw RTP timestamp-delta jitter. This is necessary because H.264 RTP timestamps can appear non-monotonic in packet capture order due to frame ordering. Arrival-gap jitter gives a safer media-plane timing metric for this controlled DTLS tunnel baseline.
+
+This step is important because it provides the first secured media-plane validation layer for the Level 4 workflow. Earlier steps measured proof-governed MCP/A2A control behaviour, negative-security rejection, multi-agent scaling, and plain RTP delivery. Step 90 shows that RTP packets can also be carried through a DTLS-protected tunnel and measured after recovery.
