@@ -1,0 +1,16 @@
+kpi,value,status
+MCP tools listed,5,measured
+MCP successful tool calls,5,measured
+MCP context retrieval success rate,1.0,measured
+MCP average tool invocation latency ms,29.711,measured
+MCP max tool invocation latency ms,39.757,measured
+MCP bundle verification latency ms,32.298,measured
+MCP bundle valid,True,measured
+A2A reference valid,True,measured
+A2A reference registration gas,440349,measured
+Reference reuse ratio single run,1.0,single-run measured path
+Raw A2A message bytes,1239,derived representative raw payload
+Reference A2A message bytes,680,derived compact reference payload
+Coordination compression gain percent,45.12,derived
+Policy admissibility observed,True,measured
+Trust-aware action observed,True,measured

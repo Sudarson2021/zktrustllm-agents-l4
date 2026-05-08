@@ -1,0 +1,51 @@
+{
+  "experiment": "level4_mcp_a2a_kpi_analysis",
+  "network": "localhost",
+  "a2a": {
+    "sourceDecisionId": "1",
+    "referenceId": "1",
+    "referenceValid": true,
+    "referenceRegistrationGas": 440349,
+    "senderAgentId": "policy-lkh-01",
+    "receiverAgentId": "policy-lkh-agent-01",
+    "actionClass": "3",
+    "referenceReuseRatioSingleRun": 1.0
+  },
+  "mcp": {
+    "listedToolCount": 5,
+    "toolCallCount": 5,
+    "successfulToolCalls": 5,
+    "mcpContextRetrievalSuccessRate": 1.0,
+    "averageToolInvocationLatencyMs": 29.711,
+    "maxToolInvocationLatencyMs": 39.757,
+    "decisionRetrievalLatencyMs": 25.288,
+    "referenceRetrievalLatencyMs": 16.612,
+    "referenceValidityCheckLatencyMs": 16.04,
+    "bundleVerificationLatencyMs": 32.298,
+    "bundleValid": true
+  },
+  "proof_policy": {
+    "policyAdmissibilityFlag": 1,
+    "trustState": 3,
+    "actionClass": 3,
+    "policyAdmissibilityObserved": true,
+    "trustAwareActionObserved": true
+  },
+  "message_size": {
+    "rawA2AMessageBytes": 1239,
+    "referenceA2AMessageBytes": 680,
+    "coordinationCompressionGain": 0.4512,
+    "coordinationCompressionGainPercent": 45.12
+  },
+  "network_kpis": {
+    "controlMessageSizeRawBytes": 1239,
+    "controlMessageSizeReferenceBytes": 680,
+    "controlPlaneOverheadRatioReferenceVsRaw": 0.5488,
+    "controlResponseTimeMs": "not yet measured - requires event-to-action timestamps",
+    "jitterDuringControlEventMs": "not yet measured - requires media/control telemetry",
+    "packetLossDuringOrchestrationPct": "not yet measured - requires DTLS/RTP/VLC telemetry",
+    "containmentTimeMs": "not yet measured - requires isolation/rekey completion timestamps",
+    "serviceContinuityImpact": "not yet measured - requires media playback metrics",
+    "recoveryTimeMs": "not yet measured - requires post-action stability timestamp"
+  }
+}
