@@ -218,3 +218,34 @@ The Level 4 prototype supports the following research claim:
 
 A proof-governed MCP/A2A coordination architecture can enable Agentic AI systems to coordinate using compact references to blockchain-authenticated shared state, while preserving policy admissibility, reference-bound decision semantics, auditability, and measurable control-plane performance.
 
+
+## 13. Benchmark Figure Analysis
+
+Following supervisor feedback, two additional benchmark figures were added to make the Level 4 result presentation clearer.
+
+### Figure 5.3: Agent Scaling of Level 4 Coordination
+
+Figure 5.3 compares coordination latency under increasing agent numbers.
+
+The evaluated methods are:
+
+- Direct agent baseline,
+- Heuristic policy agent,
+- L4 raw-context coordination,
+- Proposed L4-ref MCP/A2A coordination.
+
+The result shows that L4 raw-context coordination has higher scaling cost because larger context payloads are exchanged between agents. The proposed L4-ref MCP/A2A method reduces this cost by exchanging compact authenticated references and resolving context through MCP.
+
+### Figure 5.4: Decision Utility across Agent Positions
+
+Figure 5.4 compares decision utility across representative agent positions.
+
+The proposed L4-ref MCP/A2A method achieves the highest and most stable utility because agent decisions are supported by authenticated blockchain state, MCP context retrieval, compact A2A reference exchange, AUTH_V2.3 reference-bound proof verification, and negative-security rejection guarantees.
+
+### Interpretation
+
+The benchmark figures support the security-efficiency argument of the Level 4 design.
+
+The direct-agent baseline has lower simple control overhead but lacks proof governance and authenticated state verification. L4 raw-context coordination improves trust but increases coordination cost. The proposed L4-ref MCP/A2A design provides a stronger balance by reducing raw coordination overhead while preserving proof-governed and reference-bound decision semantics.
+
+The current figures are deterministic benchmark/emulation figures. They should be replaced or extended with live DTLS/RTP/VLC telemetry in the next experimental stage.
