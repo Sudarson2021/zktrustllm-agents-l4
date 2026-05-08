@@ -1,0 +1,180 @@
+{
+  "mcpServer": "ZKTrustLLM-Level4-MCP",
+  "listedTools": [
+    "get_auth_v2_2_decision",
+    "get_a2a_reference",
+    "is_a2a_reference_valid",
+    "verify_reference_bundle",
+    "get_level4_kpi_summary"
+  ],
+  "toolCallCount": 5,
+  "successfulToolCalls": 5,
+  "mcpContextRetrievalSuccessRate": 1.0,
+  "averageToolInvocationLatencyMs": 29.711,
+  "maxToolInvocationLatencyMs": 39.757,
+  "calls": [
+    {
+      "tool": "get_auth_v2_2_decision",
+      "arguments": {
+        "decision_id": 1
+      },
+      "latencyMs": 29.364,
+      "result": {
+        "ok": true,
+        "decisionAttestorAuthV2_2": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+        "decisionId": 1,
+        "decisionCount": 1,
+        "agentId": "policy-lkh-01",
+        "capabilityId": "0x07c87ea29f4a8831f62945ad748767970aeb18b3ac1ba76e3e889198523a013e",
+        "policyClassHash": "0x1ace2cc55bf4e4c8f32089626bf0b1d987f777ec7194741683a48d1388983977",
+        "actionClass": 3,
+        "contextHash": "0x26e181c0a94bae676a3e7f80ed4fb7825d24db2bc6e0d43aaded944ab322550e",
+        "traceCommitment": "0x273083e152399fa18c9db26edd3262646c8ee98287db4f6ff647ca2455af5a56",
+        "expiryBucket": 493129,
+        "policyAdmissibilityFlag": 1,
+        "trustState": 3,
+        "timestamp": 1778237620,
+        "retrievalLatencyMs": 25.288
+      }
+    },
+    {
+      "tool": "get_a2a_reference",
+      "arguments": {
+        "reference_id": 1
+      },
+      "latencyMs": 20.618,
+      "result": {
+        "ok": true,
+        "a2aReferenceRegistry": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+        "referenceId": 1,
+        "referenceCount": 1,
+        "valid": true,
+        "exists": true,
+        "senderAgentId": "policy-lkh-01",
+        "receiverAgentId": "policy-lkh-agent-01",
+        "sourceDecisionId": 1,
+        "sourceBlockNumber": 8,
+        "capabilityId": "0x07c87ea29f4a8831f62945ad748767970aeb18b3ac1ba76e3e889198523a013e",
+        "policyClassHash": "0x1ace2cc55bf4e4c8f32089626bf0b1d987f777ec7194741683a48d1388983977",
+        "actionClass": 3,
+        "contextHash": "0x26e181c0a94bae676a3e7f80ed4fb7825d24db2bc6e0d43aaded944ab322550e",
+        "traceCommitment": "0x273083e152399fa18c9db26edd3262646c8ee98287db4f6ff647ca2455af5a56",
+        "cidHash": "0x143acd6827532e6ea61484e3aace7f99732d81dddd9a25ae9089be24d20ef673",
+        "proofRef": "0xc97a29d5c554a7924531ab27589ee867a24bc55231211d178f459c880ca884a5",
+        "expiryBucket": 493129,
+        "expiresAt": 1778241220,
+        "createdAt": 1778237742,
+        "retrievalLatencyMs": 16.612
+      }
+    },
+    {
+      "tool": "is_a2a_reference_valid",
+      "arguments": {
+        "reference_id": 1
+      },
+      "latencyMs": 21.616,
+      "result": {
+        "ok": true,
+        "a2aReferenceRegistry": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+        "referenceId": 1,
+        "referenceCount": 1,
+        "valid": true,
+        "retrievalLatencyMs": 16.04
+      }
+    },
+    {
+      "tool": "verify_reference_bundle",
+      "arguments": {
+        "reference_id": 1
+      },
+      "latencyMs": 37.199,
+      "result": {
+        "ok": true,
+        "referenceId": 1,
+        "sourceDecisionId": 1,
+        "bundleValid": true,
+        "checks": {
+          "senderAgentMatchesDecisionAgent": true,
+          "capabilityMatches": true,
+          "policyClassMatches": true,
+          "actionClassMatches": true,
+          "contextHashMatches": true,
+          "traceCommitmentMatches": true,
+          "expiryBucketMatches": true,
+          "referenceValid": true,
+          "policyAdmissible": true,
+          "trustStateRestricted": true,
+          "actionClassIsolate": true
+        },
+        "reference": {
+          "ok": true,
+          "a2aReferenceRegistry": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+          "referenceId": 1,
+          "referenceCount": 1,
+          "valid": true,
+          "exists": true,
+          "senderAgentId": "policy-lkh-01",
+          "receiverAgentId": "policy-lkh-agent-01",
+          "sourceDecisionId": 1,
+          "sourceBlockNumber": 8,
+          "capabilityId": "0x07c87ea29f4a8831f62945ad748767970aeb18b3ac1ba76e3e889198523a013e",
+          "policyClassHash": "0x1ace2cc55bf4e4c8f32089626bf0b1d987f777ec7194741683a48d1388983977",
+          "actionClass": 3,
+          "contextHash": "0x26e181c0a94bae676a3e7f80ed4fb7825d24db2bc6e0d43aaded944ab322550e",
+          "traceCommitment": "0x273083e152399fa18c9db26edd3262646c8ee98287db4f6ff647ca2455af5a56",
+          "cidHash": "0x143acd6827532e6ea61484e3aace7f99732d81dddd9a25ae9089be24d20ef673",
+          "proofRef": "0xc97a29d5c554a7924531ab27589ee867a24bc55231211d178f459c880ca884a5",
+          "expiryBucket": 493129,
+          "expiresAt": 1778241220,
+          "createdAt": 1778237742,
+          "retrievalLatencyMs": 18.902
+        },
+        "decision": {
+          "ok": true,
+          "decisionAttestorAuthV2_2": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+          "decisionId": 1,
+          "decisionCount": 1,
+          "agentId": "policy-lkh-01",
+          "capabilityId": "0x07c87ea29f4a8831f62945ad748767970aeb18b3ac1ba76e3e889198523a013e",
+          "policyClassHash": "0x1ace2cc55bf4e4c8f32089626bf0b1d987f777ec7194741683a48d1388983977",
+          "actionClass": 3,
+          "contextHash": "0x26e181c0a94bae676a3e7f80ed4fb7825d24db2bc6e0d43aaded944ab322550e",
+          "traceCommitment": "0x273083e152399fa18c9db26edd3262646c8ee98287db4f6ff647ca2455af5a56",
+          "expiryBucket": 493129,
+          "policyAdmissibilityFlag": 1,
+          "trustState": 3,
+          "timestamp": 1778237620,
+          "retrievalLatencyMs": 13.348
+        },
+        "bundleVerificationLatencyMs": 32.298
+      }
+    },
+    {
+      "tool": "get_level4_kpi_summary",
+      "arguments": {},
+      "latencyMs": 39.757,
+      "result": {
+        "ok": true,
+        "level": "L4",
+        "mcpRole": "structured context/tool access to blockchain-authenticated state",
+        "a2aRole": "compact reference-based inter-agent coordination",
+        "blockchainRole": "authenticated shared state",
+        "zkRole": "proof-governed policy admissibility",
+        "availableMeasuredKpis": {
+          "referenceBundleValid": true,
+          "mcpBundleVerificationLatencyMs": 34.919,
+          "mcpSummaryLatencyMs": 35.134,
+          "referenceId": 1,
+          "sourceDecisionId": 1
+        },
+        "futureNetworkKpis": [
+          "control_response_time_ms",
+          "control_plane_overhead_ratio",
+          "jitter_during_control_event_ms",
+          "packet_loss_during_orchestration_pct",
+          "service_continuity_impact"
+        ]
+      }
+    }
+  ]
+}
