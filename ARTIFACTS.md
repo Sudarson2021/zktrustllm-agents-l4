@@ -89,3 +89,37 @@ Measured result:
 Research meaning:
 
 A2A provides compact inter-agent reference exchange. MCP provides structured access to the authenticated blockchain context behind those references. The implemented MCP tools allow an agent to retrieve and verify AUTH_V2.2 decisions and A2A references without directly receiving full raw decision or evidence payloads.
+
+## L4 MCP/A2A KPI Analysis
+
+This section extends the proper MCP server and A2A reference-aware coordination prototype with detailed KPI analysis.
+
+Main artifacts:
+
+- MCP/A2A Level 4 analysis: `docs/l4/mcp_a2a_kpi/MCP_A2A_LEVEL4_ANALYSIS.md`
+- KPI table: `docs/l4/mcp_a2a_kpi/KPI_TABLE.md`
+- Expected results: `docs/l4/mcp_a2a_kpi/EXPECTED_RESULTS.md`
+- Network KPI plan: `docs/l4/mcp_a2a_kpi/NETWORK_KPI_PLAN.md`
+- KPI analysis script: `scripts/l4/analyze_mcp_a2a_level4_kpis.py`
+- KPI JSON result: `results/l4_mcp_a2a_kpi/kpi_summary.json`
+- KPI CSV result: `results/l4_mcp_a2a_kpi/kpi_summary.csv`
+- KPI Markdown summary: `results/l4_mcp_a2a_kpi/kpi_summary.md`
+
+Measured/derived result:
+
+- MCP tools listed: 5
+- MCP successful tool calls: 5/5
+- MCP context retrieval success rate: 1.0
+- MCP average tool invocation latency: 29.711 ms
+- MCP maximum tool invocation latency: 39.757 ms
+- MCP reference-bundle validity: true
+- MCP bundle verification latency: 32.298 ms
+- A2A reference validity: true
+- A2A reference registration gas: 440349
+- Raw A2A message size: 1239 bytes
+- Reference A2A message size: 680 bytes
+- Coordination compression gain: 45.12%
+
+Research meaning:
+
+This analysis directly addresses the Level 4 MCP/A2A evaluation requirement. MCP provides structured context/tool access. A2A provides compact inter-agent coordination. Blockchain provides authenticated shared state. AUTH_V2.2 provides proof-governed admissibility. Network KPIs are defined for the next control/media telemetry experiment.
