@@ -1,0 +1,81 @@
+{
+  "experiment": "auth_v2_3_negative_security_tests",
+  "network": "localhost",
+  "authV2_3Groth16Verifier": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+  "decisionAttestorAuthV2_3": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+  "validPath": {
+    "verifierAccepted": true,
+    "attestorStaticAccepted": true,
+    "inputCount": 12,
+    "relationVersion": "auth_v2_3_reference_bound_relation",
+    "proofOutput": "1"
+  },
+  "negativeCaseCount": 7,
+  "negativeCasesPassed": 7,
+  "unauthorizedOrTamperedRejectionRate": 1,
+  "cases": [
+    {
+      "name": "tampered_action_class",
+      "expectedReason": "Changing actionClass breaks the proof-bound public input",
+      "verifierAccepted": false,
+      "verifierError": null,
+      "attestorRejected": true,
+      "attestorError": "Error: VM Exception while processing transaction: reverted with reason string 'AUTH_V2_3: invalid proof'",
+      "passed": true
+    },
+    {
+      "name": "tampered_policy_admissibility_flag",
+      "expectedReason": "Changing policyAdmissibilityFlag breaks the proof-bound public input",
+      "verifierAccepted": false,
+      "verifierError": null,
+      "attestorRejected": true,
+      "attestorError": "Error: VM Exception while processing transaction: reverted with reason string 'AUTH_V2_3: invalid proof'",
+      "passed": true
+    },
+    {
+      "name": "tampered_trust_state",
+      "expectedReason": "Changing trustState breaks the proof-bound public input",
+      "verifierAccepted": false,
+      "verifierError": null,
+      "attestorRejected": true,
+      "attestorError": "Error: VM Exception while processing transaction: reverted with reason string 'AUTH_V2_3: invalid proof'",
+      "passed": true
+    },
+    {
+      "name": "tampered_reference_context_hash",
+      "expectedReason": "Changing referenceContextHash breaks the reference-bound proof",
+      "verifierAccepted": false,
+      "verifierError": null,
+      "attestorRejected": true,
+      "attestorError": "Error: VM Exception while processing transaction: reverted with reason string 'AUTH_V2_3: invalid proof'",
+      "passed": true
+    },
+    {
+      "name": "tampered_coordination_session_id",
+      "expectedReason": "Changing coordinationSessionId breaks the reference-bound proof",
+      "verifierAccepted": false,
+      "verifierError": null,
+      "attestorRejected": true,
+      "attestorError": "Error: VM Exception while processing transaction: reverted with reason string 'AUTH_V2_3: invalid proof'",
+      "passed": true
+    },
+    {
+      "name": "tampered_proof_output",
+      "expectedReason": "Changing public proof output breaks the verifier relation",
+      "verifierAccepted": false,
+      "verifierError": null,
+      "attestorRejected": true,
+      "attestorError": "Error: VM Exception while processing transaction: reverted with reason string 'AUTH_V2_3: invalid proof'",
+      "passed": true
+    },
+    {
+      "name": "wrong_input_length",
+      "expectedReason": "AUTH_V2.3 verifier/attestor requires exactly 12 public inputs",
+      "verifierAccepted": null,
+      "verifierError": null,
+      "attestorRejected": true,
+      "attestorError": "array is wrong length",
+      "passed": true
+    }
+  ]
+}
