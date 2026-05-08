@@ -18,7 +18,7 @@ interface IAuthV2_3Verifier {
         G1Point c;
     }
 
-    function verifyTx(Proof calldata proof, uint256[11] calldata input)
+    function verifyTx(Proof calldata proof, uint256[12] calldata input)
         external
         view
         returns (bool);
@@ -27,7 +27,7 @@ interface IAuthV2_3Verifier {
 /**
  * @title DecisionAttestorAuthV2_3
  * @notice Stores AUTH_V2.3 reference-bound proof-backed agent decisions.
- * @dev AUTH_V2.3 extends AUTH_V2.2 by adding referenceContextHash and coordinationSessionId.
+ * @dev ZoKrates verifier exposes 12 public inputs here: 11 relation inputs plus 1 public output.
  */
 contract DecisionAttestorAuthV2_3 {
     struct Decision {
@@ -43,6 +43,7 @@ contract DecisionAttestorAuthV2_3 {
         uint256 trustState;
         uint256 referenceContextHash;
         uint256 coordinationSessionId;
+        uint256 proofOutput;
         uint256 timestamp;
     }
 
@@ -65,6 +66,7 @@ contract DecisionAttestorAuthV2_3 {
         uint256 trustState,
         uint256 referenceContextHash,
         uint256 coordinationSessionId,
+        uint256 proofOutput,
         uint256 timestamp
     );
 
@@ -76,7 +78,7 @@ contract DecisionAttestorAuthV2_3 {
     function submitDecision(
         string calldata agentId,
         IAuthV2_3Verifier.Proof calldata proof,
-        uint256[11] calldata input
+        uint256[12] calldata input
     ) external returns (uint256) {
         require(bytes(agentId).length > 0, "AUTH_V2_3: empty agentId");
         require(verifier.verifyTx(proof, input), "AUTH_V2_3: invalid proof");
@@ -86,6 +88,7 @@ contract DecisionAttestorAuthV2_3 {
         require(input[8] == 3, "AUTH_V2_3: trust state must be restricted");
         require(input[9] != 0, "AUTH_V2_3: zero reference context");
         require(input[10] != 0, "AUTH_V2_3: zero coordination session");
+        require(input[11] == 1, "AUTH_V2_3: relation output must be true");
 
         decisionCount += 1;
         uint256 decisionId = decisionCount;
@@ -103,6 +106,7 @@ contract DecisionAttestorAuthV2_3 {
             trustState: input[8],
             referenceContextHash: input[9],
             coordinationSessionId: input[10],
+            proofOutput: input[11],
             timestamp: block.timestamp
         });
 
@@ -120,6 +124,7 @@ contract DecisionAttestorAuthV2_3 {
             input[8],
             input[9],
             input[10],
+            input[11],
             block.timestamp
         );
 
@@ -142,6 +147,7 @@ contract DecisionAttestorAuthV2_3 {
             uint256 trustState,
             uint256 referenceContextHash,
             uint256 coordinationSessionId,
+            uint256 proofOutput,
             uint256 timestamp
         )
     {
@@ -160,6 +166,7 @@ contract DecisionAttestorAuthV2_3 {
             d.trustState,
             d.referenceContextHash,
             d.coordinationSessionId,
+            d.proofOutput,
             d.timestamp
         );
     }
