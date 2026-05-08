@@ -1,0 +1,46 @@
+repetition,agent_count,mode,success,accepted_agents,total_latency_ms,latency_per_agent_ms,control_message_bytes,agents_per_second,proof_governed,reference_bound,notes
+1,5,baseline_direct_agent,true,5,0.005,0.001,826,1086955.122,false,false,local direct policy batch
+1,5,l4_raw_context,true,5,351.902,70.38,17413,14.208,true,false,MCP decision+reference+bundle batch
+1,5,l4_ref_mcp_a2a,true,5,166.865,33.373,391,29.964,true,true,compact A2A reference batch plus MCP bundle verification
+1,10,baseline_direct_agent,true,10,0.006,0.001,1651,1771791.806,false,false,local direct policy batch
+1,10,l4_raw_context,true,10,727.275,72.728,34824,13.75,true,false,MCP decision+reference+bundle batch
+1,10,l4_ref_mcp_a2a,true,10,341.946,34.195,781,29.244,true,true,compact A2A reference batch plus MCP bundle verification
+1,15,baseline_direct_agent,true,15,0.006,0.0,2481,2452585.254,false,false,local direct policy batch
+1,15,l4_raw_context,true,15,1084.541,72.303,52241,13.831,true,false,MCP decision+reference+bundle batch
+1,15,l4_ref_mcp_a2a,true,15,515.484,34.366,1176,29.099,true,true,compact A2A reference batch plus MCP bundle verification
+1,20,baseline_direct_agent,true,20,0.007,0.0,3311,2696869.721,false,false,local direct policy batch
+1,20,l4_raw_context,true,20,1433.9,71.695,69661,13.948,true,false,MCP decision+reference+bundle batch
+1,20,l4_ref_mcp_a2a,true,20,651.879,32.594,1571,30.681,true,true,compact A2A reference batch plus MCP bundle verification
+1,25,baseline_direct_agent,true,25,0.016,0.001,4141,1593066.601,false,false,local direct policy batch
+1,25,l4_raw_context,true,25,1761.664,70.467,87081,14.191,true,false,MCP decision+reference+bundle batch
+1,25,l4_ref_mcp_a2a,true,25,821.294,32.852,1966,30.44,true,true,compact A2A reference batch plus MCP bundle verification
+2,5,baseline_direct_agent,true,5,0.005,0.001,826,980009.993,false,false,local direct policy batch
+2,5,l4_raw_context,true,5,327.773,65.555,17411,15.254,true,false,MCP decision+reference+bundle batch
+2,5,l4_ref_mcp_a2a,true,5,155.197,31.039,391,32.217,true,true,compact A2A reference batch plus MCP bundle verification
+2,10,baseline_direct_agent,true,10,0.005,0.001,1651,1918279.251,false,false,local direct policy batch
+2,10,l4_raw_context,true,10,682.374,68.237,34827,14.655,true,false,MCP decision+reference+bundle batch
+2,10,l4_ref_mcp_a2a,true,10,314.821,31.482,781,31.764,true,true,compact A2A reference batch plus MCP bundle verification
+2,15,baseline_direct_agent,true,15,0.006,0.0,2481,2617346.402,false,false,local direct policy batch
+2,15,l4_raw_context,true,15,1305.691,87.046,52242,11.488,true,false,MCP decision+reference+bundle batch
+2,15,l4_ref_mcp_a2a,true,15,474.111,31.607,1176,31.638,true,true,compact A2A reference batch plus MCP bundle verification
+2,20,baseline_direct_agent,true,20,0.01,0.0,3311,2068038.651,false,false,local direct policy batch
+2,20,l4_raw_context,true,20,1371.752,68.588,69650,14.58,true,false,MCP decision+reference+bundle batch
+2,20,l4_ref_mcp_a2a,true,20,619.444,30.972,1571,32.287,true,true,compact A2A reference batch plus MCP bundle verification
+2,25,baseline_direct_agent,true,25,0.01,0.0,4141,2484101.08,false,false,local direct policy batch
+2,25,l4_raw_context,true,25,1695.959,67.838,87074,14.741,true,false,MCP decision+reference+bundle batch
+2,25,l4_ref_mcp_a2a,true,25,810.743,32.43,1966,30.836,true,true,compact A2A reference batch plus MCP bundle verification
+3,5,baseline_direct_agent,true,5,0.004,0.001,826,1374384.037,false,false,local direct policy batch
+3,5,l4_raw_context,true,5,335.598,67.12,17413,14.899,true,false,MCP decision+reference+bundle batch
+3,5,l4_ref_mcp_a2a,true,5,153.681,30.736,391,32.535,true,true,compact A2A reference batch plus MCP bundle verification
+3,10,baseline_direct_agent,true,10,0.005,0.001,1651,1841278.957,false,false,local direct policy batch
+3,10,l4_raw_context,true,10,681.137,68.114,34823,14.681,true,false,MCP decision+reference+bundle batch
+3,10,l4_ref_mcp_a2a,true,10,311.81,31.181,781,32.071,true,true,compact A2A reference batch plus MCP bundle verification
+3,15,baseline_direct_agent,true,15,0.006,0.0,2481,2412739.189,false,false,local direct policy batch
+3,15,l4_raw_context,true,15,1152.476,76.832,52243,13.015,true,false,MCP decision+reference+bundle batch
+3,15,l4_ref_mcp_a2a,true,15,480.798,32.053,1176,31.198,true,true,compact A2A reference batch plus MCP bundle verification
+3,20,baseline_direct_agent,true,20,0.011,0.001,3311,1832172.488,false,false,local direct policy batch
+3,20,l4_raw_context,true,20,1397.582,69.879,69656,14.31,true,false,MCP decision+reference+bundle batch
+3,20,l4_ref_mcp_a2a,true,20,633.006,31.65,1571,31.595,true,true,compact A2A reference batch plus MCP bundle verification
+3,25,baseline_direct_agent,true,25,0.014,0.001,4141,1834458.525,false,false,local direct policy batch
+3,25,l4_raw_context,true,25,1695.623,67.825,87079,14.744,true,false,MCP decision+reference+bundle batch
+3,25,l4_ref_mcp_a2a,true,25,820.876,32.835,1966,30.455,true,true,compact A2A reference batch plus MCP bundle verification

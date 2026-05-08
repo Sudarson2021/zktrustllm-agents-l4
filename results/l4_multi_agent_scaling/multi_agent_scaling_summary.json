@@ -1,0 +1,246 @@
+{
+  "experiment": "step87_multi_agent_scaling_telemetry",
+  "importantNote": "These are repeated semi-live MCP/A2A control-plane scaling measurements. They measure local MCP tool invocation and coordination timing across increasing agent counts. They are not yet live VLC/DTLS/RTP media-plane measurements.",
+  "agentCounts": [
+    5,
+    10,
+    15,
+    20,
+    25
+  ],
+  "repetitions": 3,
+  "summary": {
+    "byScenario": {
+      "baseline_direct_agent_5_agents": {
+        "mode": "baseline_direct_agent",
+        "agentCount": 5,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 0.005,
+        "p50TotalLatencyMs": 0.005,
+        "p95TotalLatencyMs": 0.005,
+        "jitterStdMs": 0.0,
+        "avgLatencyPerAgentMs": 0.001,
+        "avgControlMessageBytes": 826,
+        "avgAgentsPerSecond": 1147116.384
+      },
+      "baseline_direct_agent_10_agents": {
+        "mode": "baseline_direct_agent",
+        "agentCount": 10,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 0.005,
+        "p50TotalLatencyMs": 0.005,
+        "p95TotalLatencyMs": 0.006,
+        "jitterStdMs": 0.0,
+        "avgLatencyPerAgentMs": 0.001,
+        "avgControlMessageBytes": 1651,
+        "avgAgentsPerSecond": 1843783.338
+      },
+      "baseline_direct_agent_15_agents": {
+        "mode": "baseline_direct_agent",
+        "agentCount": 15,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 0.006,
+        "p50TotalLatencyMs": 0.006,
+        "p95TotalLatencyMs": 0.006,
+        "jitterStdMs": 0.0,
+        "avgLatencyPerAgentMs": 0.0,
+        "avgControlMessageBytes": 2481,
+        "avgAgentsPerSecond": 2494223.615
+      },
+      "baseline_direct_agent_20_agents": {
+        "mode": "baseline_direct_agent",
+        "agentCount": 20,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 0.009,
+        "p50TotalLatencyMs": 0.01,
+        "p95TotalLatencyMs": 0.011,
+        "jitterStdMs": 0.002,
+        "avgLatencyPerAgentMs": 0.0,
+        "avgControlMessageBytes": 3311,
+        "avgAgentsPerSecond": 2199026.953
+      },
+      "baseline_direct_agent_25_agents": {
+        "mode": "baseline_direct_agent",
+        "agentCount": 25,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 0.013,
+        "p50TotalLatencyMs": 0.014,
+        "p95TotalLatencyMs": 0.016,
+        "jitterStdMs": 0.002,
+        "avgLatencyPerAgentMs": 0.001,
+        "avgControlMessageBytes": 4141,
+        "avgAgentsPerSecond": 1970542.069
+      },
+      "l4_raw_context_5_agents": {
+        "mode": "l4_raw_context",
+        "agentCount": 5,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 338.424,
+        "p50TotalLatencyMs": 335.598,
+        "p95TotalLatencyMs": 351.902,
+        "jitterStdMs": 10.051,
+        "avgLatencyPerAgentMs": 67.685,
+        "avgControlMessageBytes": 17412.333,
+        "avgAgentsPerSecond": 14.787
+      },
+      "l4_raw_context_10_agents": {
+        "mode": "l4_raw_context",
+        "agentCount": 10,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 696.929,
+        "p50TotalLatencyMs": 682.374,
+        "p95TotalLatencyMs": 727.275,
+        "jitterStdMs": 21.464,
+        "avgLatencyPerAgentMs": 69.693,
+        "avgControlMessageBytes": 34824.667,
+        "avgAgentsPerSecond": 14.362
+      },
+      "l4_raw_context_15_agents": {
+        "mode": "l4_raw_context",
+        "agentCount": 15,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 1180.903,
+        "p50TotalLatencyMs": 1152.476,
+        "p95TotalLatencyMs": 1305.691,
+        "jitterStdMs": 92.495,
+        "avgLatencyPerAgentMs": 78.727,
+        "avgControlMessageBytes": 52242,
+        "avgAgentsPerSecond": 12.778
+      },
+      "l4_raw_context_20_agents": {
+        "mode": "l4_raw_context",
+        "agentCount": 20,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 1401.078,
+        "p50TotalLatencyMs": 1397.582,
+        "p95TotalLatencyMs": 1433.9,
+        "jitterStdMs": 25.492,
+        "avgLatencyPerAgentMs": 70.054,
+        "avgControlMessageBytes": 69655.667,
+        "avgAgentsPerSecond": 14.279
+      },
+      "l4_raw_context_25_agents": {
+        "mode": "l4_raw_context",
+        "agentCount": 25,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 1717.749,
+        "p50TotalLatencyMs": 1695.959,
+        "p95TotalLatencyMs": 1761.664,
+        "jitterStdMs": 31.053,
+        "avgLatencyPerAgentMs": 68.71,
+        "avgControlMessageBytes": 87078,
+        "avgAgentsPerSecond": 14.559
+      },
+      "l4_ref_mcp_a2a_5_agents": {
+        "mode": "l4_ref_mcp_a2a",
+        "agentCount": 5,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 158.581,
+        "p50TotalLatencyMs": 155.197,
+        "p95TotalLatencyMs": 166.865,
+        "jitterStdMs": 5.89,
+        "avgLatencyPerAgentMs": 31.716,
+        "avgControlMessageBytes": 391,
+        "avgAgentsPerSecond": 31.572
+      },
+      "l4_ref_mcp_a2a_10_agents": {
+        "mode": "l4_ref_mcp_a2a",
+        "agentCount": 10,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 322.859,
+        "p50TotalLatencyMs": 314.821,
+        "p95TotalLatencyMs": 341.946,
+        "jitterStdMs": 13.552,
+        "avgLatencyPerAgentMs": 32.286,
+        "avgControlMessageBytes": 781,
+        "avgAgentsPerSecond": 31.026
+      },
+      "l4_ref_mcp_a2a_15_agents": {
+        "mode": "l4_ref_mcp_a2a",
+        "agentCount": 15,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 490.131,
+        "p50TotalLatencyMs": 480.798,
+        "p95TotalLatencyMs": 515.484,
+        "jitterStdMs": 18.134,
+        "avgLatencyPerAgentMs": 32.675,
+        "avgControlMessageBytes": 1176,
+        "avgAgentsPerSecond": 30.645
+      },
+      "l4_ref_mcp_a2a_20_agents": {
+        "mode": "l4_ref_mcp_a2a",
+        "agentCount": 20,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 634.776,
+        "p50TotalLatencyMs": 633.006,
+        "p95TotalLatencyMs": 651.879,
+        "jitterStdMs": 13.301,
+        "avgLatencyPerAgentMs": 31.739,
+        "avgControlMessageBytes": 1571,
+        "avgAgentsPerSecond": 31.521
+      },
+      "l4_ref_mcp_a2a_25_agents": {
+        "mode": "l4_ref_mcp_a2a",
+        "agentCount": 25,
+        "repetitions": 3,
+        "successRate": 1.0,
+        "avgTotalLatencyMs": 817.638,
+        "p50TotalLatencyMs": 820.876,
+        "p95TotalLatencyMs": 821.294,
+        "jitterStdMs": 4.878,
+        "avgLatencyPerAgentMs": 32.706,
+        "avgControlMessageBytes": 1966,
+        "avgAgentsPerSecond": 30.577
+      }
+    },
+    "comparisons": {
+      "5_agents": {
+        "l4RefLatencyReductionVsRawPct": 53.14,
+        "l4RefMessageReductionVsRawPct": 97.75,
+        "l4RefThroughputGainVsRawPct": 113.51
+      },
+      "10_agents": {
+        "l4RefLatencyReductionVsRawPct": 53.67,
+        "l4RefMessageReductionVsRawPct": 97.76,
+        "l4RefThroughputGainVsRawPct": 116.03
+      },
+      "15_agents": {
+        "l4RefLatencyReductionVsRawPct": 58.5,
+        "l4RefMessageReductionVsRawPct": 97.75,
+        "l4RefThroughputGainVsRawPct": 139.83
+      },
+      "20_agents": {
+        "l4RefLatencyReductionVsRawPct": 54.69,
+        "l4RefMessageReductionVsRawPct": 97.74,
+        "l4RefThroughputGainVsRawPct": 120.75
+      },
+      "25_agents": {
+        "l4RefLatencyReductionVsRawPct": 52.4,
+        "l4RefMessageReductionVsRawPct": 97.74,
+        "l4RefThroughputGainVsRawPct": 110.02
+      }
+    }
+  },
+  "files": {
+    "eventsCsv": "results/l4_multi_agent_scaling/multi_agent_scaling_events.csv",
+    "summaryJson": "results/l4_multi_agent_scaling/multi_agent_scaling_summary.json",
+    "summaryMarkdown": "results/l4_multi_agent_scaling/multi_agent_scaling_summary.md",
+    "figureLatencyPng": "results/l4_multi_agent_scaling/figure_5_7_multi_agent_scaling_latency.png",
+    "figureBytesPng": "results/l4_multi_agent_scaling/figure_5_8_multi_agent_control_bytes.png",
+    "figureThroughputPng": "results/l4_multi_agent_scaling/figure_5_9_multi_agent_throughput.png"
+  }
+}
