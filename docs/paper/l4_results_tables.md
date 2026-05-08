@@ -89,3 +89,29 @@ The network KPI results are deterministic telemetry-emulation values derived fro
   - `results/l4_benchmark_figures/figure_5_4_decision_utility_positions.svg`
 
 Note: These figures are deterministic benchmark/emulation figures. They are not yet live DTLS/RTP/VLC measurements.
+
+## Table 8: Step 86 Semi-Live Control Telemetry Summary
+
+| Mode | Runs | Success rate | Avg response ms | P50 ms | P95 ms | Jitter std ms | Avg control bytes |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| baseline_direct_agent | 20 | 1.0 | 0.001 | 0.001 | 0.001 | 0.0 | 159.55 |
+| l4_raw_context | 20 | 1.0 | 72.793 | 72.974 | 77.039 | 3.119 | 3477.25 |
+| l4_ref_mcp_a2a | 20 | 1.0 | 34.918 | 35.556 | 36.155 | 1.406 | 72.55 |
+
+## Table 9: Step 86 L4 Reference Improvement
+
+| Metric | Result |
+|---|---:|
+| L4-ref latency reduction vs L4 raw-context | 52.03% |
+| L4-ref control-message reduction vs L4 raw-context | 97.91% |
+
+Figure source files:
+
+- `results/l4_live_telemetry/figure_5_5_semi_live_control_latency.png`
+- `results/l4_live_telemetry/figure_5_5_semi_live_control_latency.pdf`
+- `results/l4_live_telemetry/figure_5_5_semi_live_control_latency.svg`
+- `results/l4_live_telemetry/figure_5_6_semi_live_control_summary.png`
+- `results/l4_live_telemetry/figure_5_6_semi_live_control_summary.pdf`
+- `results/l4_live_telemetry/figure_5_6_semi_live_control_summary.svg`
+
+Note: These are semi-live MCP/A2A control-plane measurements, not live VLC/DTLS/RTP media measurements.
