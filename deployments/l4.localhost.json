@@ -29,8 +29,8 @@
   "a2aReferenceRegistrySourceAttestor": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
   "a2aReferenceRegistryNetwork": "localhost",
   "a2aReferenceRegistryUpdatedAt": "2026-05-08T10:53:08.562Z",
-  "authV2_3Groth16Verifier": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
-  "decisionAttestorAuthV2_3": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+  "authV2_3Groth16Verifier": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+  "decisionAttestorAuthV2_3": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
   "authV2_3Network": "localhost",
-  "authV2_3UpdatedAt": "2026-05-08T12:25:21.096Z"
+  "authV2_3UpdatedAt": "2026-05-08T12:31:08.934Z"
 }
