@@ -250,3 +250,33 @@ Figure 5.3 shows agent-scaling coordination latency. Figure 5.4 shows decision u
 Important boundary:
 
 These figures are deterministic benchmark/emulation figures and are not yet live DTLS/RTP/VLC measurements.
+
+## L4 Step 86 Semi-Live Control-Plane Telemetry
+
+This section adds semi-live measured MCP/A2A control-plane telemetry.
+
+Main artifacts:
+
+- Telemetry runner: `scripts/l4/run_l4_semi_live_control_telemetry.py`
+- Event-level telemetry CSV: `results/l4_live_telemetry/semi_live_control_events.csv`
+- Telemetry summary JSON: `results/l4_live_telemetry/semi_live_control_summary.json`
+- Telemetry summary Markdown: `results/l4_live_telemetry/semi_live_control_summary.md`
+- Figure 5.5 PNG/PDF/SVG: `results/l4_live_telemetry/figure_5_5_semi_live_control_latency.*`
+- Figure 5.6 PNG/PDF/SVG: `results/l4_live_telemetry/figure_5_6_semi_live_control_summary.*`
+- Documentation: `docs/l4/live_telemetry/SEMI_LIVE_CONTROL_TELEMETRY.md`
+
+Measured result:
+
+- baseline direct-agent average control response: 0.001 ms
+- L4 raw-context average control response: 72.793 ms
+- L4-ref MCP/A2A average control response: 34.918 ms
+- L4-ref latency reduction vs raw-context: 52.03%
+- L4-ref control-message reduction vs raw-context: 97.91%
+
+Research meaning:
+
+This step moves the evaluation from deterministic network KPI emulation toward actual measured MCP/A2A control-plane telemetry. It repeatedly measures baseline direct-agent control, L4 raw-context coordination, and proposed L4-ref MCP/A2A coordination.
+
+Boundary:
+
+These are semi-live control-plane measurements and are not yet live VLC/DTLS/RTP media-plane measurements.
