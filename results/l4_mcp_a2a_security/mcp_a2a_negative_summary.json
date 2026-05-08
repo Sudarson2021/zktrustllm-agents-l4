@@ -1,0 +1,87 @@
+{
+  "experiment": "mcp_a2a_negative_security_tests",
+  "negativeCaseCount": 4,
+  "negativeCasesPassed": 4,
+  "mcpA2AInvalidContextRejectionRate": 1.0,
+  "tests": [
+    {
+      "name": "invalid_auth_v2_2_decision_lookup",
+      "expected": "MCP tool returns ok=false for out-of-range decision",
+      "call": {
+        "tool": "get_auth_v2_2_decision",
+        "arguments": {
+          "decision_id": 999
+        },
+        "latencyMs": 24.406,
+        "result": {
+          "ok": false,
+          "error": "decision_id out of range",
+          "decisionCount": 1,
+          "decisionId": 999
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "invalid_a2a_reference_lookup",
+      "expected": "MCP tool returns ok=false for out-of-range reference",
+      "call": {
+        "tool": "get_a2a_reference",
+        "arguments": {
+          "reference_id": 999
+        },
+        "latencyMs": 13.334,
+        "result": {
+          "ok": false,
+          "error": "reference_id out of range",
+          "referenceCount": 1,
+          "referenceId": 999
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "invalid_a2a_reference_validity_check",
+      "expected": "MCP validity tool returns valid=false for out-of-range reference",
+      "call": {
+        "tool": "is_a2a_reference_valid",
+        "arguments": {
+          "reference_id": 999
+        },
+        "latencyMs": 11.705,
+        "result": {
+          "ok": true,
+          "a2aReferenceRegistry": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+          "referenceId": 999,
+          "referenceCount": 1,
+          "valid": false,
+          "retrievalLatencyMs": 7.81
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "invalid_reference_bundle_verification",
+      "expected": "MCP bundle verifier returns ok=false for invalid reference",
+      "call": {
+        "tool": "verify_reference_bundle",
+        "arguments": {
+          "reference_id": 999
+        },
+        "latencyMs": 13.008,
+        "result": {
+          "ok": false,
+          "referenceId": 999,
+          "error": "reference_id out of range",
+          "reference": {
+            "ok": false,
+            "error": "reference_id out of range",
+            "referenceCount": 1,
+            "referenceId": 999
+          }
+        }
+      },
+      "passed": true
+    }
+  ]
+}
