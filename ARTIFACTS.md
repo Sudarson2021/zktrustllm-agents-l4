@@ -179,3 +179,33 @@ Measured result:
 Research meaning:
 
 These tests show that the Level 4 design accepts valid reference-bound proof paths while rejecting tampered proof inputs, malformed verifier inputs, invalid decision lookups, and invalid A2A reference contexts.
+
+## L4 Step 83 Network KPI Telemetry Results
+
+This section adds a network-facing KPI evaluation layer for the Level 4 MCP/A2A reference-bound coordination workflow.
+
+Main artifacts:
+
+- Network KPI script: `scripts/l4/simulate_mcp_a2a_network_kpis.py`
+- Network KPI JSON result: `results/l4_network_kpis/network_kpi_summary.json`
+- Network KPI CSV result: `results/l4_network_kpis/network_kpi_summary.csv`
+- Network KPI Markdown summary: `results/l4_network_kpis/network_kpi_summary.md`
+- Network KPI documentation: `docs/l4/network_kpi/NETWORK_KPI_TELEMETRY_RESULTS.md`
+
+Measured/derived input values:
+
+- Raw A2A message bytes: 1239
+- Reference A2A message bytes: 680
+- MCP average tool invocation latency: 29.711 ms
+- MCP bundle verification latency: 32.298 ms
+- AUTH_V2.3 gas used: 671779
+- AUTH_V2.3 tampered rejection rate: 1.0
+- MCP/A2A invalid-context rejection rate: 1.0
+
+Research meaning:
+
+This step turns the Level 4 MCP/A2A workflow into a network-facing KPI evaluation. It compares baseline direct-agent control, L4 raw-context coordination, and L4 compact-reference coordination. The result supports the claim that compact authenticated references reduce inter-agent control-message overhead while preserving proof-governed and reference-bound decision semantics.
+
+Important boundary:
+
+The current results are deterministic telemetry-emulation results, not live VLC/DTLS/RTP measurements. The next step is to replace the emulated telemetry values with real media/network logs.
