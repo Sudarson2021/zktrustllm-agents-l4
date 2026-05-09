@@ -779,3 +779,38 @@ Research meaning:
 
 Step 105 connects local Hardhat audit-anchor validation to the L4 policy-gated automation framework. It enables controlled, human-approved validation of on-chain anchoring and negative-security behaviour.
 
+## L4 Step 106 Supervisor Milestone Report: Automation, Audit, IPFS, and On-Chain Validation
+
+This section adds a supervisor-ready milestone report covering the full Level 4 automation and audit chain from Step 96 to Step 105.
+
+Main artifacts:
+
+- Supervisor milestone report builder:
+  - `scripts/l4/build_l4_supervisor_milestone_report_steps96_105.py`
+
+- Supervisor milestone summary JSON:
+  - `results/l4_milestone_report/supervisor_milestone_report_steps96_105_summary.json`
+
+- Supervisor milestone Markdown report:
+  - `docs/report/zktrustllm_l4_supervisor_milestone_report_steps96_105.md`
+
+- Supervisor milestone PDF report:
+  - `results/l4_report_pdf/zktrustllm_l4_supervisor_milestone_report_steps96_105.pdf`
+
+Coverage:
+
+- Step 96: agentic automation suite
+- Step 97: closed-loop KPI decision agent
+- Step 98: remediation executor
+- Step 99: automation governance dashboard
+- Step 100: policy-gated autonomous scheduler
+- Step 101: hash-chained automation audit ledger
+- Step 102: IPFS/blockchain-ready audit anchor
+- Step 103: on-chain audit-anchor registry
+- Step 104: on-chain negative-security validation
+- Step 105: policy-gated on-chain audit-anchor validation
+
+Research meaning:
+
+This report consolidates the project milestone into one supervisor-readable document showing that the Level 4 workflow now supports controlled agentic automation, KPI-based decisioning, policy-gated execution, audit provenance, IPFS anchoring, and local on-chain validation.
+

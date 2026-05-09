@@ -1,0 +1,91 @@
+{
+  "createdAt": "2026-05-09T18:01:00.237719+00:00",
+  "title": "ZKTrustLLM-Agents L4 Supervisor Milestone Report: Automation, Audit, IPFS, and On-Chain Validation",
+  "steps": [
+    {
+      "step": "96",
+      "component": "Agentic automation suite",
+      "status": "PASS",
+      "evidence": "Runs MCP/A2A control tests, scaling, RTP, DTLS-RTP, loopback impairment, and namespace impairment.",
+      "artifact": "results/l4_agentic_automation/agentic_automation_summary.json"
+    },
+    {
+      "step": "97",
+      "component": "Closed-loop KPI decision agent",
+      "status": "GENERATE_SUPERVISOR_REPORT",
+      "evidence": "Reads KPI evidence and recommends the next safe workflow action.",
+      "artifact": "results/l4_closed_loop_agent/closed_loop_kpi_decision.json"
+    },
+    {
+      "step": "98",
+      "component": "Closed-loop remediation executor",
+      "status": "EXECUTED_PASS",
+      "evidence": "Executes approved remediation or supervisor-report generation after human approval.",
+      "artifact": "results/l4_remediation_executor/remediation_execution_plan.json"
+    },
+    {
+      "step": "99",
+      "component": "Automation governance dashboard",
+      "status": "JSON_PRESENT",
+      "evidence": "Summarises the governance boundary for Steps 96-98.",
+      "artifact": "results/l4_automation_governance/automation_governance_dashboard.json"
+    },
+    {
+      "step": "100",
+      "component": "Policy-gated autonomous scheduler",
+      "status": "EXECUTED_PASS",
+      "evidence": "Connects KPI decision and remediation under an explicit automation policy.",
+      "artifact": "results/l4_policy_scheduler/policy_scheduler_summary.json"
+    },
+    {
+      "step": "101",
+      "component": "Hash-chained automation audit ledger",
+      "status": "FINAL_HASH_0db58b3f2c09",
+      "evidence": "Creates a tamper-evident audit chain over automation artifacts.",
+      "artifact": "results/l4_automation_audit_ledger/automation_audit_ledger.json"
+    },
+    {
+      "step": "102",
+      "component": "IPFS/blockchain-ready audit anchor",
+      "status": "IPFS_ADD_PASS",
+      "evidence": "Anchors the audit ledger with IPFS CID and blockchain-ready commitment hash.",
+      "artifact": "results/l4_audit_anchor/audit_ledger_anchor_record.json"
+    },
+    {
+      "step": "103",
+      "component": "On-chain audit-anchor registry",
+      "status": "ANCHOR_ID_0",
+      "evidence": "Stores the automation audit anchor in a local Hardhat smart-contract registry.",
+      "artifact": "results/l4_onchain_anchor/onchain_audit_anchor_result.json"
+    },
+    {
+      "step": "104",
+      "component": "On-chain negative-security validation",
+      "status": "PASS",
+      "evidence": "Validates replay rejection and invalid zero-commitment rejection.",
+      "artifact": "results/l4_onchain_anchor_negative/onchain_anchor_negative_security_result.json"
+    },
+    {
+      "step": "105",
+      "component": "Policy-gated on-chain validation",
+      "status": "EXECUTED_PASS",
+      "evidence": "Runs Step 103 and Step 104 through a human-approved policy gate.",
+      "artifact": "results/l4_policy_onchain_validation/policy_onchain_validation_summary.json"
+    }
+  ],
+  "keyMetrics": {
+    "step96OverallStatus": "PASS",
+    "step97PrimaryAction": "GENERATE_SUPERVISOR_REPORT",
+    "step98Status": "EXECUTED_PASS",
+    "step100SchedulerStatus": "EXECUTED_PASS",
+    "step101EntryCount": 14,
+    "step101FinalLedgerHash": "0db58b3f2c09e530c280dc6cd795a53df54e3337b4a46aa9c70fe6ea166c2567",
+    "step102IpfsStatus": "IPFS_ADD_PASS",
+    "step102IpfsCid": "QmW7VeYs3fP5kk92JstT8tAEkQytgseH4SfhKRpcSwU112",
+    "step102CommitmentHash": "50aa798c5968470f172f5e91cb9d80e25b6ac018d3acde55a424f32ec1c2c8ec",
+    "step103GasUsed": "320095",
+    "step103TxHash": "0x3aa06732baa252f303eb24a6b20c118a6a3c665b7e8cbcb6dce0a2b9d3053277",
+    "step104OverallStatus": "PASS",
+    "step105OverallStatus": "EXECUTED_PASS"
+  }
+}
