@@ -101,7 +101,17 @@ def validate_plain_or_dtls_media(name, data, checks, max_loss_pct):
 
     packets = int(data.get("receivedPackets", 0) or 0)
     bitrate = float(data.get("avgBitrateKbps", 0.0) or 0.0)
-    loss = float(nested_get(data, ["packetLoss", "packet_loss_pct"], 100.0) or 100.0)
+    loss_value = nested_get(data, ["packetLoss", "packet_loss_pct"], None)
+    if loss_value is None:
+        loss_value = nested_get(data, ["packetLoss", "packetLossPct"], None)
+    if loss_value is None:
+        expected = nested_get(data, ["packetLoss", "expected_packets"], None)
+        lost = nested_get(data, ["packetLoss", "lost_packets"], None)
+        if expected not in (None, 0, "0") and lost is not None:
+            loss_value = (float(lost) / float(expected)) * 100.0
+    if loss_value is None:
+        loss_value = 100.0
+    loss = float(loss_value)
     jitter = float(nested_get(data, ["jitter", "avgJitterComponentMs"], 0.0) or 0.0)
 
     ok_packets = packets >= THRESHOLDS["min_received_packets"]

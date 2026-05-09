@@ -5,12 +5,12 @@ multi_agent_scaling,json_available_and_valid,valid,valid,PASS,Regenerate this ar
 plain_rtp,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
 plain_rtp,received_packets_positive,2328,>= 1,PASS,Rerun plain_rtp telemetry.
 plain_rtp,bitrate_positive,833.605,> 0,PASS,Rerun plain_rtp telemetry and inspect sender/receiver logs.
-plain_rtp,packet_loss_reasonable,100.0,<= 5.0,FAIL,Rerun plain_rtp; inspect RTP sequence or impairment state.
+plain_rtp,packet_loss_reasonable,0.0,<= 5.0,PASS,Rerun plain_rtp; inspect RTP sequence or impairment state.
 plain_rtp,jitter_reasonable,0.229169,<= 1000.0,PASS,Recompute arrival-gap jitter or rerun plain_rtp clean baseline.
 dtls_rtp,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
 dtls_rtp,received_packets_positive,769,>= 1,PASS,Rerun dtls_rtp telemetry.
 dtls_rtp,bitrate_positive,102.17,> 0,PASS,Rerun dtls_rtp telemetry and inspect sender/receiver logs.
-dtls_rtp,packet_loss_reasonable,100.0,<= 5.0,FAIL,Rerun dtls_rtp; inspect RTP sequence or impairment state.
+dtls_rtp,packet_loss_reasonable,0.0,<= 5.0,PASS,Rerun dtls_rtp; inspect RTP sequence or impairment state.
 dtls_rtp,jitter_reasonable,0.95001,<= 1000.0,PASS,Recompute arrival-gap jitter or rerun dtls_rtp clean baseline.
 loopback_impairment,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
 loopback_impairment,has_rows,8,>= 1,PASS,Rerun loopback_impairment matrix.

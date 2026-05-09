@@ -1,6 +1,6 @@
 {
   "experiment": "step97_closed_loop_kpi_decision_agent",
-  "createdAt": "2026-05-09T17:10:10",
+  "createdAt": "2026-05-09T17:12:55",
   "thresholds": {
     "plain_rtp_max_loss_pct": 5.0,
     "dtls_rtp_max_loss_pct": 5.0,
@@ -13,19 +13,19 @@
     "mcp_tool_test": true,
     "semi_live_control": true,
     "multi_agent_scaling": true,
-    "plain_rtp": false,
-    "dtls_rtp": false,
+    "plain_rtp": true,
+    "dtls_rtp": true,
     "loopback_impairment": true,
     "namespace_impairment": true,
     "agentic_automation": true
   },
   "decision": {
-    "primaryAction": "RERUN_CLEAN_RTP_BASELINE",
-    "priority": "HIGH",
-    "humanApprovalRequired": false,
-    "reason": "Clean RTP baseline is missing, invalid, or outside KPI thresholds.",
-    "recommendedCommand": "python scripts/l4/run_live_rtp_media_telemetry.py",
-    "nextResearchStep": "Repair plain RTP telemetry before interpreting DTLS or impaired media-plane results."
+    "primaryAction": "GENERATE_SUPERVISOR_REPORT",
+    "priority": "LOW",
+    "humanApprovalRequired": true,
+    "reason": "All checked L4 control-plane, media-plane, impairment, namespace, and automation evidence passed.",
+    "recommendedCommand": "python scripts/l4/build_l4_full_technical_documentation_steps77_93_pdf.py",
+    "nextResearchStep": "Proceed to Step 98: closed-loop remediation executor with dry-run and human approval gates."
   },
   "checks": [
     {
@@ -79,9 +79,9 @@
     {
       "component": "plain_rtp",
       "check": "packet_loss_reasonable",
-      "observed": 100.0,
+      "observed": 0.0,
       "expected": "<= 5.0",
-      "status": "FAIL",
+      "status": "PASS",
       "recommendation": "Rerun plain_rtp; inspect RTP sequence or impairment state."
     },
     {
@@ -119,9 +119,9 @@
     {
       "component": "dtls_rtp",
       "check": "packet_loss_reasonable",
-      "observed": 100.0,
+      "observed": 0.0,
       "expected": "<= 5.0",
-      "status": "FAIL",
+      "status": "PASS",
       "recommendation": "Rerun dtls_rtp; inspect RTP sequence or impairment state."
     },
     {
