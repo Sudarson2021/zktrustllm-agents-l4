@@ -1,0 +1,270 @@
+PING 10.93.0.2 (10.93.0.2) 56(84) bytes of data.
+64 bytes from 10.93.0.2: icmp_seq=1 ttl=64 time=0.037 ms
+
+--- 10.93.0.2 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.037/0.037/0.037/0.000 ms
+PING 10.93.0.1 (10.93.0.1) 56(84) bytes of data.
+64 bytes from 10.93.0.1: icmp_seq=1 ttl=64 time=0.019 ms
+
+--- 10.93.0.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.019/0.019/0.019/0.000 ms
+Built dtls_rtp/dtls_rtp_proxy
+Built dtls_rtp/dtls_rtp_proxy
+Built dtls_rtp/dtls_rtp_proxy
+Built dtls_rtp/dtls_rtp_proxy
+[preflight] requesting sudo once for namespace and tc/netem commands
++ sudo -v
++ sudo ip netns del zkl4_sender
++ sudo ip netns del zkl4_receiver
++ sudo ip netns add zkl4_sender
++ sudo ip netns add zkl4_receiver
++ sudo ip link add zkl4veth_s type veth peer name zkl4veth_r
++ sudo ip link set zkl4veth_s netns zkl4_sender
++ sudo ip link set zkl4veth_r netns zkl4_receiver
++ sudo ip -n zkl4_sender addr add 10.93.0.1/24 dev zkl4veth_s
++ sudo ip -n zkl4_receiver addr add 10.93.0.2/24 dev zkl4veth_r
++ sudo ip -n zkl4_sender link set lo up
++ sudo ip -n zkl4_receiver link set lo up
++ sudo ip -n zkl4_sender link set zkl4veth_s up
++ sudo ip -n zkl4_receiver link set zkl4veth_r up
++ sudo ip netns exec zkl4_sender ping -c 1 -W 2 10.93.0.2
++ sudo ip netns exec zkl4_receiver ping -c 1 -W 2 10.93.0.1
++ sudo ip netns exec zkl4_sender tc qdisc del dev zkl4veth_s root
++ sudo ip netns exec zkl4_receiver tc qdisc del dev zkl4veth_r root
+[netem] clean profile: clean_baseline
+
+=== Namespace plain RTP under clean_baseline ===
+
+=== Namespace DTLS-wrapped RTP under clean_baseline ===
++ ./dtls_rtp/build.sh
++ sudo ip netns exec zkl4_sender tc qdisc del dev zkl4veth_s root
++ sudo ip netns exec zkl4_receiver tc qdisc del dev zkl4veth_r root
++ sudo ip netns exec zkl4_sender tc qdisc replace dev zkl4veth_s root netem delay 20ms
++ sudo ip netns exec zkl4_receiver tc qdisc replace dev zkl4veth_r root netem delay 20ms
+[netem] applied profile: delay_20ms
+
+=== Namespace plain RTP under delay_20ms ===
+
+=== Namespace DTLS-wrapped RTP under delay_20ms ===
++ ./dtls_rtp/build.sh
++ sudo ip netns exec zkl4_sender tc qdisc del dev zkl4veth_s root
++ sudo ip netns exec zkl4_receiver tc qdisc del dev zkl4veth_r root
++ sudo ip netns exec zkl4_sender tc qdisc replace dev zkl4veth_s root netem delay 20ms 5ms distribution normal
++ sudo ip netns exec zkl4_receiver tc qdisc replace dev zkl4veth_r root netem delay 20ms 5ms distribution normal
+[netem] applied profile: delay_20ms_jitter_5ms
+
+=== Namespace plain RTP under delay_20ms_jitter_5ms ===
+
+=== Namespace DTLS-wrapped RTP under delay_20ms_jitter_5ms ===
++ ./dtls_rtp/build.sh
++ sudo ip netns exec zkl4_sender tc qdisc del dev zkl4veth_s root
++ sudo ip netns exec zkl4_receiver tc qdisc del dev zkl4veth_r root
++ sudo ip netns exec zkl4_sender tc qdisc replace dev zkl4veth_s root netem delay 30ms 10ms distribution normal loss 1%
++ sudo ip netns exec zkl4_receiver tc qdisc replace dev zkl4veth_r root netem delay 30ms 10ms distribution normal loss 1%
+[netem] applied profile: delay_30ms_jitter_10ms_loss_1pct
+
+=== Namespace plain RTP under delay_30ms_jitter_10ms_loss_1pct ===
+
+=== Namespace DTLS-wrapped RTP under delay_30ms_jitter_10ms_loss_1pct ===
++ ./dtls_rtp/build.sh
++ sudo ip netns exec zkl4_sender tc qdisc del dev zkl4veth_s root
++ sudo ip netns exec zkl4_receiver tc qdisc del dev zkl4veth_r root
+OK: Step 93 namespace metrics are valid enough to document and commit.
+{
+  "experiment": "step93_network_namespace_plain_vs_dtls",
+  "topology": {
+    "senderNamespace": "zkl4_sender",
+    "receiverNamespace": "zkl4_receiver",
+    "senderIp": "10.93.0.1",
+    "receiverIp": "10.93.0.2",
+    "vethSender": "zkl4veth_s",
+    "vethReceiver": "zkl4veth_r"
+  },
+  "measurementNote": "Jitter is computed from packet arrival-gap variation. This is safer for H.264 RTP packet ordering than raw RTP timestamp-delta jitter.",
+  "captureSeconds": 25,
+  "profiles": [
+    {
+      "name": "clean_baseline",
+      "description": "No artificial impairment across namespace veth pair",
+      "netem": null
+    },
+    {
+      "name": "delay_20ms",
+      "description": "20 ms fixed veth delay",
+      "netem": [
+        "delay",
+        "20ms"
+      ]
+    },
+    {
+      "name": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "netem": [
+        "delay",
+        "20ms",
+        "5ms",
+        "distribution",
+        "normal"
+      ]
+    },
+    {
+      "name": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "netem": [
+        "delay",
+        "30ms",
+        "10ms",
+        "distribution",
+        "normal",
+        "loss",
+        "1%"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "profile": "clean_baseline",
+      "description": "No artificial impairment across namespace veth pair",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 752,
+      "expectedPackets": 752,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 100.40384,
+      "avgJitterMs": 1.568691,
+      "p50JitterMs": 0.113835,
+      "p95JitterMs": 1.001813,
+      "maxJitterMs": 33.313119,
+      "medianArrivalGapMs": 33.320031,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "clean_baseline",
+      "description": "No artificial impairment across namespace veth pair",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 692,
+      "expectedPackets": 692,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 92.76512,
+      "avgJitterMs": 1.731939,
+      "p50JitterMs": 0.132863,
+      "p95JitterMs": 4.716064,
+      "maxJitterMs": 33.30207,
+      "medianArrivalGapMs": 33.310121,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms",
+      "description": "20 ms fixed veth delay",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 751,
+      "expectedPackets": 751,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 100.33376,
+      "avgJitterMs": 1.583433,
+      "p50JitterMs": 0.124777,
+      "p95JitterMs": 1.923214,
+      "maxJitterMs": 33.319485,
+      "medianArrivalGapMs": 33.326126,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms",
+      "description": "20 ms fixed veth delay",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 691,
+      "expectedPackets": 691,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 92.70176,
+      "avgJitterMs": 1.745685,
+      "p50JitterMs": 0.157807,
+      "p95JitterMs": 7.052444,
+      "maxJitterMs": 33.316201,
+      "medianArrivalGapMs": 33.323628,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 751,
+      "expectedPackets": 751,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 100.33376,
+      "avgJitterMs": 6.597824,
+      "p50JitterMs": 4.765509,
+      "p95JitterMs": 18.938279,
+      "maxJitterMs": 32.763504,
+      "medianArrivalGapMs": 32.792281,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 691,
+      "expectedPackets": 691,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 92.70176,
+      "avgJitterMs": 6.756646,
+      "p50JitterMs": 4.88151,
+      "p95JitterMs": 20.175724,
+      "maxJitterMs": 32.825654,
+      "medianArrivalGapMs": 32.854848,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 743,
+      "expectedPackets": 751,
+      "lostPackets": 8,
+      "packetLossPct": 1.065246,
+      "avgBitrateKbps": 98.90528,
+      "avgJitterMs": 12.351332,
+      "p50JitterMs": 10.623283,
+      "p95JitterMs": 30.859599,
+      "maxJitterMs": 53.245528,
+      "medianArrivalGapMs": 32.015734,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 685,
+      "expectedPackets": 691,
+      "lostPackets": 6,
+      "packetLossPct": 0.868307,
+      "avgBitrateKbps": 92.3088,
+      "avgJitterMs": 11.948825,
+      "p50JitterMs": 9.836931,
+      "p95JitterMs": 31.439797,
+      "maxJitterMs": 56.236287,
+      "medianArrivalGapMs": 32.867401,
+      "status": "measured_from_namespace_packet_events"
+    }
+  ],
+  "files": {
+    "summaryJson": "results/l4_namespace_impairment/namespace_impairment_summary.json",
+    "summaryCsv": "results/l4_namespace_impairment/namespace_impairment_summary.csv",
+    "summaryMarkdown": "results/l4_namespace_impairment/namespace_impairment_summary.md",
+    "packetLossFigure": "results/l4_namespace_impairment/figure_5_19_namespace_packet_loss.png",
+    "bitrateFigure": "results/l4_namespace_impairment/figure_5_20_namespace_bitrate.png",
+    "arrivalGapJitterFigure": "results/l4_namespace_impairment/figure_5_21_namespace_arrival_gap_jitter.png"
+  }
+}
+Saved: /home/sk02352/zktrustllm-agents-l4/results/l4_namespace_impairment/namespace_impairment_summary.json
+[cleanup] clearing netem and deleting namespaces
++ sudo ip netns exec zkl4_sender tc qdisc del dev zkl4veth_s root
++ sudo ip netns exec zkl4_receiver tc qdisc del dev zkl4veth_r root
++ sudo ip netns del zkl4_sender
++ sudo ip netns del zkl4_receiver

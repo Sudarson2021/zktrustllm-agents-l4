@@ -1,8 +1,8 @@
 # Step 96 L4 Agentic Automation Suite Summary
 
-- Run ID: `20260509_160118`
-- Started: `2026-05-09T16:01:18`
-- Finished: `2026-05-09T16:10:03`
+- Run ID: `20260509_163127`
+- Started: `2026-05-09T16:31:27`
+- Finished: `2026-05-09T16:40:14`
 - Overall status: **PASS**
 - Privileged network experiments included: `True`
 
@@ -10,15 +10,15 @@
 
 | Step | Status | Duration s | Output logs |
 |---|---:|---:|---|
-| step79_mcp_tool_test | PASS | 1.218 | `results/l4_agentic_automation/run_20260509_160118/step79_mcp_tool_test.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step79_mcp_tool_test.stderr.log` |
-| step86_semi_live_control_telemetry | PASS | 3.975 | `results/l4_agentic_automation/run_20260509_160118/step86_semi_live_control_telemetry.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step86_semi_live_control_telemetry.stderr.log` |
-| step87_multi_agent_scaling | PASS | 22.962 | `results/l4_agentic_automation/run_20260509_160118/step87_multi_agent_scaling.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step87_multi_agent_scaling.stderr.log` |
-| step89_live_rtp_media | PASS | 28.169 | `results/l4_agentic_automation/run_20260509_160118/step89_live_rtp_media.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step89_live_rtp_media.stderr.log` |
-| step90_build_dtls_proxy | PASS | 0.215 | `results/l4_agentic_automation/run_20260509_160118/step90_build_dtls_proxy.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step90_build_dtls_proxy.stderr.log` |
-| step90_dtls_rtp_media | PASS | 29.262 | `results/l4_agentic_automation/run_20260509_160118/step90_dtls_rtp_media.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step90_dtls_rtp_media.stderr.log` |
-| step90_recompute_arrival_jitter | PASS | 0.717 | `results/l4_agentic_automation/run_20260509_160118/step90_recompute_arrival_jitter.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step90_recompute_arrival_jitter.stderr.log` |
-| step91_loopback_network_impairment | PASS | 234.137 | `results/l4_agentic_automation/run_20260509_160118/step91_loopback_network_impairment.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step91_loopback_network_impairment.stderr.log` |
-| step93_namespace_network_impairment | PASS | 203.42 | `results/l4_agentic_automation/run_20260509_160118/step93_namespace_network_impairment.stdout.log`, `results/l4_agentic_automation/run_20260509_160118/step93_namespace_network_impairment.stderr.log` |
+| step79_mcp_tool_test | PASS | 1.267 | `results/l4_agentic_automation/run_20260509_163127/step79_mcp_tool_test.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step79_mcp_tool_test.stderr.log` |
+| step86_semi_live_control_telemetry | PASS | 4.677 | `results/l4_agentic_automation/run_20260509_163127/step86_semi_live_control_telemetry.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step86_semi_live_control_telemetry.stderr.log` |
+| step87_multi_agent_scaling | PASS | 25.52 | `results/l4_agentic_automation/run_20260509_163127/step87_multi_agent_scaling.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step87_multi_agent_scaling.stderr.log` |
+| step89_live_rtp_media | PASS | 28.171 | `results/l4_agentic_automation/run_20260509_163127/step89_live_rtp_media.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step89_live_rtp_media.stderr.log` |
+| step90_build_dtls_proxy | PASS | 0.165 | `results/l4_agentic_automation/run_20260509_163127/step90_build_dtls_proxy.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step90_build_dtls_proxy.stderr.log` |
+| step90_dtls_rtp_media | PASS | 29.231 | `results/l4_agentic_automation/run_20260509_163127/step90_dtls_rtp_media.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step90_dtls_rtp_media.stderr.log` |
+| step90_recompute_arrival_jitter | PASS | 0.667 | `results/l4_agentic_automation/run_20260509_163127/step90_recompute_arrival_jitter.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step90_recompute_arrival_jitter.stderr.log` |
+| step91_loopback_network_impairment | PASS | 234.569 | `results/l4_agentic_automation/run_20260509_163127/step91_loopback_network_impairment.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step91_loopback_network_impairment.stderr.log` |
+| step93_namespace_network_impairment | PASS | 203.411 | `results/l4_agentic_automation/run_20260509_163127/step93_namespace_network_impairment.stdout.log`, `results/l4_agentic_automation/run_20260509_163127/step93_namespace_network_impairment.stderr.log` |
 
 ## Validation Results
 
@@ -27,10 +27,10 @@
 | `results/l4_mcp_server/mcp_tool_test_results.json` | PASS | json_valid=valid (ok) |
 | `results/l4_live_telemetry/semi_live_control_summary.json` | PASS | json_valid=valid (ok) |
 | `results/l4_multi_agent_scaling/multi_agent_scaling_summary.json` | PASS | json_valid=valid (ok) |
-| `results/l4_agentic_automation/run_20260509_160118/clean_media_snapshots/clean_plain_rtp_media_summary.json` | PASS | received_packets_positive=2328 (ok); bitrate_positive=833.605 (ok); packet_loss_reasonable=0.0 (ok); jitter_reasonable=0.242929 (ok) |
-| `results/l4_agentic_automation/run_20260509_160118/clean_media_snapshots/clean_dtls_rtp_media_summary.json` | PASS | received_packets_positive=769 (ok); bitrate_positive=102.17 (ok); packet_loss_reasonable=0.0 (ok); jitter_reasonable=1.040521 (ok) |
-| `results/l4_network_impairment/network_impairment_summary.json` | PASS | has_rows=8 (ok); row_0_packets_positive=2327 (ok); row_0_bitrate_positive=833.34304 (ok); row_0_jitter_reasonable=10.70988 (ok); row_1_packets_positive=769 (ok); row_1_bitrate_positive=102.38464 (ok) |
-| `results/l4_namespace_impairment/namespace_impairment_summary.json` | PASS | has_rows=8 (ok); row_0_packets_positive=751 (ok); row_0_bitrate_positive=100.33376 (ok); row_0_jitter_reasonable=1.550556 (ok); row_1_packets_positive=692 (ok); row_1_bitrate_positive=92.76512 (ok) |
+| `results/l4_agentic_automation/run_20260509_163127/clean_media_snapshots/clean_plain_rtp_media_summary.json` | PASS | received_packets_positive=2328 (ok); bitrate_positive=833.605 (ok); packet_loss_reasonable=0.0 (ok); jitter_reasonable=0.287971 (ok) |
+| `results/l4_agentic_automation/run_20260509_163127/clean_media_snapshots/clean_dtls_rtp_media_summary.json` | PASS | received_packets_positive=769 (ok); bitrate_positive=102.17 (ok); packet_loss_reasonable=0.0 (ok); jitter_reasonable=0.942776 (ok) |
+| `results/l4_network_impairment/network_impairment_summary.json` | PASS | has_rows=8 (ok); row_0_packets_positive=2328 (ok); row_0_bitrate_positive=833.60512 (ok); row_0_jitter_reasonable=10.706743 (ok); row_1_packets_positive=769 (ok); row_1_bitrate_positive=102.16992 (ok) |
+| `results/l4_namespace_impairment/namespace_impairment_summary.json` | PASS | has_rows=8 (ok); row_0_packets_positive=752 (ok); row_0_bitrate_positive=100.40384 (ok); row_0_jitter_reasonable=1.55117 (ok); row_1_packets_positive=692 (ok); row_1_bitrate_positive=92.76512 (ok) |
 
 ## Research Meaning
 
@@ -51,4 +51,4 @@ Implement a closed-loop decision agent that reads current KPI summaries, compare
 ## Artifact Manifest
 
 - Manifest CSV: `results/l4_agentic_automation/agentic_automation_artifact_manifest.csv`
-- Run logs folder: `results/l4_agentic_automation/run_20260509_160118`
+- Run logs folder: `results/l4_agentic_automation/run_20260509_163127`
