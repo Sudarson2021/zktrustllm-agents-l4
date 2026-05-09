@@ -444,3 +444,33 @@ Main artifacts:
 Research meaning:
 
 Step 93 strengthens the media-plane evaluation by moving from localhost loopback impairment to a two-namespace sender/receiver topology connected through a veth pair. This improves the realism of the plain RTP vs DTLS-wrapped RTP comparison while keeping the experiment reproducible on a single machine.
+
+## L4 Step 94 Full Technical Documentation PDF
+
+This section adds a full supervisor-ready technical documentation PDF covering the Level 4 ZKTrustLLM-Agents workflow from Step 77 to Step 93.
+
+Main artifacts:
+
+- Full report builder:
+  - `scripts/l4/build_l4_full_technical_documentation_steps77_93_pdf.py`
+
+- Full Markdown report:
+  - `docs/report/zktrustllm_l4_full_technical_documentation_steps77_93.md`
+
+- Full PDF report:
+  - `results/l4_report_pdf/zktrustllm_l4_full_technical_documentation_steps77_93.pdf`
+
+Report coverage:
+
+- A2A reference-aware coordination
+- MCP Level 4 context retrieval
+- AUTH_V2.3 reference-bound proof validation
+- Negative-security testing
+- Semi-live MCP/A2A control telemetry
+- Multi-agent scaling telemetry
+- Live RTP media-plane telemetry
+- DTLS-wrapped RTP media-plane validation
+- Loopback network impairment using `tc netem`
+- Linux network namespace plain RTP vs DTLS-RTP evaluation
+- Supervisor feedback alignment
+- Next agentic AI automation roadmap
