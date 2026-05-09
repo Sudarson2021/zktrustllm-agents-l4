@@ -1,0 +1,26 @@
+{
+  "experiment": "step102_ipfs_blockchain_ready_audit_anchor",
+  "createdAt": "2026-05-09T17:38:12.993154+00:00",
+  "ledger": {
+    "ledgerPath": "results/l4_automation_audit_ledger/automation_audit_ledger.json",
+    "ledgerFileSha256": "a98a6ef6ef62a3d36ebaf2327153b4e3f76ebfaa593983db1a167ad543225e40",
+    "finalLedgerHash": "0db58b3f2c09e530c280dc6cd795a53df54e3337b4a46aa9c70fe6ea166c2567",
+    "entryCount": 14,
+    "missingArtifacts": []
+  },
+  "ipfs": {
+    "attempted": true,
+    "status": "IPFS_ADD_PASS",
+    "cid": "QmW7VeYs3fP5kk92JstT8tAEkQytgseH4SfhKRpcSwU112",
+    "returnCode": 0,
+    "stdoutLog": "results/l4_audit_anchor/ipfs_add_stdout.log",
+    "stderrLog": "results/l4_audit_anchor/ipfs_add_stderr.log"
+  },
+  "governanceBoundary": {
+    "doesNotPushCode": true,
+    "doesNotDeploy": true,
+    "doesNotSubmitPapers": true,
+    "doesNotSendBlockchainTransaction": true,
+    "onChainSubmissionRequiresSeparateApproval": true
+  }
+}

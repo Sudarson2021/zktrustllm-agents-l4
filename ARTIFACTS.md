@@ -685,3 +685,25 @@ Research meaning:
 
 Step 101 provides a cryptographic evidence chain for the L4 automation pipeline. It strengthens reproducibility, supervisor review, and scientific auditability by linking each automation artifact through SHA-256 hashes and hash-chain provenance.
 
+## L4 Step 102 IPFS / Blockchain-Ready Audit Ledger Anchor
+
+This section adds an IPFS-ready and blockchain-ready anchor for the Step 101 hash-chained automation audit ledger.
+
+Main artifacts:
+
+- Anchor script:
+  - `scripts/l4/anchor_l4_automation_audit_ledger.py`
+
+- Anchor JSON:
+  - `results/l4_audit_anchor/audit_ledger_anchor_record.json`
+
+- Blockchain-ready anchor JSON:
+  - `results/l4_audit_anchor/audit_ledger_blockchain_ready_anchor.json`
+
+- Anchor Markdown:
+  - `docs/l4/audit_anchor/AUDIT_LEDGER_ANCHOR_RECORD.md`
+
+Research meaning:
+
+Step 102 connects the L4 automation audit ledger to the ZKTrustLLM evidence/trust-plane design. It creates a commitment-bound record that can be linked to IPFS and later submitted to a blockchain contract under explicit human approval.
+
