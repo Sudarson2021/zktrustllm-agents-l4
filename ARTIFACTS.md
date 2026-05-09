@@ -732,3 +732,25 @@ Research meaning:
 
 Step 103 demonstrates that the L4 automation audit evidence can be submitted to a blockchain registry as a verifiable commitment. This links the agentic automation workflow to the ZKTrustLLM trust plane.
 
+## L4 Step 104 On-Chain Anchor Negative-Security Validation
+
+This section adds negative-security validation for the Step 103 on-chain audit-anchor registry.
+
+Main artifacts:
+
+- Negative-security test script:
+  - `scripts/l4/test_l4_audit_anchor_registry_negative_security.js`
+
+- Negative-security result JSON:
+  - `results/l4_onchain_anchor_negative/onchain_anchor_negative_security_result.json`
+
+- Negative-security result Markdown:
+  - `results/l4_onchain_anchor_negative/onchain_anchor_negative_security_result.md`
+
+- Documentation:
+  - `docs/l4/onchain_anchor_negative/ONCHAIN_ANCHOR_NEGATIVE_SECURITY.md`
+
+Research meaning:
+
+Step 104 validates that the on-chain audit-anchor registry rejects duplicate audit commitments and empty commitments. This strengthens the L4 trust-plane claim by showing replay-resistant anchoring behaviour.
+
