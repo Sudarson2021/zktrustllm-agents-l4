@@ -707,3 +707,28 @@ Research meaning:
 
 Step 102 connects the L4 automation audit ledger to the ZKTrustLLM evidence/trust-plane design. It creates a commitment-bound record that can be linked to IPFS and later submitted to a blockchain contract under explicit human approval.
 
+## L4 Step 103 On-Chain Audit Anchor Registry
+
+This section adds a local Hardhat smart contract registry for the Step 102 audit-ledger anchor.
+
+Main artifacts:
+
+- Solidity registry:
+  - `contracts/l4/L4AutomationAuditAnchorRegistry.sol`
+
+- Hardhat submission script:
+  - `scripts/l4/submit_l4_audit_anchor_hardhat.js`
+
+- On-chain anchor result JSON:
+  - `results/l4_onchain_anchor/onchain_audit_anchor_result.json`
+
+- On-chain anchor result Markdown:
+  - `results/l4_onchain_anchor/onchain_audit_anchor_result.md`
+
+- Documentation:
+  - `docs/l4/onchain_anchor/ONCHAIN_AUDIT_ANCHOR_REGISTRY.md`
+
+Research meaning:
+
+Step 103 demonstrates that the L4 automation audit evidence can be submitted to a blockchain registry as a verifiable commitment. This links the agentic automation workflow to the ZKTrustLLM trust plane.
+
