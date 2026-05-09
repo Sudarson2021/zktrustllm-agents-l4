@@ -591,3 +591,33 @@ Latest execution status:
 - Primary action: `GENERATE_SUPERVISOR_REPORT`
 - Generated report:
   - `results/l4_report_pdf/zktrustllm_l4_full_technical_documentation_steps77_93.pdf`
+
+## L4 Step 99 Automation Governance Dashboard
+
+This section adds a supervisor-readable governance dashboard for the L4 closed-loop automation workflow.
+
+Main artifacts:
+
+- Governance builder:
+  - `scripts/l4/build_l4_automation_governance_dashboard_pdf.py`
+
+- Governance JSON:
+  - `results/l4_automation_governance/automation_governance_dashboard.json`
+
+- Governance Markdown:
+  - `docs/l4/automation_governance/L4_AUTOMATION_GOVERNANCE_DASHBOARD.md`
+
+- Governance PDF:
+  - `results/l4_report_pdf/zktrustllm_l4_automation_governance_dashboard_steps96_98.pdf`
+
+Coverage:
+
+- Step 96 agentic automation suite
+- Step 97 closed-loop KPI decision agent
+- Step 98 closed-loop remediation executor
+- Human approval boundary
+- Actions allowed without privilege
+- Actions allowed only with approval
+- Actions never allowed automatically
+- Step 100 next milestone direction
+

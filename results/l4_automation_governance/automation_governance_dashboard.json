@@ -1,0 +1,52 @@
+{
+  "experiment": "step99_l4_automation_governance_dashboard",
+  "createdAt": "2026-05-09T18:01:26",
+  "automationChain": {
+    "step96": {
+      "name": "Agentic Automation Suite",
+      "status": "PASS",
+      "purpose": "Runs L4 control-plane, agent-scaling, RTP, DTLS-RTP, loopback impairment, and namespace impairment workflows."
+    },
+    "step97": {
+      "name": "Closed-Loop KPI Decision Agent",
+      "primaryAction": "GENERATE_SUPERVISOR_REPORT",
+      "priority": "LOW",
+      "purpose": "Reads KPI artifacts and recommends the next safe workflow action."
+    },
+    "step98": {
+      "name": "Closed-Loop Remediation Executor",
+      "status": "EXECUTED_PASS",
+      "mode": "execute",
+      "purpose": "Executes the recommended remediation only after explicit human approval."
+    }
+  },
+  "governanceBoundary": {
+    "allowedWithNoPrivilege": [
+      "read KPI JSON and CSV artifacts",
+      "validate experiment outputs",
+      "generate Markdown reports",
+      "generate PDF reports",
+      "create artifact manifests",
+      "recommend next safe workflow action"
+    ],
+    "allowedOnlyWithHumanApproval": [
+      "execute remediation workflow",
+      "regenerate supervisor PDF",
+      "rerun non-privileged experiments",
+      "rerun privileged network experiments with explicit sudo approval"
+    ],
+    "neverAutomatic": [
+      "git push",
+      "modify Git history",
+      "submit papers",
+      "email supervisor",
+      "deploy public systems",
+      "delete research evidence",
+      "run privileged commands without explicit approval"
+    ]
+  },
+  "nextMilestone": {
+    "step100": "Policy-gated autonomous scheduler with dry-run, approval gates, audit logs, and rollback notes.",
+    "researchMeaning": "Moves the project from experiment automation to controlled agentic research operations."
+  }
+}
