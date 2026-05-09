@@ -1,0 +1,190 @@
+{
+  "experiment": "step93_network_namespace_plain_vs_dtls",
+  "topology": {
+    "senderNamespace": "zkl4_sender",
+    "receiverNamespace": "zkl4_receiver",
+    "senderIp": "10.93.0.1",
+    "receiverIp": "10.93.0.2",
+    "vethSender": "zkl4veth_s",
+    "vethReceiver": "zkl4veth_r"
+  },
+  "measurementNote": "Jitter is computed from packet arrival-gap variation. This is safer for H.264 RTP packet ordering than raw RTP timestamp-delta jitter.",
+  "captureSeconds": 25,
+  "profiles": [
+    {
+      "name": "clean_baseline",
+      "description": "No artificial impairment across namespace veth pair",
+      "netem": null
+    },
+    {
+      "name": "delay_20ms",
+      "description": "20 ms fixed veth delay",
+      "netem": [
+        "delay",
+        "20ms"
+      ]
+    },
+    {
+      "name": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "netem": [
+        "delay",
+        "20ms",
+        "5ms",
+        "distribution",
+        "normal"
+      ]
+    },
+    {
+      "name": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "netem": [
+        "delay",
+        "30ms",
+        "10ms",
+        "distribution",
+        "normal",
+        "loss",
+        "1%"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "profile": "clean_baseline",
+      "description": "No artificial impairment across namespace veth pair",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 752,
+      "expectedPackets": 752,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 100.40384,
+      "avgJitterMs": 1.536205,
+      "p50JitterMs": 0.088882,
+      "p95JitterMs": 0.793267,
+      "maxJitterMs": 33.325337,
+      "medianArrivalGapMs": 33.332448,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "clean_baseline",
+      "description": "No artificial impairment across namespace veth pair",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 692,
+      "expectedPackets": 692,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 92.76512,
+      "avgJitterMs": 1.698414,
+      "p50JitterMs": 0.143854,
+      "p95JitterMs": 0.664744,
+      "maxJitterMs": 33.317191,
+      "medianArrivalGapMs": 33.324204,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms",
+      "description": "20 ms fixed veth delay",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 752,
+      "expectedPackets": 752,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 100.40384,
+      "avgJitterMs": 1.566748,
+      "p50JitterMs": 0.123351,
+      "p95JitterMs": 0.866672,
+      "maxJitterMs": 33.322402,
+      "medianArrivalGapMs": 33.329247,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms",
+      "description": "20 ms fixed veth delay",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 691,
+      "expectedPackets": 691,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 92.70176,
+      "avgJitterMs": 1.718602,
+      "p50JitterMs": 0.141134,
+      "p95JitterMs": 2.48888,
+      "maxJitterMs": 33.310217,
+      "medianArrivalGapMs": 33.317149,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 752,
+      "expectedPackets": 65536,
+      "lostPackets": 64784,
+      "packetLossPct": 98.852539,
+      "avgBitrateKbps": 100.40384,
+      "avgJitterMs": 6.528746,
+      "p50JitterMs": 4.772306,
+      "p95JitterMs": 19.314009,
+      "maxJitterMs": 32.773462,
+      "medianArrivalGapMs": 32.807145,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 691,
+      "expectedPackets": 65536,
+      "lostPackets": 64845,
+      "packetLossPct": 98.945618,
+      "avgBitrateKbps": 92.70176,
+      "avgJitterMs": 6.871128,
+      "p50JitterMs": 4.975052,
+      "p95JitterMs": 20.830896,
+      "maxJitterMs": 32.959219,
+      "medianArrivalGapMs": 33.034077,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "mode": "plain_rtp_namespace",
+      "receivedPackets": 746,
+      "expectedPackets": 65536,
+      "lostPackets": 64790,
+      "packetLossPct": 98.861694,
+      "avgBitrateKbps": 99.98592,
+      "avgJitterMs": 12.425314,
+      "p50JitterMs": 10.433133,
+      "p95JitterMs": 31.055114,
+      "maxJitterMs": 44.557587,
+      "medianArrivalGapMs": 32.680768,
+      "status": "measured_from_namespace_packet_events"
+    },
+    {
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "mode": "dtls_rtp_namespace",
+      "receivedPackets": 687,
+      "expectedPackets": 65536,
+      "lostPackets": 64849,
+      "packetLossPct": 98.951721,
+      "avgBitrateKbps": 92.1952,
+      "avgJitterMs": 11.723093,
+      "p50JitterMs": 9.525314,
+      "p95JitterMs": 30.960581,
+      "maxJitterMs": 55.181177,
+      "medianArrivalGapMs": 32.345715,
+      "status": "measured_from_namespace_packet_events"
+    }
+  ],
+  "files": {
+    "summaryJson": "results/l4_namespace_impairment/namespace_impairment_summary.json",
+    "summaryCsv": "results/l4_namespace_impairment/namespace_impairment_summary.csv",
+    "summaryMarkdown": "results/l4_namespace_impairment/namespace_impairment_summary.md",
+    "packetLossFigure": "results/l4_namespace_impairment/figure_5_19_namespace_packet_loss.png",
+    "bitrateFigure": "results/l4_namespace_impairment/figure_5_20_namespace_bitrate.png",
+    "arrivalGapJitterFigure": "results/l4_namespace_impairment/figure_5_21_namespace_arrival_gap_jitter.png"
+  }
+}

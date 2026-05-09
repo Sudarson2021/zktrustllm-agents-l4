@@ -1,0 +1,16 @@
+{
+  "profile": "clean_baseline",
+  "description": "No artificial impairment across namespace veth pair",
+  "mode": "plain_rtp_namespace",
+  "receivedPackets": 752,
+  "expectedPackets": 752,
+  "lostPackets": 0,
+  "packetLossPct": 0.0,
+  "avgBitrateKbps": 100.40384,
+  "avgJitterMs": 1.536205,
+  "p50JitterMs": 0.088882,
+  "p95JitterMs": 0.793267,
+  "maxJitterMs": 33.325337,
+  "medianArrivalGapMs": 33.332448,
+  "status": "measured_from_namespace_packet_events"
+}

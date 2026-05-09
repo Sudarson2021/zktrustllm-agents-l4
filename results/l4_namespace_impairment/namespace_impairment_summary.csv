@@ -1,0 +1,9 @@
+profile,description,mode,receivedPackets,expectedPackets,lostPackets,packetLossPct,avgBitrateKbps,avgJitterMs,p50JitterMs,p95JitterMs,maxJitterMs,medianArrivalGapMs,status
+clean_baseline,No artificial impairment across namespace veth pair,plain_rtp_namespace,752,752,0,0.0,100.40384,1.536205,0.088882,0.793267,33.325337,33.332448,measured_from_namespace_packet_events
+clean_baseline,No artificial impairment across namespace veth pair,dtls_rtp_namespace,692,692,0,0.0,92.76512,1.698414,0.143854,0.664744,33.317191,33.324204,measured_from_namespace_packet_events
+delay_20ms,20 ms fixed veth delay,plain_rtp_namespace,752,752,0,0.0,100.40384,1.566748,0.123351,0.866672,33.322402,33.329247,measured_from_namespace_packet_events
+delay_20ms,20 ms fixed veth delay,dtls_rtp_namespace,691,691,0,0.0,92.70176,1.718602,0.141134,2.48888,33.310217,33.317149,measured_from_namespace_packet_events
+delay_20ms_jitter_5ms,20 ms delay with 5 ms jitter,plain_rtp_namespace,752,65536,64784,98.852539,100.40384,6.528746,4.772306,19.314009,32.773462,32.807145,measured_from_namespace_packet_events
+delay_20ms_jitter_5ms,20 ms delay with 5 ms jitter,dtls_rtp_namespace,691,65536,64845,98.945618,92.70176,6.871128,4.975052,20.830896,32.959219,33.034077,measured_from_namespace_packet_events
+delay_30ms_jitter_10ms_loss_1pct,"30 ms delay, 10 ms jitter, 1% packet loss",plain_rtp_namespace,746,65536,64790,98.861694,99.98592,12.425314,10.433133,31.055114,44.557587,32.680768,measured_from_namespace_packet_events
+delay_30ms_jitter_10ms_loss_1pct,"30 ms delay, 10 ms jitter, 1% packet loss",dtls_rtp_namespace,687,65536,64849,98.951721,92.1952,11.723093,9.525314,30.960581,55.181177,32.345715,measured_from_namespace_packet_events

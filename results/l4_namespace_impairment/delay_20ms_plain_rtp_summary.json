@@ -1,0 +1,16 @@
+{
+  "profile": "delay_20ms",
+  "description": "20 ms fixed veth delay",
+  "mode": "plain_rtp_namespace",
+  "receivedPackets": 752,
+  "expectedPackets": 752,
+  "lostPackets": 0,
+  "packetLossPct": 0.0,
+  "avgBitrateKbps": 100.40384,
+  "avgJitterMs": 1.566748,
+  "p50JitterMs": 0.123351,
+  "p95JitterMs": 0.866672,
+  "maxJitterMs": 33.322402,
+  "medianArrivalGapMs": 33.329247,
+  "status": "measured_from_namespace_packet_events"
+}

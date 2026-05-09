@@ -319,3 +319,15 @@ The measured KPIs include RTP packet continuity, packet loss, bitrate, and arriv
 This step is important because the previous media-plane experiments validated RTP delivery under clean localhost conditions. Step 91 moves the evaluation closer to realistic network behaviour by adding delay, jitter, and loss.
 
 The results are stored in `results/l4_network_impairment/` and can support the journal-level claim that the Level 4 workflow connects proof-governed MCP/A2A control decisions with measurable secure multimedia delivery behaviour.
+
+## 19. Namespace-Based Media-Plane Impairment Validation
+
+Step 93 reproduces the Step 91 media-plane impairment evaluation using two Linux network namespaces connected by a veth pair.
+
+This experiment separates the media sender and media receiver into isolated network stacks. Plain RTP and DTLS-wrapped RTP are then evaluated under controlled `tc netem` impairment profiles, including fixed delay, jitter, and packet loss.
+
+This step strengthens the evaluation because Step 91 used localhost loopback, while Step 93 introduces an explicit sender-receiver network path. The result is closer to a two-node media-plane deployment while remaining reproducible on a single development machine.
+
+The measured KPIs include packet loss, bitrate, arrival-gap jitter, p50 jitter, p95 jitter, and received packet count. Jitter is computed from packet arrival-gap variation to avoid misleading raw RTP timestamp artefacts caused by H.264 packet ordering.
+
+Step 93 therefore provides a stronger bridge between the proof-governed MCP/A2A control-plane workflow and secured multimedia delivery under network stress.

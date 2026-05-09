@@ -1,0 +1,4 @@
+[server] waiting for first DTLS datagram to learn peer
+[server] learned peer 10.93.0.1:32942
+[server] PSK identity: zktrustllm-l4-client
+[server] DTLS handshake complete

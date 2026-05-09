@@ -1,0 +1,16 @@
+{
+  "profile": "delay_20ms_jitter_5ms",
+  "description": "20 ms delay with 5 ms jitter",
+  "mode": "plain_rtp_namespace",
+  "receivedPackets": 752,
+  "expectedPackets": 65536,
+  "lostPackets": 64784,
+  "packetLossPct": 98.852539,
+  "avgBitrateKbps": 100.40384,
+  "avgJitterMs": 6.528746,
+  "p50JitterMs": 4.772306,
+  "p95JitterMs": 19.314009,
+  "maxJitterMs": 32.773462,
+  "medianArrivalGapMs": 32.807145,
+  "status": "measured_from_namespace_packet_events"
+}

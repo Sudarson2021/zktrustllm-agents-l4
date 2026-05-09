@@ -425,3 +425,22 @@ Main artifacts:
 Research meaning:
 
 Step 91 compares plain RTP and DTLS-wrapped RTP under controlled delay, jitter, and packet-loss impairment. This strengthens the Level 4 journal evaluation by connecting proof-governed control-plane work with stressed media-plane behaviour.
+
+## L4 Step 93 Network Namespace Plain RTP vs DTLS-RTP Evaluation
+
+This section reproduces the Step 91 media-plane impairment experiment using Linux network namespaces.
+
+Main artifacts:
+
+- Namespace impairment runner: `scripts/l4/run_step93_namespace_impairment_matrix.py`
+- Namespace documentation: `docs/l4/network_namespace/NAMESPACE_IMPAIRMENT_PLAIN_VS_DTLS.md`
+- Namespace summary JSON: `results/l4_namespace_impairment/namespace_impairment_summary.json`
+- Namespace summary CSV: `results/l4_namespace_impairment/namespace_impairment_summary.csv`
+- Namespace summary Markdown: `results/l4_namespace_impairment/namespace_impairment_summary.md`
+- Figure 5.19 PNG/PDF/SVG: `results/l4_namespace_impairment/figure_5_19_namespace_packet_loss.*`
+- Figure 5.20 PNG/PDF/SVG: `results/l4_namespace_impairment/figure_5_20_namespace_bitrate.*`
+- Figure 5.21 PNG/PDF/SVG: `results/l4_namespace_impairment/figure_5_21_namespace_arrival_gap_jitter.*`
+
+Research meaning:
+
+Step 93 strengthens the media-plane evaluation by moving from localhost loopback impairment to a two-namespace sender/receiver topology connected through a veth pair. This improves the realism of the plain RTP vs DTLS-wrapped RTP comparison while keeping the experiment reproducible on a single machine.

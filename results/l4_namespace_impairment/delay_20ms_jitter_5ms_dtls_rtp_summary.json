@@ -1,0 +1,16 @@
+{
+  "profile": "delay_20ms_jitter_5ms",
+  "description": "20 ms delay with 5 ms jitter",
+  "mode": "dtls_rtp_namespace",
+  "receivedPackets": 691,
+  "expectedPackets": 65536,
+  "lostPackets": 64845,
+  "packetLossPct": 98.945618,
+  "avgBitrateKbps": 92.70176,
+  "avgJitterMs": 6.871128,
+  "p50JitterMs": 4.975052,
+  "p95JitterMs": 20.830896,
+  "maxJitterMs": 32.959219,
+  "medianArrivalGapMs": 33.034077,
+  "status": "measured_from_namespace_packet_events"
+}
