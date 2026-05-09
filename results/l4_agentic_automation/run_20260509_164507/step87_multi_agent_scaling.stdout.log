@@ -1,0 +1,43 @@
+{
+  "experiment": "step87_multi_agent_scaling_telemetry",
+  "agentCounts": [
+    5,
+    10,
+    15,
+    20,
+    25
+  ],
+  "repetitions": 3,
+  "summaryJson": "/home/sk02352/zktrustllm-agents-l4/results/l4_multi_agent_scaling/multi_agent_scaling_summary.json",
+  "summaryMarkdown": "/home/sk02352/zktrustllm-agents-l4/results/l4_multi_agent_scaling/multi_agent_scaling_summary.md",
+  "figure57": "/home/sk02352/zktrustllm-agents-l4/results/l4_multi_agent_scaling/figure_5_7_multi_agent_scaling_latency.png",
+  "figure58": "/home/sk02352/zktrustllm-agents-l4/results/l4_multi_agent_scaling/figure_5_8_multi_agent_control_bytes.png",
+  "figure59": "/home/sk02352/zktrustllm-agents-l4/results/l4_multi_agent_scaling/figure_5_9_multi_agent_throughput.png",
+  "comparisons": {
+    "5_agents": {
+      "l4RefLatencyReductionVsRawPct": 52.96,
+      "l4RefMessageReductionVsRawPct": 97.75,
+      "l4RefThroughputGainVsRawPct": 112.57
+    },
+    "10_agents": {
+      "l4RefLatencyReductionVsRawPct": 54.6,
+      "l4RefMessageReductionVsRawPct": 97.76,
+      "l4RefThroughputGainVsRawPct": 119.8
+    },
+    "15_agents": {
+      "l4RefLatencyReductionVsRawPct": 52.68,
+      "l4RefMessageReductionVsRawPct": 97.75,
+      "l4RefThroughputGainVsRawPct": 111.33
+    },
+    "20_agents": {
+      "l4RefLatencyReductionVsRawPct": 53.89,
+      "l4RefMessageReductionVsRawPct": 97.74,
+      "l4RefThroughputGainVsRawPct": 116.87
+    },
+    "25_agents": {
+      "l4RefLatencyReductionVsRawPct": 48.99,
+      "l4RefMessageReductionVsRawPct": 97.74,
+      "l4RefThroughputGainVsRawPct": 97.13
+    }
+  }
+}

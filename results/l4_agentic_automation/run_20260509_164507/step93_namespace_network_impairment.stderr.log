@@ -1,0 +1,8 @@
+Cannot remove namespace file "/run/netns/zkl4_sender": No such file or directory
+Cannot remove namespace file "/run/netns/zkl4_receiver": No such file or directory
+Error: Cannot delete qdisc with handle of zero.
+Error: Cannot delete qdisc with handle of zero.
+Error: Cannot delete qdisc with handle of zero.
+Error: Cannot delete qdisc with handle of zero.
+Error: Cannot delete qdisc with handle of zero.
+Error: Cannot delete qdisc with handle of zero.

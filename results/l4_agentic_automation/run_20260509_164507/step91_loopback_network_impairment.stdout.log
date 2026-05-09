@@ -1,0 +1,544 @@
+Starting RTP sender...
+Capturing RTP packets...
+{
+  "experiment": "step89_live_rtp_media_plane_telemetry",
+  "importantNote": "This is live RTP media-plane telemetry over localhost. It is not yet DTLS-secured.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "rtpHost": "127.0.0.1",
+  "rtpPort": 5004,
+  "captureSeconds": 25,
+  "receivedPackets": 2328,
+  "totalBytes": 2605016,
+  "avgBitrateKbps": 833.605,
+  "packetLoss": {
+    "expected_packets": 2328,
+    "received_packets": 2328,
+    "lost_packets": 0,
+    "packet_loss_pct": 0.0
+  },
+  "jitter": {
+    "samples": 2327,
+    "avgJitterComponentMs": 0.307708,
+    "p50JitterComponentMs": 0.061377,
+    "maxJitterComponentMs": 6.52568
+  },
+  "files": {
+    "eventsCsv": "results/l4_live_rtp_media/rtp_packet_events.csv",
+    "summaryJson": "results/l4_live_rtp_media/rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_live_rtp_media/rtp_media_summary.md",
+    "figureJitter": "results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.png",
+    "figureBitrate": "results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.png",
+    "figureSequence": "results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.png"
+  }
+}
+Built dtls_rtp/dtls_rtp_proxy
+Starting DTLS RTP server proxy...
+Starting DTLS RTP client proxy...
+Starting FFmpeg RTP sender into DTLS client proxy...
+Capturing recovered DTLS-wrapped RTP packets...
+{
+  "experiment": "step90_dtls_wrapped_rtp_media_plane_telemetry",
+  "importantNote": "This is DTLS-wrapped RTP media-plane telemetry over localhost. It is a DTLS tunnel/proxy baseline, not WebRTC DTLS-SRTP.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "dtlsProxy": "dtls_rtp/dtls_rtp_proxy",
+  "rtpClientInput": "127.0.0.1:6000",
+  "dtlsEndpoint": "127.0.0.1:4444",
+  "recoveredRtpEndpoint": "127.0.0.1:5006",
+  "captureSeconds": 25,
+  "receivedPackets": 769,
+  "totalBytes": 319281,
+  "avgBitrateKbps": 102.17,
+  "packetLoss": {
+    "expected_packets": 769,
+    "received_packets": 769,
+    "lost_packets": 0,
+    "packet_loss_pct": 0.0
+  },
+  "jitter": {
+    "samples": 768,
+    "avgJitterComponentMs": 23053137.58729,
+    "p50JitterComponentMs": 133.742352,
+    "maxJitterComponentMs": 47721792.884187
+  },
+  "comparisonWithPlainRtpStep89": {
+    "plainPacketLossPct": 0.0,
+    "dtlsPacketLossPct": 0.0,
+    "plainAvgBitrateKbps": 833.605,
+    "dtlsAvgBitrateKbps": 102.17,
+    "plainAvgJitterMs": 0.307708,
+    "dtlsAvgJitterMs": 23053137.58729
+  },
+  "files": {
+    "eventsCsv": "results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv",
+    "summaryJson": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.md",
+    "figureJitter": "results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png",
+    "figureLoss": "results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png",
+    "figureBitrate": "results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png"
+  }
+}
+Starting RTP sender...
+Capturing RTP packets...
+{
+  "experiment": "step89_live_rtp_media_plane_telemetry",
+  "importantNote": "This is live RTP media-plane telemetry over localhost. It is not yet DTLS-secured.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "rtpHost": "127.0.0.1",
+  "rtpPort": 5004,
+  "captureSeconds": 25,
+  "receivedPackets": 2328,
+  "totalBytes": 2605016,
+  "avgBitrateKbps": 833.605,
+  "packetLoss": {
+    "expected_packets": 2328,
+    "received_packets": 2328,
+    "lost_packets": 0,
+    "packet_loss_pct": 0.0
+  },
+  "jitter": {
+    "samples": 2327,
+    "avgJitterComponentMs": 0.287236,
+    "p50JitterComponentMs": 0.079317,
+    "maxJitterComponentMs": 17.270334
+  },
+  "files": {
+    "eventsCsv": "results/l4_live_rtp_media/rtp_packet_events.csv",
+    "summaryJson": "results/l4_live_rtp_media/rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_live_rtp_media/rtp_media_summary.md",
+    "figureJitter": "results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.png",
+    "figureBitrate": "results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.png",
+    "figureSequence": "results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.png"
+  }
+}
+Built dtls_rtp/dtls_rtp_proxy
+Starting DTLS RTP server proxy...
+Starting DTLS RTP client proxy...
+Starting FFmpeg RTP sender into DTLS client proxy...
+Capturing recovered DTLS-wrapped RTP packets...
+{
+  "experiment": "step90_dtls_wrapped_rtp_media_plane_telemetry",
+  "importantNote": "This is DTLS-wrapped RTP media-plane telemetry over localhost. It is a DTLS tunnel/proxy baseline, not WebRTC DTLS-SRTP.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "dtlsProxy": "dtls_rtp/dtls_rtp_proxy",
+  "rtpClientInput": "127.0.0.1:6000",
+  "dtlsEndpoint": "127.0.0.1:4444",
+  "recoveredRtpEndpoint": "127.0.0.1:5006",
+  "captureSeconds": 25,
+  "receivedPackets": 768,
+  "totalBytes": 319079,
+  "avgBitrateKbps": 102.105,
+  "packetLoss": {
+    "expected_packets": 768,
+    "received_packets": 768,
+    "lost_packets": 0,
+    "packet_loss_pct": 0.0
+  },
+  "jitter": {
+    "samples": 767,
+    "avgJitterComponentMs": 23083193.785803,
+    "p50JitterComponentMs": 133.619889,
+    "maxJitterComponentMs": 47721792.715169
+  },
+  "comparisonWithPlainRtpStep89": {
+    "plainPacketLossPct": 0.0,
+    "dtlsPacketLossPct": 0.0,
+    "plainAvgBitrateKbps": 833.605,
+    "dtlsAvgBitrateKbps": 102.105,
+    "plainAvgJitterMs": 0.287236,
+    "dtlsAvgJitterMs": 23083193.785803
+  },
+  "files": {
+    "eventsCsv": "results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv",
+    "summaryJson": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.md",
+    "figureJitter": "results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png",
+    "figureLoss": "results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png",
+    "figureBitrate": "results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png"
+  }
+}
+Starting RTP sender...
+Capturing RTP packets...
+{
+  "experiment": "step89_live_rtp_media_plane_telemetry",
+  "importantNote": "This is live RTP media-plane telemetry over localhost. It is not yet DTLS-secured.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "rtpHost": "127.0.0.1",
+  "rtpPort": 5004,
+  "captureSeconds": 25,
+  "receivedPackets": 2328,
+  "totalBytes": 2605016,
+  "avgBitrateKbps": 833.605,
+  "packetLoss": {
+    "expected_packets": 2328,
+    "received_packets": 2328,
+    "lost_packets": 0,
+    "packet_loss_pct": 0.0
+  },
+  "jitter": {
+    "samples": 2327,
+    "avgJitterComponentMs": 20513.501273,
+    "p50JitterComponentMs": 4.551712,
+    "maxJitterComponentMs": 47721824.305743
+  },
+  "files": {
+    "eventsCsv": "results/l4_live_rtp_media/rtp_packet_events.csv",
+    "summaryJson": "results/l4_live_rtp_media/rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_live_rtp_media/rtp_media_summary.md",
+    "figureJitter": "results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.png",
+    "figureBitrate": "results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.png",
+    "figureSequence": "results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.png"
+  }
+}
+Built dtls_rtp/dtls_rtp_proxy
+Starting DTLS RTP server proxy...
+Starting DTLS RTP client proxy...
+Starting FFmpeg RTP sender into DTLS client proxy...
+Capturing recovered DTLS-wrapped RTP packets...
+{
+  "experiment": "step90_dtls_wrapped_rtp_media_plane_telemetry",
+  "importantNote": "This is DTLS-wrapped RTP media-plane telemetry over localhost. It is a DTLS tunnel/proxy baseline, not WebRTC DTLS-SRTP.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "dtlsProxy": "dtls_rtp/dtls_rtp_proxy",
+  "rtpClientInput": "127.0.0.1:6000",
+  "dtlsEndpoint": "127.0.0.1:4444",
+  "recoveredRtpEndpoint": "127.0.0.1:5006",
+  "captureSeconds": 25,
+  "receivedPackets": 770,
+  "totalBytes": 320287,
+  "avgBitrateKbps": 102.492,
+  "packetLoss": {
+    "expected_packets": 656130,
+    "received_packets": 770,
+    "lost_packets": 655360,
+    "packet_loss_pct": 99.882645
+  },
+  "jitter": {
+    "samples": 769,
+    "avgJitterComponentMs": 23147273.593235,
+    "p50JitterComponentMs": 151.865228,
+    "maxJitterComponentMs": 47721823.927246
+  },
+  "comparisonWithPlainRtpStep89": {
+    "plainPacketLossPct": 0.0,
+    "dtlsPacketLossPct": 99.882645,
+    "plainAvgBitrateKbps": 833.605,
+    "dtlsAvgBitrateKbps": 102.492,
+    "plainAvgJitterMs": 20513.501273,
+    "dtlsAvgJitterMs": 23147273.593235
+  },
+  "files": {
+    "eventsCsv": "results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv",
+    "summaryJson": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.md",
+    "figureJitter": "results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png",
+    "figureLoss": "results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png",
+    "figureBitrate": "results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png"
+  }
+}
+Starting RTP sender...
+Capturing RTP packets...
+{
+  "experiment": "step89_live_rtp_media_plane_telemetry",
+  "importantNote": "This is live RTP media-plane telemetry over localhost. It is not yet DTLS-secured.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "rtpHost": "127.0.0.1",
+  "rtpPort": 5004,
+  "captureSeconds": 25,
+  "receivedPackets": 2302,
+  "totalBytes": 2576215,
+  "avgBitrateKbps": 824.389,
+  "packetLoss": {
+    "expected_packets": 2328,
+    "received_packets": 2302,
+    "lost_packets": 26,
+    "packet_loss_pct": 1.116838
+  },
+  "jitter": {
+    "samples": 2301,
+    "avgJitterComponentMs": 788115.386067,
+    "p50JitterComponentMs": 8.891923,
+    "maxJitterComponentMs": 47721825.449413
+  },
+  "files": {
+    "eventsCsv": "results/l4_live_rtp_media/rtp_packet_events.csv",
+    "summaryJson": "results/l4_live_rtp_media/rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_live_rtp_media/rtp_media_summary.md",
+    "figureJitter": "results/l4_live_rtp_media/figure_5_10_live_rtp_jitter.png",
+    "figureBitrate": "results/l4_live_rtp_media/figure_5_11_live_rtp_bitrate.png",
+    "figureSequence": "results/l4_live_rtp_media/figure_5_12_live_rtp_sequence_progress.png"
+  }
+}
+Built dtls_rtp/dtls_rtp_proxy
+Starting DTLS RTP server proxy...
+Starting DTLS RTP client proxy...
+Starting FFmpeg RTP sender into DTLS client proxy...
+Capturing recovered DTLS-wrapped RTP packets...
+{
+  "experiment": "step90_dtls_wrapped_rtp_media_plane_telemetry",
+  "importantNote": "This is DTLS-wrapped RTP media-plane telemetry over localhost. It is a DTLS tunnel/proxy baseline, not WebRTC DTLS-SRTP.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "dtlsProxy": "dtls_rtp/dtls_rtp_proxy",
+  "rtpClientInput": "127.0.0.1:6000",
+  "dtlsEndpoint": "127.0.0.1:4444",
+  "recoveredRtpEndpoint": "127.0.0.1:5006",
+  "captureSeconds": 25,
+  "receivedPackets": 745,
+  "totalBytes": 310390,
+  "avgBitrateKbps": 99.325,
+  "packetLoss": {
+    "expected_packets": 4588288,
+    "received_packets": 745,
+    "lost_packets": 4587543,
+    "packet_loss_pct": 99.983763
+  },
+  "jitter": {
+    "samples": 744,
+    "avgJitterComponentMs": 21038670.778465,
+    "p50JitterComponentMs": 155.415871,
+    "maxJitterComponentMs": 47721823.795568
+  },
+  "comparisonWithPlainRtpStep89": {
+    "plainPacketLossPct": 1.116838,
+    "dtlsPacketLossPct": 99.983763,
+    "plainAvgBitrateKbps": 824.389,
+    "dtlsAvgBitrateKbps": 99.325,
+    "plainAvgJitterMs": 788115.386067,
+    "dtlsAvgJitterMs": 21038670.778465
+  },
+  "files": {
+    "eventsCsv": "results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv",
+    "summaryJson": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.md",
+    "figureJitter": "results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png",
+    "figureLoss": "results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png",
+    "figureBitrate": "results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png"
+  }
+}
+[preflight] requesting sudo once for tc/netem
++ sudo -v
+[netem] clean profile: clean_baseline
+
+=== Running plain_rtp under clean_baseline ===
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_live_rtp_media_telemetry.py
+
+=== Running dtls_rtp under clean_baseline ===
++ ./dtls_rtp/build.sh
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_dtls_rtp_media_telemetry.py
++ sudo tc qdisc replace dev lo root netem delay 20ms
+[netem] applied profile: delay_20ms
+
+=== Running plain_rtp under delay_20ms ===
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_live_rtp_media_telemetry.py
+
+=== Running dtls_rtp under delay_20ms ===
++ ./dtls_rtp/build.sh
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_dtls_rtp_media_telemetry.py
++ sudo tc qdisc replace dev lo root netem delay 20ms 5ms distribution normal
+[netem] applied profile: delay_20ms_jitter_5ms
+
+=== Running plain_rtp under delay_20ms_jitter_5ms ===
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_live_rtp_media_telemetry.py
+
+=== Running dtls_rtp under delay_20ms_jitter_5ms ===
++ ./dtls_rtp/build.sh
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_dtls_rtp_media_telemetry.py
++ sudo tc qdisc replace dev lo root netem delay 30ms 10ms distribution normal loss 1%
+[netem] applied profile: delay_30ms_jitter_10ms_loss_1pct
+
+=== Running plain_rtp under delay_30ms_jitter_10ms_loss_1pct ===
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_live_rtp_media_telemetry.py
+
+=== Running dtls_rtp under delay_30ms_jitter_10ms_loss_1pct ===
++ ./dtls_rtp/build.sh
++ python /home/sk02352/zktrustllm-agents-l4/scripts/l4/run_dtls_rtp_media_telemetry.py
+[cleanup] resetting loopback netem
+{
+  "experiment": "step91_network_impairment_plain_vs_dtls",
+  "measurementNote": "Jitter is recomputed from packet arrival-gap variation to avoid raw RTP timestamp artefacts.",
+  "profiles": [
+    {
+      "name": "clean_baseline",
+      "description": "No artificial impairment on loopback",
+      "netem": null
+    },
+    {
+      "name": "delay_20ms",
+      "description": "20 ms fixed delay",
+      "netem": [
+        "delay",
+        "20ms"
+      ]
+    },
+    {
+      "name": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter",
+      "netem": [
+        "delay",
+        "20ms",
+        "5ms",
+        "distribution",
+        "normal"
+      ]
+    },
+    {
+      "name": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss",
+      "netem": [
+        "delay",
+        "30ms",
+        "10ms",
+        "distribution",
+        "normal",
+        "loss",
+        "1%"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2328,
+      "expectedPackets": 2328,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 833.60512,
+      "avgJitterMs": 10.712002,
+      "p50JitterMs": 0.044,
+      "p95JitterMs": 34.171,
+      "maxJitterMs": 38.739,
+      "medianArrivalGapMs": 0.063,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "clean_baseline",
+      "description": "No artificial impairment on loopback"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 769,
+      "expectedPackets": 769,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 102.16992,
+      "avgJitterMs": 0.978148,
+      "p50JitterMs": 0.1585,
+      "p95JitterMs": 0.6815,
+      "maxJitterMs": 33.3085,
+      "medianArrivalGapMs": 33.3225,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "clean_baseline",
+      "description": "No artificial impairment on loopback"
+    },
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2328,
+      "expectedPackets": 2328,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 833.60512,
+      "avgJitterMs": 10.70355,
+      "p50JitterMs": 0.058,
+      "p95JitterMs": 33.903,
+      "maxJitterMs": 50.522,
+      "medianArrivalGapMs": 0.081,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms",
+      "description": "20 ms fixed delay"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 768,
+      "expectedPackets": 768,
+      "lostPackets": 0,
+      "packetLossPct": 0.0,
+      "avgBitrateKbps": 102.10528,
+      "avgJitterMs": 0.942746,
+      "p50JitterMs": 0.139,
+      "p95JitterMs": 0.454,
+      "maxJitterMs": 33.307,
+      "medianArrivalGapMs": 33.321,
+      "ignoredReorderOrWrapEvents": 0,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms",
+      "description": "20 ms fixed delay"
+    },
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2328,
+      "expectedPackets": 3257,
+      "lostPackets": 929,
+      "packetLossPct": 28.523181,
+      "avgBitrateKbps": 833.60512,
+      "avgJitterMs": 8.33334,
+      "p50JitterMs": 4.666,
+      "p95JitterMs": 24.436,
+      "maxJitterMs": 37.678,
+      "medianArrivalGapMs": 5.771,
+      "ignoredReorderOrWrapEvents": 929,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 770,
+      "expectedPackets": 786,
+      "lostPackets": 16,
+      "packetLossPct": 2.035623,
+      "avgBitrateKbps": 102.49184,
+      "avgJitterMs": 10.016961,
+      "p50JitterMs": 8.267,
+      "p95JitterMs": 25.286,
+      "maxJitterMs": 38.643,
+      "medianArrivalGapMs": 32.511,
+      "ignoredReorderOrWrapEvents": 16,
+      "status": "measured_from_packet_events",
+      "profile": "delay_20ms_jitter_5ms",
+      "description": "20 ms delay with 5 ms jitter"
+    },
+    {
+      "mode": "plain_rtp",
+      "receivedPackets": 2302,
+      "expectedPackets": 3270,
+      "lostPackets": 968,
+      "packetLossPct": 29.602446,
+      "avgBitrateKbps": 824.3888,
+      "avgJitterMs": 6.910872,
+      "p50JitterMs": 5.723,
+      "p95JitterMs": 19.517,
+      "maxJitterMs": 35.167,
+      "medianArrivalGapMs": 8.739,
+      "ignoredReorderOrWrapEvents": 942,
+      "status": "measured_from_packet_events",
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss"
+    },
+    {
+      "mode": "dtls_rtp",
+      "receivedPackets": 745,
+      "expectedPackets": 845,
+      "lostPackets": 100,
+      "packetLossPct": 11.83432,
+      "avgBitrateKbps": 99.3248,
+      "avgJitterMs": 17.339358,
+      "p50JitterMs": 15.199,
+      "p95JitterMs": 42.472,
+      "maxJitterMs": 78.125,
+      "medianArrivalGapMs": 30.646,
+      "ignoredReorderOrWrapEvents": 77,
+      "status": "measured_from_packet_events",
+      "profile": "delay_30ms_jitter_10ms_loss_1pct",
+      "description": "30 ms delay, 10 ms jitter, 1% packet loss"
+    }
+  ],
+  "files": {
+    "summaryJson": "results/l4_network_impairment/network_impairment_summary.json",
+    "summaryCsv": "results/l4_network_impairment/network_impairment_summary.csv",
+    "summaryMarkdown": "results/l4_network_impairment/network_impairment_summary.md",
+    "packetLossFigure": "results/l4_network_impairment/figure_5_16_plain_vs_dtls_impairment_packet_loss.png",
+    "bitrateFigure": "results/l4_network_impairment/figure_5_17_plain_vs_dtls_impairment_bitrate.png",
+    "jitterFigure": "results/l4_network_impairment/figure_5_18_plain_vs_dtls_impairment_jitter.png"
+  }
+}
+Saved: /home/sk02352/zktrustllm-agents-l4/results/l4_network_impairment/network_impairment_summary.json

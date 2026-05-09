@@ -1,0 +1,45 @@
+Starting DTLS RTP server proxy...
+Starting DTLS RTP client proxy...
+Starting FFmpeg RTP sender into DTLS client proxy...
+Capturing recovered DTLS-wrapped RTP packets...
+{
+  "experiment": "step90_dtls_wrapped_rtp_media_plane_telemetry",
+  "importantNote": "This is DTLS-wrapped RTP media-plane telemetry over localhost. It is a DTLS tunnel/proxy baseline, not WebRTC DTLS-SRTP.",
+  "video": "media_samples/l4_test_video_30s.mp4",
+  "dtlsProxy": "dtls_rtp/dtls_rtp_proxy",
+  "rtpClientInput": "127.0.0.1:6000",
+  "dtlsEndpoint": "127.0.0.1:4444",
+  "recoveredRtpEndpoint": "127.0.0.1:5006",
+  "captureSeconds": 25,
+  "receivedPackets": 769,
+  "totalBytes": 319281,
+  "avgBitrateKbps": 102.17,
+  "packetLoss": {
+    "expected_packets": 769,
+    "received_packets": 769,
+    "lost_packets": 0,
+    "packet_loss_pct": 0.0
+  },
+  "jitter": {
+    "samples": 768,
+    "avgJitterComponentMs": 23053137.586642,
+    "p50JitterComponentMs": 133.685886,
+    "maxJitterComponentMs": 47721793.528575
+  },
+  "comparisonWithPlainRtpStep89": {
+    "plainPacketLossPct": 0.0,
+    "dtlsPacketLossPct": 0.0,
+    "plainAvgBitrateKbps": 833.605,
+    "dtlsAvgBitrateKbps": 102.17,
+    "plainAvgJitterMs": 0.336413,
+    "dtlsAvgJitterMs": 23053137.586642
+  },
+  "files": {
+    "eventsCsv": "results/l4_dtls_rtp_media/dtls_rtp_packet_events.csv",
+    "summaryJson": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.json",
+    "summaryMarkdown": "results/l4_dtls_rtp_media/dtls_rtp_media_summary.md",
+    "figureJitter": "results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png",
+    "figureLoss": "results/l4_dtls_rtp_media/figure_5_14_plain_vs_dtls_packet_loss.png",
+    "figureBitrate": "results/l4_dtls_rtp_media/figure_5_15_plain_vs_dtls_bitrate.png"
+  }
+}

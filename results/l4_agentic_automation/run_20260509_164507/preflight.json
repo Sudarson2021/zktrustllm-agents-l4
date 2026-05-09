@@ -1,0 +1,15 @@
+{
+  "python": "3.12.3",
+  "root": "/home/sk02352/zktrustllm-agents-l4",
+  "binaries": {
+    "ffmpeg": true,
+    "ffprobe": true,
+    "tc": true,
+    "ip": true,
+    "cvlc": true
+  },
+  "requiredFiles": {
+    "dtlsProxySource": true,
+    "mediaSample": true
+  }
+}

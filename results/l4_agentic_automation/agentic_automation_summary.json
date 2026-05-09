@@ -1,8 +1,8 @@
 {
   "experiment": "step96_l4_agentic_automation_suite",
-  "runId": "20260509_163127",
-  "startedAt": "2026-05-09T16:31:27",
-  "finishedAt": "2026-05-09T16:40:14",
+  "runId": "20260509_164507",
+  "startedAt": "2026-05-09T16:45:07",
+  "finishedAt": "2026-05-09T16:53:52",
   "includePrivileged": true,
   "overallStatus": "PASS",
   "executedSteps": [
@@ -13,9 +13,9 @@
         "scripts/l4/test_mcp_l4_server.py"
       ],
       "returncode": 0,
-      "durationSeconds": 1.267,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step79_mcp_tool_test.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step79_mcp_tool_test.stderr.log",
+      "durationSeconds": 1.217,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step79_mcp_tool_test.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step79_mcp_tool_test.stderr.log",
       "ok": true
     },
     {
@@ -25,9 +25,9 @@
         "scripts/l4/run_l4_semi_live_control_telemetry.py"
       ],
       "returncode": 0,
-      "durationSeconds": 4.677,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step86_semi_live_control_telemetry.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step86_semi_live_control_telemetry.stderr.log",
+      "durationSeconds": 3.924,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step86_semi_live_control_telemetry.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step86_semi_live_control_telemetry.stderr.log",
       "ok": true
     },
     {
@@ -37,9 +37,9 @@
         "scripts/l4/run_l4_multi_agent_scaling_telemetry.py"
       ],
       "returncode": 0,
-      "durationSeconds": 25.52,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step87_multi_agent_scaling.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step87_multi_agent_scaling.stderr.log",
+      "durationSeconds": 23.111,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step87_multi_agent_scaling.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step87_multi_agent_scaling.stderr.log",
       "ok": true
     },
     {
@@ -49,9 +49,9 @@
         "scripts/l4/run_live_rtp_media_telemetry.py"
       ],
       "returncode": 0,
-      "durationSeconds": 28.171,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step89_live_rtp_media.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step89_live_rtp_media.stderr.log",
+      "durationSeconds": 28.151,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step89_live_rtp_media.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step89_live_rtp_media.stderr.log",
       "ok": true
     },
     {
@@ -61,8 +61,8 @@
       ],
       "returncode": 0,
       "durationSeconds": 0.165,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step90_build_dtls_proxy.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step90_build_dtls_proxy.stderr.log",
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step90_build_dtls_proxy.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step90_build_dtls_proxy.stderr.log",
       "ok": true
     },
     {
@@ -72,9 +72,9 @@
         "scripts/l4/run_dtls_rtp_media_telemetry.py"
       ],
       "returncode": 0,
-      "durationSeconds": 29.231,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step90_dtls_rtp_media.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step90_dtls_rtp_media.stderr.log",
+      "durationSeconds": 29.169,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step90_dtls_rtp_media.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step90_dtls_rtp_media.stderr.log",
       "ok": true
     },
     {
@@ -84,9 +84,9 @@
         "scripts/l4/recompute_dtls_rtp_arrival_jitter.py"
       ],
       "returncode": 0,
-      "durationSeconds": 0.667,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step90_recompute_arrival_jitter.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step90_recompute_arrival_jitter.stderr.log",
+      "durationSeconds": 0.869,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step90_recompute_arrival_jitter.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step90_recompute_arrival_jitter.stderr.log",
       "ok": true
     },
     {
@@ -96,9 +96,9 @@
         "scripts/l4/run_step91_network_impairment_matrix.py"
       ],
       "returncode": 0,
-      "durationSeconds": 234.569,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step91_loopback_network_impairment.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step91_loopback_network_impairment.stderr.log",
+      "durationSeconds": 234.144,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step91_loopback_network_impairment.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step91_loopback_network_impairment.stderr.log",
       "ok": true
     },
     {
@@ -108,9 +108,9 @@
         "scripts/l4/run_step93_namespace_impairment_matrix.py"
       ],
       "returncode": 0,
-      "durationSeconds": 203.411,
-      "stdout": "results/l4_agentic_automation/run_20260509_163127/step93_namespace_network_impairment.stdout.log",
-      "stderr": "results/l4_agentic_automation/run_20260509_163127/step93_namespace_network_impairment.stderr.log",
+      "durationSeconds": 203.57,
+      "stdout": "results/l4_agentic_automation/run_20260509_164507/step93_namespace_network_impairment.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_164507/step93_namespace_network_impairment.stderr.log",
       "ok": true
     }
   ],
@@ -149,7 +149,7 @@
       ]
     },
     {
-      "path": "results/l4_agentic_automation/run_20260509_163127/clean_media_snapshots/clean_plain_rtp_media_summary.json",
+      "path": "results/l4_agentic_automation/run_20260509_164507/clean_media_snapshots/clean_plain_rtp_media_summary.json",
       "ok": true,
       "checks": [
         {
@@ -170,12 +170,12 @@
         {
           "name": "jitter_reasonable",
           "ok": true,
-          "value": 0.287971
+          "value": 0.336413
         }
       ]
     },
     {
-      "path": "results/l4_agentic_automation/run_20260509_163127/clean_media_snapshots/clean_dtls_rtp_media_summary.json",
+      "path": "results/l4_agentic_automation/run_20260509_164507/clean_media_snapshots/clean_dtls_rtp_media_summary.json",
       "ok": true,
       "checks": [
         {
@@ -196,7 +196,7 @@
         {
           "name": "jitter_reasonable",
           "ok": true,
-          "value": 0.942776
+          "value": 0.96403
         }
       ]
     },
@@ -222,7 +222,7 @@
         {
           "name": "row_0_jitter_reasonable",
           "ok": true,
-          "value": 10.706743
+          "value": 10.712002
         },
         {
           "name": "row_1_packets_positive",
@@ -237,7 +237,7 @@
         {
           "name": "row_1_jitter_reasonable",
           "ok": true,
-          "value": 1.063099
+          "value": 0.978148
         },
         {
           "name": "row_2_packets_positive",
@@ -252,22 +252,22 @@
         {
           "name": "row_2_jitter_reasonable",
           "ok": true,
-          "value": 10.708266
+          "value": 10.70355
         },
         {
           "name": "row_3_packets_positive",
           "ok": true,
-          "value": 769
+          "value": 768
         },
         {
           "name": "row_3_bitrate_positive",
           "ok": true,
-          "value": 102.17824
+          "value": 102.10528
         },
         {
           "name": "row_3_jitter_reasonable",
           "ok": true,
-          "value": 0.960479
+          "value": 0.942746
         },
         {
           "name": "row_4_packets_positive",
@@ -277,57 +277,57 @@
         {
           "name": "row_4_bitrate_positive",
           "ok": true,
-          "value": 833.71168
+          "value": 833.60512
         },
         {
           "name": "row_4_jitter_reasonable",
           "ok": true,
-          "value": 8.348262
+          "value": 8.33334
         },
         {
           "name": "row_5_packets_positive",
           "ok": true,
-          "value": 769
+          "value": 770
         },
         {
           "name": "row_5_bitrate_positive",
           "ok": true,
-          "value": 102.17824
+          "value": 102.49184
         },
         {
           "name": "row_5_jitter_reasonable",
           "ok": true,
-          "value": 10.09509
+          "value": 10.016961
         },
         {
           "name": "row_6_packets_positive",
           "ok": true,
-          "value": 2300
+          "value": 2302
         },
         {
           "name": "row_6_bitrate_positive",
           "ok": true,
-          "value": 824.1312
+          "value": 824.3888
         },
         {
           "name": "row_6_jitter_reasonable",
           "ok": true,
-          "value": 6.982458
+          "value": 6.910872
         },
         {
           "name": "row_7_packets_positive",
           "ok": true,
-          "value": 740
+          "value": 745
         },
         {
           "name": "row_7_bitrate_positive",
           "ok": true,
-          "value": 99.28256
+          "value": 99.3248
         },
         {
           "name": "row_7_jitter_reasonable",
           "ok": true,
-          "value": 17.390951
+          "value": 17.339358
         }
       ]
     },
@@ -353,7 +353,7 @@
         {
           "name": "row_0_jitter_reasonable",
           "ok": true,
-          "value": 1.55117
+          "value": 1.609349
         },
         {
           "name": "row_1_packets_positive",
@@ -368,7 +368,7 @@
         {
           "name": "row_1_jitter_reasonable",
           "ok": true,
-          "value": 1.680621
+          "value": 1.683003
         },
         {
           "name": "row_2_packets_positive",
@@ -383,7 +383,7 @@
         {
           "name": "row_2_jitter_reasonable",
           "ok": true,
-          "value": 1.540956
+          "value": 1.589978
         },
         {
           "name": "row_3_packets_positive",
@@ -398,7 +398,7 @@
         {
           "name": "row_3_jitter_reasonable",
           "ok": true,
-          "value": 1.706101
+          "value": 1.698072
         },
         {
           "name": "row_4_packets_positive",
@@ -413,58 +413,58 @@
         {
           "name": "row_4_jitter_reasonable",
           "ok": true,
-          "value": 6.456677
+          "value": 6.805895
         },
         {
           "name": "row_5_packets_positive",
           "ok": true,
-          "value": 691
+          "value": 692
         },
         {
           "name": "row_5_bitrate_positive",
           "ok": true,
-          "value": 92.70176
+          "value": 92.76512
         },
         {
           "name": "row_5_jitter_reasonable",
           "ok": true,
-          "value": 6.678514
+          "value": 6.832731
         },
         {
           "name": "row_6_packets_positive",
           "ok": true,
-          "value": 746
+          "value": 740
         },
         {
           "name": "row_6_bitrate_positive",
           "ok": true,
-          "value": 99.9888
+          "value": 98.49984
         },
         {
           "name": "row_6_jitter_reasonable",
           "ok": true,
-          "value": 11.869184
+          "value": 12.845039
         },
         {
           "name": "row_7_packets_positive",
           "ok": true,
-          "value": 684
+          "value": 683
         },
         {
           "name": "row_7_bitrate_positive",
           "ok": true,
-          "value": 91.77856
+          "value": 91.73152
         },
         {
           "name": "row_7_jitter_reasonable",
           "ok": true,
-          "value": 12.564675
+          "value": 12.625008
         }
       ]
     }
   ],
   "artifactCount": 203,
   "artifactManifestCsv": "results/l4_agentic_automation/agentic_automation_artifact_manifest.csv",
-  "runDirectory": "results/l4_agentic_automation/run_20260509_163127",
+  "runDirectory": "results/l4_agentic_automation/run_20260509_164507",
   "nextRecommendedStep": "Step 97 closed-loop KPI-driven agentic decision controller"
 }
