@@ -7,10 +7,10 @@
   "lostPackets": 0,
   "packetLossPct": 0.0,
   "avgBitrateKbps": 100.40384,
-  "avgJitterMs": 1.566748,
-  "p50JitterMs": 0.123351,
-  "p95JitterMs": 0.866672,
-  "maxJitterMs": 33.322402,
-  "medianArrivalGapMs": 33.329247,
+  "avgJitterMs": 1.543121,
+  "p50JitterMs": 0.117319,
+  "p95JitterMs": 0.405098,
+  "maxJitterMs": 33.319314,
+  "medianArrivalGapMs": 33.325914,
   "status": "measured_from_namespace_packet_events"
 }

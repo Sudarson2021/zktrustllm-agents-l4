@@ -228,6 +228,38 @@ def percentile(values, pct):
     return xs[f] * (c - k) + xs[c] * (k - f)
 
 
+def compute_sequence_loss(seqs):
+    """Estimate RTP loss using the smallest circular arc covering observed sequence numbers.
+
+    This avoids false 65536-packet loss when netem jitter reorders packets around
+    the first observed sequence number.
+    """
+    if not seqs:
+        return 0, 0, 0.0
+
+    unique = sorted(set(int(x) % 65536 for x in seqs))
+
+    if len(unique) == 1:
+        return 1, 0, 0.0
+
+    gaps = []
+    for i in range(len(unique)):
+        cur = unique[i]
+        nxt = unique[(i + 1) % len(unique)]
+        if i == len(unique) - 1:
+            gap = (nxt + 65536) - cur - 1
+        else:
+            gap = nxt - cur - 1
+        gaps.append(gap)
+
+    largest_gap = max(gaps)
+    expected = 65536 - largest_gap
+    lost = max(0, expected - len(unique))
+    loss_pct = (lost / expected * 100.0) if expected else 0.0
+
+    return expected, lost, loss_pct
+
+
 def compute_metrics(events_csv, profile, mode, description):
     rows = []
     with Path(events_csv).open() as f:
@@ -259,13 +291,7 @@ def compute_metrics(events_csv, profile, mode, description):
     seqs = [int(r["sequence"]) for r in rows]
     total_bytes = sum(int(r["packet_bytes"]) for r in rows)
 
-    first_seq = seqs[0]
-    deltas = [((s - first_seq) % 65536) for s in seqs]
-    unique_deltas = set(deltas)
-
-    expected = max(unique_deltas) + 1
-    lost = max(0, expected - len(unique_deltas))
-    loss_pct = (lost / expected * 100.0) if expected else 0.0
+    expected, lost, loss_pct = compute_sequence_loss(seqs)
 
     gaps = []
     for i in range(1, len(arrivals)):

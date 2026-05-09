@@ -1,4 +1,4 @@
 {
-  "packets": 746,
+  "packets": 744,
   "out": "/home/sk02352/zktrustllm-agents-l4/results/l4_namespace_impairment/delay_30ms_jitter_10ms_loss_1pct_plain_rtp_packet_events.csv"
 }
