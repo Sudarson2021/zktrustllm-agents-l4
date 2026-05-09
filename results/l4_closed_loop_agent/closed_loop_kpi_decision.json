@@ -1,0 +1,573 @@
+{
+  "experiment": "step97_closed_loop_kpi_decision_agent",
+  "createdAt": "2026-05-09T17:10:10",
+  "thresholds": {
+    "plain_rtp_max_loss_pct": 5.0,
+    "dtls_rtp_max_loss_pct": 5.0,
+    "clean_media_max_jitter_ms": 1000.0,
+    "impairment_max_jitter_ms": 1000.0,
+    "min_received_packets": 1,
+    "min_rows": 1
+  },
+  "componentStatus": {
+    "mcp_tool_test": true,
+    "semi_live_control": true,
+    "multi_agent_scaling": true,
+    "plain_rtp": false,
+    "dtls_rtp": false,
+    "loopback_impairment": true,
+    "namespace_impairment": true,
+    "agentic_automation": true
+  },
+  "decision": {
+    "primaryAction": "RERUN_CLEAN_RTP_BASELINE",
+    "priority": "HIGH",
+    "humanApprovalRequired": false,
+    "reason": "Clean RTP baseline is missing, invalid, or outside KPI thresholds.",
+    "recommendedCommand": "python scripts/l4/run_live_rtp_media_telemetry.py",
+    "nextResearchStep": "Repair plain RTP telemetry before interpreting DTLS or impaired media-plane results."
+  },
+  "checks": [
+    {
+      "component": "mcp_tool_test",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "semi_live_control",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "multi_agent_scaling",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "plain_rtp",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "plain_rtp",
+      "check": "received_packets_positive",
+      "observed": 2328,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Rerun plain_rtp telemetry."
+    },
+    {
+      "component": "plain_rtp",
+      "check": "bitrate_positive",
+      "observed": 833.605,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Rerun plain_rtp telemetry and inspect sender/receiver logs."
+    },
+    {
+      "component": "plain_rtp",
+      "check": "packet_loss_reasonable",
+      "observed": 100.0,
+      "expected": "<= 5.0",
+      "status": "FAIL",
+      "recommendation": "Rerun plain_rtp; inspect RTP sequence or impairment state."
+    },
+    {
+      "component": "plain_rtp",
+      "check": "jitter_reasonable",
+      "observed": 0.229169,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Recompute arrival-gap jitter or rerun plain_rtp clean baseline."
+    },
+    {
+      "component": "dtls_rtp",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "dtls_rtp",
+      "check": "received_packets_positive",
+      "observed": 769,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Rerun dtls_rtp telemetry."
+    },
+    {
+      "component": "dtls_rtp",
+      "check": "bitrate_positive",
+      "observed": 102.17,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Rerun dtls_rtp telemetry and inspect sender/receiver logs."
+    },
+    {
+      "component": "dtls_rtp",
+      "check": "packet_loss_reasonable",
+      "observed": 100.0,
+      "expected": "<= 5.0",
+      "status": "FAIL",
+      "recommendation": "Rerun dtls_rtp; inspect RTP sequence or impairment state."
+    },
+    {
+      "component": "dtls_rtp",
+      "check": "jitter_reasonable",
+      "observed": 0.95001,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Recompute arrival-gap jitter or rerun dtls_rtp clean baseline."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "has_rows",
+      "observed": 8,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Rerun loopback_impairment matrix."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_0_packets_positive",
+      "observed": 2328,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 0 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_0_bitrate_positive",
+      "observed": 833.60512,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 0 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_0_jitter_reasonable",
+      "observed": 10.709105,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 0; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_1_packets_positive",
+      "observed": 769,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 1 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_1_bitrate_positive",
+      "observed": 102.16992,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 1 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_1_jitter_reasonable",
+      "observed": 0.926337,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 1; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_2_packets_positive",
+      "observed": 2328,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 2 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_2_bitrate_positive",
+      "observed": 833.60512,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 2 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_2_jitter_reasonable",
+      "observed": 10.703096,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 2; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_3_packets_positive",
+      "observed": 769,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 3 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_3_bitrate_positive",
+      "observed": 102.41888,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 3 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_3_jitter_reasonable",
+      "observed": 0.98316,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 3; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_4_packets_positive",
+      "observed": 2328,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 4 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_4_bitrate_positive",
+      "observed": 833.70944,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 4 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_4_jitter_reasonable",
+      "observed": 8.326312,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 4; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_5_packets_positive",
+      "observed": 769,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 5 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_5_bitrate_positive",
+      "observed": 102.41888,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 5 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_5_jitter_reasonable",
+      "observed": 10.276802,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 5; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_6_packets_positive",
+      "observed": 2300,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 6 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_6_bitrate_positive",
+      "observed": 823.69248,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 6 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_6_jitter_reasonable",
+      "observed": 6.975492,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 6; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_7_packets_positive",
+      "observed": 737,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 7 receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_7_bitrate_positive",
+      "observed": 98.3696,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 7 sender/receiver logs."
+    },
+    {
+      "component": "loopback_impairment",
+      "check": "row_7_jitter_reasonable",
+      "observed": 17.46476,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 7; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "has_rows",
+      "observed": 8,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Rerun namespace_impairment matrix."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_0_packets_positive",
+      "observed": 752,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 0 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_0_bitrate_positive",
+      "observed": 100.40384,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 0 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_0_jitter_reasonable",
+      "observed": 1.551511,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 0; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_1_packets_positive",
+      "observed": 692,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 1 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_1_bitrate_positive",
+      "observed": 92.76512,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 1 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_1_jitter_reasonable",
+      "observed": 1.702097,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 1; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_2_packets_positive",
+      "observed": 752,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 2 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_2_bitrate_positive",
+      "observed": 100.40384,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 2 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_2_jitter_reasonable",
+      "observed": 1.543121,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 2; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_3_packets_positive",
+      "observed": 691,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 3 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_3_bitrate_positive",
+      "observed": 92.70176,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 3 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_3_jitter_reasonable",
+      "observed": 1.729853,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 3; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_4_packets_positive",
+      "observed": 752,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 4 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_4_bitrate_positive",
+      "observed": 100.40384,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 4 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_4_jitter_reasonable",
+      "observed": 7.032225,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 4; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_5_packets_positive",
+      "observed": 691,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 5 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_5_bitrate_positive",
+      "observed": 92.70176,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 5 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_5_jitter_reasonable",
+      "observed": 6.745149,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 5; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_6_packets_positive",
+      "observed": 744,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 6 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_6_bitrate_positive",
+      "observed": 99.22016,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 6 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_6_jitter_reasonable",
+      "observed": 12.334627,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 6; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_7_packets_positive",
+      "observed": 684,
+      "expected": ">= 1",
+      "status": "PASS",
+      "recommendation": "Inspect row 7 receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_7_bitrate_positive",
+      "observed": 91.96128,
+      "expected": "> 0",
+      "status": "PASS",
+      "recommendation": "Inspect row 7 sender/receiver logs."
+    },
+    {
+      "component": "namespace_impairment",
+      "check": "row_7_jitter_reasonable",
+      "observed": 12.014682,
+      "expected": "<= 1000.0",
+      "status": "PASS",
+      "recommendation": "Inspect row 7; recompute arrival-gap jitter if needed."
+    },
+    {
+      "component": "agentic_automation",
+      "check": "json_available_and_valid",
+      "observed": "valid",
+      "expected": "valid",
+      "status": "PASS",
+      "recommendation": "Regenerate this artifact if missing or invalid."
+    },
+    {
+      "component": "agentic_automation",
+      "check": "overall_status",
+      "observed": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "recommendation": "Rerun Step 96 automation suite or inspect failed validation rows."
+    }
+  ],
+  "files": {
+    "decisionJson": "results/l4_closed_loop_agent/closed_loop_kpi_decision.json",
+    "decisionMarkdown": "results/l4_closed_loop_agent/closed_loop_kpi_decision.md",
+    "decisionCsv": "results/l4_closed_loop_agent/closed_loop_kpi_checks.csv"
+  }
+}

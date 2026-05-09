@@ -1,0 +1,68 @@
+component,check,observed,expected,status,recommendation
+mcp_tool_test,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+semi_live_control,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+multi_agent_scaling,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+plain_rtp,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+plain_rtp,received_packets_positive,2328,>= 1,PASS,Rerun plain_rtp telemetry.
+plain_rtp,bitrate_positive,833.605,> 0,PASS,Rerun plain_rtp telemetry and inspect sender/receiver logs.
+plain_rtp,packet_loss_reasonable,100.0,<= 5.0,FAIL,Rerun plain_rtp; inspect RTP sequence or impairment state.
+plain_rtp,jitter_reasonable,0.229169,<= 1000.0,PASS,Recompute arrival-gap jitter or rerun plain_rtp clean baseline.
+dtls_rtp,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+dtls_rtp,received_packets_positive,769,>= 1,PASS,Rerun dtls_rtp telemetry.
+dtls_rtp,bitrate_positive,102.17,> 0,PASS,Rerun dtls_rtp telemetry and inspect sender/receiver logs.
+dtls_rtp,packet_loss_reasonable,100.0,<= 5.0,FAIL,Rerun dtls_rtp; inspect RTP sequence or impairment state.
+dtls_rtp,jitter_reasonable,0.95001,<= 1000.0,PASS,Recompute arrival-gap jitter or rerun dtls_rtp clean baseline.
+loopback_impairment,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+loopback_impairment,has_rows,8,>= 1,PASS,Rerun loopback_impairment matrix.
+loopback_impairment,row_0_packets_positive,2328,>= 1,PASS,Inspect row 0 receiver logs.
+loopback_impairment,row_0_bitrate_positive,833.60512,> 0,PASS,Inspect row 0 sender/receiver logs.
+loopback_impairment,row_0_jitter_reasonable,10.709105,<= 1000.0,PASS,Inspect row 0; recompute arrival-gap jitter if needed.
+loopback_impairment,row_1_packets_positive,769,>= 1,PASS,Inspect row 1 receiver logs.
+loopback_impairment,row_1_bitrate_positive,102.16992,> 0,PASS,Inspect row 1 sender/receiver logs.
+loopback_impairment,row_1_jitter_reasonable,0.926337,<= 1000.0,PASS,Inspect row 1; recompute arrival-gap jitter if needed.
+loopback_impairment,row_2_packets_positive,2328,>= 1,PASS,Inspect row 2 receiver logs.
+loopback_impairment,row_2_bitrate_positive,833.60512,> 0,PASS,Inspect row 2 sender/receiver logs.
+loopback_impairment,row_2_jitter_reasonable,10.703096,<= 1000.0,PASS,Inspect row 2; recompute arrival-gap jitter if needed.
+loopback_impairment,row_3_packets_positive,769,>= 1,PASS,Inspect row 3 receiver logs.
+loopback_impairment,row_3_bitrate_positive,102.41888,> 0,PASS,Inspect row 3 sender/receiver logs.
+loopback_impairment,row_3_jitter_reasonable,0.98316,<= 1000.0,PASS,Inspect row 3; recompute arrival-gap jitter if needed.
+loopback_impairment,row_4_packets_positive,2328,>= 1,PASS,Inspect row 4 receiver logs.
+loopback_impairment,row_4_bitrate_positive,833.70944,> 0,PASS,Inspect row 4 sender/receiver logs.
+loopback_impairment,row_4_jitter_reasonable,8.326312,<= 1000.0,PASS,Inspect row 4; recompute arrival-gap jitter if needed.
+loopback_impairment,row_5_packets_positive,769,>= 1,PASS,Inspect row 5 receiver logs.
+loopback_impairment,row_5_bitrate_positive,102.41888,> 0,PASS,Inspect row 5 sender/receiver logs.
+loopback_impairment,row_5_jitter_reasonable,10.276802,<= 1000.0,PASS,Inspect row 5; recompute arrival-gap jitter if needed.
+loopback_impairment,row_6_packets_positive,2300,>= 1,PASS,Inspect row 6 receiver logs.
+loopback_impairment,row_6_bitrate_positive,823.69248,> 0,PASS,Inspect row 6 sender/receiver logs.
+loopback_impairment,row_6_jitter_reasonable,6.975492,<= 1000.0,PASS,Inspect row 6; recompute arrival-gap jitter if needed.
+loopback_impairment,row_7_packets_positive,737,>= 1,PASS,Inspect row 7 receiver logs.
+loopback_impairment,row_7_bitrate_positive,98.3696,> 0,PASS,Inspect row 7 sender/receiver logs.
+loopback_impairment,row_7_jitter_reasonable,17.46476,<= 1000.0,PASS,Inspect row 7; recompute arrival-gap jitter if needed.
+namespace_impairment,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+namespace_impairment,has_rows,8,>= 1,PASS,Rerun namespace_impairment matrix.
+namespace_impairment,row_0_packets_positive,752,>= 1,PASS,Inspect row 0 receiver logs.
+namespace_impairment,row_0_bitrate_positive,100.40384,> 0,PASS,Inspect row 0 sender/receiver logs.
+namespace_impairment,row_0_jitter_reasonable,1.551511,<= 1000.0,PASS,Inspect row 0; recompute arrival-gap jitter if needed.
+namespace_impairment,row_1_packets_positive,692,>= 1,PASS,Inspect row 1 receiver logs.
+namespace_impairment,row_1_bitrate_positive,92.76512,> 0,PASS,Inspect row 1 sender/receiver logs.
+namespace_impairment,row_1_jitter_reasonable,1.702097,<= 1000.0,PASS,Inspect row 1; recompute arrival-gap jitter if needed.
+namespace_impairment,row_2_packets_positive,752,>= 1,PASS,Inspect row 2 receiver logs.
+namespace_impairment,row_2_bitrate_positive,100.40384,> 0,PASS,Inspect row 2 sender/receiver logs.
+namespace_impairment,row_2_jitter_reasonable,1.543121,<= 1000.0,PASS,Inspect row 2; recompute arrival-gap jitter if needed.
+namespace_impairment,row_3_packets_positive,691,>= 1,PASS,Inspect row 3 receiver logs.
+namespace_impairment,row_3_bitrate_positive,92.70176,> 0,PASS,Inspect row 3 sender/receiver logs.
+namespace_impairment,row_3_jitter_reasonable,1.729853,<= 1000.0,PASS,Inspect row 3; recompute arrival-gap jitter if needed.
+namespace_impairment,row_4_packets_positive,752,>= 1,PASS,Inspect row 4 receiver logs.
+namespace_impairment,row_4_bitrate_positive,100.40384,> 0,PASS,Inspect row 4 sender/receiver logs.
+namespace_impairment,row_4_jitter_reasonable,7.032225,<= 1000.0,PASS,Inspect row 4; recompute arrival-gap jitter if needed.
+namespace_impairment,row_5_packets_positive,691,>= 1,PASS,Inspect row 5 receiver logs.
+namespace_impairment,row_5_bitrate_positive,92.70176,> 0,PASS,Inspect row 5 sender/receiver logs.
+namespace_impairment,row_5_jitter_reasonable,6.745149,<= 1000.0,PASS,Inspect row 5; recompute arrival-gap jitter if needed.
+namespace_impairment,row_6_packets_positive,744,>= 1,PASS,Inspect row 6 receiver logs.
+namespace_impairment,row_6_bitrate_positive,99.22016,> 0,PASS,Inspect row 6 sender/receiver logs.
+namespace_impairment,row_6_jitter_reasonable,12.334627,<= 1000.0,PASS,Inspect row 6; recompute arrival-gap jitter if needed.
+namespace_impairment,row_7_packets_positive,684,>= 1,PASS,Inspect row 7 receiver logs.
+namespace_impairment,row_7_bitrate_positive,91.96128,> 0,PASS,Inspect row 7 sender/receiver logs.
+namespace_impairment,row_7_jitter_reasonable,12.014682,<= 1000.0,PASS,Inspect row 7; recompute arrival-gap jitter if needed.
+agentic_automation,json_available_and_valid,valid,valid,PASS,Regenerate this artifact if missing or invalid.
+agentic_automation,overall_status,PASS,PASS,PASS,Rerun Step 96 automation suite or inspect failed validation rows.

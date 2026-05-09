@@ -538,3 +538,31 @@ Scientific role:
 - Converts the Level 4 workflow from manual experiment execution into a repeatable agentic automation pipeline.
 - Provides the foundation for Step 97 closed-loop KPI-driven experiment selection.
 - Keeps high-impact actions such as Git push, public deployment, and supervisor submission under human approval.
+
+## L4 Step 97 Closed-Loop KPI Decision Agent
+
+This section adds a closed-loop KPI decision agent for the Level 4 automation workflow.
+
+Main artifacts:
+
+- Decision agent:
+  - `scripts/l4/run_closed_loop_kpi_decision_agent.py`
+
+- Decision documentation:
+  - `docs/l4/closed_loop_agent/CLOSED_LOOP_KPI_DECISION_AGENT.md`
+
+- Decision outputs:
+  - `results/l4_closed_loop_agent/closed_loop_kpi_decision.json`
+  - `results/l4_closed_loop_agent/closed_loop_kpi_decision.md`
+  - `results/l4_closed_loop_agent/closed_loop_kpi_checks.csv`
+
+Scientific role:
+
+- Step 96 automated experiment execution.
+- Step 97 reads the generated KPI evidence and recommends the next workflow action.
+- This is the first closed-loop agentic decision layer for the L4 project.
+
+Human-in-the-loop boundary:
+
+- The decision agent recommends actions only.
+- It does not push code, deploy systems, run privileged commands automatically, submit papers, or make irreversible decisions.
