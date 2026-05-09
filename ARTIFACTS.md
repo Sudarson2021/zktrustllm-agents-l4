@@ -566,3 +566,28 @@ Human-in-the-loop boundary:
 
 - The decision agent recommends actions only.
 - It does not push code, deploy systems, run privileged commands automatically, submit papers, or make irreversible decisions.
+
+## L4 Step 98 Closed-Loop Remediation Executor
+
+This section adds the closed-loop remediation executor with dry-run and human approval gates.
+
+Main artifacts:
+
+- Remediation executor:
+  - `scripts/l4/run_closed_loop_remediation_executor.py`
+
+- Remediation documentation:
+  - `docs/l4/remediation_executor/CLOSED_LOOP_REMEDIATION_EXECUTOR.md`
+
+- Execution outputs:
+  - `results/l4_remediation_executor/remediation_execution_plan.json`
+  - `results/l4_remediation_executor/remediation_execution_plan.md`
+  - `results/l4_remediation_executor/remediation_execution_stdout.log`
+  - `results/l4_remediation_executor/remediation_execution_stderr.log`
+
+Latest execution status:
+
+- `EXECUTED_PASS`
+- Primary action: `GENERATE_SUPERVISOR_REPORT`
+- Generated report:
+  - `results/l4_report_pdf/zktrustllm_l4_full_technical_documentation_steps77_93.pdf`
