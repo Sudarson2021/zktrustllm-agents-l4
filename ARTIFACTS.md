@@ -754,3 +754,28 @@ Research meaning:
 
 Step 104 validates that the on-chain audit-anchor registry rejects duplicate audit commitments and empty commitments. This strengthens the L4 trust-plane claim by showing replay-resistant anchoring behaviour.
 
+## L4 Step 105 Policy-Gated On-Chain Audit-Anchor Validation
+
+This section integrates Step 103 and Step 104 on-chain audit-anchor validation into the policy-gated L4 automation workflow.
+
+Main artifacts:
+
+- Policy-gated on-chain validation runner:
+  - `scripts/l4/run_policy_gated_onchain_anchor_validation.py`
+
+- Updated automation policy:
+  - `configs/l4_automation_policy.json`
+
+- Summary JSON:
+  - `results/l4_policy_onchain_validation/policy_onchain_validation_summary.json`
+
+- Summary Markdown:
+  - `results/l4_policy_onchain_validation/policy_onchain_validation_summary.md`
+
+- Documentation:
+  - `docs/l4/policy_onchain_validation/POLICY_GATED_ONCHAIN_ANCHOR_VALIDATION.md`
+
+Research meaning:
+
+Step 105 connects local Hardhat audit-anchor validation to the L4 policy-gated automation framework. It enables controlled, human-approved validation of on-chain anchoring and negative-security behaviour.
+

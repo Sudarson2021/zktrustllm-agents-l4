@@ -1,0 +1,43 @@
+{
+  "experiment": "step104_onchain_anchor_negative_security",
+  "network": "hardhat",
+  "registryAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "validSubmission": {
+    "transactionHash": "0x3aa06732baa252f303eb24a6b20c118a6a3c665b7e8cbcb6dce0a2b9d3053277",
+    "blockNumber": 2,
+    "gasUsed": "320095"
+  },
+  "negativeTests": {
+    "duplicateCommitmentReplay": {
+      "label": "duplicate_commitment_replay",
+      "rejected": true,
+      "error": "VM Exception while processing transaction: reverted with reason string 'commitment already anchored'"
+    },
+    "zeroCommitment": {
+      "label": "zero_commitment",
+      "rejected": true,
+      "error": "VM Exception while processing transaction: reverted with reason string 'empty commitment'"
+    }
+  },
+  "anchorCount": 1,
+  "storedAnchor": {
+    "ledgerHash": "0x0db58b3f2c09e530c280dc6cd795a53df54e3337b4a46aa9c70fe6ea166c2567",
+    "ledgerSha256": "0xa98a6ef6ef62a3d36ebaf2327153b4e3f76ebfaa593983db1a167ad543225e40",
+    "anchorCommitmentHash": "0x50aa798c5968470f172f5e91cb9d80e25b6ac018d3acde55a424f32ec1c2c8ec",
+    "ipfsCid": "QmW7VeYs3fP5kk92JstT8tAEkQytgseH4SfhKRpcSwU112",
+    "anchorType": "ZKTrustLLM_L4_AUTOMATION_AUDIT_LEDGER_ANCHOR",
+    "timestamp": "1778349197",
+    "submitter": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  },
+  "validations": {
+    "validAnchorStored": true,
+    "duplicateReplayRejected": true,
+    "zeroCommitmentRejected": true,
+    "commitmentStillMatches": true,
+    "ledgerHashStillMatches": true,
+    "ledgerSha256StillMatches": true,
+    "ipfsCidStillMatches": true
+  },
+  "overallStatus": "PASS",
+  "boundary": "The contract enforces non-zero commitments and replay protection. Semantic validation of CID-ledger binding remains off-chain via the Step 102 commitment payload."
+}

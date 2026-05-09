@@ -1,0 +1,16 @@
+{
+  "experiment": "step105_policy_gated_onchain_anchor_validation",
+  "runId": "20260509_185300",
+  "mode": "execute",
+  "action": "VALIDATE_ONCHAIN_AUDIT_ANCHOR_SECURITY",
+  "policyDecision": "HUMAN_APPROVED",
+  "humanApprovalSupplied": true,
+  "step103Command": "npx hardhat run scripts/l4/submit_l4_audit_anchor_hardhat.js",
+  "step104Command": "npx hardhat run scripts/l4/test_l4_audit_anchor_registry_negative_security.js",
+  "step103Status": "PASS",
+  "step104Status": "PASS",
+  "step104OverallStatus": "PASS",
+  "overallStatus": "EXECUTED_PASS",
+  "summaryJson": "results/l4_policy_onchain_validation/policy_onchain_validation_summary.json",
+  "summaryMarkdown": "results/l4_policy_onchain_validation/policy_onchain_validation_summary.md"
+}

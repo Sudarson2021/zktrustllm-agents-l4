@@ -16,7 +16,8 @@
     "GENERATE_SUPERVISOR_REPORT",
     "RERUN_CLEAN_RTP_BASELINE",
     "RERUN_DTLS_RTP_BASELINE",
-    "RERUN_AGENTIC_AUTOMATION_SUITE"
+    "RERUN_AGENTIC_AUTOMATION_SUITE",
+    "VALIDATE_ONCHAIN_AUDIT_ANCHOR_SECURITY"
   ],
   "allowedWithHumanAndPrivilegedApproval": [
     "RERUN_LOOPBACK_IMPAIRMENT",
@@ -36,5 +37,6 @@
     "step98DryRunBeforeExecution": true,
     "preserveAuditLogs": true,
     "writeRollbackNote": true
-  }
+  },
+  "step105Note": "Step 105 permits local Hardhat on-chain audit-anchor validation only with explicit human approval. It does not permit public-chain deployment or irreversible actions."
 }
