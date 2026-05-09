@@ -621,3 +621,30 @@ Coverage:
 - Actions never allowed automatically
 - Step 100 next milestone direction
 
+## L4 Step 100 Policy-Gated Autonomous Scheduler
+
+This section adds the policy-gated autonomous scheduler for the L4 closed-loop automation workflow.
+
+Main artifacts:
+
+- Automation policy:
+  - `configs/l4_automation_policy.json`
+
+- Scheduler script:
+  - `scripts/l4/run_policy_gated_autonomous_scheduler.py`
+
+- Scheduler documentation:
+  - `docs/l4/policy_scheduler/POLICY_GATED_AUTONOMOUS_SCHEDULER.md`
+
+- Scheduler outputs:
+  - `results/l4_policy_scheduler/policy_scheduler_summary.json`
+  - `results/l4_policy_scheduler/policy_scheduler_summary.md`
+  - `results/l4_policy_scheduler/policy_scheduler_rollback_note.md`
+
+Research meaning:
+
+- Step 96 runs the automation suite.
+- Step 97 decides the next action from KPI evidence.
+- Step 98 executes approved remediation.
+- Step 100 governs the full loop using explicit policy gates and rollback notes.
+

@@ -1,0 +1,40 @@
+{
+  "policyName": "ZKTrustLLM L4 Policy-Gated Automation Policy",
+  "version": "1.0",
+  "defaultMode": "dry-run",
+  "humanApprovalRequiredForExecution": true,
+  "allowPrivilegedCommandsByDefault": false,
+  "allowedAutomaticActions": [
+    "READ_KPI_ARTIFACTS",
+    "RUN_KPI_DECISION_AGENT",
+    "GENERATE_REMEDIATION_PLAN",
+    "GENERATE_MARKDOWN_REPORT",
+    "GENERATE_PDF_REPORT",
+    "GENERATE_ARTIFACT_MANIFEST"
+  ],
+  "allowedWithHumanApproval": [
+    "GENERATE_SUPERVISOR_REPORT",
+    "RERUN_CLEAN_RTP_BASELINE",
+    "RERUN_DTLS_RTP_BASELINE",
+    "RERUN_AGENTIC_AUTOMATION_SUITE"
+  ],
+  "allowedWithHumanAndPrivilegedApproval": [
+    "RERUN_LOOPBACK_IMPAIRMENT",
+    "RERUN_NAMESPACE_IMPAIRMENT"
+  ],
+  "neverAutomatic": [
+    "GIT_PUSH",
+    "MODIFY_GIT_HISTORY",
+    "SUBMIT_PAPER",
+    "EMAIL_SUPERVISOR",
+    "DEPLOY_PUBLIC_SYSTEM",
+    "DELETE_RESEARCH_EVIDENCE",
+    "RUN_PRIVILEGED_COMMAND_WITHOUT_APPROVAL"
+  ],
+  "schedulerRules": {
+    "runStep97BeforeStep98": true,
+    "step98DryRunBeforeExecution": true,
+    "preserveAuditLogs": true,
+    "writeRollbackNote": true
+  }
+}

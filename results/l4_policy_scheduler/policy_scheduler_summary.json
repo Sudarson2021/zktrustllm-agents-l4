@@ -1,0 +1,39 @@
+{
+  "experiment": "step100_policy_gated_autonomous_scheduler",
+  "runId": "20260509_181355",
+  "createdAt": "2026-05-09T18:13:56",
+  "mode": "execute",
+  "overallStatus": "EXECUTED_PASS",
+  "step97Status": "PASS",
+  "step98DryRunStatus": "PASS",
+  "step98ExecutionStatus": "EXECUTED_PASS",
+  "primaryAction": "GENERATE_SUPERVISOR_REPORT",
+  "priority": "LOW",
+  "reason": "All checked L4 control-plane, media-plane, impairment, namespace, and automation evidence passed.",
+  "policyGate": {
+    "allowed": true,
+    "category": "HUMAN_APPROVAL_REQUIRED",
+    "humanRequired": true,
+    "privilegedRequired": false,
+    "reason": "Action requires explicit human approval."
+  },
+  "approvalFlags": {
+    "execute": true,
+    "approveHuman": true,
+    "allowPrivileged": false
+  },
+  "files": {
+    "policyJson": "configs/l4_automation_policy.json",
+    "step97DecisionJson": "results/l4_closed_loop_agent/closed_loop_kpi_decision.json",
+    "step98PlanJson": "results/l4_remediation_executor/remediation_execution_plan.json",
+    "summaryJson": "results/l4_policy_scheduler/policy_scheduler_summary.json",
+    "summaryMarkdown": "results/l4_policy_scheduler/policy_scheduler_summary.md",
+    "rollbackNote": "results/l4_policy_scheduler/policy_scheduler_rollback_note.md",
+    "step97Stdout": "results/l4_policy_scheduler/step97_scheduler_stdout.log",
+    "step97Stderr": "results/l4_policy_scheduler/step97_scheduler_stderr.log",
+    "step98DryStdout": "results/l4_policy_scheduler/step98_dry_run_stdout.log",
+    "step98DryStderr": "results/l4_policy_scheduler/step98_dry_run_stderr.log",
+    "step98ExecStdout": "results/l4_policy_scheduler/step98_execute_stdout.log",
+    "step98ExecStderr": "results/l4_policy_scheduler/step98_execute_stderr.log"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "experiment": "step98_closed_loop_remediation_executor",
+  "runId": "20260509_181355",
+  "status": "DRY_RUN_READY",
+  "primaryAction": "GENERATE_SUPERVISOR_REPORT",
+  "mode": "dry-run",
+  "planJson": "results/l4_remediation_executor/remediation_execution_plan.json",
+  "planMarkdown": "results/l4_remediation_executor/remediation_execution_plan.md"
+}

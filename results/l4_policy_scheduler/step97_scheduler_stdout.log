@@ -1,0 +1,9 @@
+{
+  "experiment": "step97_closed_loop_kpi_decision_agent",
+  "primaryAction": "GENERATE_SUPERVISOR_REPORT",
+  "priority": "LOW",
+  "humanApprovalRequired": true,
+  "decisionJson": "results/l4_closed_loop_agent/closed_loop_kpi_decision.json",
+  "decisionMarkdown": "results/l4_closed_loop_agent/closed_loop_kpi_decision.md",
+  "decisionCsv": "results/l4_closed_loop_agent/closed_loop_kpi_checks.csv"
+}
