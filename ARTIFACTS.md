@@ -648,3 +648,40 @@ Research meaning:
 - Step 98 executes approved remediation.
 - Step 100 governs the full loop using explicit policy gates and rollback notes.
 
+## L4 Step 101 Hash-Chained Automation Audit Ledger
+
+This section adds a tamper-evident audit ledger for the Level 4 closed-loop automation workflow.
+
+Main artifacts:
+
+- Audit ledger builder:
+  - `scripts/l4/build_l4_automation_audit_ledger.py`
+
+- Audit ledger JSON:
+  - `results/l4_automation_audit_ledger/automation_audit_ledger.json`
+
+- Audit ledger JSONL:
+  - `results/l4_automation_audit_ledger/automation_audit_ledger.jsonl`
+
+- Audit manifest CSV:
+  - `results/l4_automation_audit_ledger/automation_audit_manifest.csv`
+
+- Audit ledger Markdown:
+  - `docs/l4/automation_audit_ledger/AUTOMATION_AUDIT_LEDGER.md`
+
+- Audit ledger PDF:
+  - `results/l4_report_pdf/zktrustllm_l4_automation_audit_ledger_steps96_100.pdf`
+
+Coverage:
+
+- Step 96 agentic automation suite
+- Step 97 KPI decision agent
+- Step 98 remediation executor
+- Step 99 governance dashboard
+- Step 100 policy-gated autonomous scheduler
+- Supervisor-facing full report artifacts
+
+Research meaning:
+
+Step 101 provides a cryptographic evidence chain for the L4 automation pipeline. It strengthens reproducibility, supervisor review, and scientific auditability by linking each automation artifact through SHA-256 hashes and hash-chain provenance.
+
