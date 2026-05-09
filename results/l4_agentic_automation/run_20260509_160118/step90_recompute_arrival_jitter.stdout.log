@@ -1,0 +1,11 @@
+{
+  "status": "ok",
+  "packets": 769,
+  "avgBitrateKbps": 102.17,
+  "avgArrivalGapJitterMs": 1.040521,
+  "p50ArrivalGapJitterMs": 0.181,
+  "maxArrivalGapJitterMs": 33.32,
+  "summaryJson": "/home/sk02352/zktrustllm-agents-l4/results/l4_dtls_rtp_media/dtls_rtp_media_summary.json",
+  "summaryMarkdown": "/home/sk02352/zktrustllm-agents-l4/results/l4_dtls_rtp_media/dtls_rtp_media_summary.md",
+  "jitterFigure": "/home/sk02352/zktrustllm-agents-l4/results/l4_dtls_rtp_media/figure_5_13_dtls_rtp_jitter.png"
+}

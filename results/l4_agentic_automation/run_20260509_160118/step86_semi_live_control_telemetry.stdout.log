@@ -1,0 +1,56 @@
+{
+  "experiment": "step86_semi_live_control_plane_telemetry",
+  "summary": {
+    "baseline_direct_agent": {
+      "runs": 20,
+      "successCount": 20,
+      "failureCount": 0,
+      "successRate": 1.0,
+      "controlFailureRatePct": 0.0,
+      "avgControlResponseMs": 0.001,
+      "p50ControlResponseMs": 0.001,
+      "p95ControlResponseMs": 0.001,
+      "jitterStdMs": 0.0,
+      "avgControlMessageBytes": 159.55,
+      "minControlMessageBytes": 159,
+      "maxControlMessageBytes": 160
+    },
+    "l4_raw_context": {
+      "runs": 20,
+      "successCount": 20,
+      "failureCount": 0,
+      "successRate": 1.0,
+      "controlFailureRatePct": 0.0,
+      "avgControlResponseMs": 59.01,
+      "p50ControlResponseMs": 59.087,
+      "p95ControlResponseMs": 61.235,
+      "jitterStdMs": 1.533,
+      "avgControlMessageBytes": 3475.8,
+      "minControlMessageBytes": 3474,
+      "maxControlMessageBytes": 3477
+    },
+    "l4_ref_mcp_a2a": {
+      "runs": 20,
+      "successCount": 20,
+      "failureCount": 0,
+      "successRate": 1.0,
+      "controlFailureRatePct": 0.0,
+      "avgControlResponseMs": 28.717,
+      "p50ControlResponseMs": 28.726,
+      "p95ControlResponseMs": 30.601,
+      "jitterStdMs": 1.551,
+      "avgControlMessageBytes": 72.55,
+      "minControlMessageBytes": 72,
+      "maxControlMessageBytes": 73
+    },
+    "comparison": {
+      "l4RefLatencyReductionVsRawPct": 51.34,
+      "l4RefMessageReductionVsRawPct": 97.91
+    }
+  },
+  "eventsCsv": "/home/sk02352/zktrustllm-agents-l4/results/l4_live_telemetry/semi_live_control_events.csv",
+  "summaryJson": "/home/sk02352/zktrustllm-agents-l4/results/l4_live_telemetry/semi_live_control_summary.json",
+  "summaryMarkdown": "/home/sk02352/zktrustllm-agents-l4/results/l4_live_telemetry/semi_live_control_summary.md",
+  "figure55": "/home/sk02352/zktrustllm-agents-l4/results/l4_live_telemetry/figure_5_5_semi_live_control_latency.png",
+  "figure56": "/home/sk02352/zktrustllm-agents-l4/results/l4_live_telemetry/figure_5_6_semi_live_control_summary.png"
+}

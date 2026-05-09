@@ -1,0 +1,470 @@
+{
+  "experiment": "step96_l4_agentic_automation_suite",
+  "runId": "20260509_160118",
+  "startedAt": "2026-05-09T16:01:18",
+  "finishedAt": "2026-05-09T16:10:03",
+  "includePrivileged": true,
+  "overallStatus": "PASS",
+  "executedSteps": [
+    {
+      "label": "step79_mcp_tool_test",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/test_mcp_l4_server.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 1.218,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step79_mcp_tool_test.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step79_mcp_tool_test.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step86_semi_live_control_telemetry",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/run_l4_semi_live_control_telemetry.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 3.975,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step86_semi_live_control_telemetry.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step86_semi_live_control_telemetry.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step87_multi_agent_scaling",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/run_l4_multi_agent_scaling_telemetry.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 22.962,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step87_multi_agent_scaling.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step87_multi_agent_scaling.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step89_live_rtp_media",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/run_live_rtp_media_telemetry.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 28.169,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step89_live_rtp_media.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step89_live_rtp_media.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step90_build_dtls_proxy",
+      "cmd": [
+        "./dtls_rtp/build.sh"
+      ],
+      "returncode": 0,
+      "durationSeconds": 0.215,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step90_build_dtls_proxy.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step90_build_dtls_proxy.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step90_dtls_rtp_media",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/run_dtls_rtp_media_telemetry.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 29.262,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step90_dtls_rtp_media.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step90_dtls_rtp_media.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step90_recompute_arrival_jitter",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/recompute_dtls_rtp_arrival_jitter.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 0.717,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step90_recompute_arrival_jitter.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step90_recompute_arrival_jitter.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step91_loopback_network_impairment",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/run_step91_network_impairment_matrix.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 234.137,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step91_loopback_network_impairment.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step91_loopback_network_impairment.stderr.log",
+      "ok": true
+    },
+    {
+      "label": "step93_namespace_network_impairment",
+      "cmd": [
+        "/home/sk02352/zktrustllm-agents-l4/.venv/bin/python",
+        "scripts/l4/run_step93_namespace_impairment_matrix.py"
+      ],
+      "returncode": 0,
+      "durationSeconds": 203.42,
+      "stdout": "results/l4_agentic_automation/run_20260509_160118/step93_namespace_network_impairment.stdout.log",
+      "stderr": "results/l4_agentic_automation/run_20260509_160118/step93_namespace_network_impairment.stderr.log",
+      "ok": true
+    }
+  ],
+  "validations": [
+    {
+      "path": "results/l4_mcp_server/mcp_tool_test_results.json",
+      "ok": true,
+      "checks": [
+        {
+          "name": "json_valid",
+          "ok": true,
+          "detail": "valid"
+        }
+      ]
+    },
+    {
+      "path": "results/l4_live_telemetry/semi_live_control_summary.json",
+      "ok": true,
+      "checks": [
+        {
+          "name": "json_valid",
+          "ok": true,
+          "detail": "valid"
+        }
+      ]
+    },
+    {
+      "path": "results/l4_multi_agent_scaling/multi_agent_scaling_summary.json",
+      "ok": true,
+      "checks": [
+        {
+          "name": "json_valid",
+          "ok": true,
+          "detail": "valid"
+        }
+      ]
+    },
+    {
+      "path": "results/l4_agentic_automation/run_20260509_160118/clean_media_snapshots/clean_plain_rtp_media_summary.json",
+      "ok": true,
+      "checks": [
+        {
+          "name": "received_packets_positive",
+          "ok": true,
+          "value": 2328
+        },
+        {
+          "name": "bitrate_positive",
+          "ok": true,
+          "value": 833.605
+        },
+        {
+          "name": "packet_loss_reasonable",
+          "ok": true,
+          "value": 0.0
+        },
+        {
+          "name": "jitter_reasonable",
+          "ok": true,
+          "value": 0.242929
+        }
+      ]
+    },
+    {
+      "path": "results/l4_agentic_automation/run_20260509_160118/clean_media_snapshots/clean_dtls_rtp_media_summary.json",
+      "ok": true,
+      "checks": [
+        {
+          "name": "received_packets_positive",
+          "ok": true,
+          "value": 769
+        },
+        {
+          "name": "bitrate_positive",
+          "ok": true,
+          "value": 102.17
+        },
+        {
+          "name": "packet_loss_reasonable",
+          "ok": true,
+          "value": 0.0
+        },
+        {
+          "name": "jitter_reasonable",
+          "ok": true,
+          "value": 1.040521
+        }
+      ]
+    },
+    {
+      "path": "results/l4_network_impairment/network_impairment_summary.json",
+      "ok": true,
+      "checks": [
+        {
+          "name": "has_rows",
+          "ok": true,
+          "value": 8
+        },
+        {
+          "name": "row_0_packets_positive",
+          "ok": true,
+          "value": 2327
+        },
+        {
+          "name": "row_0_bitrate_positive",
+          "ok": true,
+          "value": 833.34304
+        },
+        {
+          "name": "row_0_jitter_reasonable",
+          "ok": true,
+          "value": 10.70988
+        },
+        {
+          "name": "row_1_packets_positive",
+          "ok": true,
+          "value": 769
+        },
+        {
+          "name": "row_1_bitrate_positive",
+          "ok": true,
+          "value": 102.38464
+        },
+        {
+          "name": "row_1_jitter_reasonable",
+          "ok": true,
+          "value": 0.935068
+        },
+        {
+          "name": "row_2_packets_positive",
+          "ok": true,
+          "value": 2328
+        },
+        {
+          "name": "row_2_bitrate_positive",
+          "ok": true,
+          "value": 833.60512
+        },
+        {
+          "name": "row_2_jitter_reasonable",
+          "ok": true,
+          "value": 10.703972
+        },
+        {
+          "name": "row_3_packets_positive",
+          "ok": true,
+          "value": 769
+        },
+        {
+          "name": "row_3_bitrate_positive",
+          "ok": true,
+          "value": 102.17824
+        },
+        {
+          "name": "row_3_jitter_reasonable",
+          "ok": true,
+          "value": 0.986174
+        },
+        {
+          "name": "row_4_packets_positive",
+          "ok": true,
+          "value": 2328
+        },
+        {
+          "name": "row_4_bitrate_positive",
+          "ok": true,
+          "value": 833.70944
+        },
+        {
+          "name": "row_4_jitter_reasonable",
+          "ok": true,
+          "value": 8.331141
+        },
+        {
+          "name": "row_5_packets_positive",
+          "ok": true,
+          "value": 770
+        },
+        {
+          "name": "row_5_bitrate_positive",
+          "ok": true,
+          "value": 102.49184
+        },
+        {
+          "name": "row_5_jitter_reasonable",
+          "ok": true,
+          "value": 10.260671
+        },
+        {
+          "name": "row_6_packets_positive",
+          "ok": true,
+          "value": 2299
+        },
+        {
+          "name": "row_6_bitrate_positive",
+          "ok": true,
+          "value": 822.72352
+        },
+        {
+          "name": "row_6_jitter_reasonable",
+          "ok": true,
+          "value": 6.938158
+        },
+        {
+          "name": "row_7_packets_positive",
+          "ok": true,
+          "value": 746
+        },
+        {
+          "name": "row_7_bitrate_positive",
+          "ok": true,
+          "value": 99.35424
+        },
+        {
+          "name": "row_7_jitter_reasonable",
+          "ok": true,
+          "value": 17.561921
+        }
+      ]
+    },
+    {
+      "path": "results/l4_namespace_impairment/namespace_impairment_summary.json",
+      "ok": true,
+      "checks": [
+        {
+          "name": "has_rows",
+          "ok": true,
+          "value": 8
+        },
+        {
+          "name": "row_0_packets_positive",
+          "ok": true,
+          "value": 751
+        },
+        {
+          "name": "row_0_bitrate_positive",
+          "ok": true,
+          "value": 100.33376
+        },
+        {
+          "name": "row_0_jitter_reasonable",
+          "ok": true,
+          "value": 1.550556
+        },
+        {
+          "name": "row_1_packets_positive",
+          "ok": true,
+          "value": 692
+        },
+        {
+          "name": "row_1_bitrate_positive",
+          "ok": true,
+          "value": 92.76512
+        },
+        {
+          "name": "row_1_jitter_reasonable",
+          "ok": true,
+          "value": 1.678729
+        },
+        {
+          "name": "row_2_packets_positive",
+          "ok": true,
+          "value": 751
+        },
+        {
+          "name": "row_2_bitrate_positive",
+          "ok": true,
+          "value": 100.33376
+        },
+        {
+          "name": "row_2_jitter_reasonable",
+          "ok": true,
+          "value": 1.519438
+        },
+        {
+          "name": "row_3_packets_positive",
+          "ok": true,
+          "value": 691
+        },
+        {
+          "name": "row_3_bitrate_positive",
+          "ok": true,
+          "value": 92.70176
+        },
+        {
+          "name": "row_3_jitter_reasonable",
+          "ok": true,
+          "value": 1.737893
+        },
+        {
+          "name": "row_4_packets_positive",
+          "ok": true,
+          "value": 751
+        },
+        {
+          "name": "row_4_bitrate_positive",
+          "ok": true,
+          "value": 100.33376
+        },
+        {
+          "name": "row_4_jitter_reasonable",
+          "ok": true,
+          "value": 6.568751
+        },
+        {
+          "name": "row_5_packets_positive",
+          "ok": true,
+          "value": 692
+        },
+        {
+          "name": "row_5_bitrate_positive",
+          "ok": true,
+          "value": 92.76512
+        },
+        {
+          "name": "row_5_jitter_reasonable",
+          "ok": true,
+          "value": 6.865418
+        },
+        {
+          "name": "row_6_packets_positive",
+          "ok": true,
+          "value": 745
+        },
+        {
+          "name": "row_6_bitrate_positive",
+          "ok": true,
+          "value": 99.90496
+        },
+        {
+          "name": "row_6_jitter_reasonable",
+          "ok": true,
+          "value": 12.339648
+        },
+        {
+          "name": "row_7_packets_positive",
+          "ok": true,
+          "value": 687
+        },
+        {
+          "name": "row_7_bitrate_positive",
+          "ok": true,
+          "value": 91.75392
+        },
+        {
+          "name": "row_7_jitter_reasonable",
+          "ok": true,
+          "value": 12.164424
+        }
+      ]
+    }
+  ],
+  "artifactCount": 203,
+  "artifactManifestCsv": "results/l4_agentic_automation/agentic_automation_artifact_manifest.csv",
+  "runDirectory": "results/l4_agentic_automation/run_20260509_160118",
+  "nextRecommendedStep": "Step 97 closed-loop KPI-driven agentic decision controller"
+}

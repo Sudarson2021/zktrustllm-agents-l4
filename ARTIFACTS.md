@@ -511,3 +511,30 @@ Purpose:
 Recommended next step:
 
 - Step 96: implement full result validation.
+
+## L4 Step 96 Agentic Automation Suite
+
+This section adds the first full L4 agentic automation suite.
+
+Main artifacts:
+
+- Automation runner:
+  - `scripts/l4/run_l4_agentic_automation_suite.py`
+
+- Automation documentation:
+  - `docs/l4/agentic_automation/AGENTIC_AUTOMATION_SUITE.md`
+
+- Supervisor feedback tracker:
+  - `docs/progress/SUPERVISOR_FEEDBACK_TRACKER.md`
+
+- Automation outputs:
+  - `results/l4_agentic_automation/agentic_automation_summary.json`
+  - `results/l4_agentic_automation/agentic_automation_summary.md`
+  - `results/l4_agentic_automation/agentic_automation_artifact_manifest.csv`
+  - `results/l4_agentic_automation/run_<timestamp>/`
+
+Scientific role:
+
+- Converts the Level 4 workflow from manual experiment execution into a repeatable agentic automation pipeline.
+- Provides the foundation for Step 97 closed-loop KPI-driven experiment selection.
+- Keeps high-impact actions such as Git push, public deployment, and supervisor submission under human approval.
