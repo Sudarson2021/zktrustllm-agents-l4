@@ -474,3 +474,40 @@ Report coverage:
 - Linux network namespace plain RTP vs DTLS-RTP evaluation
 - Supervisor feedback alignment
 - Next agentic AI automation roadmap
+
+## L4 Step 95 Integrated History and Automation Report
+
+This section adds an integrated full-history report that combines the earlier L4 AUTH_V2-to-AUTH_V2.2 foundation with the later Steps 77-93 MCP/A2A, RTP, DTLS-RTP, impairment, and namespace validation work.
+
+Main artifacts:
+
+- Earlier foundation document:
+  - `docs/report/l4_early_foundation_auth_v2_to_v2_2.md`
+
+- Full project timeline:
+  - `docs/report/l4_full_project_timeline_steps_foundation_to_93.md`
+
+- Agentic AI automation roadmap:
+  - `docs/roadmap/AGENTIC_AI_AUTOMATION_ROADMAP.md`
+
+- Supervisor feedback tracker:
+  - `docs/progress/SUPERVISOR_FEEDBACK_TRACKER.md`
+
+- Integrated report builder:
+  - `scripts/l4/build_l4_integrated_history_automation_report_pdf.py`
+
+- Integrated Markdown report:
+  - `docs/report/zktrustllm_l4_integrated_history_automation_report_steps_foundation_to_93.md`
+
+- Integrated PDF report:
+  - `results/l4_report_pdf/zktrustllm_l4_integrated_history_automation_report_steps_foundation_to_93.pdf`
+
+Purpose:
+
+- Provide a full project picture from the early control-plane/proof foundation to Step 93 namespace validation.
+- Align implementation progress with supervisor feedback.
+- Prepare the repository for the next automation stage.
+
+Recommended next step:
+
+- Step 96: implement full result validation.
