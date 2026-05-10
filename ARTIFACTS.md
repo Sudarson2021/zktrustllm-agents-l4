@@ -970,3 +970,32 @@ Research meaning:
 - Converts Steps 96-109 into a journal-paper structure.
 - Provides abstract, contributions, methodology, results narrative, limitations, future work, and conclusion.
 
+## L4 Step 112 LaTeX Journal Draft
+
+This section converts the L4 journal manuscript skeleton into a LaTeX journal draft.
+
+Main artifacts:
+
+- LaTeX draft builder:
+  - `scripts/l4/build_l4_latex_journal_draft.py`
+
+- LaTeX manuscript draft:
+  - `docs/paper/zktrustllm_agents_l4_journal_draft.tex`
+
+- Reference placeholder file:
+  - `docs/paper/zktrustllm_agents_l4_references_todo.bib`
+
+- Step documentation:
+  - `docs/l4/latex_journal_draft/LATEX_JOURNAL_DRAFT.md`
+
+- Compile note:
+  - `results/l4_latex_journal_draft/latex_journal_draft_compile_note.md`
+
+- Summary JSON:
+  - `results/l4_latex_journal_draft/latex_journal_draft_summary.json`
+
+Research meaning:
+
+- Moves the project from Markdown manuscript planning to LaTeX journal preparation.
+- Provides a structured draft for later IEEE/Elsevier/Springer formatting.
+

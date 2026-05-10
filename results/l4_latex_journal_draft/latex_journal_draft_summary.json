@@ -1,0 +1,11 @@
+{
+  "experiment": "step112_latex_journal_draft",
+  "createdAt": "2026-05-10T12:50:21.047853+00:00",
+  "latexDraft": "docs/paper/zktrustllm_agents_l4_journal_draft.tex",
+  "bibPlaceholder": "docs/paper/zktrustllm_agents_l4_references_todo.bib",
+  "compileNote": "results/l4_latex_journal_draft/latex_journal_draft_compile_note.md",
+  "compileStatus": "PDFLATEX_NOT_FOUND",
+  "compiledPdf": null,
+  "status": "REVIEW_REQUIRED",
+  "researchMeaning": "Converts the L4 journal manuscript skeleton into a LaTeX journal draft suitable for later IEEE/Elsevier formatting."
+}
