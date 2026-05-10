@@ -924,3 +924,26 @@ Research meaning:
 - Validates anchor submission, stored commitment matching, replay rejection, and zero-commitment rejection.
 - Remains local-only and does not deploy to a public chain or use real funds.
 
+## L4 Step 110 Journal Methodology: Automation, Audit, IPFS, and On-Chain Validation
+
+This section adds journal-ready methodology and results narrative text for the L4 automation/audit/on-chain validation chain.
+
+Main artifacts:
+
+- Methodology section:
+  - `docs/paper/l4_journal_methodology_policy_gated_automation_audit_anchor.md`
+
+- Results narrative:
+  - `docs/paper/l4_results_narrative_steps96_109.md`
+
+- Step documentation:
+  - `docs/l4/journal_methodology/JOURNAL_METHODOLOGY_AUTOMATION_AUDIT_ANCHOR.md`
+
+- Summary JSON:
+  - `results/l4_journal_methodology/journal_methodology_summary.json`
+
+Research meaning:
+
+- Converts implemented Steps 96-109 into paper-ready writing material.
+- Connects agentic automation, KPI decisioning, audit ledger, IPFS anchoring, on-chain validation, negative-security checks, and persistent Hardhat validation.
+
