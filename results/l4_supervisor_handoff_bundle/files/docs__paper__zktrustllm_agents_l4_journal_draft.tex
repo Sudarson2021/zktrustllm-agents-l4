@@ -1,0 +1,104 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{caption}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\title{ZKTrustLLM-Agents L4: Policy-Gated Agentic Automation, Audit Provenance, and Blockchain-Verifiable Trust Anchoring}
+\author{Sudarson Karmaker \\ University of Surrey}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper presents ZKTrustLLM-Agents L4, a policy-gated agentic automation and audit framework for secure 5G/O-RAN edge intelligence workflows. The framework integrates automated experiment execution, KPI-driven decision making, human-approved remediation, hash-chained audit provenance, IPFS-based evidence anchoring, and smart-contract-based trust-plane validation. The implemented prototype demonstrates repeatable automation, policy-based governance boundaries, replay-resistant audit-anchor registration, repeated-run statistics, and persistent local Hardhat validation. The results show that policy-gated agentic automation can support reproducible, auditable, and blockchain-verifiable research workflows for future secure 5G/O-RAN and multi-agent AI systems.
+\end{abstract}
+\textbf{Keywords---} ZKTrustLLM, agentic AI, MCP, A2A, Zero Trust, IPFS, blockchain, audit ledger, smart contracts, 5G, O-RAN, DTLS, policy-gated automation.
+\section{Introduction}
+Future 5G/O-RAN and 6G systems require intelligent automation, but autonomous decision-making must be governed, auditable, and verifiable. In security-sensitive edge environments, it is not sufficient for an agentic AI system to execute experiments or make control-plane decisions. The system must also preserve evidence, expose governance boundaries, support reproducibility, and enable trust-plane verification. ZKTrustLLM-Agents L4 addresses this requirement by connecting experiment execution, KPI-based decisioning, human-approved remediation, hash-chained evidence, IPFS anchoring, and blockchain-based validation.
+\section{Contributions}
+\begin{enumerate}
+\item A policy-gated Level 4 agentic automation pipeline connecting MCP/A2A experiment execution, KPI decisioning, remediation, and reporting.
+\item A hash-chained automation audit ledger providing tamper-evident provenance across experiment, decision, remediation, governance, and reporting artifacts.
+\item An IPFS and blockchain-ready anchoring workflow binding the audit ledger to content-addressed evidence and compact trust-plane commitments.
+\item A local smart-contract audit-anchor registry validating anchor submission, commitment matching, and on-chain evidence retrieval.
+\item Negative-security validation showing duplicate replay rejection and invalid zero-commitment rejection.
+\item Persistent local Hardhat validation moving beyond one-off ephemeral blockchain execution toward long-running local trust-plane evaluation.
+\end{enumerate}
+\section{System Architecture}
+The proposed system is organised as a closed-loop automation chain. The automation suite generates evidence, the KPI decision agent recommends safe next actions, the remediation executor performs approved actions, the scheduler enforces policy gates, and the audit layer preserves and anchors the resulting evidence.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{results/l4_journal_ready/figures/figure_6_1_l4_policy_gated_agentic_automation_architecture.pdf}
+\caption{Policy-gated Level 4 ZKTrustLLM-Agents automation architecture. The workflow links automated experiment execution, KPI-based decisioning, human-approved remediation, governance, hash-chained audit provenance, IPFS/blockchain-ready anchoring, local on-chain registry validation, and replay/invalid-anchor negative-security testing.}
+\label{fig:l4_architecture}
+\end{figure*}
+\section{Methodology}
+The methodology follows a controlled automation design. Safe operations, including artifact reading, JSON/CSV validation, manifest generation, and report creation, are allowed automatically. Remediation execution and blockchain validation require explicit human approval. Privileged network experiments require both human and privileged approval. Actions such as Git history modification, public-chain deployment, paper submission, supervisor email, evidence deletion, and fund-spending are never automatic.
+\section{Implementation Evidence}
+\begin{longtable}{p{0.12\linewidth} p{0.25\linewidth} p{0.20\linewidth} p{0.34\linewidth}}
+\caption{Implemented L4 workflow components and evidence roles.}\\
+\toprule
+Step & Component & Status / Decision & Role \\
+\midrule
+\endfirsthead
+\toprule
+Step & Component & Status / Decision & Role \\
+\midrule
+\endhead
+Step 96 & Agentic automation suite & PASS & Runs MCP/A2A, RTP, DTLS-RTP, impairment, and namespace validation. \\
+Step 97 & Closed-loop KPI decision agent & GENERATE\_SUPERVISOR\_REPORT & Converts KPI evidence into next-action recommendations. \\
+Step 98 & Remediation executor & EXECUTED\_PASS & Executes approved remediation/report generation. \\
+Step 100 & Policy-gated scheduler & EXECUTED\_PASS & Connects KPI decisioning and remediation through policy gates. \\
+Step 101 & Hash-chained audit ledger & 14 entries & Creates tamper-evident automation provenance. \\
+Step 102 & IPFS/blockchain-ready anchor & IPFS\_ADD\_PASS & Binds audit evidence to IPFS and compact commitments. \\
+Step 103 & On-chain anchor registry & ANCHOR\_SUBMITTED & Stores the audit anchor in a local Hardhat registry. \\
+Step 104 & Negative-security validation & PASS & Validates replay and invalid-commitment rejection. \\
+Step 105 & Policy-gated on-chain validation & EXECUTED\_PASS & Executes local Hardhat validation under explicit approval. \\
+Step 108 & Repeated-run statistics & PASS & Analyses repeated clean media snapshots. \\
+Step 109 & Persistent local Hardhat validation & PASS & Validates audit anchoring on a persistent local JSON-RPC node. \\
+\bottomrule
+\end{longtable}
+\section{Key Results}
+\begin{longtable}{p{0.36\linewidth} p{0.56\linewidth}}
+\caption{Audit, IPFS, and on-chain validation evidence.}\\
+\toprule
+Evidence & Value \\
+\midrule
+Step 96 automation status & \texttt{PASS} \\
+Step 97 recommended action & \texttt{GENERATE\_SUPERVISOR\_REPORT} \\
+Step 100 scheduler status & \texttt{EXECUTED\_PASS} \\
+Step 101 audit ledger entries & \texttt{14} \\
+Step 101 final ledger hash & \texttt{0db58b3f2c09e530c280dc6cd795a53df54e3337b4a46aa9c70fe6ea166c2567} \\
+Step 102 IPFS status & \texttt{IPFS\_ADD\_PASS} \\
+Step 102 IPFS CID & \texttt{QmW7VeYs3fP5kk92JstT8tAEkQytgseH4SfhKRpcSwU112} \\
+Step 102 anchor commitment & \texttt{50aa798c5968470f172f5e91cb9d80e25b6ac018d3acde55a424f32ec1c2c8ec} \\
+Step 103 transaction hash & \texttt{0x3aa06732baa252f303eb24a6b20c118a6a3c665b7e8cbcb6dce0a2b9d3053277} \\
+Step 103 gas used & \texttt{320095} \\
+Step 104 negative-security status & \texttt{PASS} \\
+Step 108 repeated-run observations & \texttt{8} \\
+Step 109 persistent Hardhat chain ID & \texttt{31337} \\
+Step 109 persistent validation tx & \texttt{0x0cfb7dde504ad4ce100b6ba219458135fb0dfc2f616d0d4722afc0c9af768ab6} \\
+\bottomrule
+\end{longtable}
+\section{Security and Governance Analysis}
+The trust-plane registry enforces non-zero commitments and rejects duplicate audit commitments. The negative-security tests confirm that replayed audit anchors and zero commitments are rejected, while the valid stored anchor remains unchanged. Governance is enforced through the automation policy, which separates safe automatic actions from approval-gated actions and never-automatic actions.
+\section{Limitations}
+The current implementation is local and research-oriented. Hardhat is used for controlled blockchain validation, and IPFS is evaluated locally. The system does not deploy to a public blockchain, spend real funds, submit papers automatically, email supervisors, modify Git history, or delete evidence. These restrictions are deliberate governance controls.
+\section{Future Work}
+Future work will extend the pipeline through longer repeated runs, confidence intervals for agent and network KPIs, controlled testnet dry-runs, two-machine media-plane validation, and stronger smart-contract access control. The audit-anchor registry can also be extended with semantic verification and integration with production-grade ZK proof verification.
+\section{Conclusion}
+ZKTrustLLM-Agents L4 demonstrates a complete local prototype for policy-gated agentic automation with audit provenance and blockchain-verifiable trust anchoring. The system progresses from experiment execution to KPI decisioning, remediation, governance, hash-chained evidence, IPFS anchoring, smart-contract validation, negative-security testing, repeated-run statistics, and persistent local blockchain evaluation.
+\section*{References To Add}
+\begin{itemize}
+\item Official IPFS/content-addressing reference.
+\item Ethereum / Solidity smart-contract reference.
+\item Hardhat local blockchain development reference.
+\item 5G/O-RAN security and Zero Trust references.
+\item MCP/A2A agent communication references.
+\item DTLS/RTP secure media transport references.
+\end{itemize}
+\end{document}

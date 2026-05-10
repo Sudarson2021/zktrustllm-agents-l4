@@ -1023,3 +1023,45 @@ Research meaning:
 - Converts the L4 journal draft from LaTeX source into a supervisor-readable PDF.
 - Confirms that the manuscript material is now compile-ready for later journal-template adaptation.
 
+## L4 Step 114 Supervisor Handoff Bundle
+
+This section creates a supervisor-ready handoff package for the L4 automation, audit, IPFS, on-chain validation, and journal-draft milestone.
+
+Main artifacts:
+
+- Bundle builder:
+  - `scripts/l4/build_l4_supervisor_handoff_bundle.py`
+
+- Bundle manifest JSON:
+  - `results/l4_supervisor_handoff_bundle/supervisor_handoff_manifest.json`
+
+- Bundle manifest CSV:
+  - `results/l4_supervisor_handoff_bundle/supervisor_handoff_manifest.csv`
+
+- Bundle documentation:
+  - `docs/l4/supervisor_handoff/SUPERVISOR_HANDOFF_BUNDLE.md`
+
+- ZIP handoff bundle:
+  - `results/l4_supervisor_handoff_bundle/zktrustllm_l4_supervisor_handoff_bundle.zip`
+
+Coverage:
+
+- compiled journal draft PDF,
+- LaTeX source,
+- journal manuscript skeleton,
+- methodology,
+- results narrative,
+- architecture figure and tables,
+- supervisor milestone report,
+- repeated-run statistics,
+- hash-chained audit ledger,
+- IPFS/blockchain-ready anchor,
+- local on-chain validation,
+- negative-security validation,
+- persistent local Hardhat validation,
+- LaTeX compile validation.
+
+Research meaning:
+
+Step 114 packages the current PhD milestone into one supervisor-readable bundle, making the L4 contribution easier to review, discuss, and convert into a journal submission.
+
