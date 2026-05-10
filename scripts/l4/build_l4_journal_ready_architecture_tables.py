@@ -492,7 +492,7 @@ if __name__ == "__main__":
     STYLES = getSampleStyleSheet()
     STYLES.add(ParagraphStyle(
         name="RptTitle",
-        parent=STYLES["RptTitle"],
+        parent=STYLES["Title"],
         alignment=TA_CENTER,
         fontSize=15,
         leading=18,
@@ -508,7 +508,7 @@ if __name__ == "__main__":
     ))
     STYLES.add(ParagraphStyle(
         name="RptHeading2",
-        parent=STYLES["RptHeading2"],
+        parent=STYLES["Heading2"],
         fontSize=11,
         leading=14,
         spaceBefore=8,

@@ -1,0 +1,7 @@
+contribution_id,claim,evidence_steps,journal_meaning
+C1,Policy-gated agentic experiment automation,Steps 96-100,Shows repeatable automation with human/supervisor governance boundaries.
+C2,Closed-loop KPI decision and remediation,Steps 97-98,Converts KPI evidence into safe next-action recommendations and approved execution.
+C3,Tamper-evident automation provenance,Step 101,"Hash-chained audit ledger links experiment, decision, remediation, governance, and reports."
+C4,IPFS/blockchain-ready audit anchoring,Step 102,Binds the audit ledger to content addressing and a commitment hash.
+C5,Smart-contract audit-anchor validation,Steps 103-104,Stores anchor commitments and validates replay/invalid-commitment rejection.
+C6,Policy-gated blockchain validation,Step 105,Brings on-chain validation into the controlled automation workflow.

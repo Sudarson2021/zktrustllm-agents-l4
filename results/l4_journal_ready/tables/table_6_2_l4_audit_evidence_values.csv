@@ -1,0 +1,15 @@
+evidence,value,source
+Automation status,PASS,Step 96
+KPI decision,GENERATE_SUPERVISOR_REPORT,Step 97
+Scheduler status,EXECUTED_PASS,Step 100
+Audit ledger entries,14,Step 101
+Final ledger hash,0db58b3f2c09e530c280dc6cd795a53df54e3337b4a46aa9c70fe6ea166c2567,Step 101
+IPFS status,IPFS_ADD_PASS,Step 102
+IPFS CID,QmW7VeYs3fP5kk92JstT8tAEkQytgseH4SfhKRpcSwU112,Step 102
+Anchor commitment hash,50aa798c5968470f172f5e91cb9d80e25b6ac018d3acde55a424f32ec1c2c8ec,Step 102
+On-chain transaction hash,0x3aa06732baa252f303eb24a6b20c118a6a3c665b7e8cbcb6dce0a2b9d3053277,Step 103
+On-chain gas used,320095,Step 103
+Commitment match check,True,Step 103
+Duplicate replay rejected,True,Step 104
+Zero commitment rejected,True,Step 104
+Policy-gated on-chain validation,EXECUTED_PASS,Step 105

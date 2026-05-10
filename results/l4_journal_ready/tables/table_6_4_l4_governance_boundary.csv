@@ -1,0 +1,5 @@
+boundary_class,actions
+Allowed automatically,Read artifacts; validate JSON/CSV; generate reports; create manifests; recommend next action.
+Allowed with human approval,Execute remediation; regenerate reports; rerun non-privileged experiments.
+Allowed with human and privileged approval,Rerun tc/netem and namespace experiments requiring sudo.
+Never automatic,Git push; modify Git history; submit papers; email supervisor; deploy public-chain contracts; delete evidence; spend funds.

@@ -1,0 +1,11 @@
+step,component,status_or_decision,role,evidence_path
+Step 96,Agentic automation suite,PASS,"Runs MCP/A2A, media-plane, DTLS, impairment, and namespace experiments.",results/l4_agentic_automation/agentic_automation_summary.json
+Step 97,Closed-loop KPI decision agent,GENERATE_SUPERVISOR_REPORT,Reads KPI artifacts and recommends the next safe action.,results/l4_closed_loop_agent/closed_loop_kpi_decision.json
+Step 98,Closed-loop remediation executor,EXECUTED_PASS,Executes approved remediation/report generation with human approval.,results/l4_remediation_executor/remediation_execution_plan.json
+Step 99,Automation governance dashboard,JSON_PRESENT,Summarises governance boundaries for supervisor review.,results/l4_automation_governance/automation_governance_dashboard.json
+Step 100,Policy-gated autonomous scheduler,EXECUTED_PASS,Connects KPI decisioning and remediation through policy gates.,results/l4_policy_scheduler/policy_scheduler_summary.json
+Step 101,Hash-chained audit ledger,14 entries,Creates tamper-evident artifact provenance.,results/l4_automation_audit_ledger/automation_audit_ledger.json
+Step 102,IPFS/blockchain-ready anchor,IPFS_ADD_PASS,Creates IPFS CID and blockchain-ready anchor commitment.,results/l4_audit_anchor/audit_ledger_anchor_record.json
+Step 103,On-chain audit-anchor registry,anchorId=0,Stores the audit anchor in a local Hardhat smart-contract registry.,results/l4_onchain_anchor/onchain_audit_anchor_result.json
+Step 104,Negative-security validation,PASS,Tests replay rejection and invalid zero-commitment rejection.,results/l4_onchain_anchor_negative/onchain_anchor_negative_security_result.json
+Step 105,Policy-gated on-chain validation,EXECUTED_PASS,Runs Step 103/104 validation through explicit approval gates.,results/l4_policy_onchain_validation/policy_onchain_validation_summary.json

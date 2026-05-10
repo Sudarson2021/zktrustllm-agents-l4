@@ -1,0 +1,32 @@
+{
+  "experiment": "step107_journal_ready_architecture_tables",
+  "createdAt": "2026-05-10T12:10:44.126309+00:00",
+  "figurePng": "results/l4_journal_ready/figures/figure_6_1_l4_policy_gated_agentic_automation_architecture.png",
+  "figurePdf": "results/l4_journal_ready/figures/figure_6_1_l4_policy_gated_agentic_automation_architecture.pdf",
+  "figureSvg": "results/l4_journal_ready/figures/figure_6_1_l4_policy_gated_agentic_automation_architecture.svg",
+  "workflowCsv": "results/l4_journal_ready/tables/table_6_1_l4_workflow_components.csv",
+  "evidenceCsv": "results/l4_journal_ready/tables/table_6_2_l4_audit_evidence_values.csv",
+  "contributionCsv": "results/l4_journal_ready/tables/table_6_3_l4_journal_contribution_mapping.csv",
+  "governanceCsv": "results/l4_journal_ready/tables/table_6_4_l4_governance_boundary.csv",
+  "markdown": "docs/paper/l4_journal_ready_architecture_tables_steps96_105.md",
+  "pdf": "results/l4_report_pdf/zktrustllm_l4_journal_ready_architecture_tables_steps96_105.pdf",
+  "keyMetrics": {
+    "step96Status": "PASS",
+    "step97Action": "GENERATE_SUPERVISOR_REPORT",
+    "step98Status": "EXECUTED_PASS",
+    "step100Status": "EXECUTED_PASS",
+    "step101EntryCount": 14,
+    "step101FinalHash": "0db58b3f2c09e530c280dc6cd795a53df54e3337b4a46aa9c70fe6ea166c2567",
+    "step102IpfsStatus": "IPFS_ADD_PASS",
+    "step102IpfsCid": "QmW7VeYs3fP5kk92JstT8tAEkQytgseH4SfhKRpcSwU112",
+    "step102Commitment": "50aa798c5968470f172f5e91cb9d80e25b6ac018d3acde55a424f32ec1c2c8ec",
+    "step103TxHash": "0x3aa06732baa252f303eb24a6b20c118a6a3c665b7e8cbcb6dce0a2b9d3053277",
+    "step103GasUsed": "320095",
+    "step103AnchorId": 0,
+    "step103CommitmentMatches": true,
+    "step104Status": "PASS",
+    "step104ReplayRejected": true,
+    "step104ZeroRejected": true,
+    "step105Status": "EXECUTED_PASS"
+  }
+}
