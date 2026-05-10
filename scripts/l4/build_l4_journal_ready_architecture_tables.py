@@ -387,19 +387,19 @@ def small_table(header, rows, col_widths):
 def build_pdf(state):
     story = []
 
-    story.append(para("ZKTrustLLM-Agents L4 Journal-Ready Architecture and Result Tables", STYLES["Title"]))
+    story.append(para("ZKTrustLLM-Agents L4 Journal-Ready Architecture and Result Tables", STYLES["RptTitle"]))
     story.append(Spacer(1, 0.15 * inch))
     story.append(para("Steps 96-105: Policy-Gated Agentic Automation, Audit Ledger, IPFS Anchor, and On-Chain Validation", STYLES["Subtitle"]))
     story.append(Spacer(1, 0.2 * inch))
 
-    story.append(para("Purpose", STYLES["Heading2"]))
+    story.append(para("Purpose", STYLES["RptHeading2"]))
     story.append(para(
         "This report converts the implemented Level 4 automation and audit chain into journal-ready material: one architecture figure, workflow component table, evidence table, contribution mapping table, and governance-boundary table.",
         STYLES["Body"],
     ))
     story.append(Spacer(1, 0.15 * inch))
 
-    story.append(para("Figure 6.1. Policy-Gated Agentic Automation Architecture", STYLES["Heading2"]))
+    story.append(para("Figure 6.1. Policy-Gated Agentic Automation Architecture", STYLES["RptHeading2"]))
     story.append(Image(str(FIG_PNG), width=7.2 * inch, height=4.1 * inch))
     story.append(Spacer(1, 0.1 * inch))
     story.append(para(
@@ -408,7 +408,7 @@ def build_pdf(state):
     ))
     story.append(PageBreak())
 
-    story.append(para("Table 6.1. Workflow Components", STYLES["Heading2"]))
+    story.append(para("Table 6.1. Workflow Components", STYLES["RptHeading2"]))
     story.append(small_table(
         ["Step", "Component", "Status", "Role"],
         [r[:4] for r in state["workflowRows"]],
@@ -416,7 +416,7 @@ def build_pdf(state):
     ))
     story.append(PageBreak())
 
-    story.append(para("Table 6.2. Audit and On-Chain Evidence Values", STYLES["Heading2"]))
+    story.append(para("Table 6.2. Audit and On-Chain Evidence Values", STYLES["RptHeading2"]))
     story.append(small_table(
         ["Evidence", "Value", "Source"],
         state["evidenceRows"],
@@ -424,7 +424,7 @@ def build_pdf(state):
     ))
     story.append(PageBreak())
 
-    story.append(para("Table 6.3. Journal Contribution Mapping", STYLES["Heading2"]))
+    story.append(para("Table 6.3. Journal Contribution Mapping", STYLES["RptHeading2"]))
     story.append(small_table(
         ["ID", "Claim", "Evidence", "Journal Meaning"],
         state["contributionRows"],
@@ -432,7 +432,7 @@ def build_pdf(state):
     ))
     story.append(Spacer(1, 0.2 * inch))
 
-    story.append(para("Table 6.4. Governance Boundary", STYLES["Heading2"]))
+    story.append(para("Table 6.4. Governance Boundary", STYLES["RptHeading2"]))
     story.append(small_table(
         ["Boundary Class", "Actions"],
         state["governanceRows"],
@@ -491,8 +491,8 @@ def main():
 if __name__ == "__main__":
     STYLES = getSampleStyleSheet()
     STYLES.add(ParagraphStyle(
-        name="Title",
-        parent=STYLES["Title"],
+        name="RptTitle",
+        parent=STYLES["RptTitle"],
         alignment=TA_CENTER,
         fontSize=15,
         leading=18,
@@ -507,8 +507,8 @@ if __name__ == "__main__":
         spaceAfter=8,
     ))
     STYLES.add(ParagraphStyle(
-        name="Heading2",
-        parent=STYLES["Heading2"],
+        name="RptHeading2",
+        parent=STYLES["RptHeading2"],
         fontSize=11,
         leading=14,
         spaceBefore=8,
