@@ -814,3 +814,49 @@ Research meaning:
 
 This report consolidates the project milestone into one supervisor-readable document showing that the Level 4 workflow now supports controlled agentic automation, KPI-based decisioning, policy-gated execution, audit provenance, IPFS anchoring, and local on-chain validation.
 
+## L4 Step 107 Journal-Ready Architecture and Tables
+
+This section converts the Level 4 automation, audit, IPFS, and on-chain validation chain into journal-ready architecture and result material.
+
+Main artifacts:
+
+- Journal-ready builder:
+  - `scripts/l4/build_l4_journal_ready_architecture_tables.py`
+
+- Summary JSON:
+  - `results/l4_journal_ready/journal_ready_architecture_tables_summary.json`
+
+- Journal-ready Markdown:
+  - `docs/paper/l4_journal_ready_architecture_tables_steps96_105.md`
+
+- Journal-ready PDF:
+  - `results/l4_report_pdf/zktrustllm_l4_journal_ready_architecture_tables_steps96_105.pdf`
+
+- Architecture figure:
+  - `results/l4_journal_ready/figures/figure_6_1_l4_policy_gated_agentic_automation_architecture.png`
+  - `results/l4_journal_ready/figures/figure_6_1_l4_policy_gated_agentic_automation_architecture.pdf`
+  - `results/l4_journal_ready/figures/figure_6_1_l4_policy_gated_agentic_automation_architecture.svg`
+
+- Journal table CSV files:
+  - `results/l4_journal_ready/tables/table_6_1_l4_workflow_components.csv`
+  - `results/l4_journal_ready/tables/table_6_2_l4_audit_evidence_values.csv`
+  - `results/l4_journal_ready/tables/table_6_3_l4_journal_contribution_mapping.csv`
+  - `results/l4_journal_ready/tables/table_6_4_l4_governance_boundary.csv`
+
+Coverage:
+
+- Step 96 automation suite
+- Step 97 KPI decision agent
+- Step 98 remediation executor
+- Step 99 governance dashboard
+- Step 100 policy-gated scheduler
+- Step 101 hash-chained audit ledger
+- Step 102 IPFS/blockchain-ready anchor
+- Step 103 on-chain audit-anchor registry
+- Step 104 negative-security validation
+- Step 105 policy-gated on-chain validation
+
+Research meaning:
+
+Step 107 transforms the implementation milestone into paper-ready architecture, evidence tables, contribution mapping, and governance-boundary material for the journal methodology and evaluation sections.
+
