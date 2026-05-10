@@ -947,3 +947,26 @@ Research meaning:
 - Converts implemented Steps 96-109 into paper-ready writing material.
 - Connects agentic automation, KPI decisioning, audit ledger, IPFS anchoring, on-chain validation, negative-security checks, and persistent Hardhat validation.
 
+## L4 Step 111 Journal Manuscript Skeleton
+
+This section adds a full journal manuscript skeleton for the L4 automation, audit, IPFS, and on-chain validation work.
+
+Main artifacts:
+
+- Manuscript builder:
+  - `scripts/l4/build_l4_journal_manuscript_skeleton.py`
+
+- Manuscript skeleton:
+  - `docs/paper/zktrustllm_agents_l4_journal_manuscript_skeleton.md`
+
+- Step documentation:
+  - `docs/l4/journal_manuscript/JOURNAL_MANUSCRIPT_SKELETON.md`
+
+- Summary JSON:
+  - `results/l4_journal_manuscript/journal_manuscript_skeleton_summary.json`
+
+Research meaning:
+
+- Converts Steps 96-109 into a journal-paper structure.
+- Provides abstract, contributions, methodology, results narrative, limitations, future work, and conclusion.
+
