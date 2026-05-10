@@ -897,3 +897,30 @@ Research meaning:
 
 Step 108 strengthens the journal evaluation by showing that the L4 policy-gated automation workflow has repeatability evidence rather than only a single successful run.
 
+## L4 Step 109 Persistent Local Hardhat Audit-Anchor Validation
+
+This section adds persistent local Hardhat validation for the Level 4 automation audit-anchor registry.
+
+Main artifacts:
+
+- Persistent Hardhat runner:
+  - `scripts/l4/run_step109_persistent_hardhat_anchor_validation.sh`
+
+- Persistent validation script:
+  - `scripts/l4/validate_l4_audit_anchor_persistent_hardhat.js`
+
+- Documentation:
+  - `docs/l4/persistent_hardhat_anchor/PERSISTENT_HARDHAT_AUDIT_ANCHOR_VALIDATION.md`
+
+- Result JSON:
+  - `results/l4_persistent_hardhat_anchor/persistent_hardhat_anchor_result.json`
+
+- Result Markdown:
+  - `results/l4_persistent_hardhat_anchor/persistent_hardhat_anchor_result.md`
+
+Research meaning:
+
+- Moves audit-anchor validation from ephemeral Hardhat runs to a persistent local blockchain process.
+- Validates anchor submission, stored commitment matching, replay rejection, and zero-commitment rejection.
+- Remains local-only and does not deploy to a public chain or use real funds.
+
