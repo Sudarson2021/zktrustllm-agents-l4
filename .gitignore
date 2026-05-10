@@ -78,3 +78,14 @@ out.r1cs
 out.wtns
 media_samples/*.mp4
 dtls_rtp/dtls_rtp_proxy
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
