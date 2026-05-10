@@ -253,11 +253,11 @@ def build_bundle():
         ZIP_PATH.unlink()
 
     with zipfile.ZipFile(ZIP_PATH, "w", zipfile.ZIP_DEFLATED) as z:
-        z.write(MANIFEST_JSON, MANIFEST_JSON.relative_to(OUT_DIR.parent))
-        z.write(MANIFEST_CSV, MANIFEST_CSV.relative_to(OUT_DIR.parent))
-        z.write(MANIFEST_MD, MANIFEST_MD.relative_to(OUT_DIR.parent))
+        z.write(MANIFEST_JSON, MANIFEST_JSON.relative_to(ROOT))
+        z.write(MANIFEST_CSV, MANIFEST_CSV.relative_to(ROOT))
+        z.write(MANIFEST_MD, MANIFEST_MD.relative_to(ROOT))
         for copied in FILES_DIR.glob("*"):
-            z.write(copied, copied.relative_to(OUT_DIR.parent))
+            z.write(copied, copied.relative_to(ROOT))
 
     print(json.dumps(summary, indent=2))
 
