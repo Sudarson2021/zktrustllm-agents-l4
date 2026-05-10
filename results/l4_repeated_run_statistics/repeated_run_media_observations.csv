@@ -1,0 +1,9 @@
+runId,mode,artifact,exists,receivedPackets,avgBitrateKbps,packetLossPct,avgJitterMs,status
+20260509_160118,plain_rtp,results/l4_agentic_automation/run_20260509_160118/clean_media_snapshots/clean_plain_rtp_media_summary.json,True,2328,833.605,0.0,0.242929,PASS
+20260509_160118,dtls_rtp,results/l4_agentic_automation/run_20260509_160118/clean_media_snapshots/clean_dtls_rtp_media_summary.json,True,769,102.17,0.0,1.040521,PASS
+20260509_161848,plain_rtp,results/l4_agentic_automation/run_20260509_161848/clean_media_snapshots/clean_plain_rtp_media_summary.json,True,2328,833.605,0.0,0.308886,PASS
+20260509_161848,dtls_rtp,results/l4_agentic_automation/run_20260509_161848/clean_media_snapshots/clean_dtls_rtp_media_summary.json,True,769,102.17,0.0,0.953029,PASS
+20260509_163127,plain_rtp,results/l4_agentic_automation/run_20260509_163127/clean_media_snapshots/clean_plain_rtp_media_summary.json,True,2328,833.605,0.0,0.287971,PASS
+20260509_163127,dtls_rtp,results/l4_agentic_automation/run_20260509_163127/clean_media_snapshots/clean_dtls_rtp_media_summary.json,True,769,102.17,0.0,0.942776,PASS
+20260509_164507,plain_rtp,results/l4_agentic_automation/run_20260509_164507/clean_media_snapshots/clean_plain_rtp_media_summary.json,True,2328,833.605,0.0,0.336413,PASS
+20260509_164507,dtls_rtp,results/l4_agentic_automation/run_20260509_164507/clean_media_snapshots/clean_dtls_rtp_media_summary.json,True,769,102.17,0.0,0.96403,PASS

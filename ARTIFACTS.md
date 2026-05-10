@@ -860,3 +860,40 @@ Research meaning:
 
 Step 107 transforms the implementation milestone into paper-ready architecture, evidence tables, contribution mapping, and governance-boundary material for the journal methodology and evaluation sections.
 
+## L4 Step 108 Repeated-Run Statistics
+
+This section adds repeated-run statistics for the Level 4 automation workflow.
+
+Main artifacts:
+
+- Repeated-run statistics builder:
+  - `scripts/l4/build_l4_repeated_run_statistics.py`
+
+- Summary JSON:
+  - `results/l4_repeated_run_statistics/repeated_run_statistics_summary.json`
+
+- Observation CSV:
+  - `results/l4_repeated_run_statistics/repeated_run_media_observations.csv`
+
+- Aggregate statistics CSV:
+  - `results/l4_repeated_run_statistics/repeated_run_aggregate_statistics.csv`
+
+- Markdown report:
+  - `docs/l4/repeated_run_statistics/L4_REPEATED_RUN_STATISTICS.md`
+
+- PDF report:
+  - `results/l4_report_pdf/zktrustllm_l4_repeated_run_statistics_steps96_107.pdf`
+
+Coverage:
+
+- repeated Step 96 clean RTP and DTLS-RTP media snapshots
+- packet count stability
+- bitrate stability
+- packet-loss consistency
+- arrival-jitter consistency
+- current closed-loop chain status from Steps 96-105
+
+Research meaning:
+
+Step 108 strengthens the journal evaluation by showing that the L4 policy-gated automation workflow has repeatability evidence rather than only a single successful run.
+
