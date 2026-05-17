@@ -1,7 +1,6 @@
 === ZKTrustLLM Claim Boundary Check ===
 
 Checking for risky public-testnet claims...
-docs/journal/claim_boundary_checklist.md:28:- Etherscan/Polygonscan verified deployment.
 
 Checking for risky frozen AuthV2.2 proof claims...
 
