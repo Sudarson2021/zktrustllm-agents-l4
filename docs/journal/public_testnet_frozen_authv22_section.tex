@@ -1,0 +1,39 @@
+\subsection{Public Testnet and Frozen AuthV2.2 Proof Evidence}
+
+To strengthen the reproducibility boundary beyond local Hardhat validation, we extended the ZKTrustLLM-Agents L4 artifact with public Sepolia deployment evidence and frozen AuthV2.2 proof artifacts. The latest AuthV2.2 trust-plane path consists of two deployable components: a BN254/Groth16-compatible verifier contract and an RBAC-controlled \texttt{DecisionAttestorAuthV2\_2} contract. The attestor is protected using OpenZeppelin \texttt{AccessControl}, where \texttt{submitDecision(...)} is restricted to accounts holding \texttt{SUBMITTER\_ROLE}. This prevents arbitrary or untrusted accounts from registering trust-plane decisions.
+
+\subsubsection{Sepolia Public Testnet Deployment}
+
+The AuthV2.2 verifier and RBAC-controlled attestor were deployed to the Sepolia public testnet. The deployment evidence records the network name, deployer address, verifier contract address, attestor contract address, deployment transaction hashes, gas usage, and submitter-role confirmation. The verifier was deployed at \texttt{0xf8816964ABBa5c7eFEC28151b85ef0b4241966ca}, with deployment transaction \texttt{0x496c318a057b4be92fb092058af08c8997352de8ff5e1ef477625b1c4ac83027} and deployment gas usage of approximately \texttt{1,008,476} gas. The RBAC-controlled AuthV2.2 attestor was deployed at \texttt{0xd67B4AB343d0b2A614af13Ebc4B48E0919b95DFa}, with deployment transaction \texttt{0x23562276da355905c7cdc0019410ee34b40f159fe178ea8ecbf2a05b1a539787} and deployment gas usage of approximately \texttt{961,029} gas. The deployment record confirms that the deployer holds \texttt{SUBMITTER\_ROLE}, preserving the same authorization boundary validated in local Hardhat tests.
+
+\subsubsection{Frozen AuthV2.2 Proof Evidence}
+
+In addition to public testnet deployment, we generated frozen AuthV2.2 proof evidence using ZoKrates. The AuthV2.2 relation extends the previous authorization proof path by adding trust-state awareness. The circuit binds the public values \texttt{agentKey}, \texttt{capabilityId}, \texttt{policyClassHash}, \texttt{actionClass}, \texttt{contextHash}, \texttt{traceCommitment}, \texttt{expiryBucket}, \texttt{policyAdmissibilityFlag}, and \texttt{trustState}, while keeping \texttt{bindingNonce} private.
+
+The evaluated proof instance corresponds to the bounded trust-aware admissibility case \texttt{policyAdmissibilityFlag == 1}, \texttt{trustState == 3}, and \texttt{actionClass == 3}. This represents a restricted trust state bound to an isolate action under an admissible policy decision.
+
+The frozen proof evidence is stored in the repository under \texttt{runtime\_artifacts/l4/auth\_v2\_2/proof.frozen.json}, \texttt{runtime\_artifacts/l4/auth\_v2\_2/proof.bad.json}, and \texttt{runtime\_artifacts/l4/auth\_v2\_2/proof\_payload.auth\_v2\_2.frozen.json}. The positive proof verifies successfully in ZoKrates, while the negative proof fails verification after mutation of a public input. This provides both positive and negative reproducibility evidence for the AuthV2.2 proof path.
+
+\begin{table}[t]
+\centering
+\caption{AuthV2.2 public testnet and frozen proof evidence summary.}
+\label{tab:authv22-evidence-summary}
+\begin{tabular}{p{0.32\linewidth} p{0.58\linewidth}}
+\hline
+\textbf{Evidence item} & \textbf{Result} \\
+\hline
+Local RBAC tests & AuthV2.2 targeted authorization tests pass 3/3. \\
+Repeated local runs & 20/20 local authorization-test runs pass. \\
+Verifier deployment & AuthV2.2 verifier deployed to Sepolia. \\
+Verifier gas & Approximately 1,008,476 gas. \\
+Attestor deployment & RBAC-controlled AuthV2.2 attestor deployed to Sepolia. \\
+Attestor gas & Approximately 961,029 gas. \\
+Role confirmation & Deployer holds \texttt{SUBMITTER\_ROLE}. \\
+Positive proof & Frozen AuthV2.2 proof verifies successfully in ZoKrates. \\
+Negative proof & Mutated proof fails verification as expected. \\
+Frozen payload & AuthV2.2 proof payload is committed for reproducibility. \\
+\hline
+\end{tabular}
+\end{table}
+
+The evidence boundary is therefore upgraded from local-only validation to local-plus-public-testnet validation with frozen AuthV2.2 proof availability. However, the artifact does not claim production deployment, mainnet deployment, full policy-matrix coverage, or complete end-to-end O-RAN testbed deployment. These remain future engineering and evaluation milestones.
