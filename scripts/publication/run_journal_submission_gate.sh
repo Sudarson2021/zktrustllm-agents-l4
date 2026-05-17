@@ -20,6 +20,8 @@ bash scripts/ablations/run_ablations.sh > "$OUT/ablation_manifests.log" 2>&1
 
 node scripts/publication/summarize_evidence.mjs > "$OUT/publication_summary.log" 2>&1
 
+bash scripts/publication/check_claim_boundary.sh > "$OUT/claim_boundary_check.log" 2>&1
+
 cp -r docs/journal "$OUT/docs_journal_snapshot" || true
 cp artifacts/publication/EVIDENCE_SUMMARY.md "$OUT/EVIDENCE_SUMMARY.md" || true
 
