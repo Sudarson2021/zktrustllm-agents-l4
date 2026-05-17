@@ -1,0 +1,5 @@
+\subsection{RBAC-Controlled AuthV2.2 Attestor}
+
+The latest publication-target trust-plane contract, \texttt{DecisionAttestorAuthV2\_2}, now implements role-based submitter authorization using OpenZeppelin \texttt{AccessControl}. The constructor grants both \texttt{DEFAULT\_ADMIN\_ROLE} and \texttt{SUBMITTER\_ROLE} to the deployer, while \texttt{submitDecision} is restricted with \texttt{onlyRole(SUBMITTER\_ROLE)}. This prevents arbitrary accounts from registering trust-plane decisions and directly addresses the reviewer concern that anchor registration must not be permissionless.
+
+The targeted authorization test suite verifies three properties: (i) a non-authorized signer is rejected before proof validation, (ii) the deployer holds the default administrator and submitter roles, and (iii) an administrator can grant \texttt{SUBMITTER\_ROLE} to another account. These tests pass 3/3 in the local Hardhat environment. Earlier attestor generations are retained as legacy/backward-compatibility artifacts; therefore, the security claim in this manuscript is scoped to AuthV2.2.

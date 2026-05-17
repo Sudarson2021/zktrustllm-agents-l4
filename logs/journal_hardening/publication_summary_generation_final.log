@@ -1,0 +1,22 @@
+# ZKTrustLLM-Agents L4 Evidence Summary
+
+## AuthV2.2 RBAC
+- Targeted authorization tests passing: true
+- AccessControl / SUBMITTER_ROLE implemented: true
+- submitDecision gated by onlyRole: true
+
+## Local Hardhat Gas Evidence
+- grantRole row seen: true
+- AuthV2.2 attestor deployment row seen: true
+- AuthV2.2 verifier deployment row seen: true
+
+## Ablation Manifests
+- README.md
+- no_audit_ledger
+- no_ipfs_anchor
+- no_onchain_registry
+- no_policy_gate
+
+## ZK Claim Scope
+Groth16/BN254 verifier lineage is supported. Frozen AuthV2.2 proof payloads are not claimed yet.
+

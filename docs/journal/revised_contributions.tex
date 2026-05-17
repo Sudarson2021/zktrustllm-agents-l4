@@ -1,0 +1,19 @@
+\subsection{Contributions}
+
+This paper makes the following contributions:
+
+\begin{enumerate}
+    \item \textbf{Policy-governed agentic automation model:} We design an L4 automation workflow in which MCP/A2A-style tool calls are classified into automatic, human-approved, privileged, and forbidden action classes before execution.
+
+    \item \textbf{Dual KPI decisioning:} We introduce a dual KPI model that evaluates both network/media evidence and governance evidence, including packet, bitrate, loss, jitter, policy class, approval state, artifact hash availability, rollback notes, and anchor validation status.
+
+    \item \textbf{Hash-chained evidence provenance:} We construct an artifact-level audit ledger where each evidence item is bound by SHA-256 digest and previous-hash linkage, producing a tamper-evident evidence root for reviewer verification.
+
+    \item \textbf{IPFS and trust-plane anchoring:} We separate bulky cold-path evidence from compact trust-plane commitments by anchoring evidence through IPFS CIDs and registering compact ledger commitments in a Solidity-based local registry.
+
+    \item \textbf{Groth16-compatible bounded authorization path:} We define a bounded authorization relation for trust-state-aware action claims and report the current Groth16/BN254 verifier lineage, including frozen AuthV2.1 proof artifacts and deployable AuthV2.2 verifier support.
+
+    \item \textbf{RBAC-controlled attestor implementation:} We strengthen the latest AuthV2.2 attestor with OpenZeppelin AccessControl, \texttt{SUBMITTER\_ROLE} gating, and negative authorization tests, addressing the reviewer concern that anchor registration must not be permissionless.
+
+    \item \textbf{Reproducibility and ablation protocol:} We provide publication-facing evidence aggregation and declarative ablation manifests for \texttt{no\_policy\_gate}, \texttt{no\_audit\_ledger}, \texttt{no\_ipfs\_anchor}, and \texttt{no\_onchain\_registry}, while clearly distinguishing completed local evidence from planned end-to-end ablation reruns.
+\end{enumerate}

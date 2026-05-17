@@ -1,0 +1,19 @@
+\section{Formal Security Claims}
+
+\textbf{Claim 1: Hash-chain integrity.}
+Assuming SHA-256 is collision resistant, an adversary cannot replace any finalized evidence artifact or ledger metadata entry without changing the corresponding ledger commitment and all downstream commitments, except with negligible probability.
+
+\textit{Argument.}
+Each artifact $e_i$ is mapped to $h_i = H(e_i)$, and each ledger entry computes $c_i = H(m_i \parallel h_i \parallel p_i)$, where $m_i$ is metadata and $p_i$ is the previous ledger link. Any undetected replacement would require either a collision in $H(e_i)$ or a collision in the entry commitment. Therefore, tampering propagates to all downstream commitments.
+
+\textbf{Claim 2: Context-bound replay resistance.}
+If the registry rejects duplicate commitments and the commitment binds the ledger root, artifact hash, IPFS CID, context hash, and action class, replaying an old anchor cannot create a valid new decision for a different evidence context.
+
+\textit{Argument.}
+The commitment is not only a raw hash but a context-bound digest. A replayed commitment either duplicates an existing registry entry and is rejected, or it refers to the same original context. It cannot silently authorize a different action or evidence bundle without changing the commitment.
+
+\textbf{Claim 3: Submitter authorization for AuthV2.2.}
+In the revised AuthV2.2 attestor, \texttt{submitDecision} succeeds only for accounts holding \texttt{SUBMITTER\_ROLE}. Unauthorized accounts are rejected before proof validation.
+
+\textit{Argument.}
+The publication-target attestor inherits OpenZeppelin \texttt{AccessControl}. The function \texttt{submitDecision} is guarded by \texttt{onlyRole(SUBMITTER\_ROLE)}. The targeted negative test verifies that a non-authorized signer is rejected, while positive tests verify deployer role assignment and administrator role granting.
