@@ -1,0 +1,8 @@
+Saved AUTH_V2.2 proof payload -> /home/sk02352/zktrustllm-agents-l4/artifacts/out_l4/proof_payload.auth_v2_2.json
+relationVersion -> auth_v2_2_relation
+agentId -> policy-lkh-01
+trustState -> 3 Restricted
+actionClass -> 3 isolate
+policyAdmissibilityFlag -> 1
+bindingNonce -> 20260430
+traceCommitment -> 17725919957275494141103575736357650297897076258611394948464735535983733201494
