@@ -73,3 +73,6 @@ SHA256SUMS
 local_bundles/
 SHA256SUMS
 *.tar.gz
+
+# Local evaluation outputs
+evaluation_runs/
