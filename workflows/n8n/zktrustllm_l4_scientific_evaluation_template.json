@@ -1,0 +1,93 @@
+{
+  "name": "ZKTrustLLM L4 - Scientific Evaluation Master",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const variants = ['full_l4','no_zk','oracle_only','rbac_only','no_ipfs','no_policy_gate'];\nconst profiles = ['clean_baseline','delay_20ms','delay_20ms_jitter_5ms','delay_30ms_jitter_10ms_loss_1pct'];\nconst repeats = 10;\nconst out = [];\nfor (const variant of variants) {\n  for (const profile of profiles) {\n    for (let repeat = 1; repeat <= repeats; repeat++) {\n      out.push({ json: { variant, profile, repeat } });\n    }\n  }\n}\nreturn out;"
+      },
+      "id": "generate-matrix",
+      "name": "Generate Evaluation Matrix",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /data/zktrustllm-agents-l4 && ./scripts/l4/n8n/run_one_evaluation.sh \"{{ $json.variant }}\" \"{{ $json.profile }}\" \"{{ $json.repeat }}\""
+      },
+      "id": "run-evaluation",
+      "name": "Run One Evaluation",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        540,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /data/zktrustllm-agents-l4 && python3 scripts/l4/metrics/build_supervisor_258_tables.py"
+      },
+      "id": "build-tables",
+      "name": "Build Paper Tables",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        820,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Evaluation Matrix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Evaluation Matrix": {
+      "main": [
+        [
+          {
+            "node": "Run One Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run One Evaluation": {
+      "main": [
+        [
+          {
+            "node": "Build Paper Tables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
