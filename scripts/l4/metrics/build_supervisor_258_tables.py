@@ -5,8 +5,8 @@ from pathlib import Path
 from statistics import mean, median, stdev
 
 ROOT = Path(__file__).resolve().parents[3]
-RUNS = ROOT / "artifacts" / "l4" / "n8n_runs"
-OUT = ROOT / "artifacts" / "l4" / "supervisor_258"
+RUNS = ROOT / "evaluation_runs" / "l4" / "n8n_runs"
+OUT = ROOT / "evaluation_runs" / "l4" / "supervisor_258"
 OUT.mkdir(parents=True, exist_ok=True)
 
 NUMERIC_KEYS = [

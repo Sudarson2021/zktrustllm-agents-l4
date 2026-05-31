@@ -8,7 +8,7 @@ REPEAT="${3:-1}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 RUN_ID="${VARIANT}_${PROFILE}_r${REPEAT}_${TIMESTAMP}"
-OUT_DIR="$ROOT_DIR/artifacts/l4/n8n_runs/$RUN_ID"
+OUT_DIR="$ROOT_DIR/evaluation_runs/l4/n8n_runs/$RUN_ID"
 
 mkdir -p "$OUT_DIR"
 
