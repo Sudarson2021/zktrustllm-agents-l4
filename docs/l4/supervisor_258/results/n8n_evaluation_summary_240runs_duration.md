@@ -2,7 +2,7 @@
 
 Dataset type: deduplicated clean 240-run duration dataset
 
-Raw records found before deduplication: 264
+Raw records found before deduplication: 304
 Clean records after keeping latest variant/profile/repeat: 240
 
 ## Variant/Profile Summary
@@ -29,10 +29,10 @@ Clean records after keeping latest variant/profile/repeat: 240
 | oracle_only | delay_20ms | 10 | 10 | 0 |
 | oracle_only | delay_20ms_jitter_5ms | 10 | 10 | 0 |
 | oracle_only | delay_30ms_jitter_10ms_loss_1pct | 10 | 10 | 0 |
-| rbac_only | clean_baseline | 10 | 0 | 10 |
-| rbac_only | delay_20ms | 10 | 0 | 10 |
-| rbac_only | delay_20ms_jitter_5ms | 10 | 0 | 10 |
-| rbac_only | delay_30ms_jitter_10ms_loss_1pct | 10 | 0 | 10 |
+| rbac_only | clean_baseline | 10 | 10 | 0 |
+| rbac_only | delay_20ms | 10 | 10 | 0 |
+| rbac_only | delay_20ms_jitter_5ms | 10 | 10 | 0 |
+| rbac_only | delay_30ms_jitter_10ms_loss_1pct | 10 | 10 | 0 |
 
 ## Numeric KPI Summary
 
@@ -58,7 +58,7 @@ Clean records after keeping latest variant/profile/repeat: 240
 | oracle_only | delay_20ms | duration_ms | 10 | 1752.8000 | 1784.0000 | 84.7700 | 1854.0000 |
 | oracle_only | delay_20ms_jitter_5ms | duration_ms | 10 | 1783.4000 | 1789.0000 | 139.0110 | 2066.0000 |
 | oracle_only | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 1752.5000 | 1764.0000 | 137.0663 | 1969.0000 |
-| rbac_only | clean_baseline | duration_ms | 10 | 3503.4000 | 3539.5000 | 88.2423 | 3604.0000 |
-| rbac_only | delay_20ms | duration_ms | 10 | 3495.5000 | 3487.0000 | 111.7649 | 3705.0000 |
-| rbac_only | delay_20ms_jitter_5ms | duration_ms | 10 | 3472.1000 | 3453.5000 | 76.4976 | 3586.0000 |
-| rbac_only | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 3505.5000 | 3456.5000 | 213.3392 | 4041.0000 |
+| rbac_only | clean_baseline | duration_ms | 10 | 3311.4000 | 3521.5000 | 398.1516 | 3648.0000 |
+| rbac_only | delay_20ms | duration_ms | 10 | 3579.0000 | 3585.5000 | 130.7015 | 3801.0000 |
+| rbac_only | delay_20ms_jitter_5ms | duration_ms | 10 | 3606.8000 | 3625.0000 | 126.4303 | 3849.0000 |
+| rbac_only | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 3606.6000 | 3600.5000 | 210.2766 | 4123.0000 |
