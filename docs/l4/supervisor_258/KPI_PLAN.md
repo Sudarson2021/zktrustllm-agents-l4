@@ -2,7 +2,7 @@
 
 This file defines the scientific KPIs required to turn the ZKTrustLLM-Agents L4 demo into a journal-grade evaluation.
 
-## 1. Network / O-RAN Edge KPIs
+## Network / O-RAN Edge KPIs
 
 | KPI | Unit | Purpose |
 |---|---:|---|
@@ -14,18 +14,18 @@ This file defines the scientific KPIs required to turn the ZKTrustLLM-Agents L4 
 | bitrate | kbps | Measures media throughput. |
 | impairment profile | label | clean, delay, jitter, loss scenarios. |
 
-## 2. Agentic AI KPIs
+## Agentic AI KPIs
 
 | KPI | Unit | Purpose |
 |---|---:|---|
 | reasoning latency | ms | Time for agent reasoning/classification. |
-| A2A reference size | bytes | Measures inter-agent reference overhead. |
+| A2A reference size | bytes | Inter-agent reference overhead. |
 | trust state | label | Trusted, Restricted, Isolate. |
 | action class | label | AUTOMATIC, HUMAN, PRIVILEGED, NEVER. |
 | approval queue count | count | Human-governance pressure. |
 | action outcome | label | executed, queued, blocked. |
 
-## 3. ZK Proof KPIs
+## ZK Proof KPIs
 
 | KPI | Unit | Purpose |
 |---|---:|---|
@@ -37,7 +37,7 @@ This file defines the scientific KPIs required to turn the ZKTrustLLM-Agents L4 
 | mutated proof result | pass/fail | Negative proof rejection. |
 | policyAdmissibleFlag | 0/1 | Formal admissibility output. |
 
-## 4. Blockchain / Trust-Plane KPIs
+## Blockchain / Trust-Plane KPIs
 
 | KPI | Unit | Purpose |
 |---|---:|---|
@@ -51,33 +51,22 @@ This file defines the scientific KPIs required to turn the ZKTrustLLM-Agents L4 
 | zero anchor rejected | bool | Empty-anchor defence. |
 | unauthorized submitter rejected | bool | RBAC/capability defence. |
 
-## 5. Ablation KPIs
+## Ablation Variants
 
 | Variant | Removed feature | Expected measurable effect |
 |---|---|---|
 | Full L4 | none | strongest accountability, highest overhead |
 | No-ZK | AUTH proof removed | lower latency/gas, weaker verifiability |
 | Oracle-only | proof and policy binding weakened | faster but weaker accountability |
-| RBAC-only | proof removed, role gate kept | blocks unauthorized submitters but cannot prove decision validity |
+| RBAC-only | proof removed, role gate kept | access controlled but not proof-bound |
 | No-IPFS | content-addressed evidence removed | weaker evidence reproducibility |
 | No-policy-gate | governance removed | unsafe escalation possible |
 
-## 6. Statistical Reporting
+## Statistical Reporting
 
-For each KPI, report:
+For each KPI, report mean, median, standard deviation, minimum, maximum, p50, p95, number of repeated runs, pass/fail count, and rejection rate where relevant.
 
-- mean,
-- median,
-- standard deviation,
-- minimum,
-- maximum,
-- p50,
-- p95,
-- number of repeated runs,
-- pass/fail count,
-- rejection rate where relevant.
-
-## 7. Required Paper Tables
+## Required Paper Tables
 
 - Table I: quantitative novelty/comparison matrix.
 - Table II: formal verification result matrix.
