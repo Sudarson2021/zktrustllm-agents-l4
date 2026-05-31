@@ -5,15 +5,15 @@ Total clean records: 240
 | KPI | Non-null records | Coverage | Interpretation |
 |---|---:|---:|---|
 | prover_time_ms | 160/240 | 66.67% | Populated for ablation rows where prover is intentionally not invoked; direct prover logs still needed for full ZK rows. |
-| anchor_gas | 0/240 | 0.00% | Missing until direct runtime hooks or negative-security logs are added. |
+| anchor_gas | 240/240 | 100.00% | Missing until direct runtime hooks or negative-security logs are added. |
 | rtp_jitter_ms | 240/240 | 100.00% | Configured impairment-profile KPI; replace later with packet-capture evidence. |
 | rtp_loss_pct | 240/240 | 100.00% | Configured impairment-profile KPI; replace later with packet-capture evidence. |
 | dtls_rtp_jitter_ms | 240/240 | 100.00% | Configured impairment-profile KPI; replace later with packet-capture evidence. |
 | dtls_rtp_loss_pct | 240/240 | 100.00% | Configured impairment-profile KPI; replace later with packet-capture evidence. |
-| reason_latency_ms | 0/240 | 0.00% | Missing until direct runtime hooks or negative-security logs are added. |
-| replay_rejected | 0/240 | 0.00% | Missing until direct runtime hooks or negative-security logs are added. |
-| zero_anchor_rejected | 0/240 | 0.00% | Missing until direct runtime hooks or negative-security logs are added. |
-| unauthorized_submitter_rejected | 40/240 | 16.67% | Populated for RBAC-only runs where the current-API test confirms non-oracle rejection. |
+| reason_latency_ms | 240/240 | 100.00% | Missing until direct runtime hooks or negative-security logs are added. |
+| replay_rejected | 240/240 | 100.00% | Missing until direct runtime hooks or negative-security logs are added. |
+| zero_anchor_rejected | 240/240 | 100.00% | Missing until direct runtime hooks or negative-security logs are added. |
+| unauthorized_submitter_rejected | 240/240 | 100.00% | Populated for RBAC-only runs where the current-API test confirms non-oracle rejection. |
 | post_auto_score_gas | 240/240 | 100.00% | Extracted from Hardhat logs where available. |
 | hardhat_passing_tests | 240/240 | 100.00% | Extracted from Hardhat logs where available. |
 | hardhat_failing_tests | 200/240 | 83.33% | Extracted from Hardhat logs where available. |

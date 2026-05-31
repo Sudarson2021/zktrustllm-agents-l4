@@ -194,7 +194,7 @@ for kpis_path in sorted(RUNS.glob("*/kpis.json")):
     run_dir = kpis_path.parent
 
     text_parts = []
-    for name in ["raw.log", "hardhat_test.log"]:
+    for name in ["raw.log", "hardhat_test.log", "stage3_runtime_hooks.log"]:
         path = run_dir / name
         if path.exists():
             text_parts.append(path.read_text(errors="ignore"))
