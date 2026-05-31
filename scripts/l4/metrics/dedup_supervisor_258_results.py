@@ -21,12 +21,20 @@ NUMERIC_KEYS = [
     "rtp_loss_pct",
     "dtls_rtp_jitter_ms",
     "dtls_rtp_loss_pct",
+    "post_auto_score_gas",
+    "mock_verifier_deploy_gas",
+    "reputation_manager_deploy_gas",
+    "hardhat_passing_tests",
+    "hardhat_failing_tests",
 ]
 
 BOOL_KEYS = [
     "replay_rejected",
     "zero_anchor_rejected",
     "unauthorized_submitter_rejected",
+    "setweights_legacy_error",
+    "array_length_error",
+    "unauthorized_reverted_observed",
 ]
 
 def timestamp_from_run_id(run_id: str) -> str:
