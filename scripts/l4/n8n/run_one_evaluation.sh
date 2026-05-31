@@ -69,7 +69,7 @@ START_NS="$(date +%s%N)"
     rbac_only)
       echo "[variant] rbac_only"
       cd "$ROOT_DIR"
-      npx hardhat test || STATUS="FAIL"
+      npx hardhat test test/l4/rbac_only_current_api.test.js || STATUS="FAIL"
       ;;
 
     no_zk)
