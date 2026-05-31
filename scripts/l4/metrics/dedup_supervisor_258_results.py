@@ -37,6 +37,19 @@ BOOL_KEYS = [
     "unauthorized_reverted_observed",
 ]
 
+SOURCE_KEYS = [
+    "prover_time_source",
+    "anchor_gas_source",
+    "reason_latency_source",
+    "rtp_jitter_ms_source",
+    "rtp_loss_pct_source",
+    "dtls_rtp_jitter_ms_source",
+    "dtls_rtp_loss_pct_source",
+    "replay_rejected_source",
+    "zero_anchor_rejected_source",
+    "unauthorized_submitter_source",
+]
+
 def timestamp_from_run_id(run_id: str) -> str:
     m = re.search(r"_(\d{8}T\d{6}Z)$", run_id)
     return m.group(1) if m else ""
@@ -79,7 +92,7 @@ csv_path = OUT / "n8n_all_runs_240runs_duration.csv"
 fields = [
     "run_id", "variant", "profile", "repeat", "status",
     "git_commit", "evidence_sha256"
-] + NUMERIC_KEYS + BOOL_KEYS
+] + NUMERIC_KEYS + BOOL_KEYS + SOURCE_KEYS
 
 with csv_path.open("w", newline="") as f:
     writer = csv.DictWriter(f, fieldnames=fields)
