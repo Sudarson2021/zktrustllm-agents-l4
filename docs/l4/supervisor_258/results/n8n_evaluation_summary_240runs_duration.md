@@ -1,61 +1,64 @@
 # Supervisor 258 n8n Evaluation Summary
 
-Total records: 264
+Dataset type: deduplicated clean 240-run duration dataset
+
+Raw records found before deduplication: 264
+Clean records after keeping latest variant/profile/repeat: 240
 
 ## Variant/Profile Summary
 
 | Variant | Profile | Runs | Pass | Fail |
 |---|---|---:|---:|---:|
-| full_l4 | clean_baseline | 12 | 12 | 0 |
+| full_l4 | clean_baseline | 10 | 10 | 0 |
 | full_l4 | delay_20ms | 10 | 10 | 0 |
 | full_l4 | delay_20ms_jitter_5ms | 10 | 10 | 0 |
-| full_l4 | delay_30ms_jitter_10ms_loss_1pct | 12 | 12 | 0 |
-| no_ipfs | clean_baseline | 12 | 12 | 0 |
+| full_l4 | delay_30ms_jitter_10ms_loss_1pct | 10 | 10 | 0 |
+| no_ipfs | clean_baseline | 10 | 10 | 0 |
 | no_ipfs | delay_20ms | 10 | 10 | 0 |
 | no_ipfs | delay_20ms_jitter_5ms | 10 | 10 | 0 |
-| no_ipfs | delay_30ms_jitter_10ms_loss_1pct | 12 | 12 | 0 |
-| no_policy_gate | clean_baseline | 12 | 12 | 0 |
+| no_ipfs | delay_30ms_jitter_10ms_loss_1pct | 10 | 10 | 0 |
+| no_policy_gate | clean_baseline | 10 | 10 | 0 |
 | no_policy_gate | delay_20ms | 10 | 10 | 0 |
 | no_policy_gate | delay_20ms_jitter_5ms | 10 | 10 | 0 |
-| no_policy_gate | delay_30ms_jitter_10ms_loss_1pct | 12 | 12 | 0 |
-| no_zk | clean_baseline | 12 | 12 | 0 |
+| no_policy_gate | delay_30ms_jitter_10ms_loss_1pct | 10 | 10 | 0 |
+| no_zk | clean_baseline | 10 | 10 | 0 |
 | no_zk | delay_20ms | 10 | 10 | 0 |
 | no_zk | delay_20ms_jitter_5ms | 10 | 10 | 0 |
-| no_zk | delay_30ms_jitter_10ms_loss_1pct | 12 | 12 | 0 |
-| oracle_only | clean_baseline | 12 | 12 | 0 |
+| no_zk | delay_30ms_jitter_10ms_loss_1pct | 10 | 10 | 0 |
+| oracle_only | clean_baseline | 10 | 10 | 0 |
 | oracle_only | delay_20ms | 10 | 10 | 0 |
 | oracle_only | delay_20ms_jitter_5ms | 10 | 10 | 0 |
-| oracle_only | delay_30ms_jitter_10ms_loss_1pct | 12 | 12 | 0 |
-| rbac_only | clean_baseline | 12 | 0 | 12 |
+| oracle_only | delay_30ms_jitter_10ms_loss_1pct | 10 | 10 | 0 |
+| rbac_only | clean_baseline | 10 | 0 | 10 |
 | rbac_only | delay_20ms | 10 | 0 | 10 |
 | rbac_only | delay_20ms_jitter_5ms | 10 | 0 | 10 |
-| rbac_only | delay_30ms_jitter_10ms_loss_1pct | 12 | 0 | 12 |
+| rbac_only | delay_30ms_jitter_10ms_loss_1pct | 10 | 0 | 10 |
 
 ## Numeric KPI Summary
 
 | Variant | Profile | KPI | n | mean | median | std | p95 |
 |---|---|---|---:|---:|---:|---:|---:|
-| full_l4 | clean_baseline | duration_ms | 12 | 37950.2500 | 38484.0000 | 3465.5941 | 41816.0000 |
+| full_l4 | clean_baseline | duration_ms | 10 | 39055.4000 | 39050.5000 | 2504.9154 | 42172.0000 |
 | full_l4 | delay_20ms | duration_ms | 10 | 47435.9000 | 47151.5000 | 2527.7974 | 51309.0000 |
 | full_l4 | delay_20ms_jitter_5ms | duration_ms | 10 | 56881.0000 | 57057.0000 | 3152.0605 | 60967.0000 |
-| full_l4 | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 12 | 61564.9167 | 65600.5000 | 12674.0652 | 70515.0000 |
-| no_ipfs | clean_baseline | duration_ms | 12 | 1809.8333 | 1791.0000 | 161.8646 | 2101.0000 |
+| full_l4 | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 66822.6000 | 67129.0000 | 3457.2336 | 72219.0000 |
+| no_ipfs | clean_baseline | duration_ms | 10 | 1782.7000 | 1772.0000 | 147.4480 | 2118.0000 |
 | no_ipfs | delay_20ms | duration_ms | 10 | 1742.6000 | 1766.5000 | 95.3965 | 1858.0000 |
 | no_ipfs | delay_20ms_jitter_5ms | duration_ms | 10 | 1759.8000 | 1779.0000 | 96.6273 | 1875.0000 |
-| no_ipfs | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 12 | 1754.1667 | 1769.0000 | 89.8026 | 1850.0000 |
-| no_policy_gate | clean_baseline | duration_ms | 12 | 1730.5833 | 1774.5000 | 98.0839 | 1811.0000 |
+| no_ipfs | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 1736.5000 | 1760.5000 | 80.2569 | 1850.0000 |
+| no_policy_gate | clean_baseline | duration_ms | 10 | 1741.3000 | 1779.5000 | 92.6775 | 1811.0000 |
 | no_policy_gate | delay_20ms | duration_ms | 10 | 1769.1000 | 1792.0000 | 179.5448 | 2164.0000 |
 | no_policy_gate | delay_20ms_jitter_5ms | duration_ms | 10 | 1739.7000 | 1774.0000 | 80.9815 | 1835.0000 |
-| no_policy_gate | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 12 | 1743.6667 | 1751.5000 | 86.3695 | 1870.0000 |
-| no_zk | clean_baseline | duration_ms | 12 | 1775.0833 | 1790.0000 | 99.0789 | 1893.0000 |
+| no_policy_gate | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 1743.2000 | 1758.0000 | 95.4356 | 1873.0000 |
+| no_zk | clean_baseline | duration_ms | 10 | 1765.1000 | 1786.0000 | 106.4429 | 1900.0000 |
 | no_zk | delay_20ms | duration_ms | 10 | 1754.2000 | 1778.5000 | 105.4881 | 1928.0000 |
 | no_zk | delay_20ms_jitter_5ms | duration_ms | 10 | 1727.6000 | 1765.0000 | 98.7457 | 1832.0000 |
-| no_zk | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 12 | 1777.0833 | 1786.5000 | 160.1156 | 1856.0000 |
-| oracle_only | clean_baseline | duration_ms | 12 | 1770.4167 | 1761.5000 | 158.0233 | 1836.0000 |
+| no_zk | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 1789.3000 | 1797.0000 | 169.6205 | 2190.0000 |
+| oracle_only | clean_baseline | duration_ms | 10 | 1777.8000 | 1779.0000 | 172.3284 | 2184.0000 |
 | oracle_only | delay_20ms | duration_ms | 10 | 1752.8000 | 1784.0000 | 84.7700 | 1854.0000 |
 | oracle_only | delay_20ms_jitter_5ms | duration_ms | 10 | 1783.4000 | 1789.0000 | 139.0110 | 2066.0000 |
-| oracle_only | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 12 | 1750.0833 | 1764.0000 | 132.6770 | 1897.0000 |
-| rbac_only | clean_baseline | duration_ms | 12 | 3504.5000 | 3539.5000 | 82.0338 | 3563.0000 |
+| oracle_only | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 1752.5000 | 1764.0000 | 137.0663 | 1969.0000 |
+| rbac_only | clean_baseline | duration_ms | 10 | 3503.4000 | 3539.5000 | 88.2423 | 3604.0000 |
 | rbac_only | delay_20ms | duration_ms | 10 | 3495.5000 | 3487.0000 | 111.7649 | 3705.0000 |
 | rbac_only | delay_20ms_jitter_5ms | duration_ms | 10 | 3472.1000 | 3453.5000 | 76.4976 | 3586.0000 |
-| rbac_only | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 12 | 3491.0000 | 3453.0000 | 196.8382 | 3659.0000 |
+| rbac_only | delay_30ms_jitter_10ms_loss_1pct | duration_ms | 10 | 3505.5000 | 3456.5000 | 213.3392 | 4041.0000 |
