@@ -27,6 +27,7 @@ JSON
 RAW_LOG="$OUT_DIR/raw.log"
 HARDHAT_LOG="$OUT_DIR/hardhat_test.log"
 STATUS="PASS"
+START_NS="$(date +%s%N)"
 
 {
   echo "===== ZKTrustLLM-Agents L4 n8n Evaluation Run ====="
@@ -92,6 +93,9 @@ if [ -f "$ROOT_DIR/package.json" ]; then
   (cd "$ROOT_DIR" && npx hardhat test > "$HARDHAT_LOG" 2>&1) || true
 fi
 
+END_NS="$(date +%s%N)"
+DURATION_MS=$(( (END_NS - START_NS) / 1000000 ))
+
 sha256sum "$RAW_LOG" > "$OUT_DIR/evidence.sha256"
 
 cat > "$OUT_DIR/kpis.json" <<JSON
@@ -101,6 +105,7 @@ cat > "$OUT_DIR/kpis.json" <<JSON
   "profile": "$PROFILE",
   "repeat": $REPEAT,
   "status": "$STATUS",
+  "duration_ms": $DURATION_MS,
   "git_commit": "$(cat "$OUT_DIR/git_commit.txt")",
   "raw_log": "$RAW_LOG",
   "hardhat_log": "$HARDHAT_LOG",
