@@ -10,6 +10,7 @@ OUT = ROOT / "artifacts" / "l4" / "supervisor_258"
 OUT.mkdir(parents=True, exist_ok=True)
 
 NUMERIC_KEYS = [
+    "duration_ms",
     "reason_latency_ms",
     "a2a_reference_bytes",
     "prover_time_ms",
