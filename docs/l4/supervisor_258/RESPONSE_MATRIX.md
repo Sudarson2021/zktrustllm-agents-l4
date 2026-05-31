@@ -1,44 +1,40 @@
 # Supervisor Comment Response Matrix - [258] ZKTrustLLM-Agents L4 Journal Paper
 
-## Required upgrades
+This document maps each supervisor comment to the concrete manuscript, figure, table, formal-verification, and evaluation upgrades required for the next journal version.
 
-1. Formal verification of Table II observations
-- Add TLA+ / TLC policy-loop model.
-- Add Solidity invariant tests for replay, zero anchor, unauthorized submitter, and policy admissibility.
+## Comment-to-Action Matrix
 
-2. Stronger Figure 1
-- Replace generic workflow with O-RAN + agentic loop + evidence/trust plane architecture.
-- Place MNO policy in SMO / Non-RT RIC and map policy delivery through A1.
+| No. | Supervisor comment | Required upgrade | Paper output | Repo / evaluation output |
+|---:|---|---|---|---|
+| 1 | Formal verification tool should validate Table II observations. | Add TLA+ / TLC model checking and Solidity invariant tests. | New formal verification subsection and revised Table II. | `formal/tla/ZKTrustLLMPolicyGate.tla`, Hardhat invariant tests, verification logs. |
+| 2 | Stronger visual and numerical scientific validation. | Add repeated-run KPI tables, ablation plots, gas/proof/latency measurements. | Results section with quantitative KPIs. | n8n-run CSV/JSON evidence, figures, Markdown tables. |
+| 3 | Figure 1 should better represent architecture, workflow, and components. | Replace generic diagram with O-RAN + agentic loop + evidence/trust-plane architecture. | New Fig. 1. | `figures/l4/revision/fig1_oran_l4_architecture.*` |
+| 4 | Add visual threat examples. | Add threat-response diagrams for replay, unsafe action, evidence tampering, compromised xApp. | New threat-model figure. | `figures/l4/revision/fig2_threat_response_examples.*` |
+| 5 | Explain how many agentic AI components are used and their roles. | Define Telemetry, Reasoning, Policy, Proof, and Audit/Anchor agents. | New agentic AI subsection. | Agent-role table and n8n evaluation mapping. |
+| 6 | Consider CCG-series or similar reasoning/control mechanisms. | Present OBSERVE -> REASON -> PROVE -> ANCHOR -> ACT as controlled cyclic governance. | Reasoning/control-loop subsection. | n8n workflow mirrors this loop. |
+| 7 | Clear comparison against existing approaches. | Replace descriptive comparison with measurable criteria. | Strengthened Table I. | Quantitative novelty matrix. |
+| 8 | Justify smart-contract role between customer and provider. | Explain what contract can/cannot do in the MNO/customer scenario. | Smart-contract boundary subsection. | Contract role evidence table. |
+| 9 | Include test modes for other blockchain consensus algorithms. | Compare local Hardhat, public testnet, permissioned PoA/IBFT-style, BFT-style, Fabric-style modes. | Consensus/test-mode table. | `scripts/l4/consensus_modes/` |
+| 10 | Compare access-control algorithms. | Compare OwnerOnly, RBAC, capability-based, ABAC/policy registry, ZK-bound access. | Access-control comparison table. | `scripts/l4/access_control/` |
+| 11 | Open RAN MNO policy insufficient. | Add architecture showing policy inside SMO/Non-RT RIC and A1 path to Near-RT RIC/xApps. | New O-RAN policy-placement figure. | `figures/l4/revision/fig_openran_policy_placement.*` |
+| 12 | Ablation study for ZK component. | Compare Full L4, No-ZK, Oracle-only, RBAC-only, No-IPFS, No-policy-gate. | ZK ablation subsection and figure. | `scripts/l4/ablation/`, n8n run matrix. |
+| 13 | Computational complexity. | Add complexity of hashing, policy check, proof generation, verification, anchoring, consensus confirmation. | Complexity-analysis section. | `docs/l4/supervisor_258/COMPLEXITY_ANALYSIS.md` |
+| 14 | Add demo KPIs. | Add reason latency, proof time, gas, jitter, loss, A2A size, anchor gas, queue state. | Demo KPI table. | n8n KPI extractor output. |
+| 15 | Table I needs quantitative validation. | Convert Table I into numerical novelty/comparison matrix. | Revised Table I. | `N8N_SCIENTIFIC_NOVELTY_MATRIX.md` |
 
-3. Threat visual examples
-- Add replay attack, evidence tampering, unsafe escalation, compromised xApp.
+## Target Scientific Claim
 
-4. Agentic AI components
-- Define Telemetry Agent, Reasoning Agent, Policy Agent, Proof Agent, Audit/Anchor Agent.
+ZKTrustLLM-Agents L4 is not merely a dashboard or automation demo. It is a reproducible, policy-gated, evidence-preserving evaluation framework for accountable autonomous O-RAN security workflows.
 
-5. Quantitative comparison
-- Replace descriptive Table I with measurable criteria and ablation variants.
+## Required Evaluation Principle
 
-6. Smart contract boundary
-- Explain what the contract can and cannot do between tenant/customer and MNO/provider.
+Every result must be supported by:
 
-7. Consensus/test modes
-- Compare Hardhat, Sepolia, permissioned PoA/IBFT, CometBFT/Fabric-style modes.
-
-8. Access-control comparison
-- Compare OwnerOnly, RBAC, Capability-based, ABAC/policy registry, and ZK-bound access.
-
-9. Open RAN MNO policy architecture
-- Add standard O-RAN policy placement figure.
-
-10. ZK ablation
-- Full vs No-ZK vs Oracle-only vs RBAC-only vs No-IPFS vs No-policy-gate.
-
-11. Complexity
-- Add O(n*b), O(c), O(1) verification/storage analysis.
-
-12. Demo KPIs
-- Include reason latency, prover time, gas, jitter, loss, anchor gas, queue status.
-
-13. Strengthened Table I
-- Convert to quantitative comparison table.
+1. raw log,
+2. parsed KPI JSON,
+3. run identifier,
+4. Git commit hash,
+5. impairment profile or baseline variant,
+6. evidence hash,
+7. table/figure output,
+8. paper-ready interpretation.
