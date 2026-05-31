@@ -1,0 +1,9 @@
+\section{Introduction}
+O-RAN disaggregates the radio access network into programmable components, including the SMO, Non-RT RIC, Near-RT RIC, rApps, and xApps. This programmability enables closed-loop optimisation but also creates security risks: unsafe autonomous action, weak evidence binding, replayed audit records, and insufficient reproducibility of security experiments.
+
+This paper asks: \emph{how can autonomous O-RAN security actions be made policy-gated, evidence-bound, replay-resistant, and scientifically reproducible?} We answer this through ZKTrustLLM-Agents L4, a proof-governed agentic zero-trust framework.
+
+The novelty is not the isolated use of n8n, blockchain, IPFS, or agentic AI. The novelty is their controlled scientific composition: bounded agents reason over telemetry, policy gates restrict actions, proof paths attest admissibility, audit hooks produce direct runtime evidence, and n8n orchestrates repeatable scientific evaluation. The design is motivated by zero-trust principles \cite{nist207}, O-RAN policy-control workflows \cite{oranA1}, succinct proof systems such as Groth16 \cite{groth16}, self-hosted command orchestration through n8n \cite{n8nExecute}, and the public implementation branch used for this evaluation \cite{zktrustrepo}.
+
+\subsection{Contributions}
+The paper makes five contributions: (i) a five-agent O-RAN security architecture; (ii) a policy-gated OBSERVE--REASON--PROVE--ANCHOR--ACT loop; (iii) an n8n-orchestrated evaluation pipeline; (iv) a clean 240-record dataset; and (v) Stage 3 direct runtime hooks for anchor gas, reasoning latency, replay rejection, zero-anchor rejection, and unauthorized-submitter rejection.

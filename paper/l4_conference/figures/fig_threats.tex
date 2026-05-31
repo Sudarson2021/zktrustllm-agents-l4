@@ -1,0 +1,28 @@
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[
+font=\scriptsize,
+phase/.style={draw, rounded corners, thick, fill=trustgreen!18, align=center, minimum width=15mm},
+threat/.style={draw, rounded corners, thick, fill=trustred!15, align=center, minimum width=20mm},
+arrow/.style={-{Latex[length=1.6mm]}, thick},
+node distance=4mm
+]
+\node[phase] (o) {OBSERVE};
+\node[phase, right=of o] (r) {REASON};
+\node[phase, right=of r] (p) {PROVE};
+\node[phase, right=of p] (a) {ANCHOR};
+\node[phase, right=of a] (act) {ACT};
+\draw[arrow] (o)--(r);
+\draw[arrow] (r)--(p);
+\draw[arrow] (p)--(a);
+\draw[arrow] (a)--(act);
+\node[threat, below=8mm of r] (t1) {Unsafe\\action};
+\node[threat, below=8mm of p] (t2) {Invalid\\proof};
+\node[threat, below=8mm of a] (t3) {Replay /\\zero anchor};
+\draw[arrow, trustred] (t1)--node[left]{policy gate}(r);
+\draw[arrow, trustred] (t2)--node[right]{AUTH check}(p);
+\draw[arrow, trustred] (t3)--node[right]{contract reject}(a);
+\end{tikzpicture}
+\caption{Threat-to-control mapping. Unsafe actions are policy-gated, invalid proofs are blocked, and replay/zero anchors are rejected.}
+\label{fig:threats}
+\end{figure}
