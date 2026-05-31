@@ -76,3 +76,16 @@ SHA256SUMS
 
 # Local evaluation outputs
 evaluation_runs/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
