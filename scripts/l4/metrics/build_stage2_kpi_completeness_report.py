@@ -43,8 +43,12 @@ for key in TARGETS:
         interpretation = "Populated for RBAC-only runs where the current-API test confirms non-oracle rejection."
     elif key in {"prover_time_ms"}:
         interpretation = "Populated for ablation rows where prover is intentionally not invoked; direct prover logs still needed for full ZK rows."
-    elif key in {"anchor_gas", "reason_latency_ms", "replay_rejected", "zero_anchor_rejected"}:
-        interpretation = "Missing until direct runtime hooks or negative-security logs are added."
+    elif key == "anchor_gas":
+        interpretation = "Populated from Stage 3 isolated ledger micro-benchmark runtime hook."
+    elif key == "reason_latency_ms":
+        interpretation = "Populated from Stage 3 deterministic policy-reasoning probe."
+    elif key in {"replay_rejected", "zero_anchor_rejected"}:
+        interpretation = "Populated from Stage 3 negative-security runtime hook."
     elif key in {"post_auto_score_gas", "hardhat_passing_tests", "hardhat_failing_tests"}:
         interpretation = "Extracted from Hardhat logs where available."
     else:
@@ -55,7 +59,7 @@ for key in TARGETS:
 lines.append("")
 lines.append("## Scientific interpretation")
 lines.append("")
-lines.append("The Stage 2 extraction layer extends the n8n workflow-validation dataset into a scientific KPI-tracking dataset. It currently provides complete configured media impairment coverage, Hardhat gas/test KPIs, and RBAC unauthorized-submitter rejection evidence. Missing values are intentionally preserved for KPIs that require direct runtime hooks, including anchor gas, reasoning latency, replay rejection, zero-anchor rejection, and full ZK prover timing.")
+lines.append("The Stage 2 extraction layer extends the n8n workflow-validation dataset into a scientific KPI-tracking dataset. It currently provides complete configured media impairment coverage, Hardhat gas/test KPIs, and RBAC unauthorized-submitter rejection evidence. Stage 3 now provides direct runtime-hook evidence for anchor gas, reasoning latency, replay rejection, zero-anchor rejection, and unauthorized-submitter rejection. Missing values are still intentionally preserved for full ZK prover timing where direct prover logs are not yet available.")
 lines.append("")
 lines.append("## Reviewer-safety note")
 lines.append("")
