@@ -1,0 +1,7 @@
+# Journal Text: n8n-Orchestrated Scientific Evaluation
+
+To improve reproducibility and scientific traceability, the evaluation was orchestrated using a self-hosted n8n workflow. n8n was not used as a security primitive and was not part of the proposed trust mechanism. Instead, it served as a controlled experiment scheduler that repeatedly executed evaluation variants, captured raw logs, assigned run identifiers, stored timestamps, recorded the Git commit hash, and generated machine-readable KPI files.
+
+The workflow evaluated the proposed ZKTrustLLM-Agents L4 framework across multiple variants: Full L4, No-ZK, Oracle-only, RBAC-only, No-IPFS, and No-policy-gate simulated baseline. Each variant was evaluated across clean and impaired O-RAN edge profiles, including clean baseline, fixed delay, delay with jitter, and delay/jitter/loss conditions. The evaluation records network KPIs, agentic reasoning KPIs, zero-knowledge proof KPIs, blockchain anchoring KPIs, and threat-response outcomes.
+
+This design strengthens the scientific contribution in three ways. First, it converts the demonstration into a repeated-run evaluation rather than a single manual execution. Second, it enables systematic ablation of the ZK, IPFS, RBAC, and policy-gating components. Third, it links every reported table and figure to raw logs, parsed KPI JSON, evidence hashes, and Git commit identifiers. Therefore, the n8n evaluation layer provides reviewer-verifiable traceability from experiment execution to paper-ready results.

@@ -1,0 +1,19 @@
+{
+  "network": "sepolia",
+  "chain_id": 11155111,
+  "admin": "0xF12ABCf1DA907dA662d54950f6b993B64F6c3a2B",
+  "ledger_address": "0xF0aa8b5661462545E879F1673B23c699A207da6F",
+  "deploy_tx": "0xed744cb7d4b4467ca5a8080e358f01a0612a66b8147cf191c7bf400c9a5fa60c",
+  "deploy_gas": "379243",
+  "commitment": "0x82a4fb7844a5f0f9c3dffbffa36121257dbd1f03698434279466a483e2bd8e52",
+  "evidence_hash": "0xc987bed3e6f2c8c03eb7076195d12982b66799c5ba184bfee3f55e878e4da9b6",
+  "commit_tx": "0x4a3304bc05125efea9d12590e873af89dcd3be986426e09dbe33f887c103060f",
+  "anchor_gas": "48973",
+  "block_number": 10968561,
+  "replay_rejected": true,
+  "zero_anchor_rejected": true,
+  "unauthorized_submitter_rejected": true,
+  "explorer_contract": "https://sepolia.etherscan.io/address/0xF0aa8b5661462545E879F1673B23c699A207da6F",
+  "explorer_commit_tx": "https://sepolia.etherscan.io/tx/0x4a3304bc05125efea9d12590e873af89dcd3be986426e09dbe33f887c103060f",
+  "timestamp": "2026-06-01T14:58:24.919Z"
+}

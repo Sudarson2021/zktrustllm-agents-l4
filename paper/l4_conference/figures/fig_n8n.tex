@@ -1,0 +1,23 @@
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[
+font=\scriptsize,
+box/.style={draw, rounded corners, thick, align=center, fill=trustblue!10, minimum width=35mm, minimum height=7mm},
+arrow/.style={-{Latex[length=1.6mm]}, thick},
+node distance=4mm
+]
+\node[box] (n8n) {n8n Orchestrator};
+\node[box, below=of n8n] (matrix) {6 Variants $\times$ 4 Profiles $\times$ 10 Repeats};
+\node[box, below=of matrix] (run) {Run Scripts + Hardhat + Stage 3 Hooks};
+\node[box, below=of run] (logs) {Raw Logs + Evidence Hashes + Git Commit};
+\node[box, below=of logs] (extract) {KPI Extraction + Deduplication};
+\node[box, below=of extract] (paper) {CSV / Markdown / Paper Tables};
+\draw[arrow] (n8n)--(matrix);
+\draw[arrow] (matrix)--(run);
+\draw[arrow] (run)--(logs);
+\draw[arrow] (logs)--(extract);
+\draw[arrow] (extract)--(paper);
+\end{tikzpicture}
+\caption{n8n-orchestrated scientific evaluation pipeline. n8n coordinates execution but is not a security primitive.}
+\label{fig:n8n}
+\end{figure}

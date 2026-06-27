@@ -1,0 +1,15 @@
+\section{Results}
+\subsection{KPI Completeness}
+Table~\ref{tab:kpi_completeness} summarises KPI completeness after Stage 3. Anchor gas, reasoning latency, replay rejection, zero-anchor rejection, and unauthorized-submitter rejection are populated from direct runtime hooks. RTP/DTLS-RTP jitter and loss are configured impairment-profile values.
+
+\input{tables/table_kpi_completeness}
+
+\subsection{Variant/Profile Summary}
+Table~\ref{tab:variant_summary} summarises the clean 240-record evaluation. The RBAC-only baseline was repaired to match the current contract ABI and rerun only for the affected variant, preserving experimental traceability.
+
+\input{tables/table_variant_summary}
+
+\subsection{Stage 3 Runtime Evidence}
+Stage 3 introduces an isolated Stage3AnomalyLedger micro-benchmark and a deterministic policy-reasoning probe. These emit parseable KPI lines for anchor gas, negative-security rejection, and reasoning latency.
+
+\input{tables/table_stage3}

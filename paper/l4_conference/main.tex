@@ -1,0 +1,43 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage{cite,amsmath,amssymb,graphicx,xcolor,booktabs,array,tabularx,adjustbox,url,tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,shapes.geometric,calc}
+
+\definecolor{trustblue}{HTML}{1F77B4}
+\definecolor{trustgreen}{HTML}{2CA02C}
+\definecolor{trustorange}{HTML}{FF7F0E}
+\definecolor{trustred}{HTML}{D62728}
+\definecolor{trustpurple}{HTML}{9467BD}
+
+\title{ZKTrustLLM-Agents L4: n8n-Orchestrated Scientific Evaluation of Proof-Governed Agentic Zero-Trust Control for O-RAN Edge Security}
+
+\author{
+\IEEEauthorblockN{Sudarson Karmaker}
+\IEEEauthorblockA{University of Surrey, 5GIC/6GIC, Guildford, United Kingdom\\
+Email: s.karmaker@surrey.ac.uk}
+\and
+\IEEEauthorblockN{Mohammad Shojafar}
+\IEEEauthorblockA{University of Surrey, 5GIC/6GIC, Guildford, United Kingdom}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Autonomous O-RAN security operations require policy-governed action, auditable evidence, replay-resistant anchoring, and reproducible evaluation. This paper presents ZKTrustLLM-Agents L4, a proof-governed agentic zero-trust framework for accountable O-RAN edge security workflows. The framework decomposes autonomy into bounded telemetry, reasoning, policy, proof, and audit/anchor agents. A self-hosted n8n workflow orchestrates scientific evaluation and generates run identifiers, Git commit binding, evidence hashes, raw logs, and paper-ready KPI tables. A clean 240-record dataset is produced across six variants, four impairment profiles, and ten repetitions per condition. Stage 3 direct runtime hooks populate anchor gas, reasoning latency, replay rejection, zero-anchor rejection, and unauthorized-submitter rejection. The result is a reviewer-verifiable evaluation method for accountable autonomous O-RAN security rather than an unconstrained agentic dashboard.
+\end{abstract}
+
+\begin{IEEEkeywords}
+O-RAN, zero trust, agentic AI, n8n, zero-knowledge proof, blockchain audit, reproducible evaluation, KPI validation.
+\end{IEEEkeywords}
+
+\input{sections/01_intro}
+\input{sections/02_architecture}
+\input{sections/03_evaluation}
+\input{sections/04_results}
+\input{sections/05_discussion}
+\input{sections/06_conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}

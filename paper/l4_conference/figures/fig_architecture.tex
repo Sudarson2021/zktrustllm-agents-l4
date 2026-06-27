@@ -1,0 +1,39 @@
+\begin{figure*}[!t]
+\centering
+\begin{tikzpicture}[
+font=\small,
+box/.style={draw, rounded corners, thick, align=center, minimum height=8mm, minimum width=24mm},
+arrow/.style={-{Latex[length=2mm]}, thick},
+node distance=8mm
+]
+\node[box, fill=trustblue!18] (mno) {MNO / Tenant\\Policy Intent};
+\node[box, fill=trustblue!18, right=of mno] (smo) {SMO / Non-RT RIC\\Policy Registry};
+\node[box, fill=trustgreen!18, right=of smo] (nrt) {Near-RT RIC\\xApps};
+\node[box, fill=trustorange!18, right=of nrt] (ran) {O-CU / O-DU / O-RU\\RTP / DTLS-RTP};
+
+\node[box, fill=trustpurple!18, below=12mm of smo] (obs) {Telemetry\\OBSERVE};
+\node[box, fill=trustpurple!18, right=of obs] (reason) {Reasoning\\REASON};
+\node[box, fill=trustpurple!18, right=of reason] (policy) {Policy\\GATE};
+\node[box, fill=trustpurple!18, right=of policy] (proof) {Proof\\PROVE};
+\node[box, fill=trustpurple!18, right=of proof] (audit) {Audit/Anchor\\ANCHOR};
+
+\node[box, fill=trustred!12, below=12mm of policy] (zk) {AUTH\_V2.x\\Admissibility};
+\node[box, fill=trustred!12, left=of zk] (evidence) {Evidence Store\\CID / Hash};
+\node[box, fill=trustred!12, right=of zk] (chain) {Audit Contract\\Commit / Reject};
+
+\draw[arrow] (mno)--node[above]{intent}(smo);
+\draw[arrow] (smo)--node[above]{A1 policy}(nrt);
+\draw[arrow] (nrt)--node[above]{E2 control}(ran);
+\draw[arrow] (ran.south)|-(obs.east);
+\draw[arrow] (obs)--(reason);
+\draw[arrow] (reason)--(policy);
+\draw[arrow] (policy)--(proof);
+\draw[arrow] (proof)--(audit);
+\draw[arrow] (proof)--(zk);
+\draw[arrow] (audit)--(evidence);
+\draw[arrow] (audit)--(chain);
+\draw[arrow] (chain.north)|-(nrt.south);
+\end{tikzpicture}
+\caption{Proposed ZKTrustLLM-Agents L4 architecture. Policy is placed in the SMO/Non-RT RIC governance path while bounded agents connect O-RAN telemetry to proof, evidence, and audit anchoring.}
+\label{fig:architecture}
+\end{figure*}

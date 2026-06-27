@@ -1,0 +1,37 @@
+\begin{table*}[!t]
+\centering
+\caption{Clean 240-Record Variant/Profile Summary}
+\label{tab:variant_summary}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llrrrr}
+\toprule
+Variant & Profile & Runs & Pass & Fail & Mean Duration (ms) \\
+\midrule
+full\_l4 & clean\_baseline & 10 & 10 & 0 & 39055.4 \\
+full\_l4 & delay\_20ms & 10 & 10 & 0 & 47435.9 \\
+full\_l4 & delay\_20ms\_jitter\_5ms & 10 & 10 & 0 & 56881.0 \\
+full\_l4 & delay\_30ms\_jitter\_10ms\_loss\_1pct & 10 & 10 & 0 & 66822.6 \\
+no\_ipfs & clean\_baseline & 10 & 10 & 0 & 1782.7 \\
+no\_ipfs & delay\_20ms & 10 & 10 & 0 & 1742.6 \\
+no\_ipfs & delay\_20ms\_jitter\_5ms & 10 & 10 & 0 & 1759.8 \\
+no\_ipfs & delay\_30ms\_jitter\_10ms\_loss\_1pct & 10 & 10 & 0 & 1736.5 \\
+no\_policy\_gate & clean\_baseline & 10 & 10 & 0 & 1741.3 \\
+no\_policy\_gate & delay\_20ms & 10 & 10 & 0 & 1769.1 \\
+no\_policy\_gate & delay\_20ms\_jitter\_5ms & 10 & 10 & 0 & 1739.7 \\
+no\_policy\_gate & delay\_30ms\_jitter\_10ms\_loss\_1pct & 10 & 10 & 0 & 1743.2 \\
+no\_zk & clean\_baseline & 10 & 10 & 0 & 1765.1 \\
+no\_zk & delay\_20ms & 10 & 10 & 0 & 1754.2 \\
+no\_zk & delay\_20ms\_jitter\_5ms & 10 & 10 & 0 & 1727.6 \\
+no\_zk & delay\_30ms\_jitter\_10ms\_loss\_1pct & 10 & 10 & 0 & 1789.3 \\
+oracle\_only & clean\_baseline & 10 & 10 & 0 & 1777.8 \\
+oracle\_only & delay\_20ms & 10 & 10 & 0 & 1752.8 \\
+oracle\_only & delay\_20ms\_jitter\_5ms & 10 & 10 & 0 & 1783.4 \\
+oracle\_only & delay\_30ms\_jitter\_10ms\_loss\_1pct & 10 & 10 & 0 & 1752.5 \\
+rbac\_only & clean\_baseline & 10 & 10 & 0 & 3311.4 \\
+rbac\_only & delay\_20ms & 10 & 10 & 0 & 3579.0 \\
+rbac\_only & delay\_20ms\_jitter\_5ms & 10 & 10 & 0 & 3606.8 \\
+rbac\_only & delay\_30ms\_jitter\_10ms\_loss\_1pct & 10 & 10 & 0 & 3606.6 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

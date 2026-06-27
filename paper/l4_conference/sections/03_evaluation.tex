@@ -1,0 +1,12 @@
+\section{Scientific Evaluation Methodology}
+The evaluation is organised as a three-stage pipeline. Stage 1 establishes the n8n workflow, response matrix, KPI plan, and formal-verification preparation. Stage 2 converts outputs into a clean 240-record dataset. Stage 3 adds direct runtime hooks.
+
+\input{figures/fig_n8n}
+
+\subsection{Evaluation Matrix}
+The experiment covers six variants: Full L4, No-ZK, Oracle-only, RBAC-only, No-IPFS, and No-policy-gate. Each variant is evaluated over four impairment profiles and ten repetitions, giving 240 clean records.
+
+\input{tables/table_novelty}
+
+\subsection{KPI Classes}
+The dataset distinguishes direct runtime KPIs, configured impairment-profile KPIs, and missing values. This prevents overclaiming. Configured RTP/DTLS-RTP jitter and loss values are scenario-control parameters until replaced by packet-capture or O-RAN telemetry measurements.

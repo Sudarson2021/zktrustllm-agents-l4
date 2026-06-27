@@ -1,0 +1,20 @@
+\begin{table*}[!t]
+\centering
+\caption{Novelty and Comparison Matrix}
+\label{tab:novelty}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lccccccc}
+\toprule
+Approach & Agents & Policy & ZK & Evidence & Audit & Replay & KPIs \\
+\midrule
+O-RAN monitoring only & No & Partial & No & No & No & No & Network only \\
+Blockchain logging only & No & No & No & Partial & Yes & Partial & Gas/tx \\
+RBAC contract only & No & Yes & No & No & Yes & Partial & Auth/gas \\
+Oracle-only trust & Yes & Weak & No & Partial & Yes & No & Score/gas \\
+No-ZK ablation & Yes & Yes & No & Yes & Yes & Yes & Workflow/gas \\
+Full L4 & Yes & Yes & Yes & Yes & Yes & Yes & Agent/ZK/audit \\
+n8n-orchestrated L4 & Yes & Yes & Optional & Yes & Yes & Yes & 240 records \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}
