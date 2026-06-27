@@ -1,0 +1,16 @@
+{
+  "run_id": "stage_c_20260627_235121_oracle-only_delay_jitter_loss_r1",
+  "variant": "oracle-only",
+  "profile": "delay_jitter_loss",
+  "repeat": 1,
+  "git_hash": "05aa9266b5131f557b38117228f2aa9d7446a87e",
+  "start_ts": "2026-06-28T00:04:41+01:00",
+  "duration_ms": 1666,
+  "status": "PASS",
+  "exit_code": 0,
+  "command_used": "bash scripts/baselines/run_oracle_only.sh",
+  "anchor_gas_detected": null,
+  "stdout_path": "runtime_artifacts/n8n/runs/stage_c_20260627_235121_oracle-only_delay_jitter_loss_r1/stdout.log",
+  "stderr_path": "runtime_artifacts/n8n/runs/stage_c_20260627_235121_oracle-only_delay_jitter_loss_r1/stderr.log",
+  "sha256_path": "runtime_artifacts/n8n/runs/stage_c_20260627_235121_oracle-only_delay_jitter_loss_r1/SHA256SUMS.txt"
+}
