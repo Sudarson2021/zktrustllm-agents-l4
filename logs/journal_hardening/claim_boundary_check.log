@@ -1,0 +1,12 @@
+=== ZKTrustLLM Claim Boundary Check ===
+
+Checking for risky public-testnet claims...
+
+Checking for risky frozen AuthV2.2 proof claims...
+
+Allowed boundary wording should say:
+- local Hardhat validation only
+- public testnet deployment is not claimed
+- frozen AuthV2.2 proof payloads are not claimed yet
+
+Boundary check completed. Review any lines printed above.

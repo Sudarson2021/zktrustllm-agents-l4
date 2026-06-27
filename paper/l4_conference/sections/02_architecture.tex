@@ -1,0 +1,13 @@
+\section{Architecture and Threat Model}
+Fig.~\ref{fig:architecture} shows the proposed architecture. The system places MNO policy at the SMO/Non-RT RIC layer and uses bounded agents for O-RAN security automation. The telemetry agent observes network and media-plane indicators. The reasoning agent maps state to trust level and candidate action. The policy agent enforces the action ladder. The proof agent supports bounded admissibility checks. The audit/anchor agent writes evidence hashes and compact commitments.
+
+\input{figures/fig_architecture}
+\input{tables/table_agents}
+
+\subsection{Threat Controls}
+The framework considers unapproved autonomous action, evidence tampering, anchor replay, zero/empty anchors, unsafe escalation, and unauthorized submitters. Fig.~\ref{fig:threats} maps these concepts to controls.
+
+\input{figures/fig_threats}
+
+\subsection{Smart-Contract Boundary}
+The smart contract does not control O-RAN traffic directly. Its role is trust-plane accountability: storing compact commitments, rejecting duplicate commitments, rejecting zero commitments, and enforcing authorized submitters. It cannot verify physical network truth, guarantee evidence availability, or replace MNO operational policy.

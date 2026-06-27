@@ -2,8 +2,10 @@
 pragma solidity ^0.8.20;
 
 import "./generated/AuthV2_2Verifier.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract DecisionAttestorAuthV2_2 {
+contract DecisionAttestorAuthV2_2 is AccessControl {
+    bytes32 public constant SUBMITTER_ROLE = keccak256("SUBMITTER_ROLE");
     struct AuthV2_2DecisionRecord {
         string agentId;
         bytes32 capabilityId;
@@ -37,6 +39,9 @@ contract DecisionAttestorAuthV2_2 {
     constructor(address verifierAddress_) {
         require(verifierAddress_ != address(0), "AuthV2_2: zero verifier");
         verifier = Verifier(verifierAddress_);
+
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(SUBMITTER_ROLE, msg.sender);
     }
 
     function verifierAddress() external view returns (address) {
@@ -77,7 +82,7 @@ contract DecisionAttestorAuthV2_2 {
         uint256[2][2] memory b,
         uint256[2] memory c,
         uint256[9] memory input
-    ) external returns (uint256) {
+    ) external onlyRole(SUBMITTER_ROLE) returns (uint256) {
         require(checkProof(a, b, c, input), "AuthV2_2: invalid proof");
 
         decisionCount += 1;

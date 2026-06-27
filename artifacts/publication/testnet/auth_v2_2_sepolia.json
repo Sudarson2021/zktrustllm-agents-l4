@@ -1,0 +1,13 @@
+{
+  "network": "sepolia",
+  "deployer": "0xF12ABCf1DA907dA662d54950f6b993B64F6c3a2B",
+  "verifierAddress": "0xf8816964ABBa5c7eFEC28151b85ef0b4241966ca",
+  "verifierDeployTx": "0x496c318a057b4be92fb092058af08c8997352de8ff5e1ef477625b1c4ac83027",
+  "verifierDeployGas": "1008476",
+  "attestorAddress": "0xd67B4AB343d0b2A614af13Ebc4B48E0919b95DFa",
+  "attestorDeployTx": "0x23562276da355905c7cdc0019410ee34b40f159fe178ea8ecbf2a05b1a539787",
+  "attestorDeployGas": "961029",
+  "submitterRole": "0xe1a65d1a914580ff6931bc952f0fb26573e9282358a4458bceb9ccc6d923d041",
+  "deployerHasSubmitterRole": true,
+  "generatedAt": "2026-05-17T21:56:36.505Z"
+}

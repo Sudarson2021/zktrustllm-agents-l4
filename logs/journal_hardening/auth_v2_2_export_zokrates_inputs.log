@@ -1,0 +1,5 @@
+Saved AUTH_V2.2 ZoKrates input -> /home/sk02352/zktrustllm-agents-l4/artifacts/out_l4/zokrates_input.auth_v2_2.json
+Saved AUTH_V2.2 flat args    -> /home/sk02352/zktrustllm-agents-l4/artifacts/out_l4/auth_v2_2.flat_args.txt
+Argument count -> 10
+Private arg order -> ['bindingNonce']
+Public arg order -> ['agentKey', 'capabilityId', 'policyClassHash', 'actionClass', 'contextHash', 'traceCommitment', 'expiryBucket', 'policyAdmissibilityFlag', 'trustState']

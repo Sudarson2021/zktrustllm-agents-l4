@@ -1,0 +1,6 @@
+Saved AUTH_V2.2 circuit input -> /home/sk02352/zktrustllm-agents-l4/artifacts/out_l4/circuit_input.auth_v2_2.json
+relationVersion -> auth_v2_2_relation
+Public input count -> 9
+Ordered public inputs -> ['agentKey', 'capabilityId', 'policyClassHash', 'actionClass', 'contextHash', 'traceCommitment', 'expiryBucket', 'policyAdmissibilityFlag', 'trustState']
+trustState -> 3
+policyAdmissibilityFlag -> 1

@@ -1,0 +1,63 @@
+
+
+  DecisionAttestorAuthV2_2 — role-based authorization
+    1) rejects submitDecision from an account without SUBMITTER_ROLE
+    2) admin holds DEFAULT_ADMIN_ROLE and SUBMITTER_ROLE by default
+    3) admin can grant SUBMITTER_ROLE to another account
+
+
+  0 passing (31ms)
+  3 failing
+
+  1) DecisionAttestorAuthV2_2 — role-based authorization
+       rejects submitDecision from an account without SUBMITTER_ROLE:
+     HardhatError: HH700: Artifact for contract "AuthV2_2Verifier" not found. 
+      at Artifacts._handleWrongArtifactForContractName (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:721:11)
+      at Artifacts._getArtifactPathFromFiles (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:852:19)
+      at Artifacts._getArtifactPath (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:516:21)
+      at Artifacts.readArtifact (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:71:26)
+      at getContractFactory (/home/sk02352/zktrustllm-agents-l4/node_modules/@nomicfoundation/hardhat-ethers/src/internal/helpers.ts:120:22)
+      at deployAuthV22Fixture (/home/sk02352/zktrustllm-agents-l4/test/auth_v2_2_authz.test.js:37:20)
+      at Context.<anonymous> (/home/sk02352/zktrustllm-agents-l4/test/auth_v2_2_authz.test.js:57:36)
+
+  2) DecisionAttestorAuthV2_2 — role-based authorization
+       admin holds DEFAULT_ADMIN_ROLE and SUBMITTER_ROLE by default:
+     HardhatError: HH700: Artifact for contract "AuthV2_2Verifier" not found. 
+      at Artifacts._handleWrongArtifactForContractName (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:721:11)
+      at Artifacts._getArtifactPathFromFiles (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:852:19)
+      at Artifacts._getArtifactPath (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:516:21)
+      at Artifacts.readArtifact (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:71:26)
+      at getContractFactory (/home/sk02352/zktrustllm-agents-l4/node_modules/@nomicfoundation/hardhat-ethers/src/internal/helpers.ts:120:22)
+      at deployAuthV22Fixture (/home/sk02352/zktrustllm-agents-l4/test/auth_v2_2_authz.test.js:37:20)
+      at Context.<anonymous> (/home/sk02352/zktrustllm-agents-l4/test/auth_v2_2_authz.test.js:71:33)
+
+  3) DecisionAttestorAuthV2_2 — role-based authorization
+       admin can grant SUBMITTER_ROLE to another account:
+     HardhatError: HH700: Artifact for contract "AuthV2_2Verifier" not found. 
+      at Artifacts._handleWrongArtifactForContractName (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:721:11)
+      at Artifacts._getArtifactPathFromFiles (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:852:19)
+      at Artifacts._getArtifactPath (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:516:21)
+      at Artifacts.readArtifact (/home/sk02352/zktrustllm-agents-l4/node_modules/hardhat/src/internal/artifacts.ts:71:26)
+      at getContractFactory (/home/sk02352/zktrustllm-agents-l4/node_modules/@nomicfoundation/hardhat-ethers/src/internal/helpers.ts:120:22)
+      at deployAuthV22Fixture (/home/sk02352/zktrustllm-agents-l4/test/auth_v2_2_authz.test.js:37:20)
+      at Context.<anonymous> (/home/sk02352/zktrustllm-agents-l4/test/auth_v2_2_authz.test.js:81:37)
+
+
+
+·············································································································
+|  [32m[1mSolidity and Network Configuration[22m[39m                                                                       │
+························|·················|················|·················|·······························
+|  [36mSolidity: 0.8.20[39m     ·  [36mOptim: true[39m    ·  [36mRuns: 200[39m     ·  [36mviaIR: true[39m    ·    [36mBlock: 30,000,000 gas[39m     │
+························|·················|················|·················|·······························
+|  [32m[1mMethods[22m[39m                                                                                                  │
+························|·················|················|·················|··············|················
+|  [32m[1mContracts / Methods[22m[39m  ·  [1mMin[22m            ·  [1mMax[22m           ·  [1mAvg[22m            ·  [1m# calls[22m     ·  [1musd (avg)[22m    │
+························|·················|················|·················|··············|················
+|  [32m[1mKey[22m[39m                                                                                                      │
+·············································································································
+|  [35m[1m◯[22m[39m  Execution gas for this method does not include intrinsic gas overhead                                 │
+·············································································································
+|  [35m[1m△[22m[39m  Cost was non-zero but below the precision setting for the currency display (see options)              │
+·············································································································
+|  [35mToolchain:[39m  hardhat                                                                                      │
+·············································································································
