@@ -1,0 +1,16 @@
+{
+  "run_id": "stage_b_20260627_233849_full-l4_clean_r3",
+  "variant": "full-l4",
+  "profile": "clean",
+  "repeat": 3,
+  "git_hash": "30917bc846df503b690a7d0a6846f96a33ceb201",
+  "start_ts": "2026-06-27T23:41:55+01:00",
+  "duration_ms": 84663,
+  "status": "PASS",
+  "exit_code": 0,
+  "command_used": "bash scripts/reproduce_all.sh",
+  "anchor_gas_detected": null,
+  "stdout_path": "runtime_artifacts/n8n/runs/stage_b_20260627_233849_full-l4_clean_r3/stdout.log",
+  "stderr_path": "runtime_artifacts/n8n/runs/stage_b_20260627_233849_full-l4_clean_r3/stderr.log",
+  "sha256_path": "runtime_artifacts/n8n/runs/stage_b_20260627_233849_full-l4_clean_r3/SHA256SUMS.txt"
+}

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-set -u
+set -uo pipefail
 
 VARIANT="${1:?variant required}"
 PROFILE="${2:?profile required}"
 REPEAT="${3:?repeat required}"
 RUN_ID="${4:?run_id required}"
 
-OUTDIR="artifacts/out/n8n/runs/${RUN_ID}"
+OUTDIR="runtime_artifacts/n8n/runs/${RUN_ID}"
 mkdir -p "$OUTDIR"
 
 GIT_HASH="$(git rev-parse HEAD)"
@@ -41,10 +41,8 @@ case "$VARIANT" in
     ;;
 esac
 
-set +e
-eval "$COMMAND_USED" > "$OUTDIR/stdout.log" 2> "$OUTDIR/stderr.log"
+bash -lc "$COMMAND_USED" > "$OUTDIR/stdout.log" 2> "$OUTDIR/stderr.log"
 EXIT_CODE=$?
-set -e
 
 END_NS="$(date +%s%N)"
 DURATION_MS=$(( (END_NS - START_NS) / 1000000 ))
@@ -55,12 +53,20 @@ fi
 
 sha256sum "$OUTDIR/stdout.log" "$OUTDIR/stderr.log" > "$OUTDIR/SHA256SUMS.txt" 2>/dev/null || true
 
-python3 - <<PY
-import json, pathlib, re
+export RUN_ID VARIANT PROFILE REPEAT GIT_HASH START_TS DURATION_MS STATUS EXIT_CODE COMMAND_USED OUTDIR
 
-outdir = pathlib.Path("$OUTDIR")
-stdout = (outdir / "stdout.log").read_text(errors="ignore") if (outdir / "stdout.log").exists() else ""
-stderr = (outdir / "stderr.log").read_text(errors="ignore") if (outdir / "stderr.log").exists() else ""
+python3 - <<'PY'
+import json
+import os
+import pathlib
+import re
+
+outdir = pathlib.Path(os.environ["OUTDIR"])
+stdout_path = outdir / "stdout.log"
+stderr_path = outdir / "stderr.log"
+
+stdout = stdout_path.read_text(errors="ignore") if stdout_path.exists() else ""
+stderr = stderr_path.read_text(errors="ignore") if stderr_path.exists() else ""
 
 def find_int(patterns, text):
     for p in patterns:
@@ -73,28 +79,36 @@ def find_int(patterns, text):
     return None
 
 anchor_gas = find_int([
-    r"anchor gas\\D+(\\d+)",
-    r"gasUsed\\D+(\\d+)",
-    r"gas used\\D+(\\d+)"
-], stdout + "\\n" + stderr)
+    r"anchor gas\D+(\d+)",
+    r"gasUsed\D+(\d+)",
+    r"gas used\D+(\d+)"
+], stdout + "\n" + stderr)
 
 manifest = {
-    "run_id": "$RUN_ID",
-    "variant": "$VARIANT",
-    "profile": "$PROFILE",
-    "repeat": int("$REPEAT"),
-    "git_hash": "$GIT_HASH",
-    "start_ts": "$START_TS",
-    "duration_ms": $DURATION_MS,
-    "status": "$STATUS",
-    "exit_code": $EXIT_CODE,
-    "command_used": "$COMMAND_USED",
+    "run_id": os.environ["RUN_ID"],
+    "variant": os.environ["VARIANT"],
+    "profile": os.environ["PROFILE"],
+    "repeat": int(os.environ["REPEAT"]),
+    "git_hash": os.environ["GIT_HASH"],
+    "start_ts": os.environ["START_TS"],
+    "duration_ms": int(os.environ["DURATION_MS"]),
+    "status": os.environ["STATUS"],
+    "exit_code": int(os.environ["EXIT_CODE"]),
+    "command_used": os.environ["COMMAND_USED"],
     "anchor_gas_detected": anchor_gas,
-    "stdout_path": str(outdir / "stdout.log"),
-    "stderr_path": str(outdir / "stderr.log"),
+    "stdout_path": str(stdout_path),
+    "stderr_path": str(stderr_path),
     "sha256_path": str(outdir / "SHA256SUMS.txt")
 }
 
-(outdir / "manifest.json").write_text(json.dumps(manifest, indent=2))
+manifest_path = outdir / "manifest.json"
+manifest_path.write_text(json.dumps(manifest, indent=2))
 print("N8N_JSON=" + json.dumps(manifest))
 PY
+
+if [ ! -f "$OUTDIR/manifest.json" ]; then
+  echo "ERROR: manifest was not written for $RUN_ID" >&2
+  exit 90
+fi
+
+exit "$EXIT_CODE"

@@ -4,7 +4,7 @@ import pathlib
 import subprocess
 import html
 from datetime import datetime
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 REPO_DIR = pathlib.Path("/home/sk02352/zktrustllm-agents-l4").resolve()
 PORT = 8765
@@ -12,17 +12,20 @@ PORT = 8765
 ALLOWED_VARIANTS = {"full-l4", "oracle-only", "no-ipfs", "no-zk", "rbac-only", "no-policy-gate"}
 ALLOWED_PROFILES = {"clean", "delay", "delay_jitter", "delay_jitter_loss"}
 
-OUT_DIR = REPO_DIR / "artifacts" / "out" / "n8n"
+OUT_DIR = REPO_DIR / "runtime_artifacts" / "n8n"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 class Handler(BaseHTTPRequestHandler):
     def _send(self, status, payload):
         body = json.dumps(payload, indent=2).encode()
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError):
+            print("[WARN] Client disconnected before response was fully sent")
 
     def do_POST(self):
         if self.path == "/run":
@@ -166,4 +169,4 @@ if __name__ == "__main__":
     print(f"Starting local ZKTrustLLM n8n runner on http://127.0.0.1:{PORT}")
     print(f"Repo: {REPO_DIR}")
     print("Endpoints: POST /run, POST /save_reflection")
-    HTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
