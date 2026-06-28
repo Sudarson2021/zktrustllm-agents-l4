@@ -1,0 +1,16 @@
+{
+  "run_id": "stage_d_20260628_001404_no-ipfs_delay_jitter_r6",
+  "variant": "no-ipfs",
+  "profile": "delay_jitter",
+  "repeat": 6,
+  "git_hash": "c91333a2937819d44eb6e50be7593fbfe91b497b",
+  "start_ts": "2026-06-28T01:42:11+01:00",
+  "duration_ms": 2058,
+  "status": "PASS",
+  "exit_code": 0,
+  "command_used": "bash scripts/baselines/run_no_ipfs.sh",
+  "anchor_gas_detected": null,
+  "stdout_path": "runtime_artifacts/n8n/runs/stage_d_20260628_001404_no-ipfs_delay_jitter_r6/stdout.log",
+  "stderr_path": "runtime_artifacts/n8n/runs/stage_d_20260628_001404_no-ipfs_delay_jitter_r6/stderr.log",
+  "sha256_path": "runtime_artifacts/n8n/runs/stage_d_20260628_001404_no-ipfs_delay_jitter_r6/SHA256SUMS.txt"
+}

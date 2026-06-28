@@ -1,0 +1,16 @@
+{
+  "run_id": "stage_d_20260628_001404_oracle-only_delay_r3",
+  "variant": "oracle-only",
+  "profile": "delay",
+  "repeat": 3,
+  "git_hash": "c91333a2937819d44eb6e50be7593fbfe91b497b",
+  "start_ts": "2026-06-28T01:38:40+01:00",
+  "duration_ms": 3860,
+  "status": "PASS",
+  "exit_code": 0,
+  "command_used": "bash scripts/baselines/run_oracle_only.sh",
+  "anchor_gas_detected": null,
+  "stdout_path": "runtime_artifacts/n8n/runs/stage_d_20260628_001404_oracle-only_delay_r3/stdout.log",
+  "stderr_path": "runtime_artifacts/n8n/runs/stage_d_20260628_001404_oracle-only_delay_r3/stderr.log",
+  "sha256_path": "runtime_artifacts/n8n/runs/stage_d_20260628_001404_oracle-only_delay_r3/SHA256SUMS.txt"
+}
