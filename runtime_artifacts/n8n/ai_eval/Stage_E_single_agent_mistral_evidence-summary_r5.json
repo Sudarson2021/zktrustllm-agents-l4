@@ -1,6 +1,6 @@
 {
   "prompt": "\nFrozen ZKTrustLLM-Agents L4 evidence:\nStage B: 12 executed local repeatability runs.\nStage C: 24 executed local profile-pilot runs.\nStage D-real: 120 executed local real-variant matrix runs.\nTotal frozen n8n evidence: 156 executed local runs.\nStage D-real variants: full-l4, oracle-only, no-ipfs.\nStage D-real profiles: clean, delay, delay_jitter, delay_jitter_loss.\nStage D-real result: 120 total records, 120 passed, 0 failed.\n\nAllowed claims:\nlocal workflow repeatability; executable baseline comparison; profile-labelled orchestration robustness.\n\nForbidden claims:\n240-run six-variant ablation; production O-RAN deployment; packet-capture network-impairment benchmark; public-chain benchmark; full media-plane QoE validation.\n\nTask: Return JSON:\n{\n  \"total_runs\": number,\n  \"stage_d_runs\": number,\n  \"stage_d_passed\": number,\n  \"stage_d_failed\": number,\n  \"variants\": [string],\n  \"profiles\": [string]\n}\n",
-  "raw_text": "{\"total_runs\": 156, \"stage_d_runs\": 120, \"stage_d_passed\": 120, \"stage_d_failed\": 0, \"variants\": [\"full-l4\", \"oracle-only\", \"no-ipfs\"], \"profiles\": [\"clean\", \"delay\", \"delay_jitter\", \"delay_jitter_loss\"]}",
+  "raw_text": "{\n  \"total_runs\": 156,\n  \"stage_d_runs\": 120,\n  \"stage_d_passed\": 120,\n  \"stage_d_failed\": 0,\n  \"variants\": [\"full-l4\", \"oracle-only\", \"no-ipfs\"],\n  \"profiles\": [\"clean\", \"delay\", \"delay_jitter\", \"delay_jitter_loss\"]\n}",
   "parsed": {
     "total_runs": 156,
     "stage_d_runs": 120,
