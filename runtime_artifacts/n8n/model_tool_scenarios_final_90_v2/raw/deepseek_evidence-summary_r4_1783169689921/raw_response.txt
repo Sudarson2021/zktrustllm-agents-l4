@@ -1,0 +1,20 @@
+{
+  "decision": "PARTIAL",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": false,
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs for every Full-L4 row",
+    "production-grade RAN deployment metrics",
+    "Ethereum mainnet performance",
+    "semantic correctness of LLM reasoning"
+  ],
+  "risk_flags": [
+    "configured profiles not packet-capture measurements",
+    "known gap in prover-time logs",
+    "Sepolia testnet not mainnet",
+    "no direct runtime evidence for full L4"
+  ],
+  "recommended_next_step": "Collect full-ZK prover-time logs for every Full-L4 row and deploy on a production-grade RAN testbed with packet-capture measurements."
+}

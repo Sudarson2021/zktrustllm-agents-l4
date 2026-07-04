@@ -1,0 +1,10 @@
+{
+  "action_class": "AUTOMATIC",
+  "claim_boundary_ok": true,
+  "decision": "SUPPORTED",
+  "evidence_class": "CLAIM_BOUNDARY",
+  "recommended_next_step": "Proceed with policy-ladder enforcement as described.",
+  "risk_flags": [],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": []
+}

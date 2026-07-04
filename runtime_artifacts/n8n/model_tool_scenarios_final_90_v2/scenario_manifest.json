@@ -1,0 +1,21 @@
+{
+  "claim_boundary": "Only rows with COMPLETED and raw_response_sha256 are measurable live model outcomes; skipped and offline-rule rows are not paper evidence.",
+  "completed_count": 90,
+  "generated_at_utc": "2026-07-04T12:56:20Z",
+  "providers_requested": [
+    "claude",
+    "deepseek",
+    "mistral"
+  ],
+  "record_count": 90,
+  "records_jsonl": "runtime_artifacts/n8n/model_tool_scenarios_final_90_v2/records.jsonl",
+  "repeats": 10,
+  "runner": "scripts/l4/n8n/run_multi_model_tool_scenarios.py",
+  "skipped_no_api_key_count": 0,
+  "strict_live": true,
+  "tools_requested": [
+    "evidence-summary",
+    "claim-boundary-review",
+    "policy-ladder-check"
+  ]
+}

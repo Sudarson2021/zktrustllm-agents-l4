@@ -1,0 +1,10 @@
+provider,model,tool_scenario,requested_runs,live_runs,skipped_no_api_key,failed_runs,validator_pass_runs,validator_pass_pct,json_parse_pct,schema_ok_pct,claim_boundary_match_pct,action_ladder_violations,mean_latency_ms,p50_latency_ms,p95_latency_ms,mean_output_chars,mean_output_tokens
+claude,claude-haiku-4-5-20251001,claim-boundary-review,10,10,0,0,0,0.0,100.0,100.0,100.0,0,3982.6436,3941.4885000000004,4400.312,1531.0,411.8
+claude,claude-haiku-4-5-20251001,evidence-summary,10,10,0,0,0,0.0,100.0,100.0,0.0,0,5813.0247,5223.9595,10287.552,1875.0,536.9
+claude,claude-haiku-4-5-20251001,policy-ladder-check,10,10,0,0,0,0.0,100.0,100.0,100.0,0,3467.4075000000003,3316.3860000000004,3999.968,1227.5,295.0
+deepseek,deepseek-chat,claim-boundary-review,10,10,0,0,0,0.0,100.0,100.0,100.0,0,2235.5778,2263.3010000000004,2498.717,793.0,199.2
+deepseek,deepseek-chat,evidence-summary,10,10,0,0,0,0.0,100.0,100.0,0.0,0,2258.9291,2249.8064999999997,2380.712,720.8,192.4
+deepseek,deepseek-chat,policy-ladder-check,10,10,0,0,0,0.0,100.0,100.0,100.0,0,1477.587,1460.266,1653.643,305.0,90.0
+mistral,mistral-small-latest,claim-boundary-review,10,10,0,0,0,0.0,100.0,100.0,100.0,0,1489.8627,1475.5465,1715.125,876.5,216.4
+mistral,mistral-small-latest,evidence-summary,10,10,0,0,10,100.0,100.0,100.0,100.0,0,1342.0376,1345.829,1536.261,685.7,181.2
+mistral,mistral-small-latest,policy-ladder-check,10,10,0,0,0,0.0,100.0,100.0,100.0,0,875.3709,873.1189999999999,941.435,369.7,103.5

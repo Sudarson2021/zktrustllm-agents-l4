@@ -1,0 +1,35 @@
+```json
+{
+  "decision": "PARTIAL",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": false,
+  "supported_numerical_claims": [
+    "240",
+    "6",
+    "4",
+    "10"
+  ],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs completeness",
+    "RTP/DTLS-RTP delay quantitative measurements (configured, not measured)",
+    "jitter quantitative measurements (configured, not measured)",
+    "loss quantitative measurements (configured, not measured)",
+    "reasoning latency numerical bounds",
+    "anchor gas numerical bounds",
+    "Sepolia gas usage absolute values",
+    "replay rejection rate",
+    "zero-anchor rejection rate",
+    "unauthorized-submitter rejection rate"
+  ],
+  "risk_flags": [
+    "CONFIGURED_PROFILE_NOT_RUNTIME: RTP/DTLS parameters are scenario inputs, not packet-capture evidence",
+    "PARTIAL_PROVER_LOGS: Full-ZK direct prover-time collection incomplete across Full-L4 rows",
+    "STAGE3_HOOKS_UNQUANTIFIED: Runtime hooks listed but no numerical thresholds or measured values provided",
+    "STAGE4_TESTNET_INCOMPLETE: Sepolia audit references deploy/anchor tx and block number but no gas or latency numerics in payload",
+    "DATASET_SCALE_MODEST: 240 records across 6 variants may not cover adversarial or edge-case coverage claims",
+    "BOUNDARY_VIOLATION_RISK: Mixing configured profiles with runtime measurements without explicit separation"
+  ],
+  "recommended_next_step": "Collect and supply: (1) quantitative prover-time logs for all Full-L4 rows; (2) actual packet-capture or runtime delay/jitter/loss measurements if claiming network robustness; (3) numerical bounds for each Stage3 hook (latency, gas, rejection rates); (4) explicit Sepolia gas usage and block confirmation latency from Stage4 testnet audit. Clarify which claims are scenario-configured vs. measured. Re-evaluate boundary compliance once numerics are provided."
+}
+```

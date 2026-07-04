@@ -1,0 +1,19 @@
+{
+  "decision": "UNSUPPORTED",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": false,
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "production-grade real-time O-RAN deployment",
+    "Ethereum mainnet performance",
+    "packet-capture media QoE",
+    "semantic correctness of the LLM reasoning"
+  ],
+  "risk_flags": [
+    "overclaim_detected",
+    "evidence_misalignment",
+    "unsupported_production_claim"
+  ],
+  "recommended_next_step": "Strip unsupported claims and re-evaluate with only local n8n orchestration evidence, Stage3AnomalyLedger audit micro-benchmark, Sepolia public-testnet audit evidence, and configured impairment profiles. Remove references to production-grade, mainnet, packet-capture, and semantic correctness."
+}

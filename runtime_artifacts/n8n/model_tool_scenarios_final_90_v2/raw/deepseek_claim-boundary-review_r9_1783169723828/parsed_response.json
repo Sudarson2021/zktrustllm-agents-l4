@@ -1,0 +1,21 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": false,
+  "decision": "PARTIAL",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Provide explicit evidence for each unsupported claim: production deployment logs, mainnet transaction metrics, packet-capture QoE analysis, and LLM reasoning validation.",
+  "risk_flags": [
+    "overclaim beyond evidence",
+    "no production-grade deployment evidence",
+    "no mainnet performance data",
+    "no packet-capture QoE measurements",
+    "no LLM reasoning correctness evaluation"
+  ],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "production-grade real-time O-RAN deployment",
+    "Ethereum mainnet performance",
+    "packet-capture media QoE",
+    "semantic correctness of the LLM reasoning"
+  ]
+}

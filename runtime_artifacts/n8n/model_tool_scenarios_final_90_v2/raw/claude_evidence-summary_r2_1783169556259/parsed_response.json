@@ -1,0 +1,36 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": false,
+  "decision": "PARTIAL",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Collect and supply: (1) quantitative RTP/DTLS packet-capture measurements or explicit disclaimer that delay/jitter/loss remain unvalidated; (2) numerical prover-time logs for all Full-L4 rows; (3) stage3 runtime hook results (latency ms, gas units, rejection counts); (4) stage4 Sepolia tx hash, block number, and gas usage; (5) clarify whether L4 claim boundary includes semantic correctness of LLM reasoning or only cryptographic/network properties.",
+  "risk_flags": [
+    "configured_profiles_not_runtime_measurements: RTP/DTLS parameters are scenario inputs, not observed packet captures",
+    "partial_zk_prover_instrumentation: full-ZK direct prover-time logs incomplete across Full-L4 rows",
+    "stage3_hooks_unquantified: runtime hooks listed but no numerical results provided",
+    "stage4_testnet_incomplete: Sepolia audit described but no gas, block, or tx hash values supplied",
+    "dataset_size_modest: 240 records across 6 variants may not cover adversarial edge cases",
+    "no_production_ran_deployment: evidence limited to testnet and configured profiles",
+    "claim_boundary_violation: summary conflates configured parameters with measured runtime behavior"
+  ],
+  "supported_numerical_claims": [
+    "240",
+    "6",
+    "4",
+    "10"
+  ],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs completeness",
+    "RTP/DTLS-RTP delay quantitative measurements (configured only, not measured)",
+    "jitter quantitative measurements (configured only, not measured)",
+    "loss quantitative measurements (configured only, not measured)",
+    "reasoning latency numerical result",
+    "anchor gas numerical result",
+    "replay rejection rate or count",
+    "zero-anchor rejection rate or count",
+    "unauthorized-submitter rejection rate or count",
+    "Sepolia gas usage numerical value",
+    "Sepolia block number confirmation",
+    "end-to-end L4 security property verification"
+  ]
+}

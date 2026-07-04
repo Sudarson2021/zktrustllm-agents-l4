@@ -1,0 +1,41 @@
+{
+  "action_class_valid": true,
+  "action_ladder_violation_count": 0,
+  "arrays_ok": true,
+  "claim_boundary_ok_matches_expected": true,
+  "error": null,
+  "evidence_class_matches_expected": false,
+  "input_tokens": 424,
+  "json_parse_ok": true,
+  "json_parse_warning": null,
+  "latency_ms": 1427.774,
+  "missing_schema_keys": [],
+  "model": "mistral-small-latest",
+  "output_chars": 885,
+  "output_tokens": 215,
+  "overclaim_detection_ok": true,
+  "parsed_response_path": "runtime_artifacts/n8n/model_tool_scenarios_final_90_v2/raw/mistral_claim-boundary-review_r2_1783169757865/parsed_response.json",
+  "prompt_path": "runtime_artifacts/n8n/model_tool_scenarios_final_90_v2/raw/mistral_claim-boundary-review_r2_1783169757865/prompt.json",
+  "prompt_sha256": "655c87d44ba309d9dcca59ce397917a3d238b120e57131c0000921d5693571ef",
+  "provider": "mistral",
+  "provider_env_key": "MISTRAL_API_KEY",
+  "provider_request_id": "3d4addd45edd4d4f94f7b53ff9ce4e60",
+  "raw_response_path": "runtime_artifacts/n8n/model_tool_scenarios_final_90_v2/raw/mistral_claim-boundary-review_r2_1783169757865/raw_response.txt",
+  "raw_response_sha256": "4beeb77719696737e2e2a8e30f715f1ef4e066b978dee00970bece714e4e006e",
+  "raw_usage": {
+    "completion_tokens": 215,
+    "prompt_tokens": 424,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 639
+  },
+  "repeat": 2,
+  "run_id": "mistral_claim-boundary-review_r2_1783169757865",
+  "schema_ok": true,
+  "status": "COMPLETED_VALIDATION_FAIL",
+  "timestamp_utc": "2026-07-04T12:55:57Z",
+  "tool_scenario": "claim-boundary-review",
+  "total_tokens": 639,
+  "validator_pass": false
+}

@@ -1,0 +1,21 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": false,
+  "decision": "UNSUPPORTED",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Refine claims to match available evidence: local n8n orchestration, Sepolia testnet audit, configured impairment profiles, and partial ZK prover timing. Remove unsupported assertions about production-grade deployment, mainnet performance, QoE, and semantic correctness.",
+  "risk_flags": [
+    "overclaiming beyond measured scope",
+    "production-grade deployment not evidenced",
+    "mainnet performance not demonstrated",
+    "QoE claims unsupported by packet-capture evidence",
+    "LLM reasoning correctness not validated"
+  ],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "production-grade real-time O-RAN deployment",
+    "Ethereum mainnet performance",
+    "packet-capture media QoE",
+    "semantic correctness of the LLM reasoning"
+  ]
+}

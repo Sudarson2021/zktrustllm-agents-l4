@@ -1,0 +1,21 @@
+{
+  "decision": "PARTIAL",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": false,
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "production-grade real-time O-RAN deployment",
+    "Ethereum mainnet performance",
+    "packet-capture media QoE",
+    "semantic correctness of the LLM reasoning"
+  ],
+  "risk_flags": [
+    "overclaim",
+    "missing runtime evidence",
+    "missing mainnet evidence",
+    "missing QoE evidence",
+    "missing LLM correctness evidence"
+  ],
+  "recommended_next_step": "Provide explicit runtime O-RAN deployment logs, Ethereum mainnet transaction data, packet-capture QoE metrics, and LLM reasoning correctness benchmarks."
+}

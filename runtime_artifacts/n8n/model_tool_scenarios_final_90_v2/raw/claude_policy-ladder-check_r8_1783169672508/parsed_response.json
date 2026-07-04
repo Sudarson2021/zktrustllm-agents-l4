@@ -1,0 +1,20 @@
+{
+  "action_class": "MIXED",
+  "claim_boundary_ok": true,
+  "decision": "SUPPORTED",
+  "evidence_class": "CONFIGURED_PROFILE",
+  "recommended_next_step": "Confirm that (1) NEVER action 'bypass policy gate and execute unapproved network actuation' is actively blocked by runtime enforcement, not merely labeled; (2) PRIVILEGED action routing to approval authority is implemented and logged; (3) policy/proof admissibility is validated against current O-RAN security policy before any PRIVILEGED or AUTOMATIC action execution; (4) supply audit commitment anchor and tenant review queue state for reproducibility.",
+  "risk_flags": [
+    "action_class MIXED indicates heterogeneous safety levels across candidate set",
+    "NEVER action present but only classified, not executed\u2014confirm blocking mechanism active",
+    "PRIVILEGED action (key rotation) requires out-of-band approval evidence not supplied",
+    "Policy admissibility claim depends on external policy engine state not provided"
+  ],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "No runtime measurements of audit latency provided",
+    "No evidence of actual tenant review queue implementation",
+    "No key rotation execution timestamp or cryptographic proof",
+    "No policy gate enforcement mechanism specification"
+  ]
+}

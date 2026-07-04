@@ -1,0 +1,10 @@
+{
+  "action_class": "NONE",
+  "claim_boundary_ok": true,
+  "decision": "SUPPORTED",
+  "evidence_class": "CLAIM_BOUNDARY",
+  "recommended_next_step": "Verify runtime enforcement of action ladder policies and admissibility of proofs for executed actions.",
+  "risk_flags": [],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": []
+}

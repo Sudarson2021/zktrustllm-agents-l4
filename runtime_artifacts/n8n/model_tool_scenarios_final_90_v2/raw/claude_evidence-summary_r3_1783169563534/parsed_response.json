@@ -1,0 +1,35 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": false,
+  "decision": "PARTIAL",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Collect and report: (1) quantitative RTP/DTLS delay/jitter/loss measurements from packet capture or emulation logs, (2) complete full-ZK prover-time instrumentation for all Full-L4 rows, (3) numerical results for all 5 stage3 runtime hooks (latency, gas, rejection counts), (4) explicit Sepolia tx hash, block number, and gas usage from stage4 public testnet audit, (5) security property verification matrix (e.g., replay rejection rate, unauthorized-submitter rejection rate) with sample sizes and confidence bounds.",
+  "risk_flags": [
+    "configured_profiles_not_runtime_measurements: RTP/DTLS parameters are scenario inputs, not observed packet captures",
+    "partial_zk_prover_instrumentation: full-ZK direct prover-time logs incomplete across Full-L4 rows",
+    "stage3_hooks_declared_not_quantified: 5 runtime hooks listed without numerical results",
+    "stage4_testnet_observable_not_reported: Sepolia deploy/anchor tx, block, and gas claimed observable but values absent",
+    "no_security_property_closure: rejection mechanisms listed without success/failure rates or coverage metrics",
+    "dataset_size_small_for_generalization: 240 records across 6 variants may not support broad L4 claims"
+  ],
+  "supported_numerical_claims": [
+    "240",
+    "6",
+    "4",
+    "10"
+  ],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs completeness",
+    "RTP/DTLS-RTP delay quantitative measurements (configured only, not measured)",
+    "jitter quantitative measurements (configured only, not measured)",
+    "loss quantitative measurements (configured only, not measured)",
+    "reasoning latency numerical result",
+    "anchor gas numerical result",
+    "replay rejection rate or count",
+    "zero-anchor rejection rate or count",
+    "unauthorized-submitter rejection rate or count",
+    "Sepolia gas usage numerical value",
+    "Sepolia block number confirmation",
+    "end-to-end L4 security property verification"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": true,
+  "decision": "PARTIAL",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Collect full-ZK direct prover-time logs for every Full-L4 row to close the known gap and validate runtime hooks against packet-capture measurements for RTP/DTLS-RTP delay, jitter and loss.",
+  "risk_flags": [
+    "partial prover-time logs may omit critical runtime metrics",
+    "configured profiles are not runtime measurements"
+  ],
+  "supported_numerical_claims": [
+    "240",
+    "6",
+    "4",
+    "10"
+  ],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs for every Full-L4 row",
+    "packet-capture measurements of RTP/DTLS-RTP delay, jitter and loss",
+    "production-grade RAN deployment performance",
+    "Ethereum mainnet performance"
+  ]
+}

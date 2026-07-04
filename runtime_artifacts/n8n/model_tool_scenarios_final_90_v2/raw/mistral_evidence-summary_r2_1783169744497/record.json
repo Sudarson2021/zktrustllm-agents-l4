@@ -1,0 +1,41 @@
+{
+  "action_class_valid": true,
+  "action_ladder_violation_count": 0,
+  "arrays_ok": true,
+  "claim_boundary_ok_matches_expected": true,
+  "error": null,
+  "evidence_class_matches_expected": true,
+  "input_tokens": 504,
+  "json_parse_ok": true,
+  "json_parse_warning": null,
+  "latency_ms": 1139.477,
+  "missing_schema_keys": [],
+  "model": "mistral-small-latest",
+  "output_chars": 491,
+  "output_tokens": 144,
+  "overclaim_detection_ok": true,
+  "parsed_response_path": "runtime_artifacts/n8n/model_tool_scenarios_final_90_v2/raw/mistral_evidence-summary_r2_1783169744497/parsed_response.json",
+  "prompt_path": "runtime_artifacts/n8n/model_tool_scenarios_final_90_v2/raw/mistral_evidence-summary_r2_1783169744497/prompt.json",
+  "prompt_sha256": "5d9b7f81a45c68e3efccf790af6271f856ea179c8a7cd513ccd7995aa1b52d4e",
+  "provider": "mistral",
+  "provider_env_key": "MISTRAL_API_KEY",
+  "provider_request_id": "888cfaab7b764c65b3ef8ec862e26e1f",
+  "raw_response_path": "runtime_artifacts/n8n/model_tool_scenarios_final_90_v2/raw/mistral_evidence-summary_r2_1783169744497/raw_response.txt",
+  "raw_response_sha256": "428d9572a89588653b775e309a8caf6b81b3770d9e18d31ee2030286912b4b20",
+  "raw_usage": {
+    "completion_tokens": 144,
+    "prompt_tokens": 504,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 648
+  },
+  "repeat": 2,
+  "run_id": "mistral_evidence-summary_r2_1783169744497",
+  "schema_ok": true,
+  "status": "COMPLETED",
+  "timestamp_utc": "2026-07-04T12:55:44Z",
+  "tool_scenario": "evidence-summary",
+  "total_tokens": 648,
+  "validator_pass": true
+}

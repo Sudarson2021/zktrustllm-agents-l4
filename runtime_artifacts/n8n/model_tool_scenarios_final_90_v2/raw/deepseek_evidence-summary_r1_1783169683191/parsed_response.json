@@ -1,0 +1,19 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": false,
+  "decision": "PARTIAL",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Collect full-ZK prover-time logs for every Full-L4 row and deploy on Ethereum mainnet with packet-capture measurements.",
+  "risk_flags": [
+    "configured profiles not packet-capture measurements",
+    "known gap in full-ZK prover-time logs",
+    "Sepolia testnet only, not mainnet"
+  ],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs for every Full-L4 row",
+    "production-grade RAN deployment metrics",
+    "Ethereum mainnet performance",
+    "semantic correctness of LLM reasoning"
+  ]
+}

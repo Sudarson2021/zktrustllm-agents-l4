@@ -1,0 +1,23 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": true,
+  "decision": "PARTIAL",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Collect full-ZK direct prover-time logs for every Full-L4 row to close the known gap and validate runtime overhead claims.",
+  "risk_flags": [
+    "partial prover-time logs may understate runtime overhead",
+    "external observability of testnet metrics does not guarantee production equivalence"
+  ],
+  "supported_numerical_claims": [
+    "240",
+    "6",
+    "4",
+    "10"
+  ],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs for every Full-L4 row",
+    "semantic correctness of LLM reasoning",
+    "production-grade RAN deployment performance",
+    "Ethereum mainnet performance"
+  ]
+}
