@@ -1,0 +1,250 @@
+{
+  "run_id": "Stage_FF_four_model_comm_model-disagreement-resolution_r3",
+  "scenario": {
+    "id": "model-disagreement-resolution",
+    "focus": "Assume agents may disagree and require the final verifier to resolve disagreement conservatively using only evidence."
+  },
+  "steps": {
+    "gpt55_planner": {
+      "provider": "openai",
+      "model": "gpt-5.5",
+      "latency_ms": 5528,
+      "input_tokens": 660,
+      "output_tokens": 405,
+      "estimated_cost_usd": 0.0,
+      "raw_text": "{\"role\":\"planner\",\"scenario_id\":\"model-disagreement-resolution\",\"task_decomposition\":[\"Agent 1 independently classifies each claim C1-C6 as supported, unsupported, or forbidden using only the frozen evidence and allowed/forbidden claim lists.\",\"Agent 2 independently reviews Agent 1's classifications and identifies any disagreement, ambiguity, or overclaiming risk.\",\"Agent 3 performs evidence-to-claim mapping for disputed or risky claims, explicitly checking numeric consistency and whether each claim falls under allowed or forbidden categories.\",\"Agent 4 acts as final conservative verifier, resolving disagreements by accepting only claims directly supported by the frozen evidence and rejecting forbidden or insufficiently evidenced claims.\"],\"success_criteria\":[\"All six claims C1-C6 receive a conservative classification grounded only in the provided evidence.\",\"Forbidden claims are rejected even if partially related wording appears in the evidence.\",\"Numeric claims are checked against the frozen run counts and variant counts.\",\"Any disagreement between agents is resolved by the final verifier in favor of the narrower, evidence-supported interpretation.\",\"No production, public-chain, packet-capture, media-plane QoE, or 240-run six-variant ablation claims are accepted.\"],\"candidate_safe_claim\":\"The artifact supports local workflow repeatability and evidence-grounded model/tool orchestration based on the frozen local and model-assisted n8n evidence.\",\"candidate_risky_claims_to_check\":[\"C3: The evidence proves production O-RAN deployment readiness.\",\"C4: The artifact includes a 240-run six-variant ablation study.\",\"C6: The results are a packet-capture network-impairment benchmark.\",\"C5: The Stage F/F workflow evaluates inter-model communication around local evidence, which should be checked for wording consistency with the provided Stage E/F and scenario description.\"],\"next_agent_instruction\":\"Review the planner decomposition, then classify C1-C6 conservatively using only the frozen evidence, allowed claims, and forbidden claims; flag any disagreements or ambiguous wording for final verifier resolution.\"}",
+      "parsed": {
+        "role": "planner",
+        "scenario_id": "model-disagreement-resolution",
+        "task_decomposition": [
+          "Agent 1 independently classifies each claim C1-C6 as supported, unsupported, or forbidden using only the frozen evidence and allowed/forbidden claim lists.",
+          "Agent 2 independently reviews Agent 1's classifications and identifies any disagreement, ambiguity, or overclaiming risk.",
+          "Agent 3 performs evidence-to-claim mapping for disputed or risky claims, explicitly checking numeric consistency and whether each claim falls under allowed or forbidden categories.",
+          "Agent 4 acts as final conservative verifier, resolving disagreements by accepting only claims directly supported by the frozen evidence and rejecting forbidden or insufficiently evidenced claims."
+        ],
+        "success_criteria": [
+          "All six claims C1-C6 receive a conservative classification grounded only in the provided evidence.",
+          "Forbidden claims are rejected even if partially related wording appears in the evidence.",
+          "Numeric claims are checked against the frozen run counts and variant counts.",
+          "Any disagreement between agents is resolved by the final verifier in favor of the narrower, evidence-supported interpretation.",
+          "No production, public-chain, packet-capture, media-plane QoE, or 240-run six-variant ablation claims are accepted."
+        ],
+        "candidate_safe_claim": "The artifact supports local workflow repeatability and evidence-grounded model/tool orchestration based on the frozen local and model-assisted n8n evidence.",
+        "candidate_risky_claims_to_check": [
+          "C3: The evidence proves production O-RAN deployment readiness.",
+          "C4: The artifact includes a 240-run six-variant ablation study.",
+          "C6: The results are a packet-capture network-impairment benchmark.",
+          "C5: The Stage F/F workflow evaluates inter-model communication around local evidence, which should be checked for wording consistency with the provided Stage E/F and scenario description."
+        ],
+        "next_agent_instruction": "Review the planner decomposition, then classify C1-C6 conservatively using only the frozen evidence, allowed claims, and forbidden claims; flag any disagreements or ambiguous wording for final verifier resolution."
+      },
+      "json_repaired": false,
+      "parse_error": ""
+    },
+    "claude_critic": {
+      "provider": "anthropic",
+      "model": "claude-fable-5",
+      "latency_ms": 13927,
+      "input_tokens": 1744,
+      "output_tokens": 1000,
+      "estimated_cost_usd": 0.06744,
+      "raw_text": "{\n  \"role\": \"critic\",\n  \"scenario_id\": \"model-disagreement-resolution\",\n  \"planner_used\": true,\n  \"critic_findings\": [\n    \"Planner decomposition is sound and conservative; it correctly flags C3, C4, and C6 as forbidden-category risks and C5 for wording verification.\",\n    \"Numeric check for C1: Stage B (12) + Stage C (24) + Stage D-real (120) = 156 executed local runs, matching the frozen statement of 156 local artifact runs before the Stage E/F model-assisted extension. C1 is numerically consistent.\",\n    \"Numeric check for C2: Stage D-real records 120 total executions across exactly three variants (full-l4, oracle-only, no-ipfs), matching the claim. The 120/120 pass result does not alter the count claim.\",\n    \"C3 directly matches the forbidden claim 'production O-RAN deployment validation' and must be rejected regardless of local robustness results.\",\n    \"C4 directly matches the forbidden claim '240-run six-variant ablation'; evidence shows only 120 runs over three variants, so the claim is both forbidden and numerically false.\",\n    \"C5 wording ('evaluates inter-model communication around local evidence') is consistent with the allowed claim 'inter-model claim-boundary checking around the local artifact' and with the described multi-agent Stage F/F scenario; it does not extend beyond the local artifact scope.\",\n    \"C6 directly matches the forbidden claim 'packet-capture network-impairment benchmark'; Stage D-real profiles (delay, jitter, loss) are labelled orchestration profiles, not packet-capture measurements.\",\n    \"Minor ambiguity: the evidence describes the 90 Stage E/F runs as part of 'this extension' while also listing prior three-model evidence (45+45); this does not affect C1 since the 156 figure explicitly excludes the 90 model-assisted runs.\"\n  ],\n  \"classifications\": [\n    {\"claim_id\": \"C1\", \"label\": \"allowed\", \"reason\": \"12 + 24 + 120 = 156 executed local runs, exactly matching the frozen statement of local evidence before the Stage E/F extension.\"},\n    {\"claim_id\": \"C2\", \"label\": \"allowed\", \"reason\": \"Stage",
+      "parsed": {
+        "scenario_id": "model-disagreement-resolution",
+        "json_repair_applied": true,
+        "repair_reason": "Expecting ',' delimiter: line 16 column 185 (char 2003)",
+        "raw_text_preview": "{\n  \"role\": \"critic\",\n  \"scenario_id\": \"model-disagreement-resolution\",\n  \"planner_used\": true,\n  \"critic_findings\": [\n    \"Planner decomposition is sound and conservative; it correctly flags C3, C4, and C6 as forbidden-category risks and C5 for wording verification.\",\n    \"Numeric check for C1: Stage B (12) + Stage C (24) + Stage D-real (120) = 156 executed local runs, matching the frozen statement of 156 local artifact runs before the Stage E/F model-assisted extension. C1 is numerically consistent.\",\n    \"Numeric check for C2: Stage D-real records 120 total executions across exactly three variants (full-l4, oracle-only, no-ipfs), matching the claim. The 120/120 pass result does not alter the count claim.\",\n    \"C3 directly matches the forbidden claim 'production O-RAN deployment validation' and must be rejected regardless of local robustness results.\",\n    \"C4 directly matches the forbidden claim '240-run six-variant ablation'; evidence shows only 120 runs over three variants, so the claim is both forbidden and numerically false.\",\n    \"C5 wording ('evaluates inter-model communication around local evidence') is consistent with the allowed claim 'inter-model claim-boundary checki",
+        "role": "critic",
+        "planner_used": true,
+        "critic_findings": [
+          "The local evidence supports repeatability and artifact-level orchestration claims.",
+          "The local evidence does not support production O-RAN, packet-capture, public-chain, full QoE, or 240-run ablation claims.",
+          "Malformed critic JSON was repaired deterministically to preserve the evaluation chain."
+        ],
+        "classifications": [
+          {
+            "claim_id": "C1",
+            "label": "allowed",
+            "reason": "Supported by the frozen local n8n evidence count before Stage E/F."
+          },
+          {
+            "claim_id": "C2",
+            "label": "allowed",
+            "reason": "Supported by the Stage D-real 120-run three-variant evidence."
+          },
+          {
+            "claim_id": "C3",
+            "label": "forbidden",
+            "reason": "Production O-RAN deployment readiness is outside the local artifact evidence."
+          },
+          {
+            "claim_id": "C4",
+            "label": "forbidden",
+            "reason": "The artifact does not contain a 240-run six-variant ablation."
+          },
+          {
+            "claim_id": "C5",
+            "label": "allowed",
+            "reason": "The F/F workflow evaluates inter-model communication around local evidence."
+          },
+          {
+            "claim_id": "C6",
+            "label": "forbidden",
+            "reason": "Packet-capture network-impairment benchmarking is outside the local artifact evidence."
+          }
+        ],
+        "unsafe_claims_detected": [
+          "production O-RAN deployment readiness",
+          "240-run six-variant ablation",
+          "packet-capture network-impairment benchmark"
+        ],
+        "next_agent_instruction": "DeepSeek recovery agent should preserve the safe classifications and produce corrected claim-boundary wording."
+      },
+      "json_repaired": true,
+      "parse_error": "Expecting ',' delimiter: line 16 column 185 (char 2003)"
+    },
+    "deepseek_recovery": {
+      "provider": "deepseek",
+      "model": "deepseek-chat",
+      "latency_ms": 5124,
+      "input_tokens": 1803,
+      "output_tokens": 520,
+      "estimated_cost_usd": 0.00039802,
+      "raw_text": "{\n  \"role\": \"recovery\",\n  \"scenario_id\": \"model-disagreement-resolution\",\n  \"recovery_actions\": [\n    \"Repaired missing full critic JSON and allowed classification reasons.\",\n    \"Removed ambiguous 'claim passed' notation; corrected to strict allowed/forbidden labels.\",\n    \"Removed any 'test pass' misinterpretation from C2 label.\",\n    \"Verified numeric consistency for C1 and C2 against frozen evidence.\",\n    \"Confirmed C3, C4, C6 as forbidden via explicit forbidden claim list.\",\n    \"Confirmed C5 as allowed: F/F scenario is model-disagreement-resolution, which evaluates inter-model communication around local evidence.\"\n  ],\n  \"classifications\": [\n    {\n      \"claim_id\": \"C1\",\n      \"label\": \"allowed\",\n      \"reason\": \"The frozen evidence states 156 local artifact runs before Stage E/F (Stage B:12 + Stage C:24 + Stage D-real:120 = 156).\"\n    },\n    {\n      \"claim_id\": \"C2\",\n      \"label\": \"allowed\",\n      \"reason\": \"Stage D-real executes 120 runs over three implemented variants (full-l4, oracle-only, no-ipfs). The result shows 120 records, 120 passed.\"\n    },\n    {\n      \"claim_id\": \"C3\",\n      \"label\": \"forbidden\",\n      \"reason\": \"The claim asserts production O-RAN deployment validation, which is explicitly forbidden and unsupported by local n8n evidence.\"\n    },\n    {\n      \"claim_id\": \"C4\",\n      \"label\": \"forbidden\",\n      \"reason\": \"The artifact does not contain a 240-run six-variant ablation; the forbidden list directly prohibits such claims.\"\n    },\n    {\n      \"claim_id\": \"C5\",\n      \"label\": \"allowed\",\n      \"reason\": \"The F/F scenario is model-disagreement-resolution, which evaluates inter-model communication around local evidence. This falls under allowed inter-model claim-boundary checking.\"\n    },\n    {\n      \"claim_id\": \"C6\",\n      \"label\": \"forbidden\",\n      \"reason\": \"The results are not a packet-capture network-impairment benchmark; such a claim is explicitly forbidden.\"\n    }\n  ],\n  \"corrected_safe_claim\": \"The artifact supports local workflow repeatability and evidence-grounded model/tool orchestration based on frozen local n8n and model-assisted evidence.\",\n  \"claim_boundary_passed\": true\n}",
+      "parsed": {
+        "role": "recovery",
+        "scenario_id": "model-disagreement-resolution",
+        "recovery_actions": [
+          "Repaired missing full critic JSON and allowed classification reasons.",
+          "Removed ambiguous 'claim passed' notation; corrected to strict allowed/forbidden labels.",
+          "Removed any 'test pass' misinterpretation from C2 label.",
+          "Verified numeric consistency for C1 and C2 against frozen evidence.",
+          "Confirmed C3, C4, C6 as forbidden via explicit forbidden claim list.",
+          "Confirmed C5 as allowed: F/F scenario is model-disagreement-resolution, which evaluates inter-model communication around local evidence."
+        ],
+        "classifications": [
+          {
+            "claim_id": "C1",
+            "label": "allowed",
+            "reason": "The frozen evidence states 156 local artifact runs before Stage E/F (Stage B:12 + Stage C:24 + Stage D-real:120 = 156)."
+          },
+          {
+            "claim_id": "C2",
+            "label": "allowed",
+            "reason": "Stage D-real executes 120 runs over three implemented variants (full-l4, oracle-only, no-ipfs). The result shows 120 records, 120 passed."
+          },
+          {
+            "claim_id": "C3",
+            "label": "forbidden",
+            "reason": "The claim asserts production O-RAN deployment validation, which is explicitly forbidden and unsupported by local n8n evidence."
+          },
+          {
+            "claim_id": "C4",
+            "label": "forbidden",
+            "reason": "The artifact does not contain a 240-run six-variant ablation; the forbidden list directly prohibits such claims."
+          },
+          {
+            "claim_id": "C5",
+            "label": "allowed",
+            "reason": "The F/F scenario is model-disagreement-resolution, which evaluates inter-model communication around local evidence. This falls under allowed inter-model claim-boundary checking."
+          },
+          {
+            "claim_id": "C6",
+            "label": "forbidden",
+            "reason": "The results are not a packet-capture network-impairment benchmark; such a claim is explicitly forbidden."
+          }
+        ],
+        "corrected_safe_claim": "The artifact supports local workflow repeatability and evidence-grounded model/tool orchestration based on frozen local n8n and model-assisted evidence.",
+        "claim_boundary_passed": true
+      },
+      "json_repaired": false,
+      "parse_error": ""
+    },
+    "mistral_verifier": {
+      "provider": "mistral",
+      "model": "mistral-medium-latest",
+      "latency_ms": 3476,
+      "input_tokens": 2440,
+      "output_tokens": 476,
+      "estimated_cost_usd": 0.0,
+      "raw_text": "{\"role\": \"verifier_arbiter\", \"scenario_id\": \"model-disagreement-resolution\", \"inter_model_communication_trace\": [\"GPT-5.5 planner\", \"Claude critic\", \"DeepSeek recovery\", \"Mistral verifier\"], \"classifications\": [{\"claim_id\": \"C1\", \"label\": \"allowed\", \"reason\": \"Frozen evidence explicitly states 156 local artifact runs before Stage E/F (Stage B:12 + Stage C:24 + Stage D-real:120 = 156). Numeric consistency confirmed.\"}, {\"claim_id\": \"C2\", \"label\": \"allowed\", \"reason\": \"Stage D-real contains 120 executions over three implemented variants (full-l4, oracle-only, no-ipfs), matching the claim. 120/120 pass result does not affect count validity.\"}, {\"claim_id\": \"C3\", \"label\": \"forbidden\", \"reason\": \"Production O-RAN deployment validation is explicitly forbidden. Local evidence does not support production claims.\"}, {\"claim_id\": \"C4\", \"label\": \"forbidden\", \"reason\": \"Forbidden claim list explicitly prohibits 240-run six-variant ablation. Evidence shows only 120 runs over three variants.\"}, {\"claim_id\": \"C5\", \"label\": \"allowed\", \"reason\": \"Stage E/F scenario (model-disagreement-resolution) evaluates inter-model communication around local evidence, aligning with allowed claim-boundary checking.\"}, {\"claim_id\": \"C6\", \"label\": \"forbidden\", \"reason\": \"Packet-capture network-impairment benchmarking is explicitly forbidden. Local evidence does not include such benchmarks.\"}], \"final_safe_claim\": \"The artifact supports local workflow repeatability, evidence-grounded model/tool orchestration, and inter-model claim-boundary checking based on frozen local n8n and model-assisted evidence.\", \"disagreement_resolution\": [\"No disagreements detected between planner, critic, and recovery agents. All classifications align with frozen evidence and allowed/forbidden claim lists.\", \"C5 wording confirmed consistent with Stage E/F scenario description and allowed claims.\"], \"claim_boundary_passed\": true}",
+      "parsed": {
+        "role": "verifier_arbiter",
+        "scenario_id": "model-disagreement-resolution",
+        "inter_model_communication_trace": [
+          "GPT-5.5 planner",
+          "Claude critic",
+          "DeepSeek recovery",
+          "Mistral verifier"
+        ],
+        "classifications": [
+          {
+            "claim_id": "C1",
+            "label": "allowed",
+            "reason": "Frozen evidence explicitly states 156 local artifact runs before Stage E/F (Stage B:12 + Stage C:24 + Stage D-real:120 = 156). Numeric consistency confirmed."
+          },
+          {
+            "claim_id": "C2",
+            "label": "allowed",
+            "reason": "Stage D-real contains 120 executions over three implemented variants (full-l4, oracle-only, no-ipfs), matching the claim. 120/120 pass result does not affect count validity."
+          },
+          {
+            "claim_id": "C3",
+            "label": "forbidden",
+            "reason": "Production O-RAN deployment validation is explicitly forbidden. Local evidence does not support production claims."
+          },
+          {
+            "claim_id": "C4",
+            "label": "forbidden",
+            "reason": "Forbidden claim list explicitly prohibits 240-run six-variant ablation. Evidence shows only 120 runs over three variants."
+          },
+          {
+            "claim_id": "C5",
+            "label": "allowed",
+            "reason": "Stage E/F scenario (model-disagreement-resolution) evaluates inter-model communication around local evidence, aligning with allowed claim-boundary checking."
+          },
+          {
+            "claim_id": "C6",
+            "label": "forbidden",
+            "reason": "Packet-capture network-impairment benchmarking is explicitly forbidden. Local evidence does not include such benchmarks."
+          }
+        ],
+        "final_safe_claim": "The artifact supports local workflow repeatability, evidence-grounded model/tool orchestration, and inter-model claim-boundary checking based on frozen local n8n and model-assisted evidence.",
+        "disagreement_resolution": [
+          "No disagreements detected between planner, critic, and recovery agents. All classifications align with frozen evidence and allowed/forbidden claim lists.",
+          "C5 wording confirmed consistent with Stage E/F scenario description and allowed claims."
+        ],
+        "claim_boundary_passed": true
+      },
+      "json_repaired": false,
+      "parse_error": ""
+    }
+  },
+  "summary_row": {
+    "stage": "Stage_FF_four_model_intercommunication",
+    "run_id": "Stage_FF_four_model_comm_model-disagreement-resolution_r3",
+    "scenario_id": "model-disagreement-resolution",
+    "repeat": 3,
+    "status": "PASS",
+    "valid_json_all": true,
+    "json_repaired_steps": "claude_critic",
+    "final_accuracy": 1.0,
+    "correct": 15,
+    "total": 15,
+    "claim_boundary_passed": true,
+    "inter_model_agreement_pct": 100.0,
+    "total_latency_ms": 28056,
+    "openai_model": "gpt-5.5",
+    "anthropic_model": "claude-fable-5",
+    "deepseek_model": "deepseek-chat",
+    "mistral_model": "mistral-medium-latest",
+    "openai_latency_ms": 5528,
+    "anthropic_latency_ms": 13927,
+    "deepseek_latency_ms": 5124,
+    "mistral_latency_ms": 3476,
+    "total_estimated_cost_usd": 0.06783802,
+    "output_hash": "b41dce21bae92481",
+    "failed_step": "",
+    "error": ""
+  }
+}

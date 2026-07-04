@@ -1,0 +1,245 @@
+{
+  "run_id": "Stage_FF_four_model_comm_verification-agent_r1",
+  "scenario": {
+    "id": "verification-agent",
+    "focus": "Use the final model as a verifier/arbiter that checks all prior outputs against the frozen evidence."
+  },
+  "steps": {
+    "gpt55_planner": {
+      "provider": "openai",
+      "model": "gpt-5.5",
+      "latency_ms": 6256,
+      "input_tokens": 658,
+      "output_tokens": 511,
+      "estimated_cost_usd": 0.0,
+      "raw_text": "{\"role\":\"planner\",\"scenario_id\":\"verification-agent\",\"task_decomposition\":[\"Model 1 extracts the frozen evidence into a structured evidence table, including run counts, stages, variants, profiles, pass/fail results, allowed claims, and forbidden claims.\",\"Model 2 independently classifies C1-C6 as supported, unsupported, or forbidden using only the structured evidence and flags any ambiguity.\",\"Model 3 reviews Model 2's classifications against the explicit allowed and forbidden claim lists, with special attention to overclaims about production deployment, packet-capture benchmarking, public-chain benchmarking, media-plane QoE, and six-variant ablation.\",\"Model 4 acts as verifier/arbiter, compares all prior outputs to the frozen evidence, resolves disagreements conservatively, and emits final claim-boundary decisions with brief evidence references.\"],\"success_criteria\":[\"All six claims C1-C6 are classified using only the frozen evidence.\",\"Supported claims are limited to local workflow repeatability, local evidence-grounded model/tool orchestration, executable baseline comparison, profile-labelled orchestration robustness, and inter-model claim-boundary checking around the local artifact.\",\"Forbidden claims are rejected, including production O-RAN deployment validation, packet-capture network-impairment benchmark, public-chain benchmark, full media-plane QoE validation, and 240-run six-variant ablation.\",\"The verifier/arbiter identifies C1, C2, and C5 as evidence-consistent, and C3, C4, and C6 as forbidden or unsupported.\",\"No model asserts production readiness, packet-capture benchmarking, public-chain performance, full media-plane QoE validation, or a 240-run six-variant ablation.\"],\"candidate_safe_claim\":\"The artifact supports local evidence-grounded orchestration and claim-boundary checking, including 156 executed local n8n evidence runs before the Stage E/F model-assisted extension and 120 passed Stage D-real executions across three implemented variants.\",\"candidate_risky_claims_to_check\":[\"The evidence proves production O-RAN deployment readiness.\",\"The artifact includes a 240-run six-variant ablation study.\",\"The results are a packet-capture network-impairment benchmark.\",\"The evidence demonstrates public-chain benchmark performance.\",\"The evidence validates full media-plane QoE.\"],\"next_agent_instruction\":\"Act as the evidence extraction agent. Convert the frozen evidence into a concise structured table of stages, run counts, variants, profiles, outcomes, allowed claim types, and forbidden claim types. Do not infer beyond the provided evidence.\"}",
+      "parsed": {
+        "role": "planner",
+        "scenario_id": "verification-agent",
+        "task_decomposition": [
+          "Model 1 extracts the frozen evidence into a structured evidence table, including run counts, stages, variants, profiles, pass/fail results, allowed claims, and forbidden claims.",
+          "Model 2 independently classifies C1-C6 as supported, unsupported, or forbidden using only the structured evidence and flags any ambiguity.",
+          "Model 3 reviews Model 2's classifications against the explicit allowed and forbidden claim lists, with special attention to overclaims about production deployment, packet-capture benchmarking, public-chain benchmarking, media-plane QoE, and six-variant ablation.",
+          "Model 4 acts as verifier/arbiter, compares all prior outputs to the frozen evidence, resolves disagreements conservatively, and emits final claim-boundary decisions with brief evidence references."
+        ],
+        "success_criteria": [
+          "All six claims C1-C6 are classified using only the frozen evidence.",
+          "Supported claims are limited to local workflow repeatability, local evidence-grounded model/tool orchestration, executable baseline comparison, profile-labelled orchestration robustness, and inter-model claim-boundary checking around the local artifact.",
+          "Forbidden claims are rejected, including production O-RAN deployment validation, packet-capture network-impairment benchmark, public-chain benchmark, full media-plane QoE validation, and 240-run six-variant ablation.",
+          "The verifier/arbiter identifies C1, C2, and C5 as evidence-consistent, and C3, C4, and C6 as forbidden or unsupported.",
+          "No model asserts production readiness, packet-capture benchmarking, public-chain performance, full media-plane QoE validation, or a 240-run six-variant ablation."
+        ],
+        "candidate_safe_claim": "The artifact supports local evidence-grounded orchestration and claim-boundary checking, including 156 executed local n8n evidence runs before the Stage E/F model-assisted extension and 120 passed Stage D-real executions across three implemented variants.",
+        "candidate_risky_claims_to_check": [
+          "The evidence proves production O-RAN deployment readiness.",
+          "The artifact includes a 240-run six-variant ablation study.",
+          "The results are a packet-capture network-impairment benchmark.",
+          "The evidence demonstrates public-chain benchmark performance.",
+          "The evidence validates full media-plane QoE."
+        ],
+        "next_agent_instruction": "Act as the evidence extraction agent. Convert the frozen evidence into a concise structured table of stages, run counts, variants, profiles, outcomes, allowed claim types, and forbidden claim types. Do not infer beyond the provided evidence."
+      },
+      "json_repaired": false,
+      "parse_error": ""
+    },
+    "claude_critic": {
+      "provider": "anthropic",
+      "model": "claude-fable-5",
+      "latency_ms": 15156,
+      "input_tokens": 1898,
+      "output_tokens": 1000,
+      "estimated_cost_usd": 0.06898,
+      "raw_text": "{\n  \"role\": \"critic\",\n  \"scenario_id\": \"verification-agent\",\n  \"planner_used\": true,\n  \"critic_findings\": [\n    \"Planner's task decomposition is evidence-consistent and appropriately conservative, routing claim checks through structured extraction, independent classification, and arbitration.\",\n    \"Planner's candidate_safe_claim matches the frozen evidence: 156 local artifact runs before the Stage E/F extension (12 Stage B + 24 Stage C + 120 Stage D-real) and 120/120 passed Stage D-real executions across three variants (full-l4, oracle-only, no-ipfs).\",\n    \"Planner correctly listed all five forbidden claim categories among candidate_risky_claims_to_check, including two (public-chain benchmark, media-plane QoE) not present in C1-C6, which is acceptable defensive coverage.\",\n    \"Planner's success criterion correctly anticipates C1, C2, C5 as evidence-consistent and C3, C4, C6 as forbidden.\",\n    \"No overclaims detected in the planner output; the next_agent_instruction properly prohibits inference beyond provided evidence.\",\n    \"Minor note: the frozen evidence states '156 local artifact runs plus 90 Stage E/F model-assisted runs'; the 90 model-assisted runs are under evaluation in this extension and should not be counted as frozen executed evidence for supported claims beyond inter-model claim-boundary checking.\"\n  ],\n  \"classifications\": [\n    {\n      \"claim_id\": \"C1\",\n      \"label\": \"allowed\",\n      \"reason\": \"Frozen evidence explicitly states 156 local artifact runs before the Stage E/F extension (12 Stage B + 24 Stage C + 120 Stage D-real = 156). Claim matches evidence exactly.\"\n    },\n    {\n      \"claim_id\": \"C2\",\n      \"label\": \"allowed\",\n      \"reason\": \"Stage D-real evidence records 120 total executions across three implemented variants (full-l4, oracle-only, no-ipfs) with 120 passed, 0 failed. Claim is directly supported.\"\n    },\n    {\n      \"claim_id\": \"C3\",\n      \"label\": \"forbidden\",\n      \"reason\": \"Production O-RAN deployment validation is explicitly on the forbidden claims list; local n8n workflow runs do not constitute deployment readiness evidence.\"\n    },\n    {\n      \"claim_id\": \"C4\",\n      \"label\": \"forbidden\",\n      \"reason\": \"A 240-run six-variant ablation is explicitly forbidden; the evidence contains only a 120-run, three-variant Stage D-real matrix.\"\n    },\n    {\n      \"claim_id\": \"C5\",\n      \"label\": \"allowed\",\n      \"reason\": \"Inter-model claim-boundary checking around the local artifact is an allowed claim type, and Stage E/F evidence describes model-assisted multi-model runs consistent with inter-model communication evaluation around local evidence.\"\n    },\n    {\n      \"claim_id\": \"C6\",\n      ",
+      "parsed": {
+        "scenario_id": "verification-agent",
+        "json_repair_applied": true,
+        "repair_reason": "Expecting ',' delimiter: line 38 column 6 (char 2631)",
+        "raw_text_preview": "{\n  \"role\": \"critic\",\n  \"scenario_id\": \"verification-agent\",\n  \"planner_used\": true,\n  \"critic_findings\": [\n    \"Planner's task decomposition is evidence-consistent and appropriately conservative, routing claim checks through structured extraction, independent classification, and arbitration.\",\n    \"Planner's candidate_safe_claim matches the frozen evidence: 156 local artifact runs before the Stage E/F extension (12 Stage B + 24 Stage C + 120 Stage D-real) and 120/120 passed Stage D-real executions across three variants (full-l4, oracle-only, no-ipfs).\",\n    \"Planner correctly listed all five forbidden claim categories among candidate_risky_claims_to_check, including two (public-chain benchmark, media-plane QoE) not present in C1-C6, which is acceptable defensive coverage.\",\n    \"Planner's success criterion correctly anticipates C1, C2, C5 as evidence-consistent and C3, C4, C6 as forbidden.\",\n    \"No overclaims detected in the planner output; the next_agent_instruction properly prohibits inference beyond provided evidence.\",\n    \"Minor note: the frozen evidence states '156 local artifact runs plus 90 Stage E/F model-assisted runs'; the 90 model-assisted runs are under evaluation in",
+        "role": "critic",
+        "planner_used": true,
+        "critic_findings": [
+          "The local evidence supports repeatability and artifact-level orchestration claims.",
+          "The local evidence does not support production O-RAN, packet-capture, public-chain, full QoE, or 240-run ablation claims.",
+          "Malformed critic JSON was repaired deterministically to preserve the evaluation chain."
+        ],
+        "classifications": [
+          {
+            "claim_id": "C1",
+            "label": "allowed",
+            "reason": "Supported by the frozen local n8n evidence count before Stage E/F."
+          },
+          {
+            "claim_id": "C2",
+            "label": "allowed",
+            "reason": "Supported by the Stage D-real 120-run three-variant evidence."
+          },
+          {
+            "claim_id": "C3",
+            "label": "forbidden",
+            "reason": "Production O-RAN deployment readiness is outside the local artifact evidence."
+          },
+          {
+            "claim_id": "C4",
+            "label": "forbidden",
+            "reason": "The artifact does not contain a 240-run six-variant ablation."
+          },
+          {
+            "claim_id": "C5",
+            "label": "allowed",
+            "reason": "The F/F workflow evaluates inter-model communication around local evidence."
+          },
+          {
+            "claim_id": "C6",
+            "label": "forbidden",
+            "reason": "Packet-capture network-impairment benchmarking is outside the local artifact evidence."
+          }
+        ],
+        "unsafe_claims_detected": [
+          "production O-RAN deployment readiness",
+          "240-run six-variant ablation",
+          "packet-capture network-impairment benchmark"
+        ],
+        "next_agent_instruction": "DeepSeek recovery agent should preserve the safe classifications and produce corrected claim-boundary wording."
+      },
+      "json_repaired": true,
+      "parse_error": "Expecting ',' delimiter: line 38 column 6 (char 2631)"
+    },
+    "deepseek_recovery": {
+      "provider": "deepseek",
+      "model": "deepseek-chat",
+      "latency_ms": 3962,
+      "input_tokens": 1899,
+      "output_tokens": 451,
+      "estimated_cost_usd": 0.00039214,
+      "raw_text": "{\n  \"role\": \"recovery\",\n  \"scenario_id\": \"verification-agent\",\n  \"recovery_actions\": [\n    \"Confirmed that Classifications from critic output are consistent with frozen evidence and allowed/forbidden claim lists. No missing fields, malformed reasoning, unsupported claims, or ambiguous labels remain.\"\n  ],\n  \"classifications\": [\n    {\n      \"claim_id\": \"C1\",\n      \"label\": \"allowed\",\n      \"reason\": \"Frozen evidence states 156 local n8n evidence runs before Stage E/F extension (12 Stage B + 24 Stage C + 120 Stage D-real).\"\n    },\n    {\n      \"claim_id\": \"C2\",\n      \"label\": \"allowed\",\n      \"reason\": \"Stage D-real has 120 executed runs across three variants: full-l4, oracle-only, no-ipfs.\"\n    },\n    {\n      \"claim_id\": \"C3\",\n      \"label\": \"forbidden\",\n      \"reason\": \"Claim asserts production O-RAN deployment readiness, which is explicitly forbidden and unsupported by local artifact evidence.\"\n    },\n    {\n      \"claim_id\": \"C4\",\n      \"label\": \"forbidden\",\n      \"reason\": \"No evidence of a 240-run six-variant ablation; frozen evidence lists three Stage D-real variants and 120 runs.\"\n    },\n    {\n      \"claim_id\": \"C5\",\n      \"label\": \"allowed\",\n      \"reason\": \"Stage F/F scenario (verification-agent) evaluates inter-model claim-boundary checking around local evidence, which is an allowed claim type.\"\n    },\n    {\n      \"claim_id\": \"C6\",\n      \"label\": \"forbidden\",\n      \"reason\": \"Packet-capture network-impairment benchmark is explicitly forbidden and unsupported by the local n8n artifact.\"\n    }\n  ],\n  \"corrected_safe_claim\": \"The artifact supports local evidence-grounded orchestration and claim-boundary checking, including 156 executed local n8n evidence runs before the Stage E/F model-assisted extension and 120 passed Stage D-real executions across three implemented variants.\",\n  \"claim_boundary_passed\": true\n}",
+      "parsed": {
+        "role": "recovery",
+        "scenario_id": "verification-agent",
+        "recovery_actions": [
+          "Confirmed that Classifications from critic output are consistent with frozen evidence and allowed/forbidden claim lists. No missing fields, malformed reasoning, unsupported claims, or ambiguous labels remain."
+        ],
+        "classifications": [
+          {
+            "claim_id": "C1",
+            "label": "allowed",
+            "reason": "Frozen evidence states 156 local n8n evidence runs before Stage E/F extension (12 Stage B + 24 Stage C + 120 Stage D-real)."
+          },
+          {
+            "claim_id": "C2",
+            "label": "allowed",
+            "reason": "Stage D-real has 120 executed runs across three variants: full-l4, oracle-only, no-ipfs."
+          },
+          {
+            "claim_id": "C3",
+            "label": "forbidden",
+            "reason": "Claim asserts production O-RAN deployment readiness, which is explicitly forbidden and unsupported by local artifact evidence."
+          },
+          {
+            "claim_id": "C4",
+            "label": "forbidden",
+            "reason": "No evidence of a 240-run six-variant ablation; frozen evidence lists three Stage D-real variants and 120 runs."
+          },
+          {
+            "claim_id": "C5",
+            "label": "allowed",
+            "reason": "Stage F/F scenario (verification-agent) evaluates inter-model claim-boundary checking around local evidence, which is an allowed claim type."
+          },
+          {
+            "claim_id": "C6",
+            "label": "forbidden",
+            "reason": "Packet-capture network-impairment benchmark is explicitly forbidden and unsupported by the local n8n artifact."
+          }
+        ],
+        "corrected_safe_claim": "The artifact supports local evidence-grounded orchestration and claim-boundary checking, including 156 executed local n8n evidence runs before the Stage E/F model-assisted extension and 120 passed Stage D-real executions across three implemented variants.",
+        "claim_boundary_passed": true
+      },
+      "json_repaired": false,
+      "parse_error": ""
+    },
+    "mistral_verifier": {
+      "provider": "mistral",
+      "model": "mistral-medium-latest",
+      "latency_ms": 7812,
+      "input_tokens": 2475,
+      "output_tokens": 469,
+      "estimated_cost_usd": 0.0,
+      "raw_text": "{\"role\": \"verifier_arbiter\", \"scenario_id\": \"verification-agent\", \"inter_model_communication_trace\": [\"GPT-5.5 planner\", \"Claude critic\", \"DeepSeek recovery\", \"Mistral verifier\"], \"classifications\": [{\"claim_id\": \"C1\", \"label\": \"allowed\", \"reason\": \"Frozen evidence explicitly states 156 local n8n evidence runs before Stage E/F extension (12 Stage B + 24 Stage C + 120 Stage D-real).\"}, {\"claim_id\": \"C2\", \"label\": \"allowed\", \"reason\": \"Stage D-real contains 120 executions over three implemented variants (full-l4, oracle-only, no-ipfs) as per frozen evidence.\"}, {\"claim_id\": \"C3\", \"label\": \"forbidden\", \"reason\": \"Production O-RAN deployment validation is explicitly forbidden and unsupported by local artifact evidence.\"}, {\"claim_id\": \"C4\", \"label\": \"forbidden\", \"reason\": \"No evidence of a 240-run six-variant ablation; frozen evidence lists only three Stage D-real variants and 120 runs.\"}, {\"claim_id\": \"C5\", \"label\": \"allowed\", \"reason\": \"Stage E/F workflow evaluates inter-model claim-boundary checking around local evidence, which is an allowed claim type.\"}, {\"claim_id\": \"C6\", \"label\": \"forbidden\", \"reason\": \"Packet-capture network-impairment benchmark is explicitly forbidden and unsupported by the local n8n artifact.\"}], \"final_safe_claim\": \"The artifact supports local evidence-grounded orchestration and claim-boundary checking, including 156 executed local n8n evidence runs before the Stage E/F model-assisted extension and 120 passed Stage D-real executions across three implemented variants (full-l4, oracle-only, no-ipfs).\", \"disagreement_resolution\": [\"No disagreements detected among GPT-5.5 planner, Claude critic, and DeepSeek recovery outputs. All classifications align with frozen evidence and allowed/forbidden claim lists.\"], \"claim_boundary_passed\": true}",
+      "parsed": {
+        "role": "verifier_arbiter",
+        "scenario_id": "verification-agent",
+        "inter_model_communication_trace": [
+          "GPT-5.5 planner",
+          "Claude critic",
+          "DeepSeek recovery",
+          "Mistral verifier"
+        ],
+        "classifications": [
+          {
+            "claim_id": "C1",
+            "label": "allowed",
+            "reason": "Frozen evidence explicitly states 156 local n8n evidence runs before Stage E/F extension (12 Stage B + 24 Stage C + 120 Stage D-real)."
+          },
+          {
+            "claim_id": "C2",
+            "label": "allowed",
+            "reason": "Stage D-real contains 120 executions over three implemented variants (full-l4, oracle-only, no-ipfs) as per frozen evidence."
+          },
+          {
+            "claim_id": "C3",
+            "label": "forbidden",
+            "reason": "Production O-RAN deployment validation is explicitly forbidden and unsupported by local artifact evidence."
+          },
+          {
+            "claim_id": "C4",
+            "label": "forbidden",
+            "reason": "No evidence of a 240-run six-variant ablation; frozen evidence lists only three Stage D-real variants and 120 runs."
+          },
+          {
+            "claim_id": "C5",
+            "label": "allowed",
+            "reason": "Stage E/F workflow evaluates inter-model claim-boundary checking around local evidence, which is an allowed claim type."
+          },
+          {
+            "claim_id": "C6",
+            "label": "forbidden",
+            "reason": "Packet-capture network-impairment benchmark is explicitly forbidden and unsupported by the local n8n artifact."
+          }
+        ],
+        "final_safe_claim": "The artifact supports local evidence-grounded orchestration and claim-boundary checking, including 156 executed local n8n evidence runs before the Stage E/F model-assisted extension and 120 passed Stage D-real executions across three implemented variants (full-l4, oracle-only, no-ipfs).",
+        "disagreement_resolution": [
+          "No disagreements detected among GPT-5.5 planner, Claude critic, and DeepSeek recovery outputs. All classifications align with frozen evidence and allowed/forbidden claim lists."
+        ],
+        "claim_boundary_passed": true
+      },
+      "json_repaired": false,
+      "parse_error": ""
+    }
+  },
+  "summary_row": {
+    "stage": "Stage_FF_four_model_intercommunication",
+    "run_id": "Stage_FF_four_model_comm_verification-agent_r1",
+    "scenario_id": "verification-agent",
+    "repeat": 1,
+    "status": "PASS",
+    "valid_json_all": true,
+    "json_repaired_steps": "claude_critic",
+    "final_accuracy": 1.0,
+    "correct": 15,
+    "total": 15,
+    "claim_boundary_passed": true,
+    "inter_model_agreement_pct": 100.0,
+    "total_latency_ms": 33188,
+    "openai_model": "gpt-5.5",
+    "anthropic_model": "claude-fable-5",
+    "deepseek_model": "deepseek-chat",
+    "mistral_model": "mistral-medium-latest",
+    "openai_latency_ms": 6256,
+    "anthropic_latency_ms": 15156,
+    "deepseek_latency_ms": 3962,
+    "mistral_latency_ms": 7812,
+    "total_estimated_cost_usd": 0.06937214,
+    "output_hash": "f50932a192e0e40d",
+    "failed_step": "",
+    "error": ""
+  }
+}
