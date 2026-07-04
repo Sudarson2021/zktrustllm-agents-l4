@@ -1,5 +1,5 @@
 \section{Scientific Evaluation Methodology}
-The evaluation is organised as a three-stage pipeline. Stage 1 establishes the n8n workflow, response matrix, KPI plan, and formal-verification preparation. Stage 2 converts outputs into a clean 240-record dataset. Stage 3 adds direct runtime hooks.
+The evaluation is organised as a four-stage pipeline. Stage 1 establishes the n8n workflow, response matrix, KPI plan, and formal-verification preparation. Stage 2 converts outputs into a clean 240-record dataset. Stage 3 adds direct runtime hooks. Stage 4 extends the audit micro-benchmark to Ethereum Sepolia public-testnet evidence.
 
 \input{figures/fig_n8n}
 
@@ -8,5 +8,8 @@ The experiment covers six variants: Full L4, No-ZK, Oracle-only, RBAC-only, No-I
 
 \input{tables/table_novelty}
 
+\subsection{Multi-Model n8n Tool-Scenario Extension}
+To test whether the orchestration layer remains reproducible across different AI tools, the n8n evaluation is extended with three bounded tool scenarios: evidence summarisation, claim-boundary review, and policy-ladder checking. Each scenario is executed against Claude, DeepSeek, and Mistral through the same local evidence pipeline. The measured outcomes are provider latency, JSON parse success, schema compliance, claim-boundary agreement, action-ladder violation count, output size, and token usage where returned by the provider API. This extension evaluates bounded reasoning and orchestration robustness only; it does not expand the trusted computing base or claim semantic correctness of LLM reasoning.
+
 \subsection{KPI Classes}
-The dataset distinguishes direct runtime KPIs, configured impairment-profile KPIs, and missing values. This prevents overclaiming. Configured RTP/DTLS-RTP jitter and loss values are scenario-control parameters until replaced by packet-capture or O-RAN telemetry measurements.
+The dataset distinguishes direct runtime KPIs, configured impairment-profile KPIs, public-testnet audit KPIs, reproducibility metadata, and missing values. This prevents overclaiming. Configured RTP/DTLS-RTP jitter and loss values are scenario-control parameters until replaced by packet-capture or O-RAN telemetry measurements.

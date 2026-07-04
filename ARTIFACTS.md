@@ -34,3 +34,31 @@ Key milestone tags:
 - `l4-auth-v1-first-real-groth16-submit`
 - `l4-auth-v1-groth16-negative-test`
 - `l4-auth-v1-groth16-repro`
+
+## Supervisor 258 n8n multi-model tool scenarios
+
+Purpose:
+- Expand the experimental section with measurable n8n test scenarios using Claude, DeepSeek, and Mistral.
+- Measure bounded tool-scenario behaviour without fabricating missing values or expanding the trust boundary.
+
+Primary live runner:
+- `scripts/l4/n8n/run_multi_model_tool_scenarios.py`
+
+Table builder:
+- `scripts/l4/metrics/build_n8n_model_tool_tables.py`
+
+n8n workflow import:
+- `workflows/n8n/zktrustllm_l4_multimodel_tool_scenarios.json`
+
+Methodology note:
+- `docs/l4/supervisor_258/N8N_MULTI_MODEL_TOOL_SCENARIOS.md`
+
+Live output directory:
+- `runtime_artifacts/n8n/model_tool_scenarios/`
+
+Paper table:
+- `paper/l4_conference/tables/table_multimodel_tool_scenarios.tex`
+
+Claim boundary:
+- Only rows backed by live raw provider responses and SHA256 hashes are paper evidence.
+- `SKIPPED_NO_API_KEY` and `offline-rule` rows are not reported as Claude, DeepSeek, or Mistral results.
