@@ -1,0 +1,159 @@
+{
+  "generated": "2026-07-05T00:29:21",
+  "claim_boundary": "This master workflow supports local evidence-grounded orchestration, multi-model baseline evaluation, multi-agent test cases, and four-model inter-agent communication. It does not claim production O-RAN deployment validation, packet-capture network benchmarking, public-chain benchmarking, full media-plane QoE validation, or a 240-run six-variant ablation.",
+  "stages": {
+    "A": {
+      "description": "Experiment initialisation, model configuration, frozen context, and claim boundary."
+    },
+    "B": {
+      "stage": "B",
+      "description": "Local repeatability",
+      "runs": 12
+    },
+    "C": {
+      "stage": "C",
+      "description": "Local profile-pilot",
+      "runs": 24
+    },
+    "D": {
+      "stage": "D-real",
+      "description": "Local real-variant matrix",
+      "runs": 120
+    },
+    "frozen_local_evidence_total": 156,
+    "E_F": {
+      "description": "Three-model single-agent and multi-agent n8n evaluation using Claude, DeepSeek, and Mistral.",
+      "csv": "/home/sk02352/zktrustllm-agents-l4/docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.csv",
+      "rows": 90,
+      "pass": 89,
+      "partial": 1,
+      "fail": 0,
+      "valid_json": 90,
+      "mean_accuracy_pct": 99.78,
+      "mean_latency_ms": 2809.9,
+      "mean_cost_usd": 0.00529143
+    },
+    "F_F": {
+      "description": "Four-model inter-agent communication: GPT-5.5 Planner -> Claude Critic -> DeepSeek Recovery -> Mistral Arbiter.",
+      "csv": "/home/sk02352/zktrustllm-agents-l4/docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.csv",
+      "rows": 15,
+      "pass": 15,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 15,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 30717.07,
+      "mean_cost_usd": 0.06894651
+    }
+  },
+  "stage_ef_by_scenario": [
+    {
+      "scenario": "claim-boundary-review",
+      "rows": 60,
+      "pass": 60,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 60,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 2755.82,
+      "mean_cost_usd": 0.00537773
+    },
+    {
+      "scenario": "evidence-summary",
+      "rows": 15,
+      "pass": 15,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 15,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 2340.6,
+      "mean_cost_usd": 0.00356547
+    },
+    {
+      "scenario": "policy-ladder-check",
+      "rows": 15,
+      "pass": 14,
+      "partial": 1,
+      "fail": 0,
+      "valid_json": 15,
+      "mean_accuracy_pct": 98.67,
+      "mean_latency_ms": 3495.53,
+      "mean_cost_usd": 0.00667219
+    }
+  ],
+  "stage_ff_by_scenario": [
+    {
+      "scenario": "agent-collaboration",
+      "rows": 3,
+      "pass": 3,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 3,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 31059.33,
+      "mean_cost_usd": 0.06794774
+    },
+    {
+      "scenario": "failure-recovery",
+      "rows": 3,
+      "pass": 3,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 3,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 30578.67,
+      "mean_cost_usd": 0.06947253
+    },
+    {
+      "scenario": "model-disagreement-resolution",
+      "rows": 3,
+      "pass": 3,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 3,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 29864.67,
+      "mean_cost_usd": 0.06845889
+    },
+    {
+      "scenario": "task-decomposition",
+      "rows": 3,
+      "pass": 3,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 3,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 30301.67,
+      "mean_cost_usd": 0.06948338
+    },
+    {
+      "scenario": "verification-agent",
+      "rows": 3,
+      "pass": 3,
+      "partial": 0,
+      "fail": 0,
+      "valid_json": 3,
+      "mean_accuracy_pct": 100.0,
+      "mean_latency_ms": 31781.0,
+      "mean_cost_usd": 0.06937001
+    }
+  ],
+  "supervisor_feedback_coverage": [
+    "n8n workflow diagram",
+    "workflow logic explanation",
+    "role of each component",
+    "Claude, DeepSeek, and Mistral scenarios",
+    "GPT-5.5, Claude, DeepSeek, and Mistral inter-agent communication",
+    "task decomposition",
+    "agent collaboration",
+    "failure recovery",
+    "verification agent",
+    "model disagreement resolution",
+    "accuracy",
+    "execution time",
+    "cost",
+    "failed runs",
+    "consistency",
+    "single-agent baseline comparison"
+  ]
+}
