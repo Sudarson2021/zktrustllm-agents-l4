@@ -1,0 +1,54 @@
+name: paper258-artifact
+
+on:
+  pull_request:
+  push:
+    branches:
+      - l4-journal-evidence-hardening-*
+      - l4-supervisor258-n8n-multimodel
+      - l4-zktrustllm-agents
+
+jobs:
+  lightweight-artifact-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-paper258.txt
+
+      - name: Syntax checks
+        run: |
+          bash -n scripts/reproduce_paper_258.sh
+          bash -n scripts/l4/media/run_packet_capture_smoke.sh
+          bash -n scripts/l4/zk/collect_auth_v2_timing_guarded.sh
+          python -m py_compile scripts/l4/validation/validate_paper_258_claims.py
+          python -m py_compile scripts/l4/validation/build_evidence_manifest.py
+          python -m py_compile scripts/l4/validation/summarize_ai_evidence.py
+          node -c scripts/l4/zk/deploy_auth_v2_2_localhost.js
+
+      - name: Lightweight claim validation
+        run: |
+          python scripts/l4/validation/summarize_ai_evidence.py
+          python scripts/l4/validation/validate_paper_258_claims.py
+          python scripts/l4/validation/build_evidence_manifest.py
+          cat artifacts/out/paper_258/validation/claim_validation_report.md
+
+      - name: Upload lightweight paper258 artifact report
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper258-lightweight-artifact-report
+          path: |
+            artifacts/out/paper_258/validation/claim_validation_report.md
+            artifacts/out/paper_258/validation/claim_validation_report.json
+            artifacts/out/paper_258/evidence_manifest.json
+            artifacts/out/paper_258/ai_evidence/ai_evidence_summary.md
+            artifacts/out/paper_258/ai_evidence/ai_evidence_summary.json

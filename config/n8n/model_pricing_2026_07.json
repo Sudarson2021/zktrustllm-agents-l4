@@ -1,0 +1,45 @@
+{
+  "generated_for": "ZKTrustLLM-Agents L4 Stage E/F and F/F AI-assisted evaluation",
+  "claim_boundary": "Pricing and model IDs are time-sensitive. Final paper numbers must cite provider docs and record the run date.",
+  "currency": "USD",
+  "unit": "per_1M_tokens",
+  "models": {
+    "openai_gpt_5_5_standard_short_context": {
+      "provider": "openai",
+      "model": "gpt-5.5",
+      "input_per_mtok": 2.50,
+      "cached_input_per_mtok": 0.25,
+      "output_per_mtok": 15.00,
+      "source_note": "OpenAI API pricing page, standard short-context row."
+    },
+    "openai_gpt_5_5_standard_long_context": {
+      "provider": "openai",
+      "model": "gpt-5.5",
+      "input_per_mtok": 5.00,
+      "cached_input_per_mtok": 0.50,
+      "output_per_mtok": 22.50,
+      "source_note": "OpenAI API pricing page, standard long-context row."
+    },
+    "anthropic_claude_fable_5": {
+      "provider": "anthropic",
+      "model": "claude-fable-5",
+      "input_per_mtok": 10.00,
+      "output_per_mtok": 50.00,
+      "source_note": "Anthropic Claude model overview."
+    },
+    "deepseek_v4_flash": {
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "input_per_mtok": null,
+      "output_per_mtok": null,
+      "source_note": "DeepSeek docs state deepseek-chat/deepseek-reasoner deprecate on 2026-07-24 and map to deepseek-v4-flash. Fill exact pricing from provider dashboard before the final run."
+    },
+    "mistral_medium_3_5": {
+      "provider": "mistral",
+      "model": "mistral-medium-2604",
+      "input_per_mtok": null,
+      "output_per_mtok": null,
+      "source_note": "Mistral docs list Mistral Medium 3.5 as current featured/frontier model. Fill exact API pricing from the provider dashboard before the final run."
+    }
+  }
+}
