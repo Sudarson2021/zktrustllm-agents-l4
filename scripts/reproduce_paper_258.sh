@@ -50,6 +50,7 @@ fi
 
 if [ -x "$ROOT/scripts/l4/zk/collect_auth_v2_timing_guarded.sh" ]; then
   run_step auth_v2_timing bash "$ROOT/scripts/l4/zk/collect_auth_v2_timing_guarded.sh"
+run_step auth_v2_analysis python3 "$ROOT/scripts/l4/validation/analyze_auth_v2_timing.py"
 else
   echo "MISSING AUTH_V2 timing script" > "$LOG/auth_v2_timing.stderr.log"
   echo "127" > "$LOG/auth_v2_timing.exit_code"
@@ -84,7 +85,14 @@ if [ ! -f "$EXPECTED_AI_RECORDS" ]; then
   done
 fi
 
+run_step media_packet_capture_final bash "$ROOT/scripts/l4/media/run_packet_capture_smoke.sh"
+run_step ai_evidence_summary python3 "$ROOT/scripts/l4/validation/summarize_ai_evidence.py"
+run_step stage_ef_failure_analysis python3 "$ROOT/scripts/l4/validation/analyze_stage_ef_failures.py"
+run_step stage_ff_row_hashes python3 "$ROOT/scripts/l4/validation/hash_stage_ff_rows.py"
 run_step claim_validation python3 "$ROOT/scripts/l4/validation/validate_paper_258_claims.py"
+run_step evidence_manifest python3 "$ROOT/scripts/l4/validation/build_evidence_manifest.py"
+run_step claim_validation_final python3 "$ROOT/scripts/l4/validation/validate_paper_258_claims.py"
+run_step evidence_manifest_final python3 "$ROOT/scripts/l4/validation/build_evidence_manifest.py"
 
 echo ""
 echo "[DONE] Paper-258 validation outputs under $OUT"
