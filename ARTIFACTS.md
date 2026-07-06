@@ -1,64 +1,56 @@
-# Artifact Mapping (Paper ↔ Code)
+# ZKTrustLLM-Agents L4 Artifact Mapping
 
-Entry point:
-  scripts/reproduce_all.sh
+This document maps the journal manuscript claims to executable scripts and generated artifacts. It is intentionally conservative: a paper claim is only marked as supported when an output file exists and the validation script can verify it.
 
-Output directory:
-  artifacts/out/
+## Reproducibility entry points
 
-Baselines:
-- Oracle-only (no ZK):
-    scripts/baselines/run_oracle_only.sh
-    artifacts/out/baseline_oracle_only/
-- No-IPFS evidence (local store):
-    scripts/baselines/run_no_ipfs.sh
-    artifacts/out/baseline_no_ipfs/
+| Purpose | Command | Output |
+|---|---|---|
+| Full paper-oriented validation wrapper | `bash scripts/reproduce_paper_258.sh` | `artifacts/out/paper_258/` |
+| Original core local pipeline | `bash scripts/reproduce_all.sh` | `artifacts/out/` |
+| Oracle-only baseline | `bash scripts/baselines/run_oracle_only.sh` | `artifacts/out/baseline_oracle_only/results.ndjson` |
+| No-IPFS baseline | `bash scripts/baselines/run_no_ipfs.sh` | `artifacts/out/baseline_no_ipfs/tenants_results.ndjson` |
+| AI single-agent/multi-model scenarios | `python3 scripts/l4/n8n/run_multi_model_tool_scenarios.py ...` | `runtime_artifacts/n8n/model_tool_scenarios/records.jsonl` |
+| AI table builder | `python3 scripts/l4/metrics/build_n8n_model_tool_tables.py ...` | Markdown/CSV/LaTeX tables |
+| Direct telemetry packet-capture smoke test | `bash scripts/l4/media/run_packet_capture_smoke.sh` | `artifacts/out/paper_258/media_capture/` |
+| AUTH_V2.x timing boundary check | `bash scripts/l4/zk/collect_auth_v2_timing_guarded.sh` | `artifacts/out/paper_258/zk_timing/` |
+| Claim validation report | `python3 scripts/l4/validation/validate_paper_258_claims.py` | `artifacts/out/paper_258/validation/claim_validation_report.md` |
 
-Scoring / reputation:
-- Spec: docs/scoring.md
-- Implementation: update this file later to point to the exact source file/function used in your repo.
+## Paper claim boundary
 
-Evidence vs media delivery (important):
-- Live media delivery: DTLS/RTP/multicast plane
-- Evidence storage: IPFS (CID) + on-chain commitments for auditability
+| Manuscript claim | Evidence status | Required artifact |
+|---|---|---|
+| Reproducible orchestration via n8n | Supported only when exported workflow JSON, run records, and Git hash are present | `artifacts/out/n8n/`, `runtime_artifacts/n8n/` |
+| 240-record local evidence matrix | Supported only if 6 variants × 4 profiles × 10 repeats are present in validated CSV/JSON | `artifacts/out/paper_258/validation/claim_validation_report.json` |
+| Stage 3 runtime hooks for anchor gas and negative-security checks | Supported only if logs show anchor gas, replay rejection, zero-anchor rejection, and unauthorized-submitter rejection | Stage 3 JSON/CSV/log outputs |
+| Stage 4 Sepolia audit micro-benchmark | Supported only if contract address, deploy tx, anchor tx, block number, and gas usage are recorded | Sepolia JSON output |
+| Stage E/F live model evaluation | Supported only by COMPLETED rows with raw provider response hashes | `runtime_artifacts/n8n/model_tool_scenarios/records.jsonl` |
+| Stage F/F multi-agent evaluation | Supported only by live chain records with per-agent raw outputs and hashes | `runtime_artifacts/n8n/multi_agent_ablations/records.jsonl` |
+| Packet-capture or telemetry experiment | Supported only if pcap/pcapng and parsed summary exist | `artifacts/out/paper_258/media_capture/packet_telemetry_summary.json` |
+| AUTH_V2.x prover timing | Full support only if direct AUTH_V2.x prover logs exist for all reported rows; otherwise report as bounded/partial | `artifacts/out/paper_258/zk_timing/auth_v2_timing_summary.json` |
 
-## L4 AUTH_V1 Groth16 artifact path
+## Evidence vs media delivery
 
-Primary runner:
-- `scripts/l4/run_auth_v1_groth16_repro.sh`
+- Live media delivery remains DTLS/RTP/multicast or configured telemetry/media profiles.
+- IPFS/CID is used for audit evidence objects, not for live video streaming.
+- Smart-contract anchoring stores compact commitments and rejection evidence; it does not prove physical network truth.
 
-Summary note:
-- `docs/l4/AUTH_V1_ARTIFACT_SUMMARY.md`
+## Negative-security evidence
 
-Key milestone tags:
-- `l4-auth-v1-first-real-groth16-submit`
-- `l4-auth-v1-groth16-negative-test`
-- `l4-auth-v1-groth16-repro`
+The artifact should preserve rejection evidence for:
 
-## Supervisor 258 n8n multi-model tool scenarios
+1. duplicate/replay commitment;
+2. zero commitment;
+3. unauthorized submitter;
+4. unsafe or forbidden action class;
+5. claim-boundary overreach.
 
-Purpose:
-- Expand the experimental section with measurable n8n test scenarios using Claude, DeepSeek, and Mistral.
-- Measure bounded tool-scenario behaviour without fabricating missing values or expanding the trust boundary.
+## Non-claims
 
-Primary live runner:
-- `scripts/l4/n8n/run_multi_model_tool_scenarios.py`
+The artifact does not claim:
 
-Table builder:
-- `scripts/l4/metrics/build_n8n_model_tool_tables.py`
-
-n8n workflow import:
-- `workflows/n8n/zktrustllm_l4_multimodel_tool_scenarios.json`
-
-Methodology note:
-- `docs/l4/supervisor_258/N8N_MULTI_MODEL_TOOL_SCENARIOS.md`
-
-Live output directory:
-- `runtime_artifacts/n8n/model_tool_scenarios/`
-
-Paper table:
-- `paper/l4_conference/tables/table_multimodel_tool_scenarios.tex`
-
-Claim boundary:
-- Only rows backed by live raw provider responses and SHA256 hashes are paper evidence.
-- `SKIPPED_NO_API_KEY` and `offline-rule` rows are not reported as Claude, DeepSeek, or Mistral results.
+- production-grade O-RAN deployment;
+- Ethereum mainnet performance;
+- semantic correctness of LLM reasoning;
+- packet-capture QoE unless a packet-capture artifact is generated;
+- complete AUTH_V2.x prover timing unless direct timing logs exist for every reported row.
