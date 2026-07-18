@@ -1,0 +1,60 @@
+{
+  "run_id": "d7c0e31b-fa9e-437b-87d2-acdeef4a6ba1",
+  "role": "recovery",
+  "provider": "deepseek",
+  "model_id": "deepseek-v4-pro",
+  "provider_request_id": "2d4e4579-20e8-4a5b-9206-52df024aef05",
+  "valid_json": true,
+  "provider_call_succeeded": true,
+  "artifact": {
+    "role": "recovery",
+    "decision": "NON_COMPLIANT",
+    "violations": [
+      {
+        "parameter": "drb_integrity",
+        "observed_value": false,
+        "required_value": true,
+        "document": "EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt",
+        "clause": "P-01",
+        "retrieved_chunk_id": "1ce2e95151c4d68a653a3920-p1-c1-f9663571fa",
+        "severity": "HIGH",
+        "justification": "The configuration sets drb_integrity to false while its supplied mno_security_profile sets drb_integrity_required to true. The retrieved chunk states: 'Data radio bearer integrity protection MUST be enabled when the applicable MNO security profile classifies integrity protection as required.' The observed configuration directly contradicts this MUST requirement."
+      }
+    ],
+    "corrected_configuration_patch": "{\"drb_integrity\": true}",
+    "proposed_action": "Reject the request to continue service without operator approval. Submit a privileged change to enable DRB integrity for authorized human review; do not auto-apply.",
+    "action_class": "PRIVILEGED",
+    "confidence": 0.99,
+    "claim_boundary_ok": true,
+    "findings": [
+      "The configuration drb_integrity is false while the MNO security profile requires drb_integrity_required true, violating policy clause P-01.",
+      "All four independent providers agree on NON_COMPLIANT; the consensus is unanimous.",
+      "The proposed remediation is to enable DRB integrity, but it must be a privileged change because operator_approval_present is false and the policy is experimental.",
+      "No retrieved chunk authorizes continuing service without operator approval; the requested change is denied."
+    ],
+    "needs_recovery": false,
+    "uncertainties": [
+      "The cited policy is explicitly labeled an experimental operator policy, not an O-RAN or 3GPP specification (retrieved chunk 1ce2e95151c4d68a653a3920-p1-c0-950ef8ce3e).",
+      "No retrieved chunk defines the approval workflow or states whether operator approval is mandatory for this specific requested change.",
+      "No retrieved chunk establishes the runtime, service-impact, or deployment consequences of enabling DRB integrity on the O-CU F1-U interface.",
+      "Severity divergence exists among providers (HIGH vs CRITICAL); the bundle provides no impact quantification to resolve it, so the majority HIGH classification is retained."
+    ]
+  },
+  "deterministic_validation": {
+    "valid": true,
+    "grounding_valid": true,
+    "errors": [],
+    "bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6",
+    "checked_at": "2026-07-18T15:14:24.755398+00:00"
+  },
+  "prompt_hash": "0fb705d46ce8887ea9b1b742241419160edb17ac72a2a1b676b375a49c48da48",
+  "raw_response_hash": "b6f1977c6e3534070f8f7da2b7fc96ec1e68642e94c7f88d119b0dc728d67e2c",
+  "parsed_response_hash": "30d3fea76942dfe1cae80f007c880704b5fb689f92ba7762fba66d004abcd241",
+  "latency_ms": 41448.244,
+  "provider_started_ns": 244495388108483,
+  "provider_ended_ns": 244536836352554,
+  "input_tokens": 5924,
+  "output_tokens": 2878,
+  "created_at": "2026-07-18T15:14:24.755649+00:00",
+  "execution_mode": "LIVE"
+}

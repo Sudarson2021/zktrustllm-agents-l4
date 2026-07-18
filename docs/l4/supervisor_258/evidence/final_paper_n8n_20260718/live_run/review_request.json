@@ -1,0 +1,7 @@
+{
+  "run_id": "d7c0e31b-fa9e-437b-87d2-acdeef4a6ba1",
+  "reviewer_id": "supervisor-demo-reviewer",
+  "reviewer_role": "mno_approver",
+  "approved": true,
+  "rationale": "Approved only for the bounded dry-run simulated action ledger during the supervisor demonstration."
+}

@@ -1,0 +1,137 @@
+{
+    "ok": true,
+    "execution_mode": "LIVE",
+    "checks": {
+        "openai": {
+            "key_present": true,
+            "model_id": "gpt-5.6-terra"
+        },
+        "anthropic": {
+            "key_present": true,
+            "model_id": "claude-fable-5"
+        },
+        "deepseek": {
+            "key_present": true,
+            "model_id": "deepseek-v4-pro"
+        },
+        "mistral": {
+            "key_present": true,
+            "model_id": "mistral-medium-3-5"
+        },
+        "openai_embedding": {
+            "key_present": true,
+            "model_id": "text-embedding-3-large"
+        },
+        "cohere_rerank": {
+            "key_present": false,
+            "model_id": "rerank-v4.0-pro",
+            "fallback": "LEXICAL_FALLBACK"
+        },
+        "pricing_snapshot": {
+            "complete": false,
+            "snapshot_date": null,
+            "currency": "USD",
+            "rates": {
+                "openai": {
+                    "input_per_mtok": "",
+                    "output_per_mtok": ""
+                },
+                "anthropic": {
+                    "input_per_mtok": "",
+                    "output_per_mtok": ""
+                },
+                "deepseek": {
+                    "input_per_mtok": "",
+                    "output_per_mtok": ""
+                },
+                "mistral": {
+                    "input_per_mtok": "",
+                    "output_per_mtok": ""
+                }
+            },
+            "boundary": "Cost estimates use this user-frozen provider-dashboard snapshot; the gateway does not infer current prices."
+        },
+        "opa_policy": {
+            "required": true,
+            "reachable_and_valid": true,
+            "result": {
+                "automatic_candidate": true,
+                "enforced_action_class": "AUTOMATIC",
+                "policy_engine": "Open Policy Agent",
+                "policy_package": "zktrustllm.l4",
+                "reasons": [
+                    "OPA action-ladder conditions passed"
+                ]
+            },
+            "error": null
+        }
+    },
+    "missing": [],
+    "live_smoke": {
+        "openai": {
+            "ok": true,
+            "metadata": {
+                "provider": "openai",
+                "model_id": "gpt-5.6-terra",
+                "provider_request_id": "req_ea4d442423d64a0d9c3d736b85320356",
+                "started_ns": 244428173292305,
+                "ended_ns": 244429792706986,
+                "latency_ms": 1619.415,
+                "response_channel": "output_text",
+                "input_tokens": 30,
+                "output_tokens": 9
+            },
+            "raw_hash": "2a96f1d86fa761be2d633f6f94ace8413637fa1a7f87a3e498f1810e8c41205e",
+            "text_preview": "{\"ok\":true}"
+        },
+        "anthropic": {
+            "ok": true,
+            "metadata": {
+                "provider": "anthropic",
+                "model_id": "claude-fable-5",
+                "provider_request_id": "req_011Cd9jomZH35x734qWW2c3p",
+                "started_ns": 244428180294760,
+                "ended_ns": 244432559903151,
+                "latency_ms": 4379.608,
+                "response_channel": "content",
+                "input_tokens": 41,
+                "output_tokens": 60
+            },
+            "raw_hash": "ad968a45f40e55b5461d8ccf911c832e240840c6a32464677222abf081b2a022",
+            "text_preview": "{\"task\": \"API connectivity smoke test\", \"status\": \"success\", \"ok\": true, \"message\": \"Smoke test passed: API connection is functional.\"}"
+        },
+        "deepseek": {
+            "ok": true,
+            "metadata": {
+                "provider": "deepseek",
+                "model_id": "deepseek-v4-pro",
+                "provider_request_id": "4e4a320c-d349-4228-aae1-8f9b06dfc2ae",
+                "started_ns": 244428188169446,
+                "ended_ns": 244430510591239,
+                "latency_ms": 2322.422,
+                "response_channel": "content",
+                "input_tokens": 44,
+                "output_tokens": 86
+            },
+            "raw_hash": "6d5f7a7a150db0b603121f1b5580a8ae4d80f3e58435111932cb05e924c59b43",
+            "text_preview": "{\"ok\":true}"
+        },
+        "mistral": {
+            "ok": true,
+            "metadata": {
+                "provider": "mistral",
+                "model_id": "mistral-medium-3-5",
+                "provider_request_id": "49b6b48ada2d41e6af9825ba4c0e4d21",
+                "started_ns": 244428194649220,
+                "ended_ns": 244428873588496,
+                "latency_ms": 678.939,
+                "response_channel": "content",
+                "input_tokens": 25,
+                "output_tokens": 24
+            },
+            "raw_hash": "9cc332108ebd1bb27189143900b819f086ea4c95fadeaaf4218edb19a6a3575a",
+            "text_preview": "{\"status\": \"success\", \"task\": \"API connectivity smoke test\", \"result\": {\"ok\": true}}"
+        }
+    },
+    "scientific_boundary": "MOCK_MODE is plumbing-only and must not be used for manuscript performance claims."
+}
