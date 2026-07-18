@@ -1,0 +1,51 @@
+{
+  "provider": "anthropic",
+  "model_id": "claude-fable-5",
+  "provider_request_id": "req_011Cd9jpTtfsAGmW3Tr3Mjwt",
+  "valid_json": true,
+  "provider_call_succeeded": true,
+  "response_channel": "content",
+  "assessment": {
+    "decision": "NON_COMPLIANT",
+    "violations": [
+      {
+        "parameter": "drb_integrity",
+        "observed_value": false,
+        "required_value": true,
+        "document": "EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt",
+        "clause": "P-01",
+        "retrieved_chunk_id": "1ce2e95151c4d68a653a3920-p1-c1-f9663571fa",
+        "severity": "HIGH",
+        "justification": "The configuration reports drb_integrity=false while the applicable MNO security profile (EXPERIMENTAL-S2-DRB-INTEGRITY-REQUIRED) sets drb_integrity_required=true. Policy P-01 states that data radio bearer integrity protection MUST be enabled when the applicable MNO security profile classifies integrity protection as required."
+      }
+    ],
+    "corrected_configuration_patch": "{\"drb_integrity\":true}",
+    "proposed_action": "Block the requested change to continue service without operator approval; escalate to a human operator for approval and apply the corrective patch enabling DRB integrity protection on the O-CU F1-U configuration to satisfy policy P-01 of the applicable experimental MNO security profile.",
+    "action_class": "HUMAN",
+    "confidence": 0.9,
+    "claim_boundary_ok": true,
+    "uncertainties": [
+      "No retrieved chunk defines an explicit clause governing operator-approval requirements for continuing service, so the approval gap is handled via action_class escalation rather than cited as a violation.",
+      "The cited policy is an experimental operator policy (EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt), explicitly not an O-RAN or 3GPP specification; this assessment does not constitute production O-RAN validation.",
+      "NIST SP 800-207 chunks in the bundle provide general zero-trust context but no clause directly mandating DRB integrity; they were not used as violation evidence."
+    ]
+  },
+  "deterministic_validation": {
+    "valid": true,
+    "grounding_valid": true,
+    "errors": [],
+    "bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6",
+    "checked_at": "2026-07-18T15:12:59.729200+00:00"
+  },
+  "retrieval_bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6",
+  "prompt_hash": "4c35ed960b0951b32471f6d4eb619c52989b261ec47f8b02ac57b62cef25311e",
+  "raw_response_hash": "2d1d85cd7059d9d0af1e386941b55ea23f42603a12c121b4f2df0e84d209917f",
+  "parsed_response_hash": "2cb8c498e67301206369c61c50ae4ca09e4cd28edf65d52c749832a9f951ba05",
+  "latency_ms": 14158.375,
+  "provider_started_ns": 244437652251778,
+  "provider_ended_ns": 244451810626705,
+  "input_tokens": 4400,
+  "output_tokens": 1000,
+  "created_at": "2026-07-18T15:12:59.729318+00:00",
+  "execution_mode": "LIVE"
+}

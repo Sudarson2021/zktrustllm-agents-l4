@@ -1,0 +1,9 @@
+NAME                           IMAGE                             COMMAND                  SERVICE        CREATED        STATUS                  PORTS
+zktrustllm-l4-n8n-gateway-1    zktrustllm-l4-n8n-gateway:2.0.0   "uvicorn app:app --h…"   gateway        39 hours ago   Up 39 hours (healthy)   127.0.0.1:18080->8080/tcp
+zktrustllm-l4-n8n-opa-1        openpolicyagent/opa:1.18.2        "/opa run --server -…"   opa            2 days ago     Up 2 days (healthy)
+zktrustllm-l4-n8n-postgres-1   postgres:16-alpine                "docker-entrypoint.s…"   postgres       2 days ago     Up 2 days (healthy)     5432/tcp
+zktrustllm-l4-n8n-qdrant-1     qdrant/qdrant:v1.18.2             "./entrypoint.sh"        qdrant         2 days ago     Up 2 days (healthy)     127.0.0.1:6333->6333/tcp, 6334/tcp
+zktrustllm-l4-n8n-redis-1      redis:7-alpine                    "docker-entrypoint.s…"   redis          2 days ago     Up 2 days (healthy)     6379/tcp
+zktrustllm-n8n-main            docker.n8n.io/n8nio/n8n:2.30.5    "tini -- /docker-ent…"   n8n-main       2 days ago     Up 2 minutes            127.0.0.1:5678->5678/tcp
+zktrustllm-n8n-worker-1        docker.n8n.io/n8nio/n8n:2.30.5    "tini -- /docker-ent…"   n8n-worker-1   2 days ago     Up 2 minutes            5678/tcp
+zktrustllm-n8n-worker-2        docker.n8n.io/n8nio/n8n:2.30.5    "tini -- /docker-ent…"   n8n-worker-2   2 days ago     Up 2 minutes            5678/tcp

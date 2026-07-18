@@ -1,0 +1,94 @@
+{
+  "id": "resp_0302a457027195de006a5b97ee13d481a388f014ca4de28cc3",
+  "object": "response",
+  "created_at": 1784387566,
+  "status": "completed",
+  "background": false,
+  "billing": {
+    "payer": "openai"
+  },
+  "completed_at": 1784387567,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "incomplete_details": null,
+  "instructions": "You are an independent O-RAN security compliance assessor in a proof-governed experiment. Use only the supplied configuration and retrieved standards chunks. Do not invent clauses, document names, requirements, measurements, proof results, deployment results, or network observations. Every violation must reference an exact retrieved_chunk_id, document, and clause from the supplied bundle. If evidence is insufficient, return UNCERTAIN. Do not claim production O-RAN validation. Return one JSON object only, with no Markdown. When remediation is justified, corrected_configuration_patch must be a valid JSON Merge Patch object encoded as a JSON string; otherwise use an empty string. The uncertainties field MUST be a JSON array containing plain strings only; never return objects, maps, or nested arrays in uncertainties. For every violation, copy document, clause, and retrieved_chunk_id exactly from one supplied retrieved chunk. The clause value must be only the short retrieved identifier, such as P-07, 3.4, or UNSPECIFIED; never place a clause title, sentence, or requirement text in the clause field.",
+  "max_output_tokens": 5000,
+  "max_tool_calls": null,
+  "model": "gpt-5.6-terra",
+  "moderation": null,
+  "output": [
+    {
+      "id": "msg_0302a457027195de006a5b97ee832c81a3947e599486ae1a45",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"action_class\":\"PRIVILEGED\",\"claim_boundary_ok\":true,\"confidence\":0.99,\"corrected_configuration_patch\":\"{\\\"drb_integrity\\\":true}\",\"decision\":\"NON_COMPLIANT\",\"proposed_action\":\"Enable data-radio-bearer integrity protection before continuing service under the configured MNO security profile.\",\"uncertainties\":[],\"violations\":[{\"clause\":\"P-01\",\"document\":\"EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt\",\"justification\":\"The configured MNO security profile states that DRB integrity is required, while drb_integrity is disabled. P-01 requires DRB integrity protection to be enabled when the applicable profile requires it.\",\"observed_value\":false,\"parameter\":\"drb_integrity\",\"required_value\":true,\"retrieved_chunk_id\":\"1ce2e95151c4d68a653a3920-p1-c1-f9663571fa\",\"severity\":\"HIGH\"}]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "all_turns",
+    "effort": "medium",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": true,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "text"
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 2784,
+    "input_tokens_details": {
+      "cache_write_tokens": 2781,
+      "cached_tokens": 0
+    },
+    "output_tokens": 195,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 2979
+  },
+  "user": null,
+  "metadata": {}
+}

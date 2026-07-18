@@ -1,0 +1,34 @@
+{
+  "action_class": "HUMAN",
+  "action_id": "ac9fc979-9174-4ab7-897e-6599e45c397d",
+  "actor": "n8n-controller",
+  "automatic_conditions": {
+    "action_class_automatic": false,
+    "anchor_present": true,
+    "automatic_action_admissible": false,
+    "automatic_execution_enabled": false,
+    "opa_verified": true
+  },
+  "claim_boundary": "Governed action outcome simulation only. This route does not actuate a production RIC, xApp, O-CU, O-DU, O-RU, or other live O-RAN component.",
+  "executed_at": "2026-07-18T15:14:30.290205+00:00",
+  "execution_target": "SIMULATED_O_RAN_ACTION_LEDGER",
+  "manifest_version": "L4-GOVERNED-ACTION-1.0",
+  "production_oran_execution": false,
+  "record_hash": "4a345bb10593ac66e6961a36f971772975d09e8942207d12bcc7b4e4f7124d18",
+  "requested_at": "2026-07-18T15:14:29.998443+00:00",
+  "review_decision": "APPROVE",
+  "review_rationale": "Approved only for the bounded dry-run simulated action ledger during the supervisor demonstration.",
+  "reviewed_at": "2026-07-18T15:14:30.280479+00:00",
+  "reviewer_id": "supervisor-demo-reviewer",
+  "reviewer_role": "mno_approver",
+  "run_id": "d7c0e31b-fa9e-437b-87d2-acdeef4a6ba1",
+  "source_report_hash": "8a36aed678c4fe957cd38558a1458656d5a5b6218b5afb4795fd982f3f4b65e9",
+  "status": "SIMULATED_EXECUTED",
+  "execution_result": {
+    "target": "SIMULATED_O_RAN_ACTION_LEDGER",
+    "dry_run": true,
+    "simulated_change_recorded": true,
+    "production_oran_execution": false,
+    "network_side_effects": false
+  }
+}

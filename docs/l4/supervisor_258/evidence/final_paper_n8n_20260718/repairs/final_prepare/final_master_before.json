@@ -1,0 +1,1554 @@
+[
+  {
+    "updatedAt": "2026-07-18T14:02:02.080Z",
+    "createdAt": "2026-07-17T00:29:10.099Z",
+    "id": "L4FinalPaperDemoV1",
+    "name": "ZKTrustLLM-Agents L4 — FINAL PAPER DEMO: O-RAN Compliance, Governance and Reviewer-Verifiable Evidence",
+    "description": null,
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "l4-final-paper-demo",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "input-webhook",
+        "name": "Upload O-RAN Configuration / Telemetry",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          0,
+          0
+        ],
+        "webhookId": "final-paper-demo-webhook-v1"
+      },
+      {
+        "parameters": {},
+        "id": "manual-trigger",
+        "name": "Manual Journal Test",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          -180
+        ]
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "s0",
+                "name": "config_text",
+                "value": "{\n  \"component\": \"O-CU\",\n  \"interface\": \"O1\",\n  \"ciphering_algorithm\": \"NEA2\",\n  \"integrity_algorithm\": \"NIA2\",\n  \"drb_integrity\": false,\n  \"tls_version\": \"1.2\",\n  \"requested_change\": \"enable DRB integrity after validation\"\n}",
+                "type": "string"
+              },
+              {
+                "id": "s1",
+                "name": "scenario",
+                "value": "O-RAN O-CU static security compliance",
+                "type": "string"
+              },
+              {
+                "id": "s2",
+                "name": "retrieval_mode",
+                "value": "AGENTIC_RAG",
+                "type": "string"
+              },
+              {
+                "id": "s3",
+                "name": "metadata",
+                "value": "={{ { source: \"n8n_manual\", paper: \"ZKTrustLLM-Agents L4\", experiment_stage: \"E_F_FF\" } }}",
+                "type": "object"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "sample-input",
+        "name": "Load Sample O-CU Scenario",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          240,
+          -180
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://gateway:8080/v1/runs/prepare",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"config_text\": $json.config_text || JSON.stringify($json), \"scenario\": $json.scenario || \"O-RAN security compliance\", \"retrieval_mode\": $json.retrieval_mode || \"AGENTIC_RAG\", \"metadata\": $json.metadata || {\"source\":\"n8n_webhook\"} } }}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "prepare",
+        "name": "Pre-process, Hash and Bind Input",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          300,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/query\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "query",
+        "name": "Bounded RAG Query Generator",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          580,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/retrieve\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "retrieve",
+        "name": "Qdrant Retrieval and Cohere Reranking",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          860,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const r=$input.first().json; if(!r.bundle_hash) throw new Error('Missing retrieval bundle hash'); if(r.rerank_mode!=='NO_RAG' && !r.chunks?.length) throw new Error('Empty standards evidence bundle'); return [{json:{run_id:r.run_id,bundle_hash:r.bundle_hash,rerank_mode:r.rerank_mode,chunk_count:r.chunks?.length||0}}];"
+        },
+        "id": "freeze",
+        "name": "Freeze Standards Evidence Bundle",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1140,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://n8n-main:5678/webhook/l4-provider-openai",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 10000
+          }
+        },
+        "id": "dispatch-openai",
+        "name": "◉ OpenAI Assessor — GPT-5.6",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1430,
+          -270
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://n8n-main:5678/webhook/l4-provider-anthropic",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 10000
+          }
+        },
+        "id": "dispatch-anthropic",
+        "name": "✦ Claude Assessor — Fable 5",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1430,
+          -90
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://n8n-main:5678/webhook/l4-provider-deepseek",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 10000
+          }
+        },
+        "id": "dispatch-deepseek",
+        "name": "◈ DeepSeek Assessor — V4 Pro",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1430,
+          90
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://n8n-main:5678/webhook/l4-provider-mistral",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 10000
+          }
+        },
+        "id": "dispatch-mistral",
+        "name": "▦ Mistral Assessor — Medium 3.5",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1430,
+          270
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "append",
+          "options": {}
+        },
+        "id": "merge-a",
+        "name": "Merge Provider Acknowledgements A",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          1720,
+          -180
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "append",
+          "options": {}
+        },
+        "id": "merge-b",
+        "name": "Merge Provider Acknowledgements B",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          1720,
+          180
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "append",
+          "options": {}
+        },
+        "id": "barrier",
+        "name": "Parallel Provider Dispatch Barrier",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          1980,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "return [{json:{run_id:$('Freeze Standards Evidence Bundle').first().json.run_id,bundle_hash:$('Freeze Standards Evidence Bundle').first().json.bundle_hash}}];"
+        },
+        "id": "restore",
+        "name": "Restore Correlation and Bundle Hash",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2220,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "amount": 2,
+          "unit": "seconds"
+        },
+        "id": "wait",
+        "name": "Wait for Queued Provider Workers",
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          2460,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/status\" }}",
+          "options": {
+            "timeout": 30000
+          }
+        },
+        "id": "status",
+        "name": "Collect Provider Completion Status",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          2700,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const s=$input.first().json; return [{json:{...s,complete:Boolean(s.all_done||s.timed_out)}}];"
+        },
+        "id": "complete-code",
+        "name": "Completion or Timeout Gate",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2940,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "done",
+                "leftValue": "={{ $json.complete }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "complete-if",
+        "name": "All Four Provider Records Complete?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          3180,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/aggregate\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "aggregate",
+        "name": "Independent-Model Consensus and Disagreement",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3420,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/roles/planner\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 900000
+          }
+        },
+        "id": "planner",
+        "name": "GPT-5.6 Planner Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3660,
+          -240
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/roles/critic\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 900000
+          }
+        },
+        "id": "critic",
+        "name": "Claude Evidence Critic",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3900,
+          -80
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/roles/recovery\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 900000
+          }
+        },
+        "id": "recovery",
+        "name": "DeepSeek Recovery Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4140,
+          80
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/roles/arbiter\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"run_id\": $json.run_id } }}",
+          "options": {
+            "timeout": 900000
+          }
+        },
+        "id": "arbiter",
+        "name": "Mistral Verifier and Arbiter",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4380,
+          240
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/role-chain/finalize\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "finalize-chain",
+        "name": "Finalize Four-Role Agent Chain",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4620,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/policy\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "policy",
+        "name": "OPA Policy Gate + Four-Class Action Ladder",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4860,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/verify\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "proof",
+        "name": "AUTH V2.2 / TLA+ / ProVerif Evidence Gate",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          5100,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/anchor\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "anchor",
+        "name": "CID + Hash-Chain + Audit Anchor",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          5340,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/journal-report\" }}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "report",
+        "name": "Dashboard + Metrics + Evidence Manifest",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          5580,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "l4-final-kb-ingest",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "kb-webhook",
+        "name": "Upload or Refresh Standards Repository",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          0,
+          850
+        ],
+        "webhookId": "final-paper-kb-ingest-webhook-v1"
+      },
+      {
+        "parameters": {},
+        "id": "kb-manual",
+        "name": "Manual Standards Knowledge-Base Build",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          1030
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://gateway:8080/v1/kb/scan",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "kb-scan",
+        "name": "Monitor Specifications and Hash Files",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          320,
+          930
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/kb/\" + $json.job_id + \"/extract\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "kb-extract",
+        "name": "Pre-process PDFs and Extract Page Metadata",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          650,
+          930
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/kb/\" + $json.job_id + \"/chunk\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "kb-chunk",
+        "name": "Clean and Clause-Aware Chunking",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          980,
+          930
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/kb/\" + $json.job_id + \"/embed-store\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={}",
+          "options": {
+            "timeout": 1800000
+          }
+        },
+        "id": "kb-store",
+        "name": "◉ OpenAI Embeddings → Qdrant",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1310,
+          930
+        ]
+      },
+      {
+        "parameters": {
+          "url": "={{ \"http://gateway:8080/v1/kb/\" + $json.job_id + \"/manifest\" }}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "kb-manifest",
+        "name": "Versioned Knowledge-Base Manifest and Hash",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1640,
+          930
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/actions/prepare\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"actor\": \"n8n-paper-controller\", \"requested_execution_target\": \"SIMULATED_O_RAN_ACTION_LEDGER\" } }}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "prepare-governed-action",
+        "name": "Prepare Governed Action Outcome",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          5820,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "never-condition",
+                "leftValue": "={{ $json.action_class }}",
+                "rightValue": "NEVER",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "never-gate",
+        "name": "NEVER Action?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          6060,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "return [{json:{run_id:$json.run_id,action_id:$json.action_id,action_class:'NEVER',status:$json.status,route:'REJECT_AND_PRESERVE',automatic_execution_enabled:false,production_oran_execution:false,record_hash:$json.record_hash}}];"
+        },
+        "id": "never-rejection",
+        "name": "Reject and Preserve NEVER Evidence",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          6300,
+          -250
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "automatic-condition",
+                "leftValue": "={{ $json.action_class }}",
+                "rightValue": "AUTOMATIC",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "automatic-gate",
+        "name": "AUTOMATIC Action?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          6300,
+          80
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/actions/execute\" }}",
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { \"actor\": \"n8n-automatic-controller\", \"execution_target\": \"SIMULATED_O_RAN_ACTION_LEDGER\", \"dry_run\": true } }}",
+          "options": {
+            "timeout": 300000
+          }
+        },
+        "id": "automatic-simulation",
+        "name": "Execute Safe Automatic Simulation",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          6540,
+          -20
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const privileged=$json.action_class==='PRIVILEGED';return [{json:{run_id:$json.run_id,action_id:$json.action_id,action_class:$json.action_class,status:$json.status,route:privileged?'PRIVILEGED_REVIEW':'HUMAN_REVIEW',review_webhook:'/webhook/l4-action-review',required_role:privileged?'privileged_operator/security_admin':'operator/security_reviewer/mno_approver',automatic_execution_enabled:false,production_oran_execution:false,record_hash:$json.record_hash}}];"
+        },
+        "id": "review-routing",
+        "name": "Create Human or Privileged Review Request",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          6540,
+          200
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "append"
+        },
+        "id": "merge-governed-outcomes",
+        "name": "Merge Governed Outcomes",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3,
+        "position": [
+          6810,
+          30
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "return [{json:{...$json,scientific_boundary:'Governed outcome only; no production O-RAN actuation',oracle_relative:true,expert_verified:false,publication_ready:false}}];"
+        },
+        "id": "paper-ready-output",
+        "name": "Paper-Ready Governed Outcome and Evidence Record",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          7060,
+          30
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## Final supervisor-demo boundary\n\n**One live scenario-mode run only.** The paper results remain the separately frozen 180-cell R10 oracle benchmark. n8n coordinates the workflow; deterministic policy, evidence validation, admissibility, anchoring and governed-action logic remain explicit. AUTOMATIC is a dry-run simulation, HUMAN/PRIVILEGED requires review, and NEVER is rejected. No production O-RAN actuation.",
+          "height": 270,
+          "width": 1530,
+          "color": 5
+        },
+        "id": "final-claim-boundary",
+        "name": "FINAL DEMO — Scientific Claim Boundary",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -180,
+          -720
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## 1. Inputs and knowledge grounding\nScenario JSON → hash binding → bounded query → Qdrant retrieval and optional reranking → frozen standards-evidence bundle.\n\n**Modes:** NO_RAG, RAG, AGENTIC_RAG.",
+          "height": 170,
+          "width": 1370,
+          "color": 6
+        },
+        "id": "stage-1-note",
+        "name": "1 — Inputs, Retrieval and Frozen Evidence",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -120,
+          -410
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## 2. Four independent providers in parallel\nOpenAI, Claude, DeepSeek and Mistral return structured assessments. The dispatch barrier waits for all four provider records before consensus/disagreement analysis.",
+          "height": 170,
+          "width": 1900,
+          "color": 4
+        },
+        "id": "stage-2-note",
+        "name": "2 — Parallel Independent Assessors",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          1280,
+          -410
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## 3. Implemented role order\n**Planner → Critic → Recovery → Verifier/Arbiter**\n\nThis order is identical to the completed experiment and is not changed merely for visual similarity with the publication diagram.",
+          "height": 170,
+          "width": 1450,
+          "color": 3
+        },
+        "id": "stage-3-note",
+        "name": "3 — Four-Role Agentic Reasoning",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          3300,
+          -410
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## 4. Governance boundary\nExact-clause reconciliation → OPA/action ladder → AUTH/TLA+/ProVerif evidence gate → CID/hash-chain anchor → final evidence manifest.",
+          "height": 170,
+          "width": 1260,
+          "color": 2
+        },
+        "id": "stage-4-note",
+        "name": "4 — Deterministic Governance and Evidence",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          4760,
+          -410
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## 5. Action routing\nAUTOMATIC → dry-run simulated ledger\n\nHUMAN / PRIVILEGED → authorised review callback\n\nNEVER → reject and preserve evidence",
+          "height": 220,
+          "width": 1160,
+          "color": 7
+        },
+        "id": "stage-5-note",
+        "name": "5 — Governed Action Outcomes",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          6020,
+          -410
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## 6. Separate frozen evaluation controller\nThe companion R10 workflow covers 6 scenarios × 3 modes × 10 repeats, append-only attempts, SUCCESS-only resume, evidence audit, statistics, tables, figures and portable release artifacts.",
+          "height": 190,
+          "width": 2440,
+          "color": 5
+        },
+        "id": "stage-6-note",
+        "name": "6 — Scientific Evaluation and Paper Outputs",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          1890,
+          660
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## O-RAN / 3GPP / NIST / experimental-policy corpus\nMonitor and hash files → page-aware extraction → clause-aware chunks → OpenAI embeddings → Qdrant → frozen manifest/hash.",
+          "height": 190,
+          "width": 1920,
+          "color": 4
+        },
+        "id": "kb-lane-final",
+        "name": "Versioned Standards Knowledge Base",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -120,
+          650
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const source = $json;\nconst actionClass =\n  source.action_class ??\n  source.enforced_action_class ??\n  source.policy?.enforced_action_class ??\n  null;\n\nconst finalDecision =\n  source.final_decision ??\n  source.decision ??\n  source.reflection?.final_decision ??\n  null;\n\nreturn [{\n  json: {\n    demo_status: 'COMPLETED',\n    run_id: source.run_id ?? null,\n    final_decision: finalDecision,\n    enforced_action_class: actionClass,\n    governed_route: source.route ?? source.status ?? null,\n    automatic_execution_enabled:\n      source.automatic_execution_enabled ?? false,\n    production_oran_execution: false,\n    report_hash: source.report_hash ?? source.source_report_hash ?? null,\n    record_hash: source.record_hash ?? null,\n    oracle_relative: true,\n    expert_verified: false,\n    publication_ready: false,\n    scientific_boundary:\n      'One live supervisor demonstration; the paper result remains the frozen 180-cell synthetic-policy-oracle benchmark.'\n  }\n}];"
+        },
+        "id": "final-supervisor-demo-summary",
+        "name": "Final Supervisor Demo Summary",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          7310,
+          30
+        ]
+      },
+      {
+        "parameters": {
+          "content": "## Supervisor-facing webhook response\nRun ID • decision • enforced action class • governed route • report/record hashes • explicit non-production boundary",
+          "height": 160,
+          "width": 620,
+          "color": 6
+        },
+        "id": "final-output-note",
+        "name": "Final Paper-Demo Output",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          7040,
+          -180
+        ]
+      }
+    ],
+    "connections": {
+      "Upload O-RAN Configuration / Telemetry": {
+        "main": [
+          [
+            {
+              "node": "Pre-process, Hash and Bind Input",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Manual Journal Test": {
+        "main": [
+          [
+            {
+              "node": "Load Sample O-CU Scenario",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Load Sample O-CU Scenario": {
+        "main": [
+          [
+            {
+              "node": "Pre-process, Hash and Bind Input",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Pre-process, Hash and Bind Input": {
+        "main": [
+          [
+            {
+              "node": "Bounded RAG Query Generator",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Bounded RAG Query Generator": {
+        "main": [
+          [
+            {
+              "node": "Qdrant Retrieval and Cohere Reranking",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Qdrant Retrieval and Cohere Reranking": {
+        "main": [
+          [
+            {
+              "node": "Freeze Standards Evidence Bundle",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Freeze Standards Evidence Bundle": {
+        "main": [
+          [
+            {
+              "node": "◉ OpenAI Assessor — GPT-5.6",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "✦ Claude Assessor — Fable 5",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "◈ DeepSeek Assessor — V4 Pro",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "▦ Mistral Assessor — Medium 3.5",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "◉ OpenAI Assessor — GPT-5.6": {
+        "main": [
+          [
+            {
+              "node": "Merge Provider Acknowledgements A",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "✦ Claude Assessor — Fable 5": {
+        "main": [
+          [
+            {
+              "node": "Merge Provider Acknowledgements A",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "◈ DeepSeek Assessor — V4 Pro": {
+        "main": [
+          [
+            {
+              "node": "Merge Provider Acknowledgements B",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "▦ Mistral Assessor — Medium 3.5": {
+        "main": [
+          [
+            {
+              "node": "Merge Provider Acknowledgements B",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Merge Provider Acknowledgements A": {
+        "main": [
+          [
+            {
+              "node": "Parallel Provider Dispatch Barrier",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge Provider Acknowledgements B": {
+        "main": [
+          [
+            {
+              "node": "Parallel Provider Dispatch Barrier",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Parallel Provider Dispatch Barrier": {
+        "main": [
+          [
+            {
+              "node": "Restore Correlation and Bundle Hash",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Restore Correlation and Bundle Hash": {
+        "main": [
+          [
+            {
+              "node": "Wait for Queued Provider Workers",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait for Queued Provider Workers": {
+        "main": [
+          [
+            {
+              "node": "Collect Provider Completion Status",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Collect Provider Completion Status": {
+        "main": [
+          [
+            {
+              "node": "Completion or Timeout Gate",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Completion or Timeout Gate": {
+        "main": [
+          [
+            {
+              "node": "All Four Provider Records Complete?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "All Four Provider Records Complete?": {
+        "main": [
+          [
+            {
+              "node": "Independent-Model Consensus and Disagreement",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Wait for Queued Provider Workers",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Independent-Model Consensus and Disagreement": {
+        "main": [
+          [
+            {
+              "node": "GPT-5.6 Planner Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "GPT-5.6 Planner Agent": {
+        "main": [
+          [
+            {
+              "node": "Claude Evidence Critic",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Claude Evidence Critic": {
+        "main": [
+          [
+            {
+              "node": "DeepSeek Recovery Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "DeepSeek Recovery Agent": {
+        "main": [
+          [
+            {
+              "node": "Mistral Verifier and Arbiter",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Mistral Verifier and Arbiter": {
+        "main": [
+          [
+            {
+              "node": "Finalize Four-Role Agent Chain",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Finalize Four-Role Agent Chain": {
+        "main": [
+          [
+            {
+              "node": "OPA Policy Gate + Four-Class Action Ladder",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OPA Policy Gate + Four-Class Action Ladder": {
+        "main": [
+          [
+            {
+              "node": "AUTH V2.2 / TLA+ / ProVerif Evidence Gate",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AUTH V2.2 / TLA+ / ProVerif Evidence Gate": {
+        "main": [
+          [
+            {
+              "node": "CID + Hash-Chain + Audit Anchor",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "CID + Hash-Chain + Audit Anchor": {
+        "main": [
+          [
+            {
+              "node": "Dashboard + Metrics + Evidence Manifest",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Upload or Refresh Standards Repository": {
+        "main": [
+          [
+            {
+              "node": "Monitor Specifications and Hash Files",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Manual Standards Knowledge-Base Build": {
+        "main": [
+          [
+            {
+              "node": "Monitor Specifications and Hash Files",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Monitor Specifications and Hash Files": {
+        "main": [
+          [
+            {
+              "node": "Pre-process PDFs and Extract Page Metadata",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Pre-process PDFs and Extract Page Metadata": {
+        "main": [
+          [
+            {
+              "node": "Clean and Clause-Aware Chunking",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Clean and Clause-Aware Chunking": {
+        "main": [
+          [
+            {
+              "node": "◉ OpenAI Embeddings → Qdrant",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "◉ OpenAI Embeddings → Qdrant": {
+        "main": [
+          [
+            {
+              "node": "Versioned Knowledge-Base Manifest and Hash",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Dashboard + Metrics + Evidence Manifest": {
+        "main": [
+          [
+            {
+              "node": "Prepare Governed Action Outcome",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare Governed Action Outcome": {
+        "main": [
+          [
+            {
+              "node": "NEVER Action?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "NEVER Action?": {
+        "main": [
+          [
+            {
+              "node": "Reject and Preserve NEVER Evidence",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "AUTOMATIC Action?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Reject and Preserve NEVER Evidence": {
+        "main": [
+          [
+            {
+              "node": "Merge Governed Outcomes",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AUTOMATIC Action?": {
+        "main": [
+          [
+            {
+              "node": "Execute Safe Automatic Simulation",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Create Human or Privileged Review Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute Safe Automatic Simulation": {
+        "main": [
+          [
+            {
+              "node": "Merge Governed Outcomes",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Create Human or Privileged Review Request": {
+        "main": [
+          [
+            {
+              "node": "Merge Governed Outcomes",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Merge Governed Outcomes": {
+        "main": [
+          [
+            {
+              "node": "Paper-Ready Governed Outcome and Evidence Record",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Paper-Ready Governed Outcome and Evidence Record": {
+        "main": [
+          [
+            {
+              "node": "Final Supervisor Demo Summary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1",
+      "saveExecutionProgress": true,
+      "saveManualExecutions": true,
+      "saveDataErrorExecution": "all",
+      "saveDataSuccessExecution": "all"
+    },
+    "staticData": null,
+    "meta": null,
+    "nodeGroups": [],
+    "pinData": {},
+    "versionId": "2bd478a8-27f5-47d0-96c4-5679b8ce0d5d",
+    "activeVersionId": "2bd478a8-27f5-47d0-96c4-5679b8ce0d5d",
+    "versionCounter": 2,
+    "triggerCount": 2,
+    "sourceWorkflowId": null,
+    "tags": [],
+    "shared": [
+      {
+        "updatedAt": "2026-07-17T00:29:10.099Z",
+        "createdAt": "2026-07-17T00:29:10.099Z",
+        "role": "workflow:owner",
+        "workflowId": "L4FinalPaperDemoV1",
+        "projectId": "nkJRKYTKCoQ2X1KE",
+        "project": {
+          "updatedAt": "2026-07-15T20:49:51.238Z",
+          "createdAt": "2026-07-15T20:47:59.185Z",
+          "id": "nkJRKYTKCoQ2X1KE",
+          "name": "Dave Karmaker <davekarmaker111@gmail.com>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "customTelemetryTags": [],
+          "creatorId": "11582d5e-dc7a-41fc-8de8-0075e3187d04"
+        }
+      }
+    ],
+    "versionMetadata": {
+      "name": null,
+      "description": null
+    }
+  }
+]

@@ -1,0 +1,128 @@
+{
+  "query": {
+    "agentic_security_parameters": [
+      "component: O-CU",
+      "interface: F1-U",
+      "ciphering_algorithm: NEA2",
+      "integrity_algorithm: NIA2",
+      "drb_integrity: false",
+      "mno_security_profile.drb_integrity_required: true",
+      "mno_security_profile.profile_id: EXPERIMENTAL-S2-DRB-INTEGRITY-REQUIRED",
+      "operator_approval_present: false",
+      "requested_change: continue service without operator approval",
+      "scenario_id: S2"
+    ],
+    "generator": "AGENTIC:openai",
+    "generator_latency_ms": 2594.653,
+    "generator_model_id": "gpt-5.6-terra",
+    "generator_prompt_hash": "8a30ac2a3e41b9e3fd1b3d94eebb19dba3387a140aac5082122a5feb803bcfbf",
+    "generator_raw_hash": "8faf6352f9836e6047f86067b2b07cc314d2a3c40d1c955e6aca904b6f33cc97",
+    "generator_request_id": "req_749f72a2492e43939cfb1718700f7201",
+    "input_identifiers": [
+      "ciphering_algorithm",
+      "NEA2",
+      "drb_integrity",
+      "integrity_algorithm",
+      "NIA2",
+      "mno_security_profile",
+      "drb_integrity_required",
+      "operator_approval_present"
+    ],
+    "matched_security_terms": [
+      "approval",
+      "cipher",
+      "drb",
+      "integrity"
+    ],
+    "queries": [
+      "O-RAN O-CU F1-U DRB integrity protection requirements",
+      "O-RAN F1-U NEA2 NIA2 security algorithm configuration",
+      "O-RAN DRB integrity required security profile enforcement",
+      "O-RAN operator approval requirements for security configuration changes",
+      "O-RAN continued service without operator approval security policy"
+    ],
+    "query_hash": "c1a91aae34522f788e8cddb6f9695188323b24c4a8ec0560f558c55a1d6429ab",
+    "query_text": "O-RAN O-CU F1-U DRB integrity protection requirements O-RAN F1-U NEA2 NIA2 security algorithm configuration O-RAN DRB integrity required security profile enforcement O-RAN operator approval requirements for security configuration changes O-RAN continued service without operator approval security policy",
+    "retrieval_mode": "AGENTIC_RAG"
+  },
+  "collection": "l4_standards_live_v1",
+  "embedding_model": "text-embedding-3-large",
+  "rerank_mode": "LEXICAL_FALLBACK",
+  "chunks": [
+    {
+      "chunk_id": "478a7af5685f179beb8d4f41-p28-c1-ad3c440008",
+      "document": "NIST_SP_800_207_Zero_Trust_Architecture.pdf",
+      "document_hash": "0290d6ece24874287316f4bf430fef770aa4ec08a2227c8f2c1e5b2ff975e03d",
+      "page_start": 28,
+      "page_end": 28,
+      "clause": "3.3.1",
+      "text": "terprise. These weight values can be used to reflect the importance of the \ndata source to an enterprise. \nThe final determination is then passed to the PA for execution. The PA’s job is to configure the \nnecessary PEPs to enable authorized communication. Depending on how the ZTA is deployed, \nthis may involve sending authentication results and connection configuration information to \ngateways and agents or resource portals. PAs may also place a hold or pause on a \ncommunication session to reauthenticate and reauthorize the connection in accordance with \npolicy requirements. The PA is also responsible for issuing the command to terminate the \nconnection based on policy (e.g., after a time-out, when the workflow has been completed, due to \na security alert). \n3.3.1 Trust Algorithm Variations \nThere are different ways to implement a TA. Different implementers may wish to weigh the \nabove factors differently according to the factors’ perceived importance. There are two other \nmajor characteristics that can be used to differentiate TAs. The first is how the factors are \nevaluated, whether as binary decisions or weighted parts of a whole “score” or confidence level. \nThe second is how requests are evaluated in relation to other requests by the same subject, \napplication/service, or device. \n• Criteria- versus score-based: A criteria-based TA assumes a set of qualified attributes \nthat must be met before access is granted to a resource or an action (e.g., read/write) is \nallowed. These criteria are configured by the enterprise and should be independently \nconfigured for every resource. Access is granted or an action applied to a resource only if \nall the criteria are met. A score-based TA computes a confidence level based on values \nfor every data source and enterprise-config",
+      "chunk_hash": "ad3c4400086e8f8709d0bac51ff47b3b156a266eecc2baa1a4fd813ef104211a",
+      "vector_score": 0.38682672,
+      "rerank_score": 0.26087
+    },
+    {
+      "chunk_id": "478a7af5685f179beb8d4f41-p17-c1-c84d1319bd",
+      "document": "NIST_SP_800_207_Zero_Trust_Architecture.pdf",
+      "document_hash": "0290d6ece24874287316f4bf430fef770aa4ec08a2227c8f2c1e5b2ff975e03d",
+      "page_start": 17,
+      "page_end": 17,
+      "clause": "UNSPECIFIED",
+      "text": " before a request is granted to an enterprise-owned resource (similar to tenet 6 \nabove for assets as well as subjects). This evaluation should be continual for as long as \nthe session lasts. Enterprise-owned devices may have artifacts that enable authentication \nand provide a confidence level higher than the same request coming from nonenterprise-\nowned devices. Subject credentials alone are insufficient for device authentication to an \nenterprise resource. \n4. Not all enterprise resources are on enterprise-owned infrastructure. Resources \ninclude remote enterprise subjects as well as cloud services. Enterprise-owned or -\nmanaged assets may need to utilize the local (i.e., nonenterprise) network for basic \nconnectivity and network services (e.g., DNS resolution). \n5. Remote enterprise subjects and assets cannot fully trust their local network \nconnection. Remote subjects should assume that the local (i.e., nonenterprise-owned) \nnetwork is hostile. Assets should assume that all traffic is being monitored and potentially \nmodified. All connection requests should be authenticated and authorized, and all \ncommunications should be done in the most secure manner possible (i.e., provide \nconfidentiality, integrity protection, and source authentication). See the tenets of ZTA \nabove. \n6. Assets and workflows moving between enterprise and nonenterprise infrastructure \nshould have a consistent security policy and posture. Assets and workloads should \nretain their security posture when moving to or from enterprise-owned infrastructure. \nThis includes devices that move from enterprise networks to nonenterprise networks (i.e. \nremote users). This also includes workloads migrating from on-premises data centers to \nnonenterprise cloud instances.",
+      "chunk_hash": "c84d1319bdd8cb6f533b2ceccb04981b865c02e518672c9c49ee2a3a1114d099",
+      "vector_score": 0.37946126,
+      "rerank_score": 0.217391
+    },
+    {
+      "chunk_id": "478a7af5685f179beb8d4f41-p39-c1-3e74e5ad20",
+      "document": "NIST_SP_800_207_Zero_Trust_Architecture.pdf",
+      "document_hash": "0290d6ece24874287316f4bf430fef770aa4ec08a2227c8f2c1e5b2ff975e03d",
+      "page_start": 39,
+      "page_end": 39,
+      "clause": "5.6",
+      "text": "for all valuable enterprise data, adequate protections should be in place to prevent \nunauthorized access and access attempts. As these resources are vital to security, they should \nhave the most restrictive access policies and be accessible only from designated or dedicated \nadministrator accounts. \n5.6 \nReliance on Proprietary Data Formats or Solutions \nZTA relies on several different data sources to make access decisions, including information \nabout the requesting subject, asset used, enterprise and external intelligence, and threat analysis. \nOften, the assets used to store and process this information do not have a common, open standard \non how to interact and exchange information. This can lead to instances where an enterprise is \nlocked into a subset of providers due to interoperability issues. If one provider has a security \nissue or disruption, an enterprise may not be able to migrate to a new provider without extreme \ncost (e.g., replacing several assets) or going through a long transition program (e.g., translating \npolicy rules from one proprietary format to another). Like DoS attacks, this risk is not unique to \nZTA, but because ZTA is heavily dependent on the dynamic access of information (both \nenterprise and service providers), disruption can affect the core business functions of an \nenterprise. To mitigate associated risks, enterprises should evaluate service providers on a \nholistic basis by considering factors such as vendor security controls, enterprise switching costs, \nand supply chain risk management in addition to more typical factors such as performance, \nstability, etc. \n5.7 \nUse of Non-person Entities (NPE) in ZTA Administration \nArtificial intelligence and other software-based agents are being deployed to manage security \nissues on enterpris",
+      "chunk_hash": "3e74e5ad207d201f2cfec6efd07a2212f48f48617ae36cae744c4d2e5ca07579",
+      "vector_score": 0.37528563,
+      "rerank_score": 0.217391
+    },
+    {
+      "chunk_id": "1ce2e95151c4d68a653a3920-p1-c1-f9663571fa",
+      "document": "EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt",
+      "document_hash": "45b6cbddacbdec5f4186b48dcdb0a2fbcba440564594a77631e02484f9509cae",
+      "page_start": 1,
+      "page_end": 1,
+      "clause": "P-01",
+      "text": "P-01 — Data-radio-bearer integrity\nData radio bearer integrity protection MUST be enabled when the applicable\nMNO security profile classifies integrity protection as required.",
+      "chunk_hash": "f9663571faa31db427f7cab43fe4ec05db4acfc258a4cfb6b5f4f0988b9877ba",
+      "vector_score": 0.58349955,
+      "rerank_score": 0.173913
+    },
+    {
+      "chunk_id": "1ce2e95151c4d68a653a3920-p1-c0-950ef8ce3e",
+      "document": "EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt",
+      "document_hash": "45b6cbddacbdec5f4186b48dcdb0a2fbcba440564594a77631e02484f9509cae",
+      "page_start": 1,
+      "page_end": 1,
+      "clause": "UNSPECIFIED",
+      "text": "EXPERIMENTAL MNO SECURITY POLICY v1\n\nPurpose: Controlled academic evaluation of ZKTrustLLM-Agents L4.\nStatus: Experimental operator policy; not an O-RAN or 3GPP specification.",
+      "chunk_hash": "950ef8ce3eac6ad38c9af0082d3283d6dcdcff51bd501c251387f9f3562d12b3",
+      "vector_score": 0.54507923,
+      "rerank_score": 0.173913
+    },
+    {
+      "chunk_id": "478a7af5685f179beb8d4f41-p28-c0-e2313c8830",
+      "document": "NIST_SP_800_207_Zero_Trust_Architecture.pdf",
+      "document_hash": "0290d6ece24874287316f4bf430fef770aa4ec08a2227c8f2c1e5b2ff975e03d",
+      "page_start": 28,
+      "page_end": 28,
+      "clause": "UNSPECIFIED",
+      "text": "NIST SP 800-207 \n \nZERO TRUST ARCHITECTURE \n \n \n \n19 \nThis publication is available free of charge from: https://doi.org/10.6028/NIST.SP.800-207 \nlocation (network location and geolocation), and patch level. Depending on the asset state \ncompared with this database, access to assets might be restricted or denied. \n• Resource requirements: This set of policies complements the user ID and attributes \ndatabase [SP800-63] and defines the minimal requirements for access to the resource. \nRequirements may include authenticator assurance levels, such as MFA network location \n(e.g., deny access from overseas IP addresses), data sensitivity, and requests for asset \nconfiguration. These requirements should be developed by both the data custodian (i.e., \nthose responsible for the data) and those responsible for the business processes that \nutilize the data (i.e., those responsible for the mission). \n• Threat intelligence: This is an information feed or feeds about general threats and active \nmalware operating on the internet. This could also include specific information about \ncommunication seen from the device that may be suspect (such as queries for possible \nmalware command and control nodes). These feeds can be external services or internal \nscans and discoveries and can include attack signatures and mitigations. This is the only \ncomponent that will most likely be under the control of a service rather than the \nenterprise. \nThe weight of importance for each data source may be a proprietary algorithm or may be \nconfigured by the enterprise. These weight values can be used to reflect the importance of the \ndata source to an enterprise. \nThe final determination is then passed to the PA for execution. The PA’s job is to configure the \nnecessary PEPs to enable authorized communica",
+      "chunk_hash": "e2313c883045a4051bd1d49dfaccb784afb583e42fdf0991878247e4afca024e",
+      "vector_score": 0.40343174,
+      "rerank_score": 0.173913
+    }
+  ],
+  "created_at": "2026-07-18T15:12:45.416591+00:00",
+  "grounding_available": true,
+  "bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6"
+}
