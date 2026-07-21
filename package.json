@@ -18,7 +18,7 @@
     "bench:md": "node scripts/report_markdown.mjs outputs_openai/bench.ndjson outputs_openai/bench_report.md",
     "pipeline": "bash scripts/run_pipeline.sh",
     "bench:consensus": "hardhat run --config hardhat.consensus.config.js scripts/l4/consensus/run_paired_pos_rolldpos_benchmark.js",
-    "test:consensus-analysis": "python3 -m unittest test/l4/test_pos_rolldpos_analysis.py"
+    "test:consensus-analysis": "python3 test/l4/test_pos_rolldpos_analysis.py"
   },
   "keywords": [],
   "author": "",
