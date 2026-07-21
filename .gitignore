@@ -17,6 +17,7 @@ outputs_ollama/
 # Hardhat/coverage
 cache/
 artifacts/
+.hardhat-consensus/
 
 # IPFS local repo (don’t commit)
 .ipfs/

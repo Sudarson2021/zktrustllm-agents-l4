@@ -1,0 +1,64 @@
+% Manuscript-ready consensus-sensitivity section.
+% Numeric results are generated only after the strict three-session evidence gate.
+% Requires: booktabs, adjustbox, tikz, pgfplots; \pgfplotsset{compat=1.18}
+
+\subsection{Consensus-Layer Sensitivity: PoS versus Roll-DPoS}
+\label{sec:pos-rolldpos-method}
+
+The consensus mechanism is a property of the execution network rather than of the
+Solidity contract. We therefore evaluate consensus-layer sensitivity by deploying
+the identical \texttt{Stage3AnomalyLedger} creation bytecode to two EVM-compatible
+public testnets: Ethereum Sepolia and IoTeX testnet. Sepolia follows the Ethereum
+PoS protocol but uses a permissioned validator set operated by client and testing
+teams \cite{ethereumNetworks}; this restriction is stated explicitly to avoid
+generalising testnet behaviour to Ethereum mainnet. IoTeX documents its consensus
+as Randomized Delegated Proof of Stake (Roll-DPoS), which combines delegated
+candidate election, VRF-based committee selection, and PBFT voting
+\cite{iotexRollDpos}. IoTeX testnet uses chain ID 4690 and exposes an
+Ethereum-compatible JSON-RPC interface \cite{iotexTestnet}.
+
+The study uses a paired concurrent-submission design. In each session, both
+contracts receive three excluded warm-up pairs followed by $R=30$ measured pairs.
+A pair carries the same commitment and evidence digest on both networks, and the
+two transactions are submitted concurrently from the same client host. We collect
+at least three sessions in separate time windows ($N\geq90$ matched pairs), while
+holding the client host, RPC provider per network, compiler configuration, contract
+bytecode, fixed transaction gas limit, and confirmation rule constant. Runtime-code
+Keccak-256 hashes are checked after every deployment. The primary metric is the
+client-observed interval from transaction submission to first successful receipt.
+It includes RPC/client overhead and prevailing public-testnet load and is therefore
+reported as \emph{first-inclusion latency}, not economic-finality latency.
+
+For each network, the harness additionally records deployment and anchor gas,
+effective gas price, block identifiers and timestamps, and at least 64 consecutive
+post-run block headers. Duplicate-commitment, zero-commitment, and unauthorised-
+submitter rejections are exercised as read-only \texttt{eth\_call} probes against
+the deployed state. Gas prices are retained for provenance but are not converted
+into a cross-asset cost comparison. Medians, quartiles, P95, means, and sample
+standard deviations are derived from raw JSON evidence. Median confidence intervals
+use a deterministic two-level hierarchical bootstrap that resamples sessions and
+then matched pairs within sessions (10,000 replicates). The analysis fails closed
+when a chain ID, bytecode hash, receipt, event, security probe, session count, or
+repetition count is incomplete.
+
+\subsection{Consensus-Layer Sensitivity Results}
+\label{sec:pos-rolldpos-results}
+
+% These files do not exist until measured evidence from both networks passes the
+% publication gate. Their absence prevents unmeasured numbers from entering the paper.
+\IfFileExists{derived_consensus/results_pos_rolldpos.tex}{%
+  \input{derived_consensus/results_pos_rolldpos}
+  \input{derived_consensus/table_pos_rolldpos}
+  \input{derived_consensus/fig_pos_rolldpos_latency}
+}{%
+  \emph{No PoS--Roll-DPoS numerical result is claimed in this source snapshot;
+  the measured three-session evidence package has not yet been supplied to the
+  deterministic analysis gate.}%
+}
+
+The comparison is intentionally bounded to a public-testnet audit-anchor
+micro-benchmark. It does not estimate mainnet throughput, validator
+decentralisation, economic finality, or end-to-end O-RAN performance. In particular,
+any latency difference may reflect block cadence, RPC implementation, propagation,
+or transient load in addition to the underlying consensus protocol; causal
+attribution beyond the measured observables is therefore avoided.

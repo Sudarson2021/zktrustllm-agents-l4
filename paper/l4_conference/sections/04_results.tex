@@ -13,3 +13,13 @@ Table~\ref{tab:variant_summary} summarises the clean 240-record evaluation. The 
 Stage 3 introduces an isolated Stage3AnomalyLedger micro-benchmark and a deterministic policy-reasoning probe. These emit parseable KPI lines for anchor gas, negative-security rejection, and reasoning latency.
 
 \input{tables/table_stage3}
+
+\IfFileExists{derived_consensus/results_pos_rolldpos.tex}{%
+\subsection{PoS--Roll-DPoS Consensus Sensitivity}
+\input{derived_consensus/results_pos_rolldpos}
+\input{derived_consensus/table_pos_rolldpos}
+\input{derived_consensus/fig_pos_rolldpos_latency}
+}{%
+% Numerical consensus results are intentionally absent until three measured
+% public-testnet sessions pass the deterministic publication gate.
+}
