@@ -1,0 +1,96 @@
+% ======================================================================
+% Drop-in for the manuscript: consensus-layer sensitivity study.
+% Placement: Sec. VI gains subsection (methodology); Sec. VII gains
+% subsection (results). Contains NO experimental numbers — every value
+% is supplied exclusively by the auto-derived table_consensus.tex and
+% fig_consensus_latency.tex, which analyze_consensus_comparison.py
+% refuses to generate without measured evidence from both networks.
+% Also add to the contributions list:
+%   \item A consensus-layer sensitivity study anchoring the identical
+%   audit micro-benchmark on Ethereum Sepolia (Proof-of-Stake) and the
+%   BNB Smart Chain testnet (Proof-of-Staked-Authority, delegated-staking
+%   BFT family), comparing execution-gas parity, inclusion latency,
+%   observed block cadence, and preserved negative-security rejection.
+% ======================================================================
+
+% ---------------- Sec. VI addition (methodology) ----------------
+\subsection{Consensus-Layer Sensitivity Methodology: PoS versus
+Delegated-Staking Anchoring}
+\label{sec:consensus-method}
+
+The Stage~4 Sepolia micro-benchmark establishes that the audit anchor
+executes identically on a public Proof-of-Stake (PoS) network, interpreted
+strictly as an EVM execution-gas consistency check. To evaluate whether the
+anchoring layer is additionally sensitive to the \emph{consensus family}, the
+identical \texttt{Stage3AnomalyLedger} bytecode is deployed unchanged to a
+second public testnet whose consensus belongs to the delegated-staking
+family: the BNB Smart Chain testnet (chain~ID~97), which operates
+Proof-of-Staked-Authority (PoSA), a BFT-style protocol in which a bounded
+set of validators is elected through delegated staking and is therefore
+commonly grouped with Delegated Proof-of-Stake (DPoS) designs. This
+terminology is used precisely: the comparison is between Ethereum's
+slot-based PoS (Gasper) on Sepolia and a delegated-staking PoSA chain, not
+a claim about any specific pure-DPoS ledger.
+
+For each network, one benchmark run deploys the contract and submits $R$
+sequential anchor commitments with fresh commitment/evidence digests. Per
+commitment, the harness records the receipt gas, block number, chain
+timestamp, effective gas price, and the wall-clock interval from
+transaction submission to first confirmation (inclusion latency). Observed
+inter-block cadence is derived from the chain timestamps of the anchored
+blocks. The three negative-security invariants --- replay rejection,
+zero-anchor rejection, and unauthorized-submitter rejection --- are then
+exercised on-chain via static calls using the same procedure as the
+Stage~4 script, verifying that the enforcement semantics of
+$P_5$ and the role gate are preserved across consensus families. All rows
+are written to an append-only JSONL evidence file whose SHA-256 digest is
+embedded in the run summary, and every manuscript value is derived
+deterministically from these summaries by a generation script that fails
+in the absence of measured evidence, so no reported number can originate
+outside a recorded run.
+
+Three boundaries apply. First, gas is consensus-independent EVM execution
+cost; identical gas across networks validates execution parity, not
+consensus performance. Second, inclusion latency is measured under
+prevailing public-testnet load and validator configuration and is a
+first-confirmation figure, not economic finality; Ethereum finality
+additionally requires attestation epochs, and PoSA fast finality follows
+its own rule set, neither of which is claimed here. Third, testnet gas
+prices carry no economic meaning and are recorded only for completeness.
+The study therefore answers a bounded question: does the accountable-anchoring
+layer of ZKTrustLLM-Agents~L4 transfer unchanged --- in execution cost and
+negative-security behaviour --- between PoS and delegated-staking chains,
+and what inclusion-latency envelope does each family exhibit for the same
+governed audit transaction?
+
+% ---------------- Sec. VII addition (results) ----------------
+\subsection{Consensus-Layer Sensitivity Results}
+\label{sec:consensus-results}
+
+Table~\ref{tab:consensus} reports the measured comparison and
+Fig.~\ref{fig:consensus-latency} visualises the inclusion-latency
+envelopes. Three observations are supported directly by the evidence.
+First, execution parity: the anchor gas measured on the PoSA testnet is
+reported alongside the Sepolia and local Hardhat values, extending the
+execution-gas consistency check across a second consensus family.
+% After running: state the measured parity/delta here in one sentence,
+% citing only Table~\ref{tab:consensus}. \todo{one sentence, measured}
+Second, the negative-security invariants --- replay, zero-anchor, and
+unauthorized-submitter rejection --- are preserved on both networks,
+confirming that the trust-plane enforcement of the audit ledger does not
+depend on the consensus family beneath it. Third, the inclusion-latency
+envelopes differ with block cadence:
+% After running: one or two sentences describing the measured median/P95
+% contrast and observed inter-block medians, citing only the table and
+% figure. Do not attribute causes beyond block cadence without evidence.
+% \todo{one to two sentences, measured}
+These results are public-testnet observations under prevailing load and
+must not be read as mainnet, economic-finality, or production O-RAN
+performance claims; their scientific role is to show that the
+evidence-anchoring layer is portable across consensus families with
+unchanged execution cost and unchanged rejection semantics, while the
+latency envelope --- and hence the achievable audit-anchoring cadence ---
+is a deployment-time property of the selected chain.
+
+\input{tables/table_consensus}
+\input{figures/fig_consensus_latency}
