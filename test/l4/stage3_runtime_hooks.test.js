@@ -40,7 +40,10 @@ describe("Stage3 runtime KPI hooks", function () {
 
     await expect(
       ledger.connect(attacker).commit(attackerCommitment, evidenceHash)
-    ).to.be.reverted;
+    ).to.be.revertedWithCustomError(
+      ledger,
+      "AccessControlUnauthorizedAccount"
+    ).withArgs(attacker.address, await ledger.ANCHOR_ROLE());
 
     console.log("KPI_UNAUTHORIZED_SUBMITTER_REJECTED=true");
   });
