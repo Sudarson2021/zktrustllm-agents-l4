@@ -1,0 +1,2443 @@
+{
+  "schema": "zktrustllm.pos_rolldpos.paired_benchmark.v1",
+  "run_status": "completed",
+  "session_id": "2026-07-23-session-3-retry1",
+  "started_at_utc": "2026-07-22T23:22:16.491Z",
+  "finished_at_utc": "2026-07-22T23:30:43.726Z",
+  "git_commit": "c9196cbebb2a2494861edba6e9de7bc8445641bc",
+  "design": {
+    "paired_concurrent_submission": true,
+    "repeats": 30,
+    "warmups": 3,
+    "confirmations_waited": 1,
+    "primary_metric": "client-observed submission-to-first-inclusion latency",
+    "latency_boundary": "Includes JSON-RPC/client overhead and public-testnet load; does not measure economic finality.",
+    "block_sampling": "consecutive post-run block headers",
+    "economic_cost_boundary": "Gas prices are recorded per network but native-token fees are not compared across assets."
+  },
+  "implementation": {
+    "contract": "Stage3AnomalyLedger",
+    "contract_source": "contracts/l4/Stage3AnomalyLedger.sol",
+    "contract_source_sha256": "b65052ea27d41c5c7678b4025edc3b5eeacf3ee5ef85f0d0b4fa4d432048bba7",
+    "benchmark_script": "scripts/l4/consensus/run_paired_pos_rolldpos_benchmark.js",
+    "benchmark_script_sha256": "5666db94b9fbec1cc36c0ed46ec6b5596834212c0f38d2a3e6531d3814bbef4e",
+    "artifact_bytecode_keccak256": "0x2d7d03a77b0b6d4afdad79df324b7c708a7e6cdc9f17cf95f3e9efe0fd505a48",
+    "solidity": "0.8.20",
+    "optimizer_enabled": true,
+    "optimizer_runs": 200,
+    "via_ir": true
+  },
+  "networks": {
+    "sepolia": {
+      "role": "pos",
+      "name": "Ethereum Sepolia",
+      "chain_id": 11155111,
+      "consensus": "Ethereum PoS protocol (permissioned Sepolia validator set)",
+      "rpc_origin": "https://ethereum-sepolia-rpc.publicnode.com",
+      "rpc_client_version": "Geth/v1.17.1-stable-16783c16/linux-amd64/go1.25.7",
+      "signer": "0xF12ABCf1DA907dA662d54950f6b993B64F6c3a2B",
+      "starting_balance_wei": "85647004228084773",
+      "ending_balance_wei": "83534944299654997",
+      "deployment": {
+        "started_at_utc": "2026-07-22T23:22:16.782Z",
+        "address": "0x823d023236dD7F99E8803C3e2e2CB63E26Aa3BF1",
+        "transaction_hash": "0x329d7f303f32a78c1f4de6e2f9da877e8dc0e32cb78c5da1891121f808672a87",
+        "block_number": 11329873,
+        "block_hash": "0x5250280743348b13036c64f6563b740250afee3a0f9dc820af0c8a7fd52a72c5",
+        "first_inclusion_latency_ms": 8499.508,
+        "gas_used": "379243",
+        "effective_gas_price_wei": "1090130789",
+        "deployed_code_keccak256": "0x99c45e8ce06288e628565067091f4a5246ef683bedc7923abffb95475a6f5894",
+        "explorer_url": "https://sepolia.etherscan.io/address/0x823d023236dD7F99E8803C3e2e2CB63E26Aa3BF1"
+      },
+      "security_probes": {
+        "method": "read-only eth_call against the deployed public-testnet contract state",
+        "replay": {
+          "label": "duplicate_commitment",
+          "rejected": true,
+          "expected_error": "DuplicateCommitment",
+          "actual_error": "DuplicateCommitment",
+          "expected_error_verified": true,
+          "rpc_method": "eth_call",
+          "error_code": "CALL_EXCEPTION"
+        },
+        "zero": {
+          "label": "zero_commitment",
+          "rejected": true,
+          "expected_error": "ZeroCommitment",
+          "actual_error": "ZeroCommitment",
+          "expected_error_verified": true,
+          "rpc_method": "eth_call",
+          "error_code": "CALL_EXCEPTION"
+        },
+        "unauthorized": {
+          "label": "unauthorized_submitter",
+          "rejected": true,
+          "expected_error": "AccessControlUnauthorizedAccount",
+          "actual_error": "AccessControlUnauthorizedAccount",
+          "expected_error_verified": true,
+          "rpc_method": "eth_call",
+          "error_code": "CALL_EXCEPTION"
+        }
+      },
+      "block_sample": {
+        "sampling_rule": "consecutive block numbers ending at the post-run latest block",
+        "first_block": 11329849,
+        "last_block": 11329912,
+        "blocks": [
+          {
+            "number": 11329849,
+            "hash": "0x8a6156629643de2da5578d27a552ed3a53b4e83b2462b1df5dc02912ece629ad",
+            "timestamp_utc": "2026-07-22T23:17:12.000Z",
+            "timestamp_unix_s": 1784762232
+          },
+          {
+            "number": 11329850,
+            "hash": "0xa782eb998c94a459b305a7b214a5ca535bbde62d5d7d9ae5fe4083d1683d2124",
+            "timestamp_utc": "2026-07-22T23:17:24.000Z",
+            "timestamp_unix_s": 1784762244
+          },
+          {
+            "number": 11329851,
+            "hash": "0xdb2a69b80734b63e3f7fefd65b601bd509bfbc23937646747ff3811166caf378",
+            "timestamp_utc": "2026-07-22T23:17:36.000Z",
+            "timestamp_unix_s": 1784762256
+          },
+          {
+            "number": 11329852,
+            "hash": "0xbf07ebd763616fae9aa96ea89d9814b6f8c266e1cef899e83003ee6b78df7469",
+            "timestamp_utc": "2026-07-22T23:17:48.000Z",
+            "timestamp_unix_s": 1784762268
+          },
+          {
+            "number": 11329853,
+            "hash": "0x37f58f9baf516ff4926190ff51e3d8511c4bfc179f8577bf2cde5b53193307e8",
+            "timestamp_utc": "2026-07-22T23:18:00.000Z",
+            "timestamp_unix_s": 1784762280
+          },
+          {
+            "number": 11329854,
+            "hash": "0xf084623be03d5434c24a4d786c645c0cdbc6421f959d38448b17dc7c1e1c89ad",
+            "timestamp_utc": "2026-07-22T23:18:12.000Z",
+            "timestamp_unix_s": 1784762292
+          },
+          {
+            "number": 11329855,
+            "hash": "0x978b1a6b2510e297b56751d1a469e79b977a04f60f06246508d2a681a768fdd0",
+            "timestamp_utc": "2026-07-22T23:18:24.000Z",
+            "timestamp_unix_s": 1784762304
+          },
+          {
+            "number": 11329856,
+            "hash": "0xd70b58b5a5bd2fa21772c33f87a00ef72a397359c86429df1fb517000bacd05e",
+            "timestamp_utc": "2026-07-22T23:18:36.000Z",
+            "timestamp_unix_s": 1784762316
+          },
+          {
+            "number": 11329857,
+            "hash": "0x3b6ad1243b8dd11883ceea820910ea5e558508170e0951a20df39bfe95503238",
+            "timestamp_utc": "2026-07-22T23:18:48.000Z",
+            "timestamp_unix_s": 1784762328
+          },
+          {
+            "number": 11329858,
+            "hash": "0x4577170f757c0eeda38a5c441b8fcbe689b8d8353cbcfbd4cd4c9d164d0a609a",
+            "timestamp_utc": "2026-07-22T23:19:00.000Z",
+            "timestamp_unix_s": 1784762340
+          },
+          {
+            "number": 11329859,
+            "hash": "0xe1631fefaf1d2a189d788e391f0ea47d075751e3da7ab4822b161481b1aff8b8",
+            "timestamp_utc": "2026-07-22T23:19:12.000Z",
+            "timestamp_unix_s": 1784762352
+          },
+          {
+            "number": 11329860,
+            "hash": "0x88d08e696c236b48ead18568845104abf2ca7469559395b1499252f2f345021f",
+            "timestamp_utc": "2026-07-22T23:19:24.000Z",
+            "timestamp_unix_s": 1784762364
+          },
+          {
+            "number": 11329861,
+            "hash": "0xa035b2dfb67d4418d07706348301612056cb2e4a409eb25fe79788ef13127c35",
+            "timestamp_utc": "2026-07-22T23:19:36.000Z",
+            "timestamp_unix_s": 1784762376
+          },
+          {
+            "number": 11329862,
+            "hash": "0x1429a63b00c5677088152bac25f968b6df68e17e7b0869e1a60e3d3566e91677",
+            "timestamp_utc": "2026-07-22T23:19:48.000Z",
+            "timestamp_unix_s": 1784762388
+          },
+          {
+            "number": 11329863,
+            "hash": "0xdf719aaedbe0d3643f2fc165660c6e464e243393f490436c47d52af49f749ee7",
+            "timestamp_utc": "2026-07-22T23:20:00.000Z",
+            "timestamp_unix_s": 1784762400
+          },
+          {
+            "number": 11329864,
+            "hash": "0xe565ec0970c16dcff7f0df83bf92cae6dd317c8067d38a9a3c985ecee0cde877",
+            "timestamp_utc": "2026-07-22T23:20:12.000Z",
+            "timestamp_unix_s": 1784762412
+          },
+          {
+            "number": 11329865,
+            "hash": "0x8c0867b7207e0aa87dcc74b5bde60d100943be12fdc7ce46fa5189c59f023986",
+            "timestamp_utc": "2026-07-22T23:20:24.000Z",
+            "timestamp_unix_s": 1784762424
+          },
+          {
+            "number": 11329866,
+            "hash": "0x2395083afa046f404598387b9cf8906799909f25bf6a9e814c6f8d4c06a8246b",
+            "timestamp_utc": "2026-07-22T23:20:36.000Z",
+            "timestamp_unix_s": 1784762436
+          },
+          {
+            "number": 11329867,
+            "hash": "0x2e1a605efa9b36881a3b7b8e0321bca5a4ffb1c5ccc275a47fa1d14ab6e1224c",
+            "timestamp_utc": "2026-07-22T23:20:48.000Z",
+            "timestamp_unix_s": 1784762448
+          },
+          {
+            "number": 11329868,
+            "hash": "0x839ae3fdb6ebdf4258fdc493ae07164af6ede58c4271e240e4b10a4292f7f751",
+            "timestamp_utc": "2026-07-22T23:21:24.000Z",
+            "timestamp_unix_s": 1784762484
+          },
+          {
+            "number": 11329869,
+            "hash": "0xb08c9b807a5246944f6f73e99ade34ac8082e8ca7e10901d893417ea9ce588fc",
+            "timestamp_utc": "2026-07-22T23:21:36.000Z",
+            "timestamp_unix_s": 1784762496
+          },
+          {
+            "number": 11329870,
+            "hash": "0xb80f5e7c56407c190c4fb35758b7276769ab2a84e4b35e1650bc7b621e26e8ba",
+            "timestamp_utc": "2026-07-22T23:21:48.000Z",
+            "timestamp_unix_s": 1784762508
+          },
+          {
+            "number": 11329871,
+            "hash": "0xd983ef90775ed6479d240f003935c004e00dcde34da620b345cdb6bf194b5421",
+            "timestamp_utc": "2026-07-22T23:22:00.000Z",
+            "timestamp_unix_s": 1784762520
+          },
+          {
+            "number": 11329872,
+            "hash": "0x4550500706242c170f04c7e1b59d5d89338d9a36bb288cf49ea890bcb2bea142",
+            "timestamp_utc": "2026-07-22T23:22:12.000Z",
+            "timestamp_unix_s": 1784762532
+          },
+          {
+            "number": 11329873,
+            "hash": "0x5250280743348b13036c64f6563b740250afee3a0f9dc820af0c8a7fd52a72c5",
+            "timestamp_utc": "2026-07-22T23:22:24.000Z",
+            "timestamp_unix_s": 1784762544
+          },
+          {
+            "number": 11329874,
+            "hash": "0x1af1c33943975fa71d6d8cde0fea49f3ce5c26061ad83733e2d30a1960881c6b",
+            "timestamp_utc": "2026-07-22T23:22:36.000Z",
+            "timestamp_unix_s": 1784762556
+          },
+          {
+            "number": 11329875,
+            "hash": "0x464d4f43dce59443a92a01802d25cb56724684b8252314802034ce1ef982e760",
+            "timestamp_utc": "2026-07-22T23:22:48.000Z",
+            "timestamp_unix_s": 1784762568
+          },
+          {
+            "number": 11329876,
+            "hash": "0xa2697ba48335011010b5a5af03695dd371f5cd8672b2bf3e1280a969d4d830c8",
+            "timestamp_utc": "2026-07-22T23:23:00.000Z",
+            "timestamp_unix_s": 1784762580
+          },
+          {
+            "number": 11329877,
+            "hash": "0x31ebd747f5dd687b473efe3d1b9500774f1b29c43cb58faf2bc481b0c7fd82bc",
+            "timestamp_utc": "2026-07-22T23:23:12.000Z",
+            "timestamp_unix_s": 1784762592
+          },
+          {
+            "number": 11329878,
+            "hash": "0xc0124a878c2e4c1b7c9c25e7d08cf110c42196f0d7538ed5393e0316c7b1c70a",
+            "timestamp_utc": "2026-07-22T23:23:24.000Z",
+            "timestamp_unix_s": 1784762604
+          },
+          {
+            "number": 11329879,
+            "hash": "0x8c505e10361a36cf268e3013a43caabff6119600255480a07ac07401f36eaaf6",
+            "timestamp_utc": "2026-07-22T23:23:36.000Z",
+            "timestamp_unix_s": 1784762616
+          },
+          {
+            "number": 11329880,
+            "hash": "0xd27fbb543acb46519bd9ce6905742d84fb4a341c3f2f389ba8ae87e8d90a5803",
+            "timestamp_utc": "2026-07-22T23:23:48.000Z",
+            "timestamp_unix_s": 1784762628
+          },
+          {
+            "number": 11329881,
+            "hash": "0xdfb74f24d36a3369f2d6179bcfd9c15c6e6003e03c0ece17974d2bdd72e7c8ba",
+            "timestamp_utc": "2026-07-22T23:24:00.000Z",
+            "timestamp_unix_s": 1784762640
+          },
+          {
+            "number": 11329882,
+            "hash": "0xe2c6ecac84132868d902902927f816a857b0c80381601c56627b628d0880d383",
+            "timestamp_utc": "2026-07-22T23:24:12.000Z",
+            "timestamp_unix_s": 1784762652
+          },
+          {
+            "number": 11329883,
+            "hash": "0xd41e546c914766e1b625611a1b56c65cfbdcde26544266c640c72cee6a6aa4e3",
+            "timestamp_utc": "2026-07-22T23:24:24.000Z",
+            "timestamp_unix_s": 1784762664
+          },
+          {
+            "number": 11329884,
+            "hash": "0xe2ac37363c2f5674d800c0bca0dcf31b4b8ea36ab05b905bbdde57f7c4f05807",
+            "timestamp_utc": "2026-07-22T23:24:36.000Z",
+            "timestamp_unix_s": 1784762676
+          },
+          {
+            "number": 11329885,
+            "hash": "0x99311b6910b4958763d186cfd7f2655337511e1dc009d572e2d6c0a98543a25e",
+            "timestamp_utc": "2026-07-22T23:24:48.000Z",
+            "timestamp_unix_s": 1784762688
+          },
+          {
+            "number": 11329886,
+            "hash": "0x693759a6b2917f7a60b0fae187eeb55889ec6e70cc9bef44b8ddcad4fcead2aa",
+            "timestamp_utc": "2026-07-22T23:25:00.000Z",
+            "timestamp_unix_s": 1784762700
+          },
+          {
+            "number": 11329887,
+            "hash": "0x66b42a2537c03dcbda3f3b347a91982cf4f024e9d5abc49529939c1401805840",
+            "timestamp_utc": "2026-07-22T23:25:12.000Z",
+            "timestamp_unix_s": 1784762712
+          },
+          {
+            "number": 11329888,
+            "hash": "0x23b557e7a5a3d7be35435097b8ccf488fdd844861bc25f93de2df5b0904950a8",
+            "timestamp_utc": "2026-07-22T23:25:24.000Z",
+            "timestamp_unix_s": 1784762724
+          },
+          {
+            "number": 11329889,
+            "hash": "0x973ba579c160f85202672f152d1bf82f2852f74f28c86180919f6ea7dcfe252c",
+            "timestamp_utc": "2026-07-22T23:25:36.000Z",
+            "timestamp_unix_s": 1784762736
+          },
+          {
+            "number": 11329890,
+            "hash": "0x2b9c4124865fa7076e4bf4831d6b3272b1b05ed0f958a1f081ffa7c1d5ce9b68",
+            "timestamp_utc": "2026-07-22T23:25:48.000Z",
+            "timestamp_unix_s": 1784762748
+          },
+          {
+            "number": 11329891,
+            "hash": "0x03cceb2274eea17843214dd267737d93a96cb11d78c9f01bae87d4df3742a047",
+            "timestamp_utc": "2026-07-22T23:26:00.000Z",
+            "timestamp_unix_s": 1784762760
+          },
+          {
+            "number": 11329892,
+            "hash": "0x570b1c3d262bc2d71803d487222082e4039b87a46f192ec365136e7754de6a87",
+            "timestamp_utc": "2026-07-22T23:26:12.000Z",
+            "timestamp_unix_s": 1784762772
+          },
+          {
+            "number": 11329893,
+            "hash": "0x279202f53618af704e2a0cadf8aee39b8ff307cfe0037deafa6067957d4c2979",
+            "timestamp_utc": "2026-07-22T23:26:24.000Z",
+            "timestamp_unix_s": 1784762784
+          },
+          {
+            "number": 11329894,
+            "hash": "0x3d0294ecf4b84b50a1f22ef660519cf12739d5c0d0dd234a2e22cfdb28a95e13",
+            "timestamp_utc": "2026-07-22T23:26:36.000Z",
+            "timestamp_unix_s": 1784762796
+          },
+          {
+            "number": 11329895,
+            "hash": "0x0bf632fb53810b97fb47c029f59c437f3b111ad936ceb11a86c7c509b19c89fd",
+            "timestamp_utc": "2026-07-22T23:26:48.000Z",
+            "timestamp_unix_s": 1784762808
+          },
+          {
+            "number": 11329896,
+            "hash": "0x54112fe2bc0d3c9e428ae1bc34fd16d3188e31f61471630d9e75b27f1e4af420",
+            "timestamp_utc": "2026-07-22T23:27:00.000Z",
+            "timestamp_unix_s": 1784762820
+          },
+          {
+            "number": 11329897,
+            "hash": "0x1bc96999426f42079a0aa2ae31c164468dc9c0e2aa2b5f56fd47518503ca2062",
+            "timestamp_utc": "2026-07-22T23:27:12.000Z",
+            "timestamp_unix_s": 1784762832
+          },
+          {
+            "number": 11329898,
+            "hash": "0x38bf82b579860115ae50bb92794aa904f936c8b3b9e3af0abf6a6204f280f509",
+            "timestamp_utc": "2026-07-22T23:27:24.000Z",
+            "timestamp_unix_s": 1784762844
+          },
+          {
+            "number": 11329899,
+            "hash": "0x7126befc3dc8734cca6fa31402ad6e4074a60cb440ff642336b3d2c2379e70ea",
+            "timestamp_utc": "2026-07-22T23:27:36.000Z",
+            "timestamp_unix_s": 1784762856
+          },
+          {
+            "number": 11329900,
+            "hash": "0x0d6607d8f913ebd6b008ce2b204def2e42b777ccd0b02d3cd850e32306eb565b",
+            "timestamp_utc": "2026-07-22T23:27:48.000Z",
+            "timestamp_unix_s": 1784762868
+          },
+          {
+            "number": 11329901,
+            "hash": "0xf20a1df11da2aa4722a16cb8b8b04088a35d5f5ae6ad6058845624952253b631",
+            "timestamp_utc": "2026-07-22T23:28:00.000Z",
+            "timestamp_unix_s": 1784762880
+          },
+          {
+            "number": 11329902,
+            "hash": "0x9e7f87f547cf177a6bda9089732a150a7889fda6fa1ce5d18fbbcf87fbe09516",
+            "timestamp_utc": "2026-07-22T23:28:12.000Z",
+            "timestamp_unix_s": 1784762892
+          },
+          {
+            "number": 11329903,
+            "hash": "0x1b77444bd067baede55892371f0dbce6069f6d2454d99c635ea7c02988a027a5",
+            "timestamp_utc": "2026-07-22T23:28:24.000Z",
+            "timestamp_unix_s": 1784762904
+          },
+          {
+            "number": 11329904,
+            "hash": "0x674b1a960ff194ccc03b4249e3e0f6f5934236960cc565f724b2719d53f3a019",
+            "timestamp_utc": "2026-07-22T23:28:48.000Z",
+            "timestamp_unix_s": 1784762928
+          },
+          {
+            "number": 11329905,
+            "hash": "0x715e360dc07ce8dc78c14b1bcec3e9d0351a1c2d6fad6e0781e255f4294eb80d",
+            "timestamp_utc": "2026-07-22T23:29:00.000Z",
+            "timestamp_unix_s": 1784762940
+          },
+          {
+            "number": 11329906,
+            "hash": "0xa4986aa9ec7bb83dc91b6b0dec8a207eaa9bcf5b8fafeff6489b2592f15efeaf",
+            "timestamp_utc": "2026-07-22T23:29:24.000Z",
+            "timestamp_unix_s": 1784762964
+          },
+          {
+            "number": 11329907,
+            "hash": "0x60a4226025bb989b80644496addce2ac18f8a5569796cc5d77f312bb762c706f",
+            "timestamp_utc": "2026-07-22T23:29:36.000Z",
+            "timestamp_unix_s": 1784762976
+          },
+          {
+            "number": 11329908,
+            "hash": "0x567c18a0620d0e58ac064f1e1374a9580138a43983f5dbd5e52db89e13b4b7ef",
+            "timestamp_utc": "2026-07-22T23:29:48.000Z",
+            "timestamp_unix_s": 1784762988
+          },
+          {
+            "number": 11329909,
+            "hash": "0x45175993d05d14ec73fc51a3c236c1893c7765421406635ce616d99209751ccf",
+            "timestamp_utc": "2026-07-22T23:30:00.000Z",
+            "timestamp_unix_s": 1784763000
+          },
+          {
+            "number": 11329910,
+            "hash": "0x8e2058d4c6fef1dcba311c8a4713551fb2c89287fa278385f69babb04d466885",
+            "timestamp_utc": "2026-07-22T23:30:12.000Z",
+            "timestamp_unix_s": 1784763012
+          },
+          {
+            "number": 11329911,
+            "hash": "0x641da15079a53c963247809546073d4edb06f5daf8e3f4e9084b27aeeb9f93cf",
+            "timestamp_utc": "2026-07-22T23:30:24.000Z",
+            "timestamp_unix_s": 1784763024
+          },
+          {
+            "number": 11329912,
+            "hash": "0x8045fceaa51152ec2a2447b1457c1ad8ab6656c596bd661d5544b26989d50f7f",
+            "timestamp_utc": "2026-07-22T23:30:36.000Z",
+            "timestamp_unix_s": 1784763036
+          }
+        ]
+      }
+    },
+    "iotex_testnet": {
+      "role": "roll_dpos",
+      "name": "IoTeX testnet",
+      "chain_id": 4690,
+      "consensus": "IoTeX Randomized Delegated Proof of Stake (Roll-DPoS)",
+      "rpc_origin": "https://babel-api.testnet.iotex.io",
+      "rpc_client_version": "v2.4.3-rc0/go version go1.24.13 linux/amd64",
+      "signer": "0xF12ABCf1DA907dA662d54950f6b993B64F6c3a2B",
+      "starting_balance_wei": "50374936000000000000",
+      "ending_balance_wei": "46525868000000000000",
+      "deployment": {
+        "started_at_utc": "2026-07-22T23:22:16.784Z",
+        "address": "0x85bC0A167D24E82aAfbC5D1929BA745C2B385726",
+        "transaction_hash": "0x5cb54e322558593007ab2496324bce663d631c54d0e515ff12a6b7905153da58",
+        "block_number": 45912799,
+        "block_hash": "0x1655c80c41f335e0adc8c09b4632e65b2dda8ed99aa1b6a98e17e49ee490adfe",
+        "first_inclusion_latency_ms": 4551.309,
+        "gas_used": "482929",
+        "effective_gas_price_wei": "2000000000000",
+        "deployed_code_keccak256": "0x99c45e8ce06288e628565067091f4a5246ef683bedc7923abffb95475a6f5894",
+        "explorer_url": "https://testnet.iotexscan.io/address/0x85bC0A167D24E82aAfbC5D1929BA745C2B385726"
+      },
+      "security_probes": {
+        "method": "read-only eth_call against the deployed public-testnet contract state",
+        "replay": {
+          "label": "duplicate_commitment",
+          "rejected": true,
+          "expected_error": "DuplicateCommitment",
+          "actual_error": "DuplicateCommitment",
+          "expected_error_verified": true,
+          "rpc_method": "eth_call",
+          "error_code": "CALL_EXCEPTION"
+        },
+        "zero": {
+          "label": "zero_commitment",
+          "rejected": true,
+          "expected_error": "ZeroCommitment",
+          "actual_error": "ZeroCommitment",
+          "expected_error_verified": true,
+          "rpc_method": "eth_call",
+          "error_code": "CALL_EXCEPTION"
+        },
+        "unauthorized": {
+          "label": "unauthorized_submitter",
+          "rejected": true,
+          "expected_error": "AccessControlUnauthorizedAccount",
+          "actual_error": "AccessControlUnauthorizedAccount",
+          "expected_error_verified": true,
+          "rpc_method": "eth_call",
+          "error_code": "CALL_EXCEPTION"
+        }
+      },
+      "block_sample": {
+        "sampling_rule": "consecutive block numbers ending at the post-run latest block",
+        "first_block": 45912927,
+        "last_block": 45912990,
+        "blocks": [
+          {
+            "number": 45912927,
+            "hash": "0x4b30ccbdc5bf8709abe5718875e373ada9609713539c3b11c588f6711c535504",
+            "timestamp_utc": "2026-07-22T23:27:55.000Z",
+            "timestamp_unix_s": 1784762875
+          },
+          {
+            "number": 45912928,
+            "hash": "0x187ce397b42c88a15ca94455b9802f39f2eadbf148c6999504d216c3d380cbb6",
+            "timestamp_utc": "2026-07-22T23:27:57.000Z",
+            "timestamp_unix_s": 1784762877
+          },
+          {
+            "number": 45912929,
+            "hash": "0xffa8f225063f444316151303810822513889250e04dac4768c94de95142f3a5c",
+            "timestamp_utc": "2026-07-22T23:28:00.000Z",
+            "timestamp_unix_s": 1784762880
+          },
+          {
+            "number": 45912930,
+            "hash": "0x64bd12d081f02806c6c3541731f161cfcc7298b1e6c53627fb08e331c7ef98d2",
+            "timestamp_utc": "2026-07-22T23:28:02.000Z",
+            "timestamp_unix_s": 1784762882
+          },
+          {
+            "number": 45912931,
+            "hash": "0xad492b28f9c9e96929627755e9c9f5b222891e89a721502998504376b0a0be31",
+            "timestamp_utc": "2026-07-22T23:28:05.000Z",
+            "timestamp_unix_s": 1784762885
+          },
+          {
+            "number": 45912932,
+            "hash": "0xba73f9ce3c1d669799a056503df21bbd3cc705887096c630d4fbc0993723501b",
+            "timestamp_utc": "2026-07-22T23:28:07.000Z",
+            "timestamp_unix_s": 1784762887
+          },
+          {
+            "number": 45912933,
+            "hash": "0xa55cd4100ee69988d4e99a3204b74ed48dea5f3c77ac56c790c0479a0778c15b",
+            "timestamp_utc": "2026-07-22T23:28:10.000Z",
+            "timestamp_unix_s": 1784762890
+          },
+          {
+            "number": 45912934,
+            "hash": "0x9cb9fc716f03660dadb6d35e650fe0bcfa890cdca7c651a57a1b17524977c6c7",
+            "timestamp_utc": "2026-07-22T23:28:12.000Z",
+            "timestamp_unix_s": 1784762892
+          },
+          {
+            "number": 45912935,
+            "hash": "0xc8fc88438c7f8d9c9ebd294fd957753ef711a8093a7f91fd4054b3ee2b85a81a",
+            "timestamp_utc": "2026-07-22T23:28:15.000Z",
+            "timestamp_unix_s": 1784762895
+          },
+          {
+            "number": 45912936,
+            "hash": "0xab920f5da515ac5eded656abd8302de2adf8558c3c028e6e6ace898526cdd277",
+            "timestamp_utc": "2026-07-22T23:28:17.000Z",
+            "timestamp_unix_s": 1784762897
+          },
+          {
+            "number": 45912937,
+            "hash": "0x5a2fa38f7486d0b37c1fe1bb39369bf914d2cc6abb16fc7320861b8bc1a69686",
+            "timestamp_utc": "2026-07-22T23:28:20.000Z",
+            "timestamp_unix_s": 1784762900
+          },
+          {
+            "number": 45912938,
+            "hash": "0x3042b03d4065f1e4811df113bb0e4b6a433450bb3576bb16b16b06e7df23cb91",
+            "timestamp_utc": "2026-07-22T23:28:22.000Z",
+            "timestamp_unix_s": 1784762902
+          },
+          {
+            "number": 45912939,
+            "hash": "0xfb4fb4568d6eac64406399f077dc7eee415399707c2aa7acaae6aeb3cf58ec35",
+            "timestamp_utc": "2026-07-22T23:28:25.000Z",
+            "timestamp_unix_s": 1784762905
+          },
+          {
+            "number": 45912940,
+            "hash": "0x73a80543067ce850b9dfb43a6eb4631b9b2966105c6eebf39d253bf0bd7ecadd",
+            "timestamp_utc": "2026-07-22T23:28:27.000Z",
+            "timestamp_unix_s": 1784762907
+          },
+          {
+            "number": 45912941,
+            "hash": "0x51be63b0941e6e5a28fd3bfea118bbcca30ea1f87288b097a94f3618e464dafb",
+            "timestamp_utc": "2026-07-22T23:28:30.000Z",
+            "timestamp_unix_s": 1784762910
+          },
+          {
+            "number": 45912942,
+            "hash": "0x37518a759b258f32d6b74fab7370c8cd54f3677229e7d6a4b6f298d24a1bf609",
+            "timestamp_utc": "2026-07-22T23:28:32.000Z",
+            "timestamp_unix_s": 1784762912
+          },
+          {
+            "number": 45912943,
+            "hash": "0xc3ae40d69f16d44c42699f60ef64db08a0942a2c39a748ece8b961060b38e591",
+            "timestamp_utc": "2026-07-22T23:28:35.000Z",
+            "timestamp_unix_s": 1784762915
+          },
+          {
+            "number": 45912944,
+            "hash": "0x66944654e1518c11970033d8497b3ccbf9ebb58acf8611b35d67f496805e5280",
+            "timestamp_utc": "2026-07-22T23:28:40.000Z",
+            "timestamp_unix_s": 1784762920
+          },
+          {
+            "number": 45912945,
+            "hash": "0xac99a9815b4aeeb03099cbe6e7569366ebd56fe3c49ced5cf4277e26c395b726",
+            "timestamp_utc": "2026-07-22T23:28:42.000Z",
+            "timestamp_unix_s": 1784762922
+          },
+          {
+            "number": 45912946,
+            "hash": "0xb29d9ea481b7609708e894a9e84829b761483de165a83400e141358f20c2806c",
+            "timestamp_utc": "2026-07-22T23:28:45.000Z",
+            "timestamp_unix_s": 1784762925
+          },
+          {
+            "number": 45912947,
+            "hash": "0x162ee1a4b52a4bcf57993d6e7b56526101981a8f5a10eb29689ffa43b3422b1e",
+            "timestamp_utc": "2026-07-22T23:28:47.000Z",
+            "timestamp_unix_s": 1784762927
+          },
+          {
+            "number": 45912948,
+            "hash": "0xd89cdafa37819c9c3b7dbccd99bdfb5190209bcca4f0d327e6c57a3df6ee4831",
+            "timestamp_utc": "2026-07-22T23:28:50.000Z",
+            "timestamp_unix_s": 1784762930
+          },
+          {
+            "number": 45912949,
+            "hash": "0x9525557c7d250c3c061a40183cafd7057bc1ef2f3b0863fbda28f24071b530d9",
+            "timestamp_utc": "2026-07-22T23:28:52.000Z",
+            "timestamp_unix_s": 1784762932
+          },
+          {
+            "number": 45912950,
+            "hash": "0xd55bee49a8ac5f76209ca3b39e2e73981c50a5f05137072bde1fb93c85a8f4dc",
+            "timestamp_utc": "2026-07-22T23:28:55.000Z",
+            "timestamp_unix_s": 1784762935
+          },
+          {
+            "number": 45912951,
+            "hash": "0x6fd838917bd08eb1da284805d5f29d68e379a34b3481c4324fb0912af0c684d1",
+            "timestamp_utc": "2026-07-22T23:28:57.000Z",
+            "timestamp_unix_s": 1784762937
+          },
+          {
+            "number": 45912952,
+            "hash": "0xb55dfa0737d52d7b4265826204c5343d84f53a8a1cdcc6bd546604439b82338f",
+            "timestamp_utc": "2026-07-22T23:29:00.000Z",
+            "timestamp_unix_s": 1784762940
+          },
+          {
+            "number": 45912953,
+            "hash": "0x9c63934f180bf1112c56d39a9c17f9d885979175d068c2c5f53dd3156d0894e4",
+            "timestamp_utc": "2026-07-22T23:29:02.000Z",
+            "timestamp_unix_s": 1784762942
+          },
+          {
+            "number": 45912954,
+            "hash": "0xb526235714d34fd7498d8eb17e03cf9c83391d8664730b90eead1a683e9900b1",
+            "timestamp_utc": "2026-07-22T23:29:05.000Z",
+            "timestamp_unix_s": 1784762945
+          },
+          {
+            "number": 45912955,
+            "hash": "0x0a39cf1316fddfcc15cb85b901b40215c6e6ebb86a698bd6e97f90285218f929",
+            "timestamp_utc": "2026-07-22T23:29:07.000Z",
+            "timestamp_unix_s": 1784762947
+          },
+          {
+            "number": 45912956,
+            "hash": "0xcdd5b95882d2d80af7c3f9d6d3e2db627334b1f3af3724842b822a68fba9d40d",
+            "timestamp_utc": "2026-07-22T23:29:10.000Z",
+            "timestamp_unix_s": 1784762950
+          },
+          {
+            "number": 45912957,
+            "hash": "0xbfdc4829ff8e48c7de1ce9804909f5ab79363bbe27c05f43c61d68485104338b",
+            "timestamp_utc": "2026-07-22T23:29:12.000Z",
+            "timestamp_unix_s": 1784762952
+          },
+          {
+            "number": 45912958,
+            "hash": "0x6af2d4c6df57aac9fb45341a903e50f727a02c886a67260708fc34682b8a4c14",
+            "timestamp_utc": "2026-07-22T23:29:15.000Z",
+            "timestamp_unix_s": 1784762955
+          },
+          {
+            "number": 45912959,
+            "hash": "0x2f81b294db23c0723110bc31bf1f64a6d5539529c6cd22f1e88eded2a9350d9a",
+            "timestamp_utc": "2026-07-22T23:29:17.000Z",
+            "timestamp_unix_s": 1784762957
+          },
+          {
+            "number": 45912960,
+            "hash": "0x78a37849ec72fe11a4144e88fd29eab58857d257e111316ffd6d178208ab1e16",
+            "timestamp_utc": "2026-07-22T23:29:20.000Z",
+            "timestamp_unix_s": 1784762960
+          },
+          {
+            "number": 45912961,
+            "hash": "0x3b01c6ca2cbc586adfe387376256a5ec87c6d4a0a06e33e33ebb5d492e8c7a7c",
+            "timestamp_utc": "2026-07-22T23:29:22.000Z",
+            "timestamp_unix_s": 1784762962
+          },
+          {
+            "number": 45912962,
+            "hash": "0xfe14046e22e756fa4c1f5c7ea09abc47619c110aa6f100a2340e6cdd781eea69",
+            "timestamp_utc": "2026-07-22T23:29:25.000Z",
+            "timestamp_unix_s": 1784762965
+          },
+          {
+            "number": 45912963,
+            "hash": "0xcabe39fc623f113a38bfa5446ee675b46a894651052619b3c45b55b367994402",
+            "timestamp_utc": "2026-07-22T23:29:27.000Z",
+            "timestamp_unix_s": 1784762967
+          },
+          {
+            "number": 45912964,
+            "hash": "0xe9be3ec065b6e328210a15d1f64bc10fab6a6bcb21e45c8e893cec8be90e4074",
+            "timestamp_utc": "2026-07-22T23:29:30.000Z",
+            "timestamp_unix_s": 1784762970
+          },
+          {
+            "number": 45912965,
+            "hash": "0x44350adc916c31b56a74a1bd2f91b052378d7b1f0c8411545f82f28c999b404f",
+            "timestamp_utc": "2026-07-22T23:29:32.000Z",
+            "timestamp_unix_s": 1784762972
+          },
+          {
+            "number": 45912966,
+            "hash": "0xa6064c068dab7194ad0ce9f22037987bcfdaab06227392dc5e21eb20352bed7d",
+            "timestamp_utc": "2026-07-22T23:29:35.000Z",
+            "timestamp_unix_s": 1784762975
+          },
+          {
+            "number": 45912967,
+            "hash": "0x67d513eb8fcaf3b0da8464908d2df56cb9b6206a5061e3e5c7b17462d4effe19",
+            "timestamp_utc": "2026-07-22T23:29:37.000Z",
+            "timestamp_unix_s": 1784762977
+          },
+          {
+            "number": 45912968,
+            "hash": "0x981d335faf553e420bc2955f8d6cc0deb880181e3b3b56960e1b5b5b69b10df4",
+            "timestamp_utc": "2026-07-22T23:29:40.000Z",
+            "timestamp_unix_s": 1784762980
+          },
+          {
+            "number": 45912969,
+            "hash": "0x9341e2dc3d687ecb6557c9d307e171b5754c89d2dd1e5d02c2934a8820494beb",
+            "timestamp_utc": "2026-07-22T23:29:42.000Z",
+            "timestamp_unix_s": 1784762982
+          },
+          {
+            "number": 45912970,
+            "hash": "0xf8ba35be22383d73aa0c79eefc83976333998d1af3d56d4e675329746ff1a153",
+            "timestamp_utc": "2026-07-22T23:29:45.000Z",
+            "timestamp_unix_s": 1784762985
+          },
+          {
+            "number": 45912971,
+            "hash": "0x1d372dc89d4f95f4ea4d591b1e24aaaaa18971a8ee559aacdf41c3cc53c924e9",
+            "timestamp_utc": "2026-07-22T23:29:47.000Z",
+            "timestamp_unix_s": 1784762987
+          },
+          {
+            "number": 45912972,
+            "hash": "0x825c1ada2a1f3fa546c9171dfa55c94f83f89f038c3de16b09caadffb5c10d36",
+            "timestamp_utc": "2026-07-22T23:29:50.000Z",
+            "timestamp_unix_s": 1784762990
+          },
+          {
+            "number": 45912973,
+            "hash": "0xebad8dc192a7410e21e2c555c458e635138c0f41e0cf30ff2b6abc6ff2aa4d32",
+            "timestamp_utc": "2026-07-22T23:29:52.000Z",
+            "timestamp_unix_s": 1784762992
+          },
+          {
+            "number": 45912974,
+            "hash": "0xd1096d7072f3444cc1a8e9ad7c2e9a2def43da7bd4cc6c1f4ad4fe3a9a98ce7a",
+            "timestamp_utc": "2026-07-22T23:29:55.000Z",
+            "timestamp_unix_s": 1784762995
+          },
+          {
+            "number": 45912975,
+            "hash": "0xe84068aec12b660bbefcee236150742a59333a918bf3590e4da53e0aa35203ca",
+            "timestamp_utc": "2026-07-22T23:30:00.000Z",
+            "timestamp_unix_s": 1784763000
+          },
+          {
+            "number": 45912976,
+            "hash": "0x6f2342891d30fcfab48fe54c769faa376c6aa32a34f2d83e2ec3b1ec9f169af3",
+            "timestamp_utc": "2026-07-22T23:30:02.000Z",
+            "timestamp_unix_s": 1784763002
+          },
+          {
+            "number": 45912977,
+            "hash": "0x5f7ad2ad0531a3e173d1b70db30d1fda921673b7002795540d51f6a44acc9026",
+            "timestamp_utc": "2026-07-22T23:30:05.000Z",
+            "timestamp_unix_s": 1784763005
+          },
+          {
+            "number": 45912978,
+            "hash": "0x8da7ff8ed6c1b5f8ccac86eee70d4027383344dbb4c5aac5f6d6d806da83eb77",
+            "timestamp_utc": "2026-07-22T23:30:07.000Z",
+            "timestamp_unix_s": 1784763007
+          },
+          {
+            "number": 45912979,
+            "hash": "0xffbc2a50605602b4ac05197de735bd27bcf2ff127b49e03284379c947e291d6f",
+            "timestamp_utc": "2026-07-22T23:30:10.000Z",
+            "timestamp_unix_s": 1784763010
+          },
+          {
+            "number": 45912980,
+            "hash": "0x55498c596da32e3fd0caa296de3cad3e3fc39445edbc2147f24bdab87b96249b",
+            "timestamp_utc": "2026-07-22T23:30:12.000Z",
+            "timestamp_unix_s": 1784763012
+          },
+          {
+            "number": 45912981,
+            "hash": "0x3452ffcace435e4f4e8d3c74aa4656cd0a37ee0c3ea23ec437b5fd14a2897f79",
+            "timestamp_utc": "2026-07-22T23:30:15.000Z",
+            "timestamp_unix_s": 1784763015
+          },
+          {
+            "number": 45912982,
+            "hash": "0x92858f2b55836d8d265c6b3f422177b65b29e04b1cc30a23fc6205ca32a957bb",
+            "timestamp_utc": "2026-07-22T23:30:17.000Z",
+            "timestamp_unix_s": 1784763017
+          },
+          {
+            "number": 45912983,
+            "hash": "0xc78bbc2415d95f87c835b8ac47485a3ee0d2c28459a98cc1f92c4d0f8637dafd",
+            "timestamp_utc": "2026-07-22T23:30:20.000Z",
+            "timestamp_unix_s": 1784763020
+          },
+          {
+            "number": 45912984,
+            "hash": "0x27c1f813a0886d4d537a434217b5b875956a091699916a6c0f39f1df9305cf8b",
+            "timestamp_utc": "2026-07-22T23:30:22.000Z",
+            "timestamp_unix_s": 1784763022
+          },
+          {
+            "number": 45912985,
+            "hash": "0x064f4b60a6c17a5661b242c3b7968927ef58495477d7f5e989ff37f752fe1e9a",
+            "timestamp_utc": "2026-07-22T23:30:25.000Z",
+            "timestamp_unix_s": 1784763025
+          },
+          {
+            "number": 45912986,
+            "hash": "0xfc2bf1eef451c75b627343ba218b90603e9519d7762ef64d70e01e9f2b6ab5b8",
+            "timestamp_utc": "2026-07-22T23:30:27.000Z",
+            "timestamp_unix_s": 1784763027
+          },
+          {
+            "number": 45912987,
+            "hash": "0x6250a527b332b845f396e320d7df7f78be068eea9a7ee343c3591ca3fe04e314",
+            "timestamp_utc": "2026-07-22T23:30:30.000Z",
+            "timestamp_unix_s": 1784763030
+          },
+          {
+            "number": 45912988,
+            "hash": "0x759d940b39dcc4aa74de9ae4d5b29762118d0979c0fc391564c365ee89c1eca4",
+            "timestamp_utc": "2026-07-22T23:30:32.000Z",
+            "timestamp_unix_s": 1784763032
+          },
+          {
+            "number": 45912989,
+            "hash": "0x362bf8818c533ca6f7d2adbc8558a8e4cc7be164be40b8926cca5134b09ff961",
+            "timestamp_utc": "2026-07-22T23:30:35.000Z",
+            "timestamp_unix_s": 1784763035
+          },
+          {
+            "number": 45912990,
+            "hash": "0xa6654f5991831ffaff986e7ea21d062b3d56db542f3991f15939cfc2bf307307",
+            "timestamp_utc": "2026-07-22T23:30:37.000Z",
+            "timestamp_unix_s": 1784763037
+          }
+        ]
+      }
+    }
+  },
+  "warmup_pairs": [
+    {
+      "pair_id": "2026-07-23-session-3-retry1-warmup-000",
+      "phase": "warmup",
+      "matched_commitment": "0x1c054968d4012b91524dba22ad6468b75b229c7a6079d85b19fd50839f33851a",
+      "matched_evidence_hash": "0x9948971572311d44ea96664bd8fa6a70f7359f7c44c4109d164bff2767ae1d16",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-warmup-000",
+          "phase": "warmup",
+          "submitted_at_utc": "2026-07-22T23:22:25.334Z",
+          "transaction_hash": "0xec823661b399c455b3ff605c20fe637798e2da7d0ba97166da62d2d614e9ce06",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xec823661b399c455b3ff605c20fe637798e2da7d0ba97166da62d2d614e9ce06",
+          "commitment": "0x1c054968d4012b91524dba22ad6468b75b229c7a6079d85b19fd50839f33851a",
+          "evidence_hash": "0x9948971572311d44ea96664bd8fa6a70f7359f7c44c4109d164bff2767ae1d16",
+          "rpc_acceptance_latency_ms": 176.958,
+          "first_inclusion_latency_ms": 12420.277,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1049382541",
+          "block_number": 11329874,
+          "block_hash": "0x1af1c33943975fa71d6d8cde0fea49f3ce5c26061ad83733e2d30a1960881c6b",
+          "block_timestamp_utc": "2026-07-22T23:22:36.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-warmup-000",
+          "phase": "warmup",
+          "submitted_at_utc": "2026-07-22T23:22:25.335Z",
+          "transaction_hash": "0xd3248d37f60ebceafa5be3f72a34597749a264fd7cc7b295dda3b5d5878a6ae7",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xd3248d37f60ebceafa5be3f72a34597749a264fd7cc7b295dda3b5d5878a6ae7",
+          "commitment": "0x1c054968d4012b91524dba22ad6468b75b229c7a6079d85b19fd50839f33851a",
+          "evidence_hash": "0x9948971572311d44ea96664bd8fa6a70f7359f7c44c4109d164bff2767ae1d16",
+          "rpc_acceptance_latency_ms": 224.76,
+          "first_inclusion_latency_ms": 8501.816,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912802,
+          "block_hash": "0x11bcf55bae043ef1d71a9adf8865bdb626591d751da76819b9698860a3448e00",
+          "block_timestamp_utc": "2026-07-22T23:22:30.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-warmup-001",
+      "phase": "warmup",
+      "matched_commitment": "0x30de81c6a7177dd323af7aeea75c586df55d675328cacea00598b41bfe7d9668",
+      "matched_evidence_hash": "0xbccadad256badb4d50b414167f343eada40440c6bc081c5ede6d6c52f5413686",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-warmup-001",
+          "phase": "warmup",
+          "submitted_at_utc": "2026-07-22T23:22:37.806Z",
+          "transaction_hash": "0x85ef2ec87f7b75c46ac1ad5dc3816069fbc50c234f71ae42190f4640a20025aa",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x85ef2ec87f7b75c46ac1ad5dc3816069fbc50c234f71ae42190f4640a20025aa",
+          "commitment": "0x30de81c6a7177dd323af7aeea75c586df55d675328cacea00598b41bfe7d9668",
+          "evidence_hash": "0xbccadad256badb4d50b414167f343eada40440c6bc081c5ede6d6c52f5413686",
+          "rpc_acceptance_latency_ms": 163.92,
+          "first_inclusion_latency_ms": 12527.358,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1012751266",
+          "block_number": 11329875,
+          "block_hash": "0x464d4f43dce59443a92a01802d25cb56724684b8252314802034ce1ef982e760",
+          "block_timestamp_utc": "2026-07-22T23:22:48.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-warmup-001",
+          "phase": "warmup",
+          "submitted_at_utc": "2026-07-22T23:22:37.806Z",
+          "transaction_hash": "0xd3801795e64b3348ddf1d56dd30fac1bc53b8151b8718ff1beb2e9a6cac251e5",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xd3801795e64b3348ddf1d56dd30fac1bc53b8151b8718ff1beb2e9a6cac251e5",
+          "commitment": "0x30de81c6a7177dd323af7aeea75c586df55d675328cacea00598b41bfe7d9668",
+          "evidence_hash": "0xbccadad256badb4d50b414167f343eada40440c6bc081c5ede6d6c52f5413686",
+          "rpc_acceptance_latency_ms": 215.11,
+          "first_inclusion_latency_ms": 8512.109,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912807,
+          "block_hash": "0xc69b8f944a0093f7db833d013a2693573b9fb1b2e1bd68a1d4a50d41008dbb43",
+          "block_timestamp_utc": "2026-07-22T23:22:42.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-warmup-002",
+      "phase": "warmup",
+      "matched_commitment": "0x829ff396ba5098a56f751a2e8a9472436cdd56f547690194c5e47111acd4f524",
+      "matched_evidence_hash": "0xfa2f2372f80a9c0979eae545d3c61ebb534bfc8c913d5f20c5c621eeef049cd8",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-warmup-002",
+          "phase": "warmup",
+          "submitted_at_utc": "2026-07-22T23:22:50.382Z",
+          "transaction_hash": "0x5b672c62bbea00a57083f28f2d5e502d96a3460e8618a19c83c2e24b3440bfd5",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x5b672c62bbea00a57083f28f2d5e502d96a3460e8618a19c83c2e24b3440bfd5",
+          "commitment": "0x829ff396ba5098a56f751a2e8a9472436cdd56f547690194c5e47111acd4f524",
+          "evidence_hash": "0xfa2f2372f80a9c0979eae545d3c61ebb534bfc8c913d5f20c5c621eeef049cd8",
+          "rpc_acceptance_latency_ms": 165.408,
+          "first_inclusion_latency_ms": 12418.218,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "971903027",
+          "block_number": 11329876,
+          "block_hash": "0xa2697ba48335011010b5a5af03695dd371f5cd8672b2bf3e1280a969d4d830c8",
+          "block_timestamp_utc": "2026-07-22T23:23:00.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-warmup-002",
+          "phase": "warmup",
+          "submitted_at_utc": "2026-07-22T23:22:50.382Z",
+          "transaction_hash": "0xa535c2bcac8753a7842bc93bb7b13d368ebd2e7fd848a4e766608032970f20bb",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xa535c2bcac8753a7842bc93bb7b13d368ebd2e7fd848a4e766608032970f20bb",
+          "commitment": "0x829ff396ba5098a56f751a2e8a9472436cdd56f547690194c5e47111acd4f524",
+          "evidence_hash": "0xfa2f2372f80a9c0979eae545d3c61ebb534bfc8c913d5f20c5c621eeef049cd8",
+          "rpc_acceptance_latency_ms": 212.22,
+          "first_inclusion_latency_ms": 8484.23,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912812,
+          "block_hash": "0xd041aca356e5489f103d96b189e1905ffcd3703f98bca6f94d594471c977baa0",
+          "block_timestamp_utc": "2026-07-22T23:22:55.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    }
+  ],
+  "measured_pairs": [
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-000",
+      "phase": "measurement",
+      "matched_commitment": "0x6ac56499237bede14c0cad25a44bba94d17437d5fc421b79841e14a17f7c68d0",
+      "matched_evidence_hash": "0xe16fc7e2ef5359021b25da16bdc1eaa6f74f47efa6fc690d614384c60a1bfeb5",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-000",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:02.858Z",
+          "transaction_hash": "0xa2fd40e0df19522e6c13175f0386e97a7ea983eb314fc962e422e44251d05d6d",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xa2fd40e0df19522e6c13175f0386e97a7ea983eb314fc962e422e44251d05d6d",
+          "commitment": "0x6ac56499237bede14c0cad25a44bba94d17437d5fc421b79841e14a17f7c68d0",
+          "evidence_hash": "0xe16fc7e2ef5359021b25da16bdc1eaa6f74f47efa6fc690d614384c60a1bfeb5",
+          "rpc_acceptance_latency_ms": 170.796,
+          "first_inclusion_latency_ms": 12455.95,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1093143385",
+          "block_number": 11329877,
+          "block_hash": "0x31ebd747f5dd687b473efe3d1b9500774f1b29c43cb58faf2bc481b0c7fd82bc",
+          "block_timestamp_utc": "2026-07-22T23:23:12.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-000",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:02.858Z",
+          "transaction_hash": "0xc643ecad44594d2bbb799bc82e619569ef0a5e2bc23fa2d2fa6d143df8bdafb3",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xc643ecad44594d2bbb799bc82e619569ef0a5e2bc23fa2d2fa6d143df8bdafb3",
+          "commitment": "0x6ac56499237bede14c0cad25a44bba94d17437d5fc421b79841e14a17f7c68d0",
+          "evidence_hash": "0xe16fc7e2ef5359021b25da16bdc1eaa6f74f47efa6fc690d614384c60a1bfeb5",
+          "rpc_acceptance_latency_ms": 226.239,
+          "first_inclusion_latency_ms": 8505.463,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912817,
+          "block_hash": "0x25da4272093c77e77488bb96a2e815b18c9df9d2baeb8f044fb78bb365120829",
+          "block_timestamp_utc": "2026-07-22T23:23:07.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-001",
+      "phase": "measurement",
+      "matched_commitment": "0xdcf3af0bceaddc773f4111daeafad95669debaf9b1e155e710bb8cc15ad5633b",
+      "matched_evidence_hash": "0xa6b8a71203bc9b0a0dc84648d7767b99930f325e2f988cf09aca87f7e5f679c3",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-001",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:15.365Z",
+          "transaction_hash": "0xe5a39c3b8cd33933ff85c1e8c8a3f513dfefda64577fe62d89c0a510797c5b4c",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xe5a39c3b8cd33933ff85c1e8c8a3f513dfefda64577fe62d89c0a510797c5b4c",
+          "commitment": "0xdcf3af0bceaddc773f4111daeafad95669debaf9b1e155e710bb8cc15ad5633b",
+          "evidence_hash": "0xa6b8a71203bc9b0a0dc84648d7767b99930f325e2f988cf09aca87f7e5f679c3",
+          "rpc_acceptance_latency_ms": 163.967,
+          "first_inclusion_latency_ms": 12453.692,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1078278982",
+          "block_number": 11329878,
+          "block_hash": "0xc0124a878c2e4c1b7c9c25e7d08cf110c42196f0d7538ed5393e0316c7b1c70a",
+          "block_timestamp_utc": "2026-07-22T23:23:24.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-001",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:15.365Z",
+          "transaction_hash": "0x234fe7549a16a12956474d5234fc0fd68b14696a4397acf327ed62beb87ca568",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x234fe7549a16a12956474d5234fc0fd68b14696a4397acf327ed62beb87ca568",
+          "commitment": "0xdcf3af0bceaddc773f4111daeafad95669debaf9b1e155e710bb8cc15ad5633b",
+          "evidence_hash": "0xa6b8a71203bc9b0a0dc84648d7767b99930f325e2f988cf09aca87f7e5f679c3",
+          "rpc_acceptance_latency_ms": 214.707,
+          "first_inclusion_latency_ms": 8497.627,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912822,
+          "block_hash": "0x049a3583d1fdf569adeb071bb74d718acc21d23c5fbb4c0b8aeae84188a0cec6",
+          "block_timestamp_utc": "2026-07-22T23:23:20.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-002",
+      "phase": "measurement",
+      "matched_commitment": "0xbfb0f9240b8fcfefe923807d00183f10b1c82f6789413c2b07ea647815726485",
+      "matched_evidence_hash": "0x7f27796d3977a9a9ba28161e35cc81d320114e1f8493f668c706550bd824f5cc",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-002",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:27.869Z",
+          "transaction_hash": "0xdf467b6cbbd48334eba9dcfbed2012f3b710a149ef16564fc7d48e19079e07f1",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xdf467b6cbbd48334eba9dcfbed2012f3b710a149ef16564fc7d48e19079e07f1",
+          "commitment": "0xbfb0f9240b8fcfefe923807d00183f10b1c82f6789413c2b07ea647815726485",
+          "evidence_hash": "0x7f27796d3977a9a9ba28161e35cc81d320114e1f8493f668c706550bd824f5cc",
+          "rpc_acceptance_latency_ms": 158.364,
+          "first_inclusion_latency_ms": 12412.821,
+          "gas_used": "48961",
+          "effective_gas_price_wei": "1050686768",
+          "block_number": 11329879,
+          "block_hash": "0x8c505e10361a36cf268e3013a43caabff6119600255480a07ac07401f36eaaf6",
+          "block_timestamp_utc": "2026-07-22T23:23:36.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-002",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:27.869Z",
+          "transaction_hash": "0x297a2eb3936a63667b411ae2b16efbe69ac159fa1d54f950a02e6359839b24a5",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x297a2eb3936a63667b411ae2b16efbe69ac159fa1d54f950a02e6359839b24a5",
+          "commitment": "0xbfb0f9240b8fcfefe923807d00183f10b1c82f6789413c2b07ea647815726485",
+          "evidence_hash": "0x7f27796d3977a9a9ba28161e35cc81d320114e1f8493f668c706550bd824f5cc",
+          "rpc_acceptance_latency_ms": 209.441,
+          "first_inclusion_latency_ms": 8485.727,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912826,
+          "block_hash": "0x532430b6964e6a852ccf5c62f2f9571e6760d3b560cebf3f189afa7bfb17b722",
+          "block_timestamp_utc": "2026-07-22T23:23:32.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-003",
+      "phase": "measurement",
+      "matched_commitment": "0x042f88ef876579419f8a08fc2eb53a8eb3b958cf92107e887be55085062f4815",
+      "matched_evidence_hash": "0x412843a59954871bc0fd19cd19a2438039481843d7e2816de9f5f048cc3a1d2f",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-003",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:40.334Z",
+          "transaction_hash": "0xbb4324b25863af9a5ce1645c4af6ccf21f8651547d84483a99b54df588564a1c",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xbb4324b25863af9a5ce1645c4af6ccf21f8651547d84483a99b54df588564a1c",
+          "commitment": "0x042f88ef876579419f8a08fc2eb53a8eb3b958cf92107e887be55085062f4815",
+          "evidence_hash": "0x412843a59954871bc0fd19cd19a2438039481843d7e2816de9f5f048cc3a1d2f",
+          "rpc_acceptance_latency_ms": 162.633,
+          "first_inclusion_latency_ms": 12422.555,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1029287520",
+          "block_number": 11329880,
+          "block_hash": "0xd27fbb543acb46519bd9ce6905742d84fb4a341c3f2f389ba8ae87e8d90a5803",
+          "block_timestamp_utc": "2026-07-22T23:23:48.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-003",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:40.335Z",
+          "transaction_hash": "0xeb5e92dda72765088a79cbc165d657778369c5e92910db1c71e722b260e7cb07",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xeb5e92dda72765088a79cbc165d657778369c5e92910db1c71e722b260e7cb07",
+          "commitment": "0x042f88ef876579419f8a08fc2eb53a8eb3b958cf92107e887be55085062f4815",
+          "evidence_hash": "0x412843a59954871bc0fd19cd19a2438039481843d7e2816de9f5f048cc3a1d2f",
+          "rpc_acceptance_latency_ms": 223.68,
+          "first_inclusion_latency_ms": 8494.657,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912831,
+          "block_hash": "0x376c882026bef4c2264c665b0268cc492517dafb3c527aa20766967306ee2bfe",
+          "block_timestamp_utc": "2026-07-22T23:23:45.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-004",
+      "phase": "measurement",
+      "matched_commitment": "0x0cd2524a483ec613f2e844d65b4cb30a9b7a24b245e2a38571549d04dba06dd4",
+      "matched_evidence_hash": "0x8410e3b3b22ca6fa8cc2fe52b7497e4e95c42d2fcbf1de9619b0d093ac71e8af",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-004",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:52.811Z",
+          "transaction_hash": "0x71d1afd75e9ed1f30ff1d9c1bc3f361398cdf7d6b887a0b1ebaa007c667fe811",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x71d1afd75e9ed1f30ff1d9c1bc3f361398cdf7d6b887a0b1ebaa007c667fe811",
+          "commitment": "0x0cd2524a483ec613f2e844d65b4cb30a9b7a24b245e2a38571549d04dba06dd4",
+          "evidence_hash": "0x8410e3b3b22ca6fa8cc2fe52b7497e4e95c42d2fcbf1de9619b0d093ac71e8af",
+          "rpc_acceptance_latency_ms": 171.196,
+          "first_inclusion_latency_ms": 8368.349,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1008498741",
+          "block_number": 11329881,
+          "block_hash": "0xdfb74f24d36a3369f2d6179bcfd9c15c6e6003e03c0ece17974d2bdd72e7c8ba",
+          "block_timestamp_utc": "2026-07-22T23:24:00.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-004",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:23:52.811Z",
+          "transaction_hash": "0x8bc80c973fee7fa9a093b120ff5e231cba29fd8aee9b63b4b49afc1f37e74bbd",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x8bc80c973fee7fa9a093b120ff5e231cba29fd8aee9b63b4b49afc1f37e74bbd",
+          "commitment": "0x0cd2524a483ec613f2e844d65b4cb30a9b7a24b245e2a38571549d04dba06dd4",
+          "evidence_hash": "0x8410e3b3b22ca6fa8cc2fe52b7497e4e95c42d2fcbf1de9619b0d093ac71e8af",
+          "rpc_acceptance_latency_ms": 220.661,
+          "first_inclusion_latency_ms": 8509.744,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912836,
+          "block_hash": "0xc0d43a08ea21418b0b9f103e169fb8a8eff20308db487b3d2b1af1dbf0c52639",
+          "block_timestamp_utc": "2026-07-22T23:23:57.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-005",
+      "phase": "measurement",
+      "matched_commitment": "0x2271515e5ae5a2184c0083913df61e42dbc7ee8477e630c5eb812895ebd88dc6",
+      "matched_evidence_hash": "0xec5d1fcb7fc06585cae26898a6b384a0b4966f5e65158ea2aabe1ce56d9c182e",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-005",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:01.394Z",
+          "transaction_hash": "0x5fa0485ab03a023b3e69fcbc51545fe2357405ef7920d0f6de4fa34565ffeb96",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x5fa0485ab03a023b3e69fcbc51545fe2357405ef7920d0f6de4fa34565ffeb96",
+          "commitment": "0x2271515e5ae5a2184c0083913df61e42dbc7ee8477e630c5eb812895ebd88dc6",
+          "evidence_hash": "0xec5d1fcb7fc06585cae26898a6b384a0b4966f5e65158ea2aabe1ce56d9c182e",
+          "rpc_acceptance_latency_ms": 172.334,
+          "first_inclusion_latency_ms": 24570.777,
+          "gas_used": "48961",
+          "effective_gas_price_wei": "1098314665",
+          "block_number": 11329883,
+          "block_hash": "0xd41e546c914766e1b625611a1b56c65cfbdcde26544266c640c72cee6a6aa4e3",
+          "block_timestamp_utc": "2026-07-22T23:24:24.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-005",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:01.394Z",
+          "transaction_hash": "0xedac2ceb0893b33cd7edc2cf44f8aa478c1474a40bc4f068211fe589271f2ad3",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xedac2ceb0893b33cd7edc2cf44f8aa478c1474a40bc4f068211fe589271f2ad3",
+          "commitment": "0x2271515e5ae5a2184c0083913df61e42dbc7ee8477e630c5eb812895ebd88dc6",
+          "evidence_hash": "0xec5d1fcb7fc06585cae26898a6b384a0b4966f5e65158ea2aabe1ce56d9c182e",
+          "rpc_acceptance_latency_ms": 215.257,
+          "first_inclusion_latency_ms": 4429.012,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912839,
+          "block_hash": "0xdb040e2fcabc6c7821dccd6b46582921c9f5c819dc6db864b04e2a8e0bcff49b",
+          "block_timestamp_utc": "2026-07-22T23:24:05.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-006",
+      "phase": "measurement",
+      "matched_commitment": "0x3558009b0372012eb26b05599ecae47d7cd104155319aad8aaa238722727cc05",
+      "matched_evidence_hash": "0xf611a5fae9e0d941e9a6be9fe6e7e1c5def05c16ad3d2684cc26858c7fa3e8c1",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-006",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:26.012Z",
+          "transaction_hash": "0x80cf45ff6ab74a583c73e600fceed4d7e0fe0f8f342cd790a2753b487dde8135",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x80cf45ff6ab74a583c73e600fceed4d7e0fe0f8f342cd790a2753b487dde8135",
+          "commitment": "0x3558009b0372012eb26b05599ecae47d7cd104155319aad8aaa238722727cc05",
+          "evidence_hash": "0xf611a5fae9e0d941e9a6be9fe6e7e1c5def05c16ad3d2684cc26858c7fa3e8c1",
+          "rpc_acceptance_latency_ms": 183.276,
+          "first_inclusion_latency_ms": 16481.96,
+          "gas_used": "48961",
+          "effective_gas_price_wei": "1064930049",
+          "block_number": 11329884,
+          "block_hash": "0xe2ac37363c2f5674d800c0bca0dcf31b4b8ea36ab05b905bbdde57f7c4f05807",
+          "block_timestamp_utc": "2026-07-22T23:24:36.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-006",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:26.012Z",
+          "transaction_hash": "0x1576cb8312ea2bf51db242dfa2f370c6ddd37320ce4ed98830e3c47bebfecd46",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x1576cb8312ea2bf51db242dfa2f370c6ddd37320ce4ed98830e3c47bebfecd46",
+          "commitment": "0x3558009b0372012eb26b05599ecae47d7cd104155319aad8aaa238722727cc05",
+          "evidence_hash": "0xf611a5fae9e0d941e9a6be9fe6e7e1c5def05c16ad3d2684cc26858c7fa3e8c1",
+          "rpc_acceptance_latency_ms": 251.829,
+          "first_inclusion_latency_ms": 4466.481,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912848,
+          "block_hash": "0x69797afbaa21377cd9fe0d7dc63e1c4c666beadb8d4b98eb5e8df4022d92dc27",
+          "block_timestamp_utc": "2026-07-22T23:24:30.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-007",
+      "phase": "measurement",
+      "matched_commitment": "0xb22707f6aa2c8d4c37de33304444abb32b14cd91d691ce17abc544be0c78bc39",
+      "matched_evidence_hash": "0x7e1b1617c3c62b6643ee74d0abb532884a5006de1cbe5f574dccf85b6042db5d",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-007",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:42.542Z",
+          "transaction_hash": "0x5a1bbab16020c891d516605234221e92f4a263864f1ebb875c1c77ec410f6c08",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x5a1bbab16020c891d516605234221e92f4a263864f1ebb875c1c77ec410f6c08",
+          "commitment": "0xb22707f6aa2c8d4c37de33304444abb32b14cd91d691ce17abc544be0c78bc39",
+          "evidence_hash": "0x7e1b1617c3c62b6643ee74d0abb532884a5006de1cbe5f574dccf85b6042db5d",
+          "rpc_acceptance_latency_ms": 158.642,
+          "first_inclusion_latency_ms": 8353.242,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1027807700",
+          "block_number": 11329885,
+          "block_hash": "0x99311b6910b4958763d186cfd7f2655337511e1dc009d572e2d6c0a98543a25e",
+          "block_timestamp_utc": "2026-07-22T23:24:48.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-007",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:42.542Z",
+          "transaction_hash": "0x70d405ae25a5b23d69d097c059ada868a1f6ffd116bcac3cb9033fc028eb31ef",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x70d405ae25a5b23d69d097c059ada868a1f6ffd116bcac3cb9033fc028eb31ef",
+          "commitment": "0xb22707f6aa2c8d4c37de33304444abb32b14cd91d691ce17abc544be0c78bc39",
+          "evidence_hash": "0x7e1b1617c3c62b6643ee74d0abb532884a5006de1cbe5f574dccf85b6042db5d",
+          "rpc_acceptance_latency_ms": 341.472,
+          "first_inclusion_latency_ms": 8640.353,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912855,
+          "block_hash": "0xa2c1388096af57c5b7365d9b2d92aa12e7b4035637ca12351b9312d25f6a3dd0",
+          "block_timestamp_utc": "2026-07-22T23:24:47.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-008",
+      "phase": "measurement",
+      "matched_commitment": "0xdebb90f9f464d5b82462c99616b28d52d4dbd975f223cd578153c89fc883a951",
+      "matched_evidence_hash": "0x5973a3c236c7c3978e93a66677b70d8a71b9c440d80a09ff8dda2dbb32d16b7c",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-008",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:51.256Z",
+          "transaction_hash": "0x45c449bac4f3d1130809b9a6eeec0e24ef3a5d290d4dd670885426fcf598c8c6",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x45c449bac4f3d1130809b9a6eeec0e24ef3a5d290d4dd670885426fcf598c8c6",
+          "commitment": "0xdebb90f9f464d5b82462c99616b28d52d4dbd975f223cd578153c89fc883a951",
+          "evidence_hash": "0x5973a3c236c7c3978e93a66677b70d8a71b9c440d80a09ff8dda2dbb32d16b7c",
+          "rpc_acceptance_latency_ms": 165.388,
+          "first_inclusion_latency_ms": 24550.992,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1062992662",
+          "block_number": 11329887,
+          "block_hash": "0x66b42a2537c03dcbda3f3b347a91982cf4f024e9d5abc49529939c1401805840",
+          "block_timestamp_utc": "2026-07-22T23:25:12.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-008",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:24:51.256Z",
+          "transaction_hash": "0x3c6412189a566267f95cc840f2103a791cc265bd3f231cdd7209c0c3af117023",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x3c6412189a566267f95cc840f2103a791cc265bd3f231cdd7209c0c3af117023",
+          "commitment": "0xdebb90f9f464d5b82462c99616b28d52d4dbd975f223cd578153c89fc883a951",
+          "evidence_hash": "0x5973a3c236c7c3978e93a66677b70d8a71b9c440d80a09ff8dda2dbb32d16b7c",
+          "rpc_acceptance_latency_ms": 221.816,
+          "first_inclusion_latency_ms": 4453.66,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912858,
+          "block_hash": "0x31ba65e443ed4fac0e229234d2cf8be015998efdfc4c6b9951ff7398b438ed24",
+          "block_timestamp_utc": "2026-07-22T23:24:55.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-009",
+      "phase": "measurement",
+      "matched_commitment": "0x9604b4a5d4b72787617a98450f18cae2eef2651d3863e92f51209c8b35299b2c",
+      "matched_evidence_hash": "0x51a59e4e6eddf22f7504f108ff7bcd95240db0c33da1433ae0b594391bf6e93f",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-009",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:25:15.855Z",
+          "transaction_hash": "0x3fe691863bffcc62e58aa206615c9615d5a3d8dbb62a3b6218420000e7a164b1",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x3fe691863bffcc62e58aa206615c9615d5a3d8dbb62a3b6218420000e7a164b1",
+          "commitment": "0x9604b4a5d4b72787617a98450f18cae2eef2651d3863e92f51209c8b35299b2c",
+          "evidence_hash": "0x51a59e4e6eddf22f7504f108ff7bcd95240db0c33da1433ae0b594391bf6e93f",
+          "rpc_acceptance_latency_ms": 177.462,
+          "first_inclusion_latency_ms": 12423.894,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1011908899",
+          "block_number": 11329888,
+          "block_hash": "0x23b557e7a5a3d7be35435097b8ccf488fdd844861bc25f93de2df5b0904950a8",
+          "block_timestamp_utc": "2026-07-22T23:25:24.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-009",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:25:15.855Z",
+          "transaction_hash": "0x5e6ec241a9273ecf33b116a88d1c674726e564b483f0f5496f48ecc0f2a4e496",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x5e6ec241a9273ecf33b116a88d1c674726e564b483f0f5496f48ecc0f2a4e496",
+          "commitment": "0x9604b4a5d4b72787617a98450f18cae2eef2651d3863e92f51209c8b35299b2c",
+          "evidence_hash": "0x51a59e4e6eddf22f7504f108ff7bcd95240db0c33da1433ae0b594391bf6e93f",
+          "rpc_acceptance_latency_ms": 338.788,
+          "first_inclusion_latency_ms": 4565.833,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912868,
+          "block_hash": "0xf016b2f0b8153af15a1be7c3c0ed886e7e4b7dbfc25563e25802613a24dba2ef",
+          "block_timestamp_utc": "2026-07-22T23:25:20.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-010",
+      "phase": "measurement",
+      "matched_commitment": "0xa14f2fd4c646c8ad42da84e625a26a5148e7e231a351b1e740602fa25720ad30",
+      "matched_evidence_hash": "0x2e73125fd861462f0483240a2e5ee0f370dea1e489675218e651e8a71077eef1",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-010",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:25:28.330Z",
+          "transaction_hash": "0x0cb5abad6b6a7f5d1fec489bb96cbe51f7e7155147e2d04f64f7bb4d4cc8db26",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x0cb5abad6b6a7f5d1fec489bb96cbe51f7e7155147e2d04f64f7bb4d4cc8db26",
+          "commitment": "0xa14f2fd4c646c8ad42da84e625a26a5148e7e231a351b1e740602fa25720ad30",
+          "evidence_hash": "0x2e73125fd861462f0483240a2e5ee0f370dea1e489675218e651e8a71077eef1",
+          "rpc_acceptance_latency_ms": 327.332,
+          "first_inclusion_latency_ms": 24723.792,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1077569535",
+          "block_number": 11329890,
+          "block_hash": "0x2b9c4124865fa7076e4bf4831d6b3272b1b05ed0f958a1f081ffa7c1d5ce9b68",
+          "block_timestamp_utc": "2026-07-22T23:25:48.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-010",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:25:28.330Z",
+          "transaction_hash": "0xcaa6f149657e7bd5fbd52f02c291d97276256866e709a4acae23b19c94ca946e",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xcaa6f149657e7bd5fbd52f02c291d97276256866e709a4acae23b19c94ca946e",
+          "commitment": "0xa14f2fd4c646c8ad42da84e625a26a5148e7e231a351b1e740602fa25720ad30",
+          "evidence_hash": "0x2e73125fd861462f0483240a2e5ee0f370dea1e489675218e651e8a71077eef1",
+          "rpc_acceptance_latency_ms": 336.914,
+          "first_inclusion_latency_ms": 4538.581,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912872,
+          "block_hash": "0x49eff9c652492bee5e6afb4b222342b4052c8d1c531ce2fb3958d83d90a52942",
+          "block_timestamp_utc": "2026-07-22T23:25:32.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-011",
+      "phase": "measurement",
+      "matched_commitment": "0xbcb1c07ba07fd83bd32a74ce44972f4c08ee52dd34f29107bdaff13cd7cc5294",
+      "matched_evidence_hash": "0xbcab2419c7b2797271c9573e154259b9b9196cc6e4efc331ccdc55bb5ce53865",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-011",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:25:53.104Z",
+          "transaction_hash": "0x2d76635b565d01e1ff1e46ac84954deae09b43cdc54ff4d0157faf1843f0953e",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x2d76635b565d01e1ff1e46ac84954deae09b43cdc54ff4d0157faf1843f0953e",
+          "commitment": "0xbcb1c07ba07fd83bd32a74ce44972f4c08ee52dd34f29107bdaff13cd7cc5294",
+          "evidence_hash": "0xbcab2419c7b2797271c9573e154259b9b9196cc6e4efc331ccdc55bb5ce53865",
+          "rpc_acceptance_latency_ms": 253.322,
+          "first_inclusion_latency_ms": 8450.614,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1027126933",
+          "block_number": 11329891,
+          "block_hash": "0x03cceb2274eea17843214dd267737d93a96cb11d78c9f01bae87d4df3742a047",
+          "block_timestamp_utc": "2026-07-22T23:26:00.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-011",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:25:53.105Z",
+          "transaction_hash": "0xdd2b09e5ea2f5390c84661130bb2a902a2bed8c3f3dc8c68596c67c70203231b",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xdd2b09e5ea2f5390c84661130bb2a902a2bed8c3f3dc8c68596c67c70203231b",
+          "commitment": "0xbcb1c07ba07fd83bd32a74ce44972f4c08ee52dd34f29107bdaff13cd7cc5294",
+          "evidence_hash": "0xbcab2419c7b2797271c9573e154259b9b9196cc6e4efc331ccdc55bb5ce53865",
+          "rpc_acceptance_latency_ms": 348.153,
+          "first_inclusion_latency_ms": 8633.654,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912882,
+          "block_hash": "0xe92aea9bc80c1b1dbb086fd93cca138526f774b17998bac68f11f3bd7e457e00",
+          "block_timestamp_utc": "2026-07-22T23:25:57.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-012",
+      "phase": "measurement",
+      "matched_commitment": "0x269931993c71a4ad54368dd29712bca6d693cda62355dc72a6a4699a475f4aa4",
+      "matched_evidence_hash": "0x9fea584dbfdda19463f111c0a4a83a489c334316e9a0b52903b3c2a7180f6f02",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-012",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:26:01.812Z",
+          "transaction_hash": "0xa3774900b6c8b039f453f939f2f71d4eeb37629ab55f42d2f2394cd822f5bdca",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xa3774900b6c8b039f453f939f2f71d4eeb37629ab55f42d2f2394cd822f5bdca",
+          "commitment": "0x269931993c71a4ad54368dd29712bca6d693cda62355dc72a6a4699a475f4aa4",
+          "evidence_hash": "0x9fea584dbfdda19463f111c0a4a83a489c334316e9a0b52903b3c2a7180f6f02",
+          "rpc_acceptance_latency_ms": 190.021,
+          "first_inclusion_latency_ms": 24590.322,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1069905674",
+          "block_number": 11329893,
+          "block_hash": "0x279202f53618af704e2a0cadf8aee39b8ff307cfe0037deafa6067957d4c2979",
+          "block_timestamp_utc": "2026-07-22T23:26:24.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-012",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:26:01.813Z",
+          "transaction_hash": "0xf79e6a96ff26c0e40fea0d745692402c4e3c05d0d11daa798e9db4531cc9c874",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xf79e6a96ff26c0e40fea0d745692402c4e3c05d0d11daa798e9db4531cc9c874",
+          "commitment": "0x269931993c71a4ad54368dd29712bca6d693cda62355dc72a6a4699a475f4aa4",
+          "evidence_hash": "0x9fea584dbfdda19463f111c0a4a83a489c334316e9a0b52903b3c2a7180f6f02",
+          "rpc_acceptance_latency_ms": 230.831,
+          "first_inclusion_latency_ms": 4440.808,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912885,
+          "block_hash": "0x738b383607340c0ea10b00e585439d2203559cf135b6e6782147f0569944de3c",
+          "block_timestamp_utc": "2026-07-22T23:26:05.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-013",
+      "phase": "measurement",
+      "matched_commitment": "0xc132d221279104177947674dc9eb09e4560e426155eee47e10f7a7e2044f7340",
+      "matched_evidence_hash": "0xf594c876000c0e9056d9bcd925ce1092bc8a45cfa5cc470bd372794620e2e270",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-013",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:26:26.455Z",
+          "transaction_hash": "0xfefa8ed17c671d7f9c4e1b328e6c2624a8de075c8d199d2217f6bb397555fa4b",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xfefa8ed17c671d7f9c4e1b328e6c2624a8de075c8d199d2217f6bb397555fa4b",
+          "commitment": "0xc132d221279104177947674dc9eb09e4560e426155eee47e10f7a7e2044f7340",
+          "evidence_hash": "0xf594c876000c0e9056d9bcd925ce1092bc8a45cfa5cc470bd372794620e2e270",
+          "rpc_acceptance_latency_ms": 158.533,
+          "first_inclusion_latency_ms": 12409.751,
+          "gas_used": "48961",
+          "effective_gas_price_wei": "1010634543",
+          "block_number": 11329894,
+          "block_hash": "0x3d0294ecf4b84b50a1f22ef660519cf12739d5c0d0dd234a2e22cfdb28a95e13",
+          "block_timestamp_utc": "2026-07-22T23:26:36.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-013",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:26:26.455Z",
+          "transaction_hash": "0x46beeddf9071ec819b0b61a018e6782c956587e349f36b24e289085984a96789",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x46beeddf9071ec819b0b61a018e6782c956587e349f36b24e289085984a96789",
+          "commitment": "0xc132d221279104177947674dc9eb09e4560e426155eee47e10f7a7e2044f7340",
+          "evidence_hash": "0xf594c876000c0e9056d9bcd925ce1092bc8a45cfa5cc470bd372794620e2e270",
+          "rpc_acceptance_latency_ms": 291.42,
+          "first_inclusion_latency_ms": 4514.834,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912895,
+          "block_hash": "0xf4c072c076ebc58e591d1109a44e1d85c05375062e6e46a8831d53bd7273e1cc",
+          "block_timestamp_utc": "2026-07-22T23:26:30.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-014",
+      "phase": "measurement",
+      "matched_commitment": "0xd57ffb70c69e041ea19ce6f3937a079878c51f454f4a27a7d0d1c8685c0bdc83",
+      "matched_evidence_hash": "0x5466d75363070583e8c3f30324f9228585353afb6ff04e7f0a8a4170fc1f0f1a",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-014",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:26:38.920Z",
+          "transaction_hash": "0xa16aa2d0047cf5a5a09300f8b3681b1b534f2fd3fec7f430d7dd886a8528bdc4",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xa16aa2d0047cf5a5a09300f8b3681b1b534f2fd3fec7f430d7dd886a8528bdc4",
+          "commitment": "0xd57ffb70c69e041ea19ce6f3937a079878c51f454f4a27a7d0d1c8685c0bdc83",
+          "evidence_hash": "0x5466d75363070583e8c3f30324f9228585353afb6ff04e7f0a8a4170fc1f0f1a",
+          "rpc_acceptance_latency_ms": 166.718,
+          "first_inclusion_latency_ms": 24566.94,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1070893077",
+          "block_number": 11329896,
+          "block_hash": "0x54112fe2bc0d3c9e428ae1bc34fd16d3188e31f61471630d9e75b27f1e4af420",
+          "block_timestamp_utc": "2026-07-22T23:27:00.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-014",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:26:38.920Z",
+          "transaction_hash": "0x4e44aea9a56fbdf5362f0def99b1b60c21e3b63dcfd57eb9025ff7f437d35854",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x4e44aea9a56fbdf5362f0def99b1b60c21e3b63dcfd57eb9025ff7f437d35854",
+          "commitment": "0xd57ffb70c69e041ea19ce6f3937a079878c51f454f4a27a7d0d1c8685c0bdc83",
+          "evidence_hash": "0x5466d75363070583e8c3f30324f9228585353afb6ff04e7f0a8a4170fc1f0f1a",
+          "rpc_acceptance_latency_ms": 262.106,
+          "first_inclusion_latency_ms": 4484.657,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912899,
+          "block_hash": "0x29ab516450f4814cf50e77bf1c3c6e5743bb8a2b92726f2dff96cd94667f5d59",
+          "block_timestamp_utc": "2026-07-22T23:26:42.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-015",
+      "phase": "measurement",
+      "matched_commitment": "0x5a91b3fa613164d3fe8d2d7506d9e8aa7cb4bc9d973f40c4c4f4bfbaa36111c8",
+      "matched_evidence_hash": "0xc3423af4fc24fd6b6a6fbf06b442117475ef4ae10bb4068f2e34651e0943ddaa",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-015",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:03.540Z",
+          "transaction_hash": "0x3fa40c350fefd5b0772ee8689847929be72d7cdf9a12b16a879884dfeaf19d82",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x3fa40c350fefd5b0772ee8689847929be72d7cdf9a12b16a879884dfeaf19d82",
+          "commitment": "0x5a91b3fa613164d3fe8d2d7506d9e8aa7cb4bc9d973f40c4c4f4bfbaa36111c8",
+          "evidence_hash": "0xc3423af4fc24fd6b6a6fbf06b442117475ef4ae10bb4068f2e34651e0943ddaa",
+          "rpc_acceptance_latency_ms": 169.456,
+          "first_inclusion_latency_ms": 12418.958,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1033026025",
+          "block_number": 11329897,
+          "block_hash": "0x1bc96999426f42079a0aa2ae31c164468dc9c0e2aa2b5f56fd47518503ca2062",
+          "block_timestamp_utc": "2026-07-22T23:27:12.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-015",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:03.541Z",
+          "transaction_hash": "0x157d9b380328c9062a5e321384af5bea558ff560cb35c83735566e18061eef1e",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x157d9b380328c9062a5e321384af5bea558ff560cb35c83735566e18061eef1e",
+          "commitment": "0x5a91b3fa613164d3fe8d2d7506d9e8aa7cb4bc9d973f40c4c4f4bfbaa36111c8",
+          "evidence_hash": "0xc3423af4fc24fd6b6a6fbf06b442117475ef4ae10bb4068f2e34651e0943ddaa",
+          "rpc_acceptance_latency_ms": 265.699,
+          "first_inclusion_latency_ms": 4489.897,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912909,
+          "block_hash": "0x68fa21d34e24700cfd817153012574d8581cb1d5c8fcf916329a9064c1aa2d0e",
+          "block_timestamp_utc": "2026-07-22T23:27:07.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-016",
+      "phase": "measurement",
+      "matched_commitment": "0xf195e8569cf18868a0bed203122fbd13242fdb79224e1b02d4304555f04c3ead",
+      "matched_evidence_hash": "0x208dbd97310b918f349daa4dc3ab9f5ffc6b3056fcfb156c7a1c8c03023d15ba",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-016",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:16.009Z",
+          "transaction_hash": "0xac006923c3355b6a33f0c14a62c4d96d7f906bbc18549ee8ff9070b671adfcc4",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xac006923c3355b6a33f0c14a62c4d96d7f906bbc18549ee8ff9070b671adfcc4",
+          "commitment": "0xf195e8569cf18868a0bed203122fbd13242fdb79224e1b02d4304555f04c3ead",
+          "evidence_hash": "0x208dbd97310b918f349daa4dc3ab9f5ffc6b3056fcfb156c7a1c8c03023d15ba",
+          "rpc_acceptance_latency_ms": 249.209,
+          "first_inclusion_latency_ms": 8452.209,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "995947259",
+          "block_number": 11329898,
+          "block_hash": "0x38bf82b579860115ae50bb92794aa904f936c8b3b9e3af0abf6a6204f280f509",
+          "block_timestamp_utc": "2026-07-22T23:27:24.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-016",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:16.009Z",
+          "transaction_hash": "0xf0f668dd6021b7d930d693a9d0764faa0827e9fb3bfa9f7c0682ef5c3a9ddedf",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xf0f668dd6021b7d930d693a9d0764faa0827e9fb3bfa9f7c0682ef5c3a9ddedf",
+          "commitment": "0xf195e8569cf18868a0bed203122fbd13242fdb79224e1b02d4304555f04c3ead",
+          "evidence_hash": "0x208dbd97310b918f349daa4dc3ab9f5ffc6b3056fcfb156c7a1c8c03023d15ba",
+          "rpc_acceptance_latency_ms": 334.896,
+          "first_inclusion_latency_ms": 4565.749,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912914,
+          "block_hash": "0xbce4ba66f13bd196ce88a1b54579a3677913a7433084211180198c7a0a16e439",
+          "block_timestamp_utc": "2026-07-22T23:27:20.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-017",
+      "phase": "measurement",
+      "matched_commitment": "0x0d90671ea2a96ceb9cb8391793853b30a9a4e95b3047bf9cef25adfec3e227a8",
+      "matched_evidence_hash": "0x0a5d1fd008a810141290a7cd82d9c61b49d7f1502a0a0d27ec8546dedfddb229",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-017",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:24.516Z",
+          "transaction_hash": "0x74d33d030caf46ddb6871247d08e5acf4fde680bfee2c906d93539a7d16e93ce",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x74d33d030caf46ddb6871247d08e5acf4fde680bfee2c906d93539a7d16e93ce",
+          "commitment": "0x0d90671ea2a96ceb9cb8391793853b30a9a4e95b3047bf9cef25adfec3e227a8",
+          "evidence_hash": "0x0a5d1fd008a810141290a7cd82d9c61b49d7f1502a0a0d27ec8546dedfddb229",
+          "rpc_acceptance_latency_ms": 166.544,
+          "first_inclusion_latency_ms": 16463.595,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1119753763",
+          "block_number": 11329899,
+          "block_hash": "0x7126befc3dc8734cca6fa31402ad6e4074a60cb440ff642336b3d2c2379e70ea",
+          "block_timestamp_utc": "2026-07-22T23:27:36.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-017",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:24.517Z",
+          "transaction_hash": "0x99b1593acee94b407e4ac4da5ecf668cb9a5b70e76cd11c858252182dcf65dab",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x99b1593acee94b407e4ac4da5ecf668cb9a5b70e76cd11c858252182dcf65dab",
+          "commitment": "0x0d90671ea2a96ceb9cb8391793853b30a9a4e95b3047bf9cef25adfec3e227a8",
+          "evidence_hash": "0x0a5d1fd008a810141290a7cd82d9c61b49d7f1502a0a0d27ec8546dedfddb229",
+          "rpc_acceptance_latency_ms": 220.833,
+          "first_inclusion_latency_ms": 4449.705,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912917,
+          "block_hash": "0xc7cb9def4ae57fa272c06ffaa720633c7c3dec81b823738eafadb604ca50d59a",
+          "block_timestamp_utc": "2026-07-22T23:27:27.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-018",
+      "phase": "measurement",
+      "matched_commitment": "0xfb4221471a6130d1c6bf211255e8c182077df3306f1c678a5fa44b16659083af",
+      "matched_evidence_hash": "0xdeef3ae44d2aa6a65f28fbf15f8e45f14cbaa47d1025ce3d224527e89ae86abc",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-018",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:41.027Z",
+          "transaction_hash": "0x795e88a7690d646e4b4190f7b2039f48668ed996bc9dbd8095e6dd07c568376a",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x795e88a7690d646e4b4190f7b2039f48668ed996bc9dbd8095e6dd07c568376a",
+          "commitment": "0xfb4221471a6130d1c6bf211255e8c182077df3306f1c678a5fa44b16659083af",
+          "evidence_hash": "0xdeef3ae44d2aa6a65f28fbf15f8e45f14cbaa47d1025ce3d224527e89ae86abc",
+          "rpc_acceptance_latency_ms": 160.64,
+          "first_inclusion_latency_ms": 8356.161,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1082701897",
+          "block_number": 11329900,
+          "block_hash": "0x0d6607d8f913ebd6b008ce2b204def2e42b777ccd0b02d3cd850e32306eb565b",
+          "block_timestamp_utc": "2026-07-22T23:27:48.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-018",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:41.027Z",
+          "transaction_hash": "0x7d5539b0fe0012e85fddbd3290f8ac05a3f3b50b6a0bdfca0ed8f752c70beefb",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x7d5539b0fe0012e85fddbd3290f8ac05a3f3b50b6a0bdfca0ed8f752c70beefb",
+          "commitment": "0xfb4221471a6130d1c6bf211255e8c182077df3306f1c678a5fa44b16659083af",
+          "evidence_hash": "0xdeef3ae44d2aa6a65f28fbf15f8e45f14cbaa47d1025ce3d224527e89ae86abc",
+          "rpc_acceptance_latency_ms": 251.333,
+          "first_inclusion_latency_ms": 4471.784,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912923,
+          "block_hash": "0xb98b57cf94c7008a0f443c6092c62db557c7a50d2c8907f8aed3fbbf6d676865",
+          "block_timestamp_utc": "2026-07-22T23:27:45.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-019",
+      "phase": "measurement",
+      "matched_commitment": "0xb852895ecd8180b6528b5556cbdb5134413272f82acff708cc3014f010d3cdcd",
+      "matched_evidence_hash": "0x60c80a16a6d26d84dd5cfc51fa96be8cad4a14590229b940aa89fd4236443411",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-019",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:49.434Z",
+          "transaction_hash": "0x336bbf7b90696c98b61aedcc36422e5b12521462424a8f3d965dbc8b5a8f5abe",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x336bbf7b90696c98b61aedcc36422e5b12521462424a8f3d965dbc8b5a8f5abe",
+          "commitment": "0xb852895ecd8180b6528b5556cbdb5134413272f82acff708cc3014f010d3cdcd",
+          "evidence_hash": "0x60c80a16a6d26d84dd5cfc51fa96be8cad4a14590229b940aa89fd4236443411",
+          "rpc_acceptance_latency_ms": 155.372,
+          "first_inclusion_latency_ms": 12401.244,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1041767747",
+          "block_number": 11329901,
+          "block_hash": "0xf20a1df11da2aa4722a16cb8b8b04088a35d5f5ae6ad6058845624952253b631",
+          "block_timestamp_utc": "2026-07-22T23:28:00.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-019",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:27:49.434Z",
+          "transaction_hash": "0xd7e03a12c4770669d34295dcf93c3fe711959510b463fae718e9f9dd17c10c60",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xd7e03a12c4770669d34295dcf93c3fe711959510b463fae718e9f9dd17c10c60",
+          "commitment": "0xb852895ecd8180b6528b5556cbdb5134413272f82acff708cc3014f010d3cdcd",
+          "evidence_hash": "0x60c80a16a6d26d84dd5cfc51fa96be8cad4a14590229b940aa89fd4236443411",
+          "rpc_acceptance_latency_ms": 217.42,
+          "first_inclusion_latency_ms": 4428.239,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912926,
+          "block_hash": "0xb848c1c737f9d428ab038695671ae035a924c8ecf2ca2317c75040a9f52b5efd",
+          "block_timestamp_utc": "2026-07-22T23:27:52.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-020",
+      "phase": "measurement",
+      "matched_commitment": "0x2eeb450669e3086aa170eb7753ecb58d6b90b2514594ecdb9a35a39812953f78",
+      "matched_evidence_hash": "0xe5faa451120fc164afbd78d2d4bc37cc7bebd3419129ea2028ab9a5730d888dc",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-020",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:01.883Z",
+          "transaction_hash": "0x42b2abfa058ecd146d502ad89d3a61eb5c1e2395978c4b9f0d6101587455597f",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x42b2abfa058ecd146d502ad89d3a61eb5c1e2395978c4b9f0d6101587455597f",
+          "commitment": "0x2eeb450669e3086aa170eb7753ecb58d6b90b2514594ecdb9a35a39812953f78",
+          "evidence_hash": "0xe5faa451120fc164afbd78d2d4bc37cc7bebd3419129ea2028ab9a5730d888dc",
+          "rpc_acceptance_latency_ms": 161.738,
+          "first_inclusion_latency_ms": 12411.346,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1001853324",
+          "block_number": 11329902,
+          "block_hash": "0x9e7f87f547cf177a6bda9089732a150a7889fda6fa1ce5d18fbbcf87fbe09516",
+          "block_timestamp_utc": "2026-07-22T23:28:12.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-020",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:01.883Z",
+          "transaction_hash": "0x7f14cad0459b9677a8843dc8e9682e359e85128f1b42fca123d81aed7e7dbb24",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x7f14cad0459b9677a8843dc8e9682e359e85128f1b42fca123d81aed7e7dbb24",
+          "commitment": "0x2eeb450669e3086aa170eb7753ecb58d6b90b2514594ecdb9a35a39812953f78",
+          "evidence_hash": "0xe5faa451120fc164afbd78d2d4bc37cc7bebd3419129ea2028ab9a5730d888dc",
+          "rpc_acceptance_latency_ms": 322.447,
+          "first_inclusion_latency_ms": 4534.9,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912931,
+          "block_hash": "0xad492b28f9c9e96929627755e9c9f5b222891e89a721502998504376b0a0be31",
+          "block_timestamp_utc": "2026-07-22T23:28:05.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-021",
+      "phase": "measurement",
+      "matched_commitment": "0x7119ae020eaaed8afcee6829c5b113814f7db2d02137141be6a097848517b9c7",
+      "matched_evidence_hash": "0x14c69403f01cf873cc54f8cc1beb58c3072629d2fca5549cee08275515ac30b3",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-021",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:14.341Z",
+          "transaction_hash": "0xc17553b9015db4da795b56228b930a66ed61a7d99d8ecc9b0444bf1a6f7e7a29",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xc17553b9015db4da795b56228b930a66ed61a7d99d8ecc9b0444bf1a6f7e7a29",
+          "commitment": "0x7119ae020eaaed8afcee6829c5b113814f7db2d02137141be6a097848517b9c7",
+          "evidence_hash": "0x14c69403f01cf873cc54f8cc1beb58c3072629d2fca5549cee08275515ac30b3",
+          "rpc_acceptance_latency_ms": 161.319,
+          "first_inclusion_latency_ms": 12405.906,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "967512583",
+          "block_number": 11329903,
+          "block_hash": "0x1b77444bd067baede55892371f0dbce6069f6d2454d99c635ea7c02988a027a5",
+          "block_timestamp_utc": "2026-07-22T23:28:24.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-021",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:14.341Z",
+          "transaction_hash": "0x4f0420f761a543fd20a9d520ea5663294c9b95f3425d31529987d5f1d0a2dbcc",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x4f0420f761a543fd20a9d520ea5663294c9b95f3425d31529987d5f1d0a2dbcc",
+          "commitment": "0x7119ae020eaaed8afcee6829c5b113814f7db2d02137141be6a097848517b9c7",
+          "evidence_hash": "0x14c69403f01cf873cc54f8cc1beb58c3072629d2fca5549cee08275515ac30b3",
+          "rpc_acceptance_latency_ms": 335.27,
+          "first_inclusion_latency_ms": 4554.959,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912936,
+          "block_hash": "0xab920f5da515ac5eded656abd8302de2adf8558c3c028e6e6ace898526cdd277",
+          "block_timestamp_utc": "2026-07-22T23:28:17.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-022",
+      "phase": "measurement",
+      "matched_commitment": "0x37b3ef042bf213b5542e8ec440e343bd2780c2cdc656f6766afa065863e1b0fc",
+      "matched_evidence_hash": "0xafb3b896415d0ef02ef2235ecd3e85870eec3cc109d4723a78c179f08bfb27a0",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-022",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:26.801Z",
+          "transaction_hash": "0xb9bd654e37bfb75bcc1146986a22e01ee72b76dec22b4974a0914ed97ac3db22",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xb9bd654e37bfb75bcc1146986a22e01ee72b76dec22b4974a0914ed97ac3db22",
+          "commitment": "0x37b3ef042bf213b5542e8ec440e343bd2780c2cdc656f6766afa065863e1b0fc",
+          "evidence_hash": "0xafb3b896415d0ef02ef2235ecd3e85870eec3cc109d4723a78c179f08bfb27a0",
+          "rpc_acceptance_latency_ms": 165.445,
+          "first_inclusion_latency_ms": 24565.287,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1088207487",
+          "block_number": 11329904,
+          "block_hash": "0x674b1a960ff194ccc03b4249e3e0f6f5934236960cc565f724b2719d53f3a019",
+          "block_timestamp_utc": "2026-07-22T23:28:48.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-022",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:26.801Z",
+          "transaction_hash": "0xf3599326ea31957e6f9a676715d592ff24ad80d94b84fc53489260a98810d9f5",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xf3599326ea31957e6f9a676715d592ff24ad80d94b84fc53489260a98810d9f5",
+          "commitment": "0x37b3ef042bf213b5542e8ec440e343bd2780c2cdc656f6766afa065863e1b0fc",
+          "evidence_hash": "0xafb3b896415d0ef02ef2235ecd3e85870eec3cc109d4723a78c179f08bfb27a0",
+          "rpc_acceptance_latency_ms": 243.441,
+          "first_inclusion_latency_ms": 4451.468,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912941,
+          "block_hash": "0x51be63b0941e6e5a28fd3bfea118bbcca30ea1f87288b097a94f3618e464dafb",
+          "block_timestamp_utc": "2026-07-22T23:28:30.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-023",
+      "phase": "measurement",
+      "matched_commitment": "0x982e5e08a9ec5d228889758a41c6946be65bec5bde208d68f7b35929230ee697",
+      "matched_evidence_hash": "0x6228cf830883fc19c6b23a7981b4b9fa412718757026a325bc8a74ee6a643875",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-023",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:51.416Z",
+          "transaction_hash": "0xc3ea609be1ed1ff418c6948d68936806c51ecdae15ff4ba6e3be3d1910c9f483",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xc3ea609be1ed1ff418c6948d68936806c51ecdae15ff4ba6e3be3d1910c9f483",
+          "commitment": "0x982e5e08a9ec5d228889758a41c6946be65bec5bde208d68f7b35929230ee697",
+          "evidence_hash": "0x6228cf830883fc19c6b23a7981b4b9fa412718757026a325bc8a74ee6a643875",
+          "rpc_acceptance_latency_ms": 184.591,
+          "first_inclusion_latency_ms": 12435.186,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1135027450",
+          "block_number": 11329905,
+          "block_hash": "0x715e360dc07ce8dc78c14b1bcec3e9d0351a1c2d6fad6e0781e255f4294eb80d",
+          "block_timestamp_utc": "2026-07-22T23:29:00.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-023",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:28:51.416Z",
+          "transaction_hash": "0x2a93979a43419156cc652e6f752c62ff7cc0c253b0fe59eb5a2d798b0a69cfd8",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x2a93979a43419156cc652e6f752c62ff7cc0c253b0fe59eb5a2d798b0a69cfd8",
+          "commitment": "0x982e5e08a9ec5d228889758a41c6946be65bec5bde208d68f7b35929230ee697",
+          "evidence_hash": "0x6228cf830883fc19c6b23a7981b4b9fa412718757026a325bc8a74ee6a643875",
+          "rpc_acceptance_latency_ms": 332.207,
+          "first_inclusion_latency_ms": 4544.273,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912950,
+          "block_hash": "0xd55bee49a8ac5f76209ca3b39e2e73981c50a5f05137072bde1fb93c85a8f4dc",
+          "block_timestamp_utc": "2026-07-22T23:28:55.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-024",
+      "phase": "measurement",
+      "matched_commitment": "0xd912488a1baf819db29b9343e3589af08fec0ce6b43cdde6632b2df14a73197a",
+      "matched_evidence_hash": "0xb3dd35af07461e347acd66df9a3b1d44ce1fccdc44c30f16aa3701be30a12e23",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-024",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:03.904Z",
+          "transaction_hash": "0x73eef8a66679cd95669f1642dbbd290636e92a551adbec96ab40a754d5771834",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0x73eef8a66679cd95669f1642dbbd290636e92a551adbec96ab40a754d5771834",
+          "commitment": "0xd912488a1baf819db29b9343e3589af08fec0ce6b43cdde6632b2df14a73197a",
+          "evidence_hash": "0xb3dd35af07461e347acd66df9a3b1d44ce1fccdc44c30f16aa3701be30a12e23",
+          "rpc_acceptance_latency_ms": 160.703,
+          "first_inclusion_latency_ms": 24600.409,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1065792850",
+          "block_number": 11329906,
+          "block_hash": "0xa4986aa9ec7bb83dc91b6b0dec8a207eaa9bcf5b8fafeff6489b2592f15efeaf",
+          "block_timestamp_utc": "2026-07-22T23:29:24.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-024",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:03.904Z",
+          "transaction_hash": "0xfa6a5c0bd4e510ea59b04a5c9f1bb3f3700545bf863da0121b6047d03564a9b2",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xfa6a5c0bd4e510ea59b04a5c9f1bb3f3700545bf863da0121b6047d03564a9b2",
+          "commitment": "0xd912488a1baf819db29b9343e3589af08fec0ce6b43cdde6632b2df14a73197a",
+          "evidence_hash": "0xb3dd35af07461e347acd66df9a3b1d44ce1fccdc44c30f16aa3701be30a12e23",
+          "rpc_acceptance_latency_ms": 333.21,
+          "first_inclusion_latency_ms": 4540.486,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912955,
+          "block_hash": "0x0a39cf1316fddfcc15cb85b901b40215c6e6ebb86a698bd6e97f90285218f929",
+          "block_timestamp_utc": "2026-07-22T23:29:07.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-025",
+      "phase": "measurement",
+      "matched_commitment": "0x1860100ec175e1e67bb8daab76d25b45aff08b94100542eb6aade088c4b121a2",
+      "matched_evidence_hash": "0x3cf06e835db2f4d3577aff552e04f3813cfa7798aa6a27135bb2c572c3cd00f2",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-025",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:28.558Z",
+          "transaction_hash": "0xd4dd2cb5413ff38a85ef3bb1f029522410bf663ba44cfb711798442481bfbf2b",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xd4dd2cb5413ff38a85ef3bb1f029522410bf663ba44cfb711798442481bfbf2b",
+          "commitment": "0x1860100ec175e1e67bb8daab76d25b45aff08b94100542eb6aade088c4b121a2",
+          "evidence_hash": "0x3cf06e835db2f4d3577aff552e04f3813cfa7798aa6a27135bb2c572c3cd00f2",
+          "rpc_acceptance_latency_ms": 176.077,
+          "first_inclusion_latency_ms": 8402.328,
+          "gas_used": "48961",
+          "effective_gas_price_wei": "1071863864",
+          "block_number": 11329907,
+          "block_hash": "0x60a4226025bb989b80644496addce2ac18f8a5569796cc5d77f312bb762c706f",
+          "block_timestamp_utc": "2026-07-22T23:29:36.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-025",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:28.559Z",
+          "transaction_hash": "0xc4323b8ebe723fcdd9911e5f7c37b96f59f25bbc33227c0357cc6636cce81a5b",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xc4323b8ebe723fcdd9911e5f7c37b96f59f25bbc33227c0357cc6636cce81a5b",
+          "commitment": "0x1860100ec175e1e67bb8daab76d25b45aff08b94100542eb6aade088c4b121a2",
+          "evidence_hash": "0x3cf06e835db2f4d3577aff552e04f3813cfa7798aa6a27135bb2c572c3cd00f2",
+          "rpc_acceptance_latency_ms": 253.339,
+          "first_inclusion_latency_ms": 4468.489,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912965,
+          "block_hash": "0x44350adc916c31b56a74a1bd2f91b052378d7b1f0c8411545f82f28c999b404f",
+          "block_timestamp_utc": "2026-07-22T23:29:32.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-026",
+      "phase": "measurement",
+      "matched_commitment": "0x8526db736714224d6ce3ae2eabdb18e4bdea90cd0405a2cd25e43361efd19419",
+      "matched_evidence_hash": "0xa8909cfad12ba80e25a540c3e60033938e78a3256e111c523d4af6c5f27ac9c1",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-026",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:37.009Z",
+          "transaction_hash": "0xb7b6c70d4598e46348f4e9f58287bc3a32abbe434980b946dc68797b3ff883d0",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xb7b6c70d4598e46348f4e9f58287bc3a32abbe434980b946dc68797b3ff883d0",
+          "commitment": "0x8526db736714224d6ce3ae2eabdb18e4bdea90cd0405a2cd25e43361efd19419",
+          "evidence_hash": "0xa8909cfad12ba80e25a540c3e60033938e78a3256e111c523d4af6c5f27ac9c1",
+          "rpc_acceptance_latency_ms": 159.948,
+          "first_inclusion_latency_ms": 12405.963,
+          "gas_used": "48961",
+          "effective_gas_price_wei": "1064577889",
+          "block_number": 11329908,
+          "block_hash": "0x567c18a0620d0e58ac064f1e1374a9580138a43983f5dbd5e52db89e13b4b7ef",
+          "block_timestamp_utc": "2026-07-22T23:29:48.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-026",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:37.009Z",
+          "transaction_hash": "0x5b72e46d15ddf978e122e2439baf5c2278bff0598d2b2d621f83ee214a315e52",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x5b72e46d15ddf978e122e2439baf5c2278bff0598d2b2d621f83ee214a315e52",
+          "commitment": "0x8526db736714224d6ce3ae2eabdb18e4bdea90cd0405a2cd25e43361efd19419",
+          "evidence_hash": "0xa8909cfad12ba80e25a540c3e60033938e78a3256e111c523d4af6c5f27ac9c1",
+          "rpc_acceptance_latency_ms": 208.324,
+          "first_inclusion_latency_ms": 4416.856,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912968,
+          "block_hash": "0x981d335faf553e420bc2955f8d6cc0deb880181e3b3b56960e1b5b5b69b10df4",
+          "block_timestamp_utc": "2026-07-22T23:29:40.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-027",
+      "phase": "measurement",
+      "matched_commitment": "0x545690ae18f732dfb0c99d7e7bb9df668b32acae4b0344dcfef8470ed3d5ef7e",
+      "matched_evidence_hash": "0xa7a8c4e440e87d87341ccec9e6f45208a856facca3912c09b90892c9a32c4c5a",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-027",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:49.467Z",
+          "transaction_hash": "0xe3c9b23f47f2ba6f2e3d257b0182bc662249e911e1537d649f8065707e992949",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xe3c9b23f47f2ba6f2e3d257b0182bc662249e911e1537d649f8065707e992949",
+          "commitment": "0x545690ae18f732dfb0c99d7e7bb9df668b32acae4b0344dcfef8470ed3d5ef7e",
+          "evidence_hash": "0xa7a8c4e440e87d87341ccec9e6f45208a856facca3912c09b90892c9a32c4c5a",
+          "rpc_acceptance_latency_ms": 164.616,
+          "first_inclusion_latency_ms": 12427.514,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1062486545",
+          "block_number": 11329909,
+          "block_hash": "0x45175993d05d14ec73fc51a3c236c1893c7765421406635ce616d99209751ccf",
+          "block_timestamp_utc": "2026-07-22T23:30:00.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-027",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:29:49.467Z",
+          "transaction_hash": "0xaebdacdd340fbe65a6564bb8d87205fcc75777e32d31eb6c06f4f3a2c0f8d2ee",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xaebdacdd340fbe65a6564bb8d87205fcc75777e32d31eb6c06f4f3a2c0f8d2ee",
+          "commitment": "0x545690ae18f732dfb0c99d7e7bb9df668b32acae4b0344dcfef8470ed3d5ef7e",
+          "evidence_hash": "0xa7a8c4e440e87d87341ccec9e6f45208a856facca3912c09b90892c9a32c4c5a",
+          "rpc_acceptance_latency_ms": 339.585,
+          "first_inclusion_latency_ms": 4559.462,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912973,
+          "block_hash": "0xebad8dc192a7410e21e2c555c458e635138c0f41e0cf30ff2b6abc6ff2aa4d32",
+          "block_timestamp_utc": "2026-07-22T23:29:52.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-028",
+      "phase": "measurement",
+      "matched_commitment": "0x461055d86b9db51b37e00a879869b94bf91b74e1f4982787d4dd9bab0b11915f",
+      "matched_evidence_hash": "0x99b8380e716c8689d4d1e1122f94b1cc6c2b56491e9cc890cc4bcb3d27a40800",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-028",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:30:01.941Z",
+          "transaction_hash": "0xad204757ef298ed811c4385e4ca2a7069c603c1bc2c34790e02cd4f26fa10306",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xad204757ef298ed811c4385e4ca2a7069c603c1bc2c34790e02cd4f26fa10306",
+          "commitment": "0x461055d86b9db51b37e00a879869b94bf91b74e1f4982787d4dd9bab0b11915f",
+          "evidence_hash": "0x99b8380e716c8689d4d1e1122f94b1cc6c2b56491e9cc890cc4bcb3d27a40800",
+          "rpc_acceptance_latency_ms": 210.869,
+          "first_inclusion_latency_ms": 12455.62,
+          "gas_used": "48961",
+          "effective_gas_price_wei": "1053964069",
+          "block_number": 11329910,
+          "block_hash": "0x8e2058d4c6fef1dcba311c8a4713551fb2c89287fa278385f69babb04d466885",
+          "block_timestamp_utc": "2026-07-22T23:30:12.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-028",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:30:01.941Z",
+          "transaction_hash": "0x05741434b798b8552ec48f41db349f7bc48650e018e110999a1b1d1b371eb4bd",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0x05741434b798b8552ec48f41db349f7bc48650e018e110999a1b1d1b371eb4bd",
+          "commitment": "0x461055d86b9db51b37e00a879869b94bf91b74e1f4982787d4dd9bab0b11915f",
+          "evidence_hash": "0x99b8380e716c8689d4d1e1122f94b1cc6c2b56491e9cc890cc4bcb3d27a40800",
+          "rpc_acceptance_latency_ms": 343.841,
+          "first_inclusion_latency_ms": 4569.808,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912977,
+          "block_hash": "0x5f7ad2ad0531a3e173d1b70db30d1fda921673b7002795540d51f6a44acc9026",
+          "block_timestamp_utc": "2026-07-22T23:30:05.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    },
+    {
+      "pair_id": "2026-07-23-session-3-retry1-measurement-029",
+      "phase": "measurement",
+      "matched_commitment": "0x514e21c99f61f03564217f1f3fa21db58017f8114bcceff7419c62d7f59c3de1",
+      "matched_evidence_hash": "0xfd104489a63ea2fc6afc6fb54a48434e17a7ae03dc71f70f06eb223db613f237",
+      "observations": {
+        "sepolia": {
+          "network": "sepolia",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-029",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:30:14.460Z",
+          "transaction_hash": "0xbc80c196bfb5aefc59d991a1b52c37551c5e91d4fecc260da53d2a4651ae7b06",
+          "explorer_url": "https://sepolia.etherscan.io/tx/0xbc80c196bfb5aefc59d991a1b52c37551c5e91d4fecc260da53d2a4651ae7b06",
+          "commitment": "0x514e21c99f61f03564217f1f3fa21db58017f8114bcceff7419c62d7f59c3de1",
+          "evidence_hash": "0xfd104489a63ea2fc6afc6fb54a48434e17a7ae03dc71f70f06eb223db613f237",
+          "rpc_acceptance_latency_ms": 165.295,
+          "first_inclusion_latency_ms": 24603.699,
+          "gas_used": "48973",
+          "effective_gas_price_wei": "1086460162",
+          "block_number": 11329912,
+          "block_hash": "0x8045fceaa51152ec2a2447b1457c1ad8ab6656c596bd661d5544b26989d50f7f",
+          "block_timestamp_utc": "2026-07-22T23:30:36.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        },
+        "iotex_testnet": {
+          "network": "iotex_testnet",
+          "pair_id": "2026-07-23-session-3-retry1-measurement-029",
+          "phase": "measurement",
+          "submitted_at_utc": "2026-07-22T23:30:14.460Z",
+          "transaction_hash": "0xd9f6da1c966f5614356c47867fe4e6436f1534eeb922fd0df77112beced52f16",
+          "explorer_url": "https://testnet.iotexscan.io/tx/0xd9f6da1c966f5614356c47867fe4e6436f1534eeb922fd0df77112beced52f16",
+          "commitment": "0x514e21c99f61f03564217f1f3fa21db58017f8114bcceff7419c62d7f59c3de1",
+          "evidence_hash": "0xfd104489a63ea2fc6afc6fb54a48434e17a7ae03dc71f70f06eb223db613f237",
+          "rpc_acceptance_latency_ms": 263.084,
+          "first_inclusion_latency_ms": 4483.282,
+          "gas_used": "43685",
+          "effective_gas_price_wei": "2000000000000",
+          "block_number": 45912982,
+          "block_hash": "0x92858f2b55836d8d265c6b3f422177b65b29e04b1cc30a23fc6205ca32a957bb",
+          "block_timestamp_utc": "2026-07-22T23:30:17.000Z",
+          "receipt_status": 1,
+          "anchor_event_verified": true
+        }
+      }
+    }
+  ],
+  "claim_boundary": "Public-testnet, client-observed first-inclusion measurements for one isolated EVM audit-anchor micro-benchmark. Sepolia has a permissioned test validator set. Results do not establish mainnet throughput, economic finality, decentralization, or production O-RAN performance."
+}
