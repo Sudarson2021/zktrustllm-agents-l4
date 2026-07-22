@@ -1,0 +1,15 @@
+{
+  "derivation": "Deterministic calculation from validated measured evidence; no simulation or manually entered result values.",
+  "input_hashes": {
+    "runtime_artifacts/consensus_comparison/2026-07-21-session-1/benchmark.json": "338281df83ce0d7807dc5cf6743c87d33b8e7b96438dcb4e86687e2c7360671c",
+    "runtime_artifacts/consensus_comparison/2026-07-22-session-2/benchmark.json": "8adb638e6a90b0ef1a0c41007117782a87c518ac5f2469769de8afc927d429db",
+    "runtime_artifacts/consensus_comparison/2026-07-23-session-3-retry1/benchmark.json": "836a44d0b5987d6fa47d6e8fb4bda4691c64381f177bf5a3e2ecee69bec691d4"
+  },
+  "output_hashes": {
+    "fig_pos_rolldpos_latency.tex": "25b314627812063c119b31d19dde2cd9946e4c611950e735efa9683b731ce0d0",
+    "results_pos_rolldpos.tex": "dc11f0b1cf8c673bd69ba90af8265646320987909ca947f2b607ee0a6e515332",
+    "summary.json": "1f0eedb87179a52ef51d502d399fd973bb72c950b04fcacd724eeb386688b07c",
+    "table_pos_rolldpos.tex": "aa5f7e00f4a46cf638966efe796359d67f615c9a035671557555f418fb9a60a2"
+  },
+  "schema": "zktrustllm.pos_rolldpos.derivation_manifest.v1"
+}

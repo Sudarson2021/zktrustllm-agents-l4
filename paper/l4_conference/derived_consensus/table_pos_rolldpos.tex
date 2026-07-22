@@ -1,0 +1,16 @@
+% AUTO-GENERATED from measured benchmark.json evidence; do not hand-edit.
+\begin{table*}[!t]
+\centering
+\caption{Paired public-testnet consensus sensitivity of the identical Stage3AnomalyLedger bytecode. Latency is client-observed submission to first inclusion, not economic finality; brackets are hierarchical-bootstrap 95\% confidence intervals for the median.}
+\label{tab:pos-rolldpos}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lrrrrrr}
+\toprule
+Network (consensus) & Chain ID & Anchor gas & Median latency (ms) & P95 latency (ms) & Block interval (s) & Rejections \\ 
+\midrule
+Ethereum Sepolia (PoS protocol) & 11155111 & 48973 & 12426.58 [12394.75, 12455.95] & 24614.54 & 12.00 & 3/3 \\
+IoTeX testnet (Roll-DPoS) & 4690 & 43685 & 7225.15 [4538.58, 8493.93] & 8763.75 & 3.00 & 3/3 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

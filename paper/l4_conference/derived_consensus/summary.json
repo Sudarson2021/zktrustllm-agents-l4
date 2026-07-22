@@ -1,0 +1,152 @@
+{
+  "claim_boundary": "Public-testnet observations for one isolated EVM audit-anchor micro-benchmark. Sepolia uses a permissioned test validator set. Latency includes RPC/client overhead and first inclusion only; it is not economic finality. Results do not establish mainnet throughput, decentralization, or production O-RAN performance.",
+  "inputs": {
+    "runtime_artifacts/consensus_comparison/2026-07-21-session-1/benchmark.json": "338281df83ce0d7807dc5cf6743c87d33b8e7b96438dcb4e86687e2c7360671c",
+    "runtime_artifacts/consensus_comparison/2026-07-22-session-2/benchmark.json": "8adb638e6a90b0ef1a0c41007117782a87c518ac5f2469769de8afc927d429db",
+    "runtime_artifacts/consensus_comparison/2026-07-23-session-3-retry1/benchmark.json": "836a44d0b5987d6fa47d6e8fb4bda4691c64381f177bf5a3e2ecee69bec691d4"
+  },
+  "integrity": {
+    "all_anchor_events_verified": true,
+    "all_receipts_successful": true,
+    "all_security_probes_rejected": true,
+    "identical_runtime_bytecode_across_networks_and_sessions": true
+  },
+  "matched_pair_count": 90,
+  "methods": {
+    "bootstrap_seed": 20260721,
+    "confidence_interval": "95% two-level hierarchical bootstrap of the median; sessions and within-session pairs resampled; 10000 replicates",
+    "primary_metric": "client-observed submission-to-first-inclusion latency",
+    "quantile": "R-7 linear interpolation"
+  },
+  "networks": {
+    "iotex_testnet": {
+      "all_security_probes_rejected": true,
+      "anchor_gas": {
+        "max": 43685.0,
+        "mean": 43685.0,
+        "median": 43685.0,
+        "min": 43685.0,
+        "n": 90,
+        "p95": 43685.0,
+        "q1": 43685.0,
+        "q3": 43685.0,
+        "sample_sd": 0.0
+      },
+      "chain_id": 4690,
+      "consecutive_block_interval_s": {
+        "max": 5.0,
+        "mean": 2.603,
+        "median": 3.0,
+        "median_hierarchical_bootstrap_95_ci": [
+          2.0,
+          3.0
+        ],
+        "min": 2.0,
+        "n": 189,
+        "p95": 3.0,
+        "q1": 2.0,
+        "q3": 3.0,
+        "sample_sd": 0.704
+      },
+      "consensus": "IoTeX Randomized Delegated Proof of Stake (Roll-DPoS)",
+      "first_inclusion_latency_ms": {
+        "max": 10951.509,
+        "mean": 6783.463,
+        "median": 7225.149,
+        "median_hierarchical_bootstrap_95_ci": [
+          4538.581,
+          8493.926
+        ],
+        "min": 4416.856,
+        "n": 90,
+        "p95": 8763.754,
+        "q1": 4539.057,
+        "q3": 8516.746,
+        "sample_sd": 2043.817
+      },
+      "name": "IoTeX testnet"
+    },
+    "sepolia": {
+      "all_security_probes_rejected": true,
+      "anchor_gas": {
+        "max": 48973.0,
+        "mean": 48970.2,
+        "median": 48973.0,
+        "min": 48961.0,
+        "n": 90,
+        "p95": 48973.0,
+        "q1": 48973.0,
+        "q3": 48973.0,
+        "sample_sd": 5.104
+      },
+      "chain_id": 11155111,
+      "consecutive_block_interval_s": {
+        "max": 36.0,
+        "mean": 12.381,
+        "median": 12.0,
+        "median_hierarchical_bootstrap_95_ci": [
+          12.0,
+          12.0
+        ],
+        "min": 12.0,
+        "n": 189,
+        "p95": 12.0,
+        "q1": 12.0,
+        "q3": 12.0,
+        "sample_sd": 2.446
+      },
+      "consensus": "Ethereum PoS protocol (permissioned Sepolia validator set)",
+      "first_inclusion_latency_ms": {
+        "max": 25115.499,
+        "mean": 14767.707,
+        "median": 12426.579,
+        "median_hierarchical_bootstrap_95_ci": [
+          12394.746,
+          12455.95
+        ],
+        "min": 8350.675,
+        "n": 90,
+        "p95": 24614.539,
+        "q1": 11488.999,
+        "q3": 16504.171,
+        "sample_sd": 5623.743
+      },
+      "name": "Ethereum Sepolia"
+    }
+  },
+  "paired_effect": {
+    "iotex_minus_sepolia_latency_ms": {
+      "max": 287.111,
+      "mean": -7984.244,
+      "median": -4381.823,
+      "median_hierarchical_bootstrap_95_ci": [
+        -7909.772,
+        -3930.597
+      ],
+      "min": -20253.612,
+      "n": 90,
+      "p95": 72.747,
+      "q1": -11991.235,
+      "q3": -3893.604,
+      "sample_sd": 6051.851
+    },
+    "sepolia_over_iotex_latency_ratio": {
+      "max": 5.548,
+      "mean": 2.419,
+      "median": 1.874,
+      "median_hierarchical_bootstrap_95_ci": [
+        1.477,
+        2.737
+      ],
+      "min": 0.967,
+      "n": 90,
+      "p95": 5.501,
+      "q1": 1.463,
+      "q3": 2.793,
+      "sample_sd": 1.316
+    }
+  },
+  "paper_ready": true,
+  "schema": "zktrustllm.pos_rolldpos.analysis.v1",
+  "session_count": 3
+}
