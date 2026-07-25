@@ -15,3 +15,28 @@ The dataset distinguishes direct runtime KPIs, configured impairment-profile KPI
 The consensus mechanism belongs to the execution network, not to the Solidity contract. We therefore add a paired public-testnet protocol that deploys identical \texttt{Stage3AnomalyLedger} bytecode to Ethereum Sepolia and IoTeX testnet. Sepolia follows the Ethereum PoS protocol but uses a permissioned validator set controlled by client and testing teams \cite{ethereumNetworks}; IoTeX documents Randomized Delegated Proof of Stake (Roll-DPoS), with delegated candidate election, VRF committee selection, and PBFT voting \cite{iotexRollDpos}. IoTeX testnet is EVM compatible and uses chain ID 4690 \cite{iotexTestnet}.
 
 Each session executes three excluded warm-up pairs and 30 measured pairs. A matched pair carries identical commitment and evidence digests, with both transactions submitted concurrently from one client host. The publication gate requires at least three sessions, verifies chain identities and runtime-code hashes, and rejects incomplete receipts, events, block samples, or security probes. The primary metric is client-observed submission-to-first-inclusion latency; it includes RPC/client overhead and public-testnet load and is not economic finality. Median confidence intervals use a two-level hierarchical bootstrap over sessions and within-session pairs. Gas prices are recorded but not converted into a cross-asset cost comparison.
+
+\subsection{Consensus-Protocol and SHA-2 Extension}
+Consensus and evidence hashing are separate layers. Ethereum uses the Gasper
+consensus mechanism, whereas IoTeX uses Roll-DPoS with PBFT-style finalisation
+\cite{ethereumGasper,iotexRollDpos}. Figure~\ref{fig:consensus-protocols}
+therefore keeps the existing Sepolia and IoTeX measurements distinct from
+Raft, a crash-fault-tolerant leader/majority protocol
+\cite{raftPaper,fabricRaft}, and QBFT, a Byzantine-fault-tolerant permissioned
+EVM protocol requiring at least a two-thirds validator supermajority
+\cite{besuQbft}. The latter two rows are protocol-property comparisons unless
+raw deployment evidence passes the same publication gate.
+
+SHA-256 and SHA-512 are one-way SHA-2 hash functions, not encryption algorithms
+\cite{nistFips1804}. Table~\ref{tab:sha2-semantics} and
+Fig.~\ref{fig:sha2-paths} define a fair comparison: identical retained payload
+bytes are hashed off chain and the complete 32-byte or 64-byte digest is
+anchored through identical \texttt{HashCommitmentLedger} bytecode. This measures
+digest anchoring. Solidity exposes SHA-256 through a precompile-backed built-in,
+but the standard EVM has no SHA-512 precompile \cite{solidityCrypto}; the
+separate on-chain SHA-256 path is therefore not misrepresented as a symmetric
+SHA-256/SHA-512 computation benchmark.
+
+\input{figures/fig_consensus_protocols}
+\input{tables/table_sha2_semantics}
+\input{figures/fig_sha2_paths}

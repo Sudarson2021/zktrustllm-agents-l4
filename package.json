@@ -18,7 +18,10 @@
     "bench:md": "node scripts/report_markdown.mjs outputs_openai/bench.ndjson outputs_openai/bench_report.md",
     "pipeline": "bash scripts/run_pipeline.sh",
     "bench:consensus": "hardhat run --config hardhat.consensus.config.js scripts/l4/consensus/run_paired_pos_rolldpos_benchmark.js",
-    "test:consensus-analysis": "python3 test/l4/test_pos_rolldpos_analysis.py"
+    "bench:sha2": "hardhat run --config hardhat.consensus.config.js scripts/l4/consensus/run_paired_sha2_benchmark.js",
+    "test:consensus-analysis": "python3 test/l4/test_pos_rolldpos_analysis.py",
+    "test:sha2-analysis": "python3 test/l4/test_sha2_benchmark_analysis.py",
+    "test:sha2-contract": "hardhat test --config hardhat.consensus.config.js test/l4/HashCommitmentLedger.test.js"
   },
   "keywords": [],
   "author": "",

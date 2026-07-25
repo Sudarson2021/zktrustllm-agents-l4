@@ -23,3 +23,13 @@ Stage 3 introduces an isolated Stage3AnomalyLedger micro-benchmark and a determi
 % Numerical consensus results are intentionally absent until three measured
 % public-testnet sessions pass the deterministic publication gate.
 }
+
+\IfFileExists{derived_consensus/results_sha2_network.tex}{%
+\subsection{SHA-2 Digest-Anchoring Sensitivity}
+\input{derived_consensus/results_sha2_network}
+\input{derived_consensus/table_sha2_network}
+\input{derived_consensus/fig_sha2_anchor_gas}
+}{%
+% SHA-2 numerical results remain absent until three measured sessions pass
+% payload rehashing, chain-ID, bytecode, receipt, event, and security gates.
+}

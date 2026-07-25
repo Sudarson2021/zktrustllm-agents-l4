@@ -4,3 +4,12 @@ The framework intentionally avoids overclaiming. Stage3AnomalyLedger is an isola
 The main remaining direct-runtime KPI is full ZK prover timing for full-ZK rows. Current prover-time values are populated for ablation rows where the prover is intentionally not invoked, while direct prover logs are still required for full AUTH\_V2.x rows.
 
 The PoS--Roll-DPoS extension is a consensus-sensitivity micro-benchmark rather than a claim of consensus superiority. Sepolia's validator set is permissioned, both networks are testnets, and first-inclusion latency also reflects RPC implementation, client location, propagation, and transient load. It cannot be interpreted as mainnet throughput, decentralisation, or economic-finality performance. Causal attribution beyond the directly observed latency, gas, receipt, event, rejection, and block-timestamp evidence is therefore excluded.
+
+The added Raft and QBFT lanes are not appended to Fig.~\ref{fig:pos-rolldpos-latency}
+as synthetic bars. Raft has a crash-fault model and a non-EVM Fabric deployment
+path in the cited reference, while QBFT requires a genuine multi-validator
+permissioned deployment. Both remain sourced protocol-property comparisons
+until measured under an explicit environment. Similarly, SHA-256 and SHA-512
+results compare anchoring of complete precomputed digests. They do not imply
+that SHA is encryption, that SHA-512 was executed by a standard EVM precompile,
+or that a wider digest caused a consensus-level latency difference.

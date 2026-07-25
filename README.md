@@ -38,3 +38,35 @@ strict evidence gate, manuscript text, and reporting boundaries are documented i
 
 No consensus-comparison number is embedded in source code or claimed before the
 measured multi-session evidence is available.
+
+## Supervisor consensus and SHA-2 extension
+
+The repository now separates consensus from evidence hashing and uses the
+technically correct terminology: SHA-256 and SHA-512 are hash functions, not
+encryption algorithms.
+
+- `fig_consensus_protocols.tex` compares measured Ethereum Sepolia Gasper PoS
+  and IoTeX Roll-DPoS/PBFT with sourced Raft (CFT) and QBFT (BFT) properties.
+- `HashCommitmentLedger.sol` anchors complete 32-byte SHA-256 and 64-byte
+  SHA-512 digests and exposes a separate EVM SHA-256 precompile path.
+- `run_paired_sha2_benchmark.js` submits matched digests to Sepolia and IoTeX.
+- `analyze_sha2_benchmark.py` requires three sessions, rehashes every retained
+  payload, validates chain IDs/bytecode/receipts/events/probes, and generates
+  the manuscript table and gas figure only after the evidence gate passes.
+
+Run the offline verification:
+
+```bash
+npm run test:sha2-contract
+npm run test:sha2-analysis
+```
+
+Run one funded public-testnet session:
+
+```bash
+REPEATS=30 WARMUPS=2 PAYLOAD_BYTES=1024 npm run bench:sha2
+```
+
+Do not add Raft, QBFT, or SHA-2 latency bars to the paper without raw measured
+evidence. Raft is not Byzantine-fault tolerant, and the standard EVM provides a
+SHA-256 precompile but no SHA-512 precompile.

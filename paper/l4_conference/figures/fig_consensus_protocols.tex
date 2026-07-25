@@ -1,0 +1,58 @@
+\begin{figure*}[!t]
+\centering
+\begin{tikzpicture}[
+  lane/.style={draw,rounded corners=2pt,minimum height=8mm,align=center,
+               font=\scriptsize,inner sep=2pt},
+  measured/.style={lane,fill=trustgreen!12,draw=trustgreen!70!black},
+  extension/.style={lane,fill=trustblue!10,draw=trustblue!70!black},
+  literature/.style={lane,fill=black!4,draw=black!55},
+  arrow/.style={-{Latex[length=1.8mm]},thin,draw=black!65}
+]
+\node[measured,text width=2.55cm] (s1) at (0,0)
+  {\textbf{Ethereum Sepolia}\\permissioned test validators};
+\node[measured,text width=2.75cm,right=3mm of s1] (s2)
+  {stake-weighted attestations\\and LMD-GHOST fork choice};
+\node[measured,text width=2.55cm,right=3mm of s2] (s3)
+  {Casper FFG\\economic finality};
+\node[measured,text width=2.1cm,right=3mm of s3] (s4)
+  {Gasper PoS\\\textbf{measured}};
+
+\node[measured,text width=2.55cm] (i1) at (0,-1.15)
+  {\textbf{IoTeX testnet}\\stake-elected delegates};
+\node[measured,text width=2.75cm,right=3mm of i1] (i2)
+  {randomised short-lived\\producer committee};
+\node[measured,text width=2.55cm,right=3mm of i2] (i3)
+  {PBFT-style committee\\finalisation};
+\node[measured,text width=2.1cm,right=3mm of i3] (i4)
+  {Roll-DPoS\\\textbf{measured}};
+
+\node[literature,text width=2.55cm] (r1) at (0,-2.30)
+  {\textbf{Raft}\\permissioned replicas};
+\node[literature,text width=2.75cm,right=3mm of r1] (r2)
+  {elected leader\\replicates ordered log};
+\node[literature,text width=2.55cm,right=3mm of r2] (r3)
+  {majority quorum\\deterministic commit};
+\node[literature,text width=2.1cm,right=3mm of r3] (r4)
+  {crash faults only\\\textbf{profiled}};
+
+\node[extension,text width=2.55cm] (q1) at (0,-3.45)
+  {\textbf{Besu QBFT}\\approved EVM validators};
+\node[extension,text width=2.75cm,right=3mm of q1] (q2)
+  {round-robin proposer\\and multi-round voting};
+\node[extension,text width=2.55cm,right=3mm of q2] (q3)
+  {$\geq 2/3$ validator\\signatures};
+\node[extension,text width=2.1cm,right=3mm of q3] (q4)
+  {Byzantine faults\\\textbf{not measured}};
+
+\foreach \a/\b in {s1/s2,s2/s3,s3/s4,i1/i2,i2/i3,i3/i4,
+                    r1/r2,r2/r3,r3/r4,q1/q2,q2/q3,q3/q4}
+  \draw[arrow] (\a) -- (\b);
+\end{tikzpicture}
+\caption{Consensus-protocol comparison requested by the supervisor. Green lanes
+are the two public testnets with measured first-inclusion evidence. Raft is a
+crash-fault-tolerant replicated-log reference and is not an EVM public-testnet
+measurement. QBFT is the selected Byzantine-fault-tolerant EVM extension target,
+but no latency value is reported until an actual multi-validator Besu run passes
+the same evidence gate.}
+\label{fig:consensus-protocols}
+\end{figure*}
