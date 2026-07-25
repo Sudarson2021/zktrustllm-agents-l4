@@ -1,0 +1,32 @@
+\begin{table*}[!t]
+\centering
+\caption{Protocol-family comparison separated from the measured latency chart.
+Only Sepolia and IoTeX have matched deployment evidence in this work
+\cite{ethereumGasper,iotexRollDpos,raftPaper,besuQbft}.}
+\label{tab:consensus-families}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lllll}
+\toprule
+Protocol/deployment & Family & Fault/adversary model & Ordering or commit pattern &
+Evidence status in this work \\
+\midrule
+Ethereum Sepolia & Gasper PoS &
+Stake-weighted Byzantine/economic assumptions &
+LMD-GHOST fork choice plus Casper FFG finality &
+90 matched public-testnet pairs \\
+IoTeX testnet & Roll-DPoS &
+Byzantine delegate committee &
+Stake election, random committee, PBFT-style voting &
+90 matched public-testnet pairs \\
+Raft & Leader/majority CFT &
+Crash faults; not Byzantine faults &
+Elected leader replicates a log to a majority &
+Protocol reference only \\
+Besu QBFT & Permissioned BFT &
+Fewer than one-third Byzantine validators &
+Proposer plus prepare/commit supermajority voting &
+Extension target; not measured \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

@@ -97,8 +97,12 @@ LaTeX only after all gates pass.
 ## Manuscript integration
 
 - `figures/fig_consensus_protocols.tex`: protocol-flow comparison.
+- `tables/table_consensus_families.tex`: exact four-protocol comparison and
+  measured/reference status.
 - `tables/table_sha2_semantics.tex`: exact SHA-2 properties and EVM paths.
 - `figures/fig_sha2_paths.tex`: fair computation/anchoring boundary.
+- `derived_consensus/*hash_primitive*`: generated local microbenchmark table,
+  figure, and text.
 - `docs/journal/supervisor_consensus_sha2_extension.tex`: ready-to-paste
   journal section.
 - `derived_consensus/*sha2*`: generated only from measured sessions.
@@ -113,3 +117,31 @@ Report:
 - “Raft crash-fault tolerance,” not Byzantine tolerance; and
 - “QBFT protocol-property comparison” until a real validator deployment is
   measured.
+
+## Local hash-primitive microbenchmark
+
+The local instrument is intentionally separate from the public-testnet runner:
+
+```bash
+npm run test:hash-local-contract
+npm run test:hash-local-analysis
+
+SESSION_ID=local-hash-$(date -u +%Y%m%dT%H%M%SZ) \
+  REPEATS=30 WARMUPS=3 PAYLOAD_BYTES=32,1024 npm run bench:hash-local
+
+python3 scripts/l4/consensus/analyze_hash_microbenchmark.py \
+  --out paper/l4_conference/derived_consensus \
+  runtime_artifacts/hash_microbenchmark/<SESSION_ID>/benchmark.json
+```
+
+Before emitting LaTeX, the analyzer requires a clean Git worktree, the exact
+Solidity/optimizer/viaIR/EVM configuration, at least 30 samples per cell,
+retained-payload rehashing, and passing SHA-256/SHA-512 vectors. The
+Keccak-256 opcode, SHA-256 precompile, and pure-Solidity SHA-512 bars are
+therefore local execution-path measurements. They are not fees, throughput,
+public-testnet latency, finality, or consensus results.
+
+The pure-Solidity SHA-512 implementation exists only inside
+`HashPrimitiveMicrobenchmark.sol`. `HashCommitmentLedger.sol` remains the
+deployable design: SHA-512 is computed off chain and its complete 64-byte
+digest is anchored.

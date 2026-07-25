@@ -26,6 +26,8 @@ Raft, a crash-fault-tolerant leader/majority protocol
 EVM protocol requiring at least a two-thirds validator supermajority
 \cite{besuQbft}. The latter two rows are protocol-property comparisons unless
 raw deployment evidence passes the same publication gate.
+The measured latency figure remains restricted to the 90 matched
+Sepolia--IoTeX pairs; Raft and QBFT are not inserted as synthetic bars.
 
 SHA-256 and SHA-512 are one-way SHA-2 hash functions, not encryption algorithms
 \cite{nistFips1804}. Table~\ref{tab:sha2-semantics} and
@@ -37,6 +39,18 @@ but the standard EVM has no SHA-512 precompile \cite{solidityCrypto}; the
 separate on-chain SHA-256 path is therefore not misrepresented as a symmetric
 SHA-256/SHA-512 computation benchmark.
 
+The separate local primitive microbenchmark uses one isolated Hardhat contract
+to compare the Keccak-256 opcode path, the SHA-256 precompile path, and a
+FIPS-vector-gated pure-Solidity SHA-512 reference. It evaluates deterministic
+32-byte and 1,024-byte inputs, with three excluded warm-ups and 30 retained
+\texttt{eth\_call} observations per algorithm/input cell. Algorithm order is
+cyclically balanced. The measured quantity is the \texttt{gasleft()} delta
+around the primitive path under Solidity 0.8.20, optimizer 200,
+\texttt{viaIR=true}, and the Paris EVM target. This local instrument is not the
+deployable SHA-512 path and cannot support a consensus, latency, finality, fee,
+or public-testnet claim.
+
 \input{figures/fig_consensus_protocols}
+\input{tables/table_consensus_families}
 \input{tables/table_sha2_semantics}
 \input{figures/fig_sha2_paths}

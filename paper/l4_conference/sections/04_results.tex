@@ -24,6 +24,16 @@ Stage 3 introduces an isolated Stage3AnomalyLedger micro-benchmark and a determi
 % public-testnet sessions pass the deterministic publication gate.
 }
 
+\IfFileExists{derived_consensus/results_hash_primitive_microbenchmark.tex}{%
+\subsection{Local Hash-Primitive Microbenchmark}
+\input{derived_consensus/results_hash_primitive_microbenchmark}
+\input{derived_consensus/table_hash_primitive_microbenchmark}
+\input{derived_consensus/fig_hash_primitive_microbenchmark}
+}{%
+% Local hash-primitive results are absent until cryptographic vectors,
+% retained-payload rehashing, clean-source, and configuration gates pass.
+}
+
 \IfFileExists{derived_consensus/results_sha2_network.tex}{%
 \subsection{SHA-2 Digest-Anchoring Sensitivity}
 \input{derived_consensus/results_sha2_network}

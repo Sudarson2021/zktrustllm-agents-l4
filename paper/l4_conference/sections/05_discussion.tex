@@ -13,3 +13,11 @@ until measured under an explicit environment. Similarly, SHA-256 and SHA-512
 results compare anchoring of complete precomputed digests. They do not imply
 that SHA is encryption, that SHA-512 was executed by a standard EVM precompile,
 or that a wider digest caused a consensus-level latency difference.
+
+The local hash-primitive figure is also isolated from Fig.~\ref{fig:pos-rolldpos-latency}.
+Its \texttt{gasleft()} deltas characterise fixed bytecode on one Hardhat EVM.
+They do not establish cross-chain gas equality because execution-fork and
+network configurations must also match. The pure-Solidity SHA-512 reference is
+retained only to expose the absence of a standard SHA-512 precompile; the
+deployable workflow computes SHA-512 off chain and anchors the complete
+64-byte digest.
