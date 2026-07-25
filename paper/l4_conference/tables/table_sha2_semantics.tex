@@ -1,0 +1,23 @@
+\begin{table*}[!t]
+\centering
+\caption{SHA-256 and SHA-512 comparison used by the evidence-anchor extension.
+Both are one-way SHA-2 hash functions, not encryption algorithms
+\cite{nistFips1804}.}
+\label{tab:sha2-semantics}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lrrrrll}
+\toprule
+Algorithm & Digest & Message block & Word size & Generic collision work &
+EVM execution path & Benchmark interpretation \\
+& (bits) & (bits) & (bits) & (bits, approx.) & & \\
+\midrule
+SHA-256 & 256 & 512 & 32 & 128 &
+Standard SHA-256 precompile; off-chain mode also supported &
+Anchor one 32-byte full digest \\
+SHA-512 & 512 & 1024 & 64 & 256 &
+No standard SHA-512 precompile; compute off chain &
+Anchor one 64-byte full digest \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

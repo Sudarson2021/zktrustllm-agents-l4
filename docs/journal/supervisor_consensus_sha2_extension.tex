@@ -1,0 +1,82 @@
+% Ready-to-paste journal extension for the supervisor's consensus/SHA comment.
+% Required packages: booktabs, adjustbox, tikz, pgfplots.
+% Required TikZ libraries: positioning, arrows.meta.
+
+\subsection{Consensus and SHA-2 Evidence-Anchor Extension}
+The supervisor-requested comparison separates two independent design layers:
+the consensus protocol that orders an EVM transaction and the cryptographic
+hash function that binds the evidence. SHA-256 and SHA-512 are one-way hash
+functions, not encryption algorithms \cite{nistFips1804}. Ethereum's consensus
+mechanism is Gasper, which combines proof-of-stake attestations, LMD-GHOST fork
+choice, and Casper FFG finality \cite{ethereumGasper}. IoTeX uses Roll-DPoS,
+including elected delegates, randomised committee formation, and PBFT-style
+finalisation \cite{iotexRollDpos}. The existing public-testnet measurements
+therefore remain correctly labelled as a Sepolia--IoTeX consensus-sensitivity
+study rather than a controlled causal benchmark of consensus alone.
+
+Figure~\ref{fig:consensus-protocols} adds Raft and QBFT without inventing
+unmeasured latency. Raft is a leader-based crash-fault-tolerant replicated-log
+protocol that commits through a majority quorum \cite{raftPaper,fabricRaft}.
+It is not Byzantine-fault tolerant and is not directly comparable to execution
+of identical Solidity bytecode on the two public EVM testnets. QBFT is an
+appropriate Byzantine-fault-tolerant EVM extension target: approved Besu
+validators require at least a two-thirds supermajority before inserting a block
+\cite{besuQbft}. The existing ledger bytecode can be redeployed to QBFT, but the
+manuscript reports only protocol properties until a real four-validator run
+passes the raw-evidence gate.
+
+\input{figures/fig_consensus_protocols}
+\input{tables/table_consensus_families}
+\input{tables/table_sha2_semantics}
+\input{figures/fig_sha2_paths}
+
+The hash benchmark computes SHA-256 and SHA-512 over identical retained payload
+bytes and anchors the complete 32-byte or 64-byte digest through identical
+\texttt{HashCommitmentLedger} runtime bytecode on Sepolia and IoTeX. Both
+digests are computed off chain in the primary comparison, which isolates
+digest-width, calldata, event, and storage effects from CPU hash throughput.
+Solidity provides a SHA-256 precompile-backed built-in, whereas the standard EVM
+does not provide an equivalent SHA-512 precompile \cite{solidityCrypto}. A
+separate \texttt{computeSha256AndAnchor} entry point can measure the SHA-256
+precompile path, but that result is not presented as a symmetric SHA-256 versus
+SHA-512 computation benchmark.
+
+\paragraph{Local hash-primitive reference.}
+An isolated Hardhat contract separately compares the Keccak-256 opcode path,
+the SHA-256 precompile path, and a FIPS-vector-gated pure-Solidity SHA-512
+implementation for deterministic 32-byte and 1,024-byte inputs. After three
+excluded warm-ups, 30 \texttt{eth\_call} observations are retained per
+algorithm/input cell with cyclically balanced order. The reported
+\texttt{gasleft()} deltas are specific to Solidity 0.8.20, optimizer 200,
+\texttt{viaIR=true}, and the Paris EVM target. The pure-Solidity SHA-512
+implementation is an experimental instrument only; the deployable workflow
+computes SHA-512 off chain and anchors its complete 64-byte digest.
+
+\IfFileExists{derived_consensus/results_hash_primitive_microbenchmark.tex}{%
+\input{derived_consensus/results_hash_primitive_microbenchmark}
+\input{derived_consensus/table_hash_primitive_microbenchmark}
+\input{derived_consensus/fig_hash_primitive_microbenchmark}
+}{%
+No local primitive number is inserted unless the clean-source,
+cryptographic-vector, retained-payload, configuration, and repetition gates
+pass.
+}
+
+\IfFileExists{derived_consensus/results_sha2_network.tex}{%
+\input{derived_consensus/results_sha2_network}
+\input{derived_consensus/table_sha2_network}
+\input{derived_consensus/fig_sha2_anchor_gas}
+}{%
+No SHA-2 public-testnet number is inserted until three independent sessions
+with at least 30 paired payloads each pass digest recomputation, chain-identity,
+bytecode-identity, receipt, event, and negative-security validation.
+}
+
+\paragraph{Claim boundary.}
+The original Fig.~6 values remain measured first-inclusion observations for
+Sepolia and IoTeX only. Raft and QBFT are protocol-property comparisons unless
+explicitly accompanied by measured deployment evidence. SHA-2 gas values, when
+available, either measure anchoring of precomputed complete digests or the
+separately labelled local primitive path. They do not measure encryption, hash
+security, CPU throughput, consensus superiority, economic finality, or
+production O-RAN performance.

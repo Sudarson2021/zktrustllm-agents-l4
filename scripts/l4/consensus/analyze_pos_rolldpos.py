@@ -372,7 +372,7 @@ def build_summary(sessions: list[dict[str, Any]], inputs: list[Path]) -> dict[st
 def latex_table(summary: dict[str, Any]) -> str:
     rows = []
     labels = {
-        "sepolia": "Ethereum Sepolia (PoS protocol)",
+        "sepolia": "Ethereum Sepolia (Gasper PoS)",
         "iotex_testnet": "IoTeX testnet (Roll-DPoS)",
     }
     for network in ("sepolia", "iotex_testnet"):
@@ -425,7 +425,7 @@ def latex_figure(summary: dict[str, Any]) -> str:
   width=\\columnwidth,height=5.0cm,ybar,bar width=12pt,
   ylabel={{First-inclusion latency (ms)}},
   symbolic x coords={{Sepolia,IoTeX}},xtick=data,
-  xticklabels={{Sepolia (PoS),IoTeX (Roll-DPoS)}},
+  xticklabels={{Sepolia (Gasper PoS),IoTeX (Roll-DPoS/PBFT)}},
   x tick label style={{font=\\scriptsize,align=center}},
   legend style={{at={{(0.5,1.02)}},anchor=south,legend columns=2,font=\\scriptsize}},
   ymin=0,nodes near coords,nodes near coords style={{font=\\tiny}},
@@ -436,7 +436,11 @@ def latex_figure(summary: dict[str, Any]) -> str:
 \\legend{{Median,P95}}
 \\end{{axis}}
 \\end{{tikzpicture}}
-\\caption{{Measured client-observed first-inclusion latency for matched, concurrently submitted audit-anchor transactions. Public-testnet load and RPC/client overhead are included; economic finality is not measured.}}
+\\caption{{Measured client-observed first-inclusion latency for matched,
+concurrently submitted audit-anchor transactions. Public-testnet load and
+RPC/client overhead are included; economic finality is not measured. Raft and
+QBFT are compared structurally in Fig.~\\ref{{fig:consensus-protocols}} but are
+omitted here because no corresponding measured deployment evidence exists.}}
 \\label{{fig:pos-rolldpos-latency}}
 \\end{{figure}}
 """

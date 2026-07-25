@@ -1,0 +1,11 @@
+{
+  "generator": "scripts/l4/consensus/analyze_hash_microbenchmark.py",
+  "source": "runtime_artifacts/hash_microbenchmark/2026-07-25-hardhat-clean/benchmark.json",
+  "source_sha256": "117604215da20ada4c030b38881900f2711299c2b301ddb093e37ea9f2334f12",
+  "outputs": {
+    "summary_hash_microbenchmark.json": "ea6cb3108a36ec2eaca1a1b444b91585994eff4bb542d470d02b718f9444eea7",
+    "fig_hash_primitive_microbenchmark.tex": "3ef7edcc3e0672b72ffbd32e02ff6207afd2a3d88f9ee27115daa42a2702a1eb",
+    "table_hash_primitive_microbenchmark.tex": "0d1f8cfe3bf8b96ea3a72f0a0bcb9d27e294c0d006687be9bc3056222d4e190c",
+    "results_hash_primitive_microbenchmark.tex": "17dea68490824d3ebc35a811b4bafc55c7bbc1c1a6ae0d4c5e79fa3210914069"
+  }
+}

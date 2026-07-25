@@ -1,0 +1,35 @@
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw,rounded corners=2pt,align=center,font=\scriptsize,
+              minimum height=8mm,inner sep=2pt},
+  arrow/.style={-{Latex[length=1.8mm]},thin},
+  note/.style={font=\tiny,align=center,text=black!70}
+]
+\node[box,fill=blue!8,text width=1.45cm] (p1) {Evidence\\payload};
+\node[box,fill=blue!14,text width=1.65cm,right=2.5mm of p1] (h256)
+  {SHA-256\\32-byte digest};
+\node[box,fill=green!12,text width=1.85cm,right=2.5mm of h256] (a256)
+  {EVM anchor\\algorithm ID + digest};
+\draw[arrow] (p1) -- (h256);
+\draw[arrow] (h256) -- (a256);
+
+\node[box,fill=orange!8,text width=1.45cm,below=8mm of p1] (p2)
+  {Same evidence\\payload};
+\node[box,fill=orange!16,text width=1.65cm,right=2.5mm of p2] (h512)
+  {SHA-512\\64-byte digest};
+\node[box,fill=green!12,text width=1.85cm,right=2.5mm of h512] (a512)
+  {Same EVM anchor\\algorithm ID + digest};
+\draw[arrow] (p2) -- (h512);
+\draw[arrow] (h512) -- (a512);
+
+\node[note,below=2mm of h512,text width=4.2cm] (boundary)
+  {SHA-256 also has a standard EVM precompile.\\
+   SHA-512 has no standard EVM precompile; its full digest is anchored.};
+\end{tikzpicture}
+\caption{Fair SHA-2 comparison boundary. Both algorithms hash identical bytes
+off chain and anchor their complete digest on identical EVM bytecode. The
+resulting network comparison measures digest anchoring, not encryption or CPU
+hash throughput.}
+\label{fig:sha2-paths}
+\end{figure}

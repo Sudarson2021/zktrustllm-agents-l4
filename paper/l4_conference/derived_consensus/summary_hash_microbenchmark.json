@@ -1,0 +1,93 @@
+{
+  "source": "runtime_artifacts/hash_microbenchmark/2026-07-25-hardhat-clean/benchmark.json",
+  "source_sha256": "117604215da20ada4c030b38881900f2711299c2b301ddb093e37ea9f2334f12",
+  "claim_boundary": {
+    "environment": "local Hardhat EVM only",
+    "measurement": "gasleft delta around the isolated primitive path",
+    "sha512": "FIPS-gated pure-Solidity microbenchmark; not the deployable anchor path",
+    "deployment": "SHA-512 is computed off chain and the full 64-byte digest is anchored",
+    "excluded_claims": [
+      "public-testnet hash latency",
+      "economic cost",
+      "consensus performance",
+      "production SHA-512 execution"
+    ]
+  },
+  "environment": {
+    "git_commit": "1e0ec9a0a861f01012e45001c450a1c925a9a881",
+    "git_dirty": false,
+    "git_status_porcelain": "",
+    "node_version": "v24.14.0",
+    "hardhat_version": "^2.26.3",
+    "platform": "linux 6.12.13 x64",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "chain_id": 31337,
+    "solidity": "0.8.20",
+    "optimizer_enabled": true,
+    "optimizer_runs": 200,
+    "via_ir": true,
+    "evm_target": "paris"
+  },
+  "summaries": [
+    {
+      "payload_bytes": 32,
+      "algorithm": "keccak256",
+      "label": "Keccak-256",
+      "n": 30,
+      "median_primitive_gas": 59,
+      "minimum_primitive_gas": 59,
+      "maximum_primitive_gas": 59,
+      "deterministic": true
+    },
+    {
+      "payload_bytes": 32,
+      "algorithm": "sha256",
+      "label": "SHA-256",
+      "n": 30,
+      "median_primitive_gas": 392,
+      "minimum_primitive_gas": 392,
+      "maximum_primitive_gas": 392,
+      "deterministic": true
+    },
+    {
+      "payload_bytes": 32,
+      "algorithm": "sha512_local",
+      "label": "SHA-512 (Solidity)",
+      "n": 30,
+      "median_primitive_gas": 162174,
+      "minimum_primitive_gas": 162174,
+      "maximum_primitive_gas": 162174,
+      "deterministic": true
+    },
+    {
+      "payload_bytes": 1024,
+      "algorithm": "keccak256",
+      "label": "Keccak-256",
+      "n": 30,
+      "median_primitive_gas": 245,
+      "minimum_primitive_gas": 245,
+      "maximum_primitive_gas": 245,
+      "deterministic": true
+    },
+    {
+      "payload_bytes": 1024,
+      "algorithm": "sha256",
+      "label": "SHA-256",
+      "n": 30,
+      "median_primitive_gas": 2879,
+      "minimum_primitive_gas": 2879,
+      "maximum_primitive_gas": 2879,
+      "deterministic": true
+    },
+    {
+      "payload_bytes": 1024,
+      "algorithm": "sha512_local",
+      "label": "SHA-512 (Solidity)",
+      "n": 30,
+      "median_primitive_gas": 1614065,
+      "minimum_primitive_gas": 1614065,
+      "maximum_primitive_gas": 1614065,
+      "deterministic": true
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+\begin{table}[!t]
+\centering
+\caption{Validated local hash-primitive measurements.}
+\label{tab:hash-primitive-microbenchmark}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Primitive & Bytes & Median gas & $n$ & Fixed \\
+\midrule
+Keccak-256 & 32 & 59 & 30 & yes \\
+SHA-256 & 32 & 392 & 30 & yes \\
+SHA-512 (Solidity) & 32 & 162,174 & 30 & yes \\
+Keccak-256 & 1,024 & 245 & 30 & yes \\
+SHA-256 & 1,024 & 2,879 & 30 & yes \\
+SHA-512 (Solidity) & 1,024 & 1,614,065 & 30 & yes \\
+\bottomrule
+\end{tabular}
+\end{table}

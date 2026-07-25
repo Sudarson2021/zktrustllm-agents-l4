@@ -38,3 +38,55 @@ strict evidence gate, manuscript text, and reporting boundaries are documented i
 
 No consensus-comparison number is embedded in source code or claimed before the
 measured multi-session evidence is available.
+
+## Supervisor consensus and SHA-2 extension
+
+The repository now separates consensus from evidence hashing and uses the
+technically correct terminology: SHA-256 and SHA-512 are hash functions, not
+encryption algorithms.
+
+- `fig_consensus_protocols.tex` compares measured Ethereum Sepolia Gasper PoS
+  and IoTeX Roll-DPoS/PBFT with sourced Raft (CFT) and QBFT (BFT) properties.
+- `table_consensus_families.tex` states the fault model, commit pattern, and
+  measured/reference status for all four protocols.
+- `HashCommitmentLedger.sol` anchors complete 32-byte SHA-256 and 64-byte
+  SHA-512 digests and exposes a separate EVM SHA-256 precompile path.
+- `HashPrimitiveMicrobenchmark.sol` provides a local-only Keccak-256,
+  SHA-256, and pure-Solidity SHA-512 comparison, gated by standard vectors.
+- `run_paired_sha2_benchmark.js` submits matched digests to Sepolia and IoTeX.
+- `analyze_sha2_benchmark.py` requires three sessions, rehashes every retained
+  payload, validates chain IDs/bytecode/receipts/events/probes, and generates
+  the manuscript table and gas figure only after the evidence gate passes.
+
+Run the offline verification:
+
+```bash
+npm run test:sha2-contract
+npm run test:sha2-analysis
+npm run test:hash-local-contract
+npm run test:hash-local-analysis
+```
+
+Generate the separately labelled local primitive figure:
+
+```bash
+SESSION_ID=local-hash-$(date -u +%Y%m%dT%H%M%SZ) \
+  REPEATS=30 WARMUPS=3 PAYLOAD_BYTES=32,1024 npm run bench:hash-local
+
+python3 scripts/l4/consensus/analyze_hash_microbenchmark.py \
+  --out paper/l4_conference/derived_consensus \
+  runtime_artifacts/hash_microbenchmark/<SESSION_ID>/benchmark.json
+```
+
+Run one funded public-testnet session:
+
+```bash
+REPEATS=30 WARMUPS=2 PAYLOAD_BYTES=1024 npm run bench:sha2
+```
+
+Fig. 6 remains exclusively the measured 90-pair Sepolia/IoTeX latency result.
+Do not add Raft, QBFT, or SHA-2 latency bars without raw deployment evidence.
+Raft is not Byzantine-fault tolerant, and the standard EVM provides a SHA-256
+precompile but no SHA-512 precompile. The local SHA-512 bar is explicitly a
+pure-Solidity reference; deployment computes SHA-512 off chain and anchors the
+full 64-byte digest.
