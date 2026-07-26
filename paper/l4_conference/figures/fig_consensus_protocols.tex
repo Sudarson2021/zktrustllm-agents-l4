@@ -33,7 +33,9 @@
 \node[literature,text width=2.55cm,right=3mm of r2] (r3)
   {majority quorum\\deterministic commit};
 \node[literature,text width=2.1cm,right=3mm of r3] (r4)
-  {crash faults only\\\textbf{reference only}};
+  {\IfFileExists{derived_consensus/results_permissioned_faults.tex}
+    {crash/quorum loss\\\textbf{measured locally}}
+    {crash faults only\\\textbf{reference only}}};
 
 \node[extension,text width=2.55cm] (q1) at (0,-3.45)
   {\textbf{Besu QBFT}\\approved EVM validators};
@@ -42,7 +44,9 @@
 \node[extension,text width=2.55cm,right=3mm of q2] (q3)
   {$\geq 2/3$ validator\\signatures};
 \node[extension,text width=2.1cm,right=3mm of q3] (q4)
-  {Byzantine faults\\\textbf{not measured}};
+  {\IfFileExists{derived_consensus/results_permissioned_faults.tex}
+    {non-participation\\\textbf{measured locally}}
+    {Byzantine faults\\\textbf{not measured}}};
 
 \foreach \a/\b in {s1/s2,s2/s3,s3/s4,i1/i2,i2/i3,i3/i4,
                     r1/r2,r2/r3,r3/r4,q1/q2,q2/q3,q3/q4}
@@ -51,8 +55,12 @@
 \caption{Consensus-protocol comparison requested by the supervisor. Green lanes
 are the two public testnets with measured first-inclusion evidence. Raft is a
 crash-fault-tolerant replicated-log reference and is not an EVM public-testnet
-measurement. QBFT is the selected Byzantine-fault-tolerant EVM extension target,
-but no latency value is reported until an actual multi-validator Besu run passes
-the same evidence gate.}
+measurement. QBFT is the selected Byzantine-fault-tolerant EVM extension.
+\IfFileExists{derived_consensus/results_permissioned_faults.tex}
+{The local-cluster extension measures process crash/non-participation, quorum
+loss, and recovery for real etcd/Raft and Besu/QBFT deployments; it does not
+inject arbitrary Byzantine messages or compare their absolute latencies.}
+{No Raft or QBFT latency is reported until real multi-node runs pass the
+three-session evidence gate.}}
 \label{fig:consensus-protocols}
 \end{figure*}

@@ -65,7 +65,20 @@ npm run test:sha2-contract
 npm run test:sha2-analysis
 npm run test:hash-local-contract
 npm run test:hash-local-analysis
+npm run test:permissioned-analysis
 ```
+
+Run the real local-cluster smoke (never cite smoke values) and follow the
+three-session publication protocol in:
+
+- `docs/l4/consensus/RAFT_QBFT_FAULT_EXPERIMENT.md`
+- `scripts/l4/consensus/permissioned/run_permissioned_fault_benchmark.js`
+- `scripts/l4/consensus/analyze_permissioned_faults.py`
+
+The permissioned extension starts three real etcd/Raft members and four real
+Besu/QBFT validators. It measures process crash/non-participation, quorum loss,
+and recovery. It does not inject equivocation or arbitrary Byzantine messages,
+and it does not rank absolute etcd and EVM latencies.
 
 Generate the separately labelled local primitive figure:
 
@@ -85,7 +98,8 @@ REPEATS=30 WARMUPS=2 PAYLOAD_BYTES=1024 npm run bench:sha2
 ```
 
 Fig. 6 remains exclusively the measured 90-pair Sepolia/IoTeX latency result.
-Do not add Raft, QBFT, or SHA-2 latency bars without raw deployment evidence.
+Do not add Raft, QBFT, or SHA-2 latency bars without raw deployment evidence
+that passes its experiment-specific gate.
 Raft is not Byzantine-fault tolerant, and the standard EVM provides a SHA-256
 precompile but no SHA-512 precompile. The local SHA-512 bar is explicitly a
 pure-Solidity reference; deployment computes SHA-512 off chain and anchors the

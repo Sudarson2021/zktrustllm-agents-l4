@@ -78,6 +78,10 @@ SHA256SUMS
 # Local evaluation outputs
 evaluation_runs/
 
+# Downloaded permissioned-consensus clients and ephemeral cluster state
+.tools/permissioned/
+.runtime/permissioned/
+
 # LaTeX build artifacts
 *.aux
 *.bbl

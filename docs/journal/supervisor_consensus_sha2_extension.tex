@@ -27,6 +27,14 @@ passes the raw-evidence gate.
 
 \input{figures/fig_consensus_protocols}
 \input{tables/table_consensus_families}
+\IfFileExists{derived_consensus/results_permissioned_faults.tex}{%
+\input{derived_consensus/results_permissioned_faults}
+\input{derived_consensus/table_permissioned_faults}
+}{%
+No Raft/QBFT number is inserted until three clean real-cluster sessions pass
+the retained-observation, implementation-hash, quorum-loss, recovery, and
+manifest-integrity gates.
+}
 \input{tables/table_sha2_semantics}
 \input{figures/fig_sha2_paths}
 

@@ -1,0 +1,42 @@
+% Ready-to-paste IEEE journal text after strict analysis succeeds.
+% Required package for the generated table: booktabs.
+
+\subsection{Controlled Permissioned-Consensus Fault Evaluation}
+\label{sec:permissioned-faults}
+
+We replaced the protocol-only Raft and QBFT entries with controlled
+multi-process experiments.  A three-member etcd cluster instantiated Raft,
+whereas four local Hyperledger Besu validators instantiated QBFT and executed
+the same \texttt{Stage3AnomalyLedger} bytecode used by the audit-anchor
+microbenchmark.  Each reported condition retained 30 observations after three
+excluded warm-ups, and the complete experiment was repeated in three
+independent sessions from one clean Git commit.  Every session preserves raw
+process logs, host and software metadata, contract and implementation hashes,
+retained payloads, receipts and events, and a SHA-256 manifest.
+
+The interventions deliberately distinguish protocol guarantees from the fault
+behavior actually injected.  For Raft, we stopped one follower, stopped the
+current leader to force an election, removed majority availability, and then
+restored the cluster.  For QBFT, we stopped one of four validators, then stopped
+a second validator to leave only two active participants, and finally restored
+the third and fourth validators.  Stopping a validator measures process
+crash/non-participation and quorum loss; it does not inject equivocation,
+conflicting signed votes, state corruption, or arbitrary Byzantine messages.
+Consequently, the experiment validates the operational quorum boundary but is
+not labelled as a measured Byzantine-attack campaign.
+
+\IfFileExists{derived_consensus/results_permissioned_faults.tex}{%
+  \input{derived_consensus/results_permissioned_faults}
+  \input{derived_consensus/table_permissioned_faults}
+}{%
+  No permissioned-consensus number is inserted until three clean sessions pass
+  the retained-observation, implementation-hash, receipt/event, quorum-loss,
+  recovery, and manifest-integrity gates.
+}
+
+\paragraph{Comparison boundary.}
+Raft observations measure replicated etcd key/value writes, while QBFT
+observations measure EVM execution and first inclusion of an audit-anchor
+transaction.  We therefore compare conditions only within each implementation
+and do not rank their absolute latencies.  These local results do not establish
+economic finality, public-network behavior, or production O-RAN performance.
