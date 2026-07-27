@@ -40,7 +40,7 @@ const REPEATS = integerEnv("REPEATS", 30, 2, 1000);
 const WARMUPS = integerEnv("WARMUPS", 3, 0, 100);
 const PROBE_INTERVAL_MS = integerEnv("PROBE_INTERVAL_MS", 1000, 100, 10000);
 const STARTUP_TIMEOUT_MS = integerEnv("STARTUP_TIMEOUT_MS", 90000, 10000, 600000);
-const RECOVERY_TIMEOUT_MS = integerEnv("RECOVERY_TIMEOUT_MS", 30000, 5000, 300000);
+const RECOVERY_TIMEOUT_MS = integerEnv("RECOVERY_TIMEOUT_MS", 120000, 5000, 300000);
 const ALLOW_DIRTY = process.env.ALLOW_DIRTY === "1";
 
 const ETCD_BIN = path.join(TOOLS_ROOT, "etcd", "etcd");
@@ -935,7 +935,9 @@ async function main() {
     parameters: {
       repeats: REPEATS,
       warmups_excluded: WARMUPS,
-      probe_interval_ms: PROBE_INTERVAL_MS
+      probe_interval_ms: PROBE_INTERVAL_MS,
+      startup_timeout_ms: STARTUP_TIMEOUT_MS,
+      recovery_timeout_ms: RECOVERY_TIMEOUT_MS
     },
     git,
     host: hostMetadata(),

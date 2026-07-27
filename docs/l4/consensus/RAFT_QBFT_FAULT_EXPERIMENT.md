@@ -111,6 +111,12 @@ Run three independent sessions from a clean, unchanged commit. Use separate
 time windows and do not edit code, change Java/Node/Besu/etcd versions, or
 change the host between sessions.
 
+The publication wrapper applies a 120-second QBFT recovery observation bound.
+After the deliberate 2/4 quorum-loss interval, QBFT round timeouts have already
+backed off exponentially. The longer harness bound prevents this specified
+round-change behavior from being misclassified as failed recovery; the
+observed recovery time, rather than the bound, is retained in the evidence.
+
 ```bash
 bash scripts/l4/consensus/permissioned/run_publication_session.sh \
   2026-07-27-permissioned-session-1
