@@ -17,9 +17,12 @@ retained payloads, receipts and events, and a SHA-256 manifest.
 The interventions deliberately distinguish protocol guarantees from the fault
 behavior actually injected.  For Raft, we stopped one follower, stopped the
 current leader to force an election, removed majority availability, and then
-restored the cluster.  For QBFT, we stopped one of four validators, then stopped
-a second validator to leave only two active participants, and finally restored
-the third and fourth validators.  Stopping a validator measures process
+restored the cluster.  For QBFT, we stopped one of four validators and then stopped
+a second validator to leave only two active participants.  After observing the
+quorum-loss stall, we restored quorum and restarted the three active validator
+processes to reset the exponentially backed-off QBFT round timers, following
+the documented Besu recovery procedure.  We then returned the fourth validator
+before collecting the recovered condition.  Stopping a validator measures process
 crash/non-participation and quorum loss; it does not inject equivocation,
 conflicting signed votes, state corruption, or arbitrary Byzantine messages.
 Consequently, the experiment validates the operational quorum boundary but is

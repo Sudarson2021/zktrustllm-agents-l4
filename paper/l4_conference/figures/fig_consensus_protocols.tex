@@ -58,7 +58,8 @@ crash-fault-tolerant replicated-log reference and is not an EVM public-testnet
 measurement. QBFT is the selected Byzantine-fault-tolerant EVM extension.
 \IfFileExists{derived_consensus/results_permissioned_faults.tex}
 {The local-cluster extension measures process crash/non-participation, quorum
-loss, and recovery for real etcd/Raft and Besu/QBFT deployments; it does not
+loss, and operator-assisted recovery for real etcd/Raft and Besu/QBFT
+deployments; it does not
 inject arbitrary Byzantine messages or compare their absolute latencies.}
 {No Raft or QBFT latency is reported until real multi-node runs pass the
 three-session evidence gate.}}

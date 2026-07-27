@@ -10,8 +10,9 @@ controlled, reproducible local-cluster evidence. It asks:
 2. Does it stop committing after majority loss and recover when quorum returns?
 3. Does a real four-validator Hyperledger Besu/QBFT network continue to include
    `Stage3AnomalyLedger` transactions with 3/4 validators active?
-4. Does block production stop with only 2/4 validators active and recover when
-   a third validator returns?
+4. Does block production stop with only 2/4 validators active and recover
+   after quorum restoration plus an explicitly recorded operator-assisted
+   restart of the three active validators?
 
 The experiment does **not** send conflicting signed votes, forge messages,
 corrupt state, or make a validator equivocate. Stopped QBFT processes therefore
@@ -111,11 +112,12 @@ Run three independent sessions from a clean, unchanged commit. Use separate
 time windows and do not edit code, change Java/Node/Besu/etcd versions, or
 change the host between sessions.
 
-The publication wrapper applies a 120-second QBFT recovery observation bound.
-After the deliberate 2/4 quorum-loss interval, QBFT round timeouts have already
-backed off exponentially. The longer harness bound prevents this specified
-round-change behavior from being misclassified as failed recovery; the
-observed recovery time, rather than the bound, is retained in the evidence.
+The publication wrapper applies a 120-second QBFT recovery observation
+bound. After the deliberate 2/4 quorum-loss interval, QBFT round timeouts have
+backed off exponentially. The harness restores quorum and performs the Besu-
+documented operator-assisted restart of the three active validators, resetting
+their round timers. The evidence records the recovery method, restarted
+validator set, timeout reset, and measured recovery duration.
 
 ```bash
 bash scripts/l4/consensus/permissioned/run_publication_session.sh \
@@ -135,7 +137,7 @@ Each session includes:
 - one observed leader-election recovery event;
 - 30 retained QBFT contract anchors per progress condition;
 - 30 retained block-height probes with 2/4 QBFT validators active;
-- one observed QBFT quorum-recovery event;
+- one observed operator-assisted QBFT quorum-recovery event;
 - duplicate, zero-commitment, and unauthorized-submitter rejection probes;
 - excluded warm-ups, host/software metadata, source and executable hashes,
   raw process logs, and a `SHA256SUMS.txt` manifest.
@@ -191,7 +193,8 @@ Permitted claim:
 
 > In controlled local deployments, three-member etcd/Raft and four-validator
 > Besu/QBFT exhibited their expected crash/non-participation quorum boundaries,
-> with recovery measured after quorum restoration.
+> with operator-assisted recovery measured after quorum restoration and a
+> documented validator restart that reset backed-off round timers.
 
 Do not claim:
 

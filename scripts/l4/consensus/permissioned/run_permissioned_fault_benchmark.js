@@ -824,11 +824,22 @@ async function collectQbft(artifact) {
 
     const recoveryStartUtc = nowUtc();
     const recoveryStartNs = process.hrtime.bigint();
+    // After >1/3 validator loss, Besu QBFT round timeouts back off
+    // exponentially. Restore quorum and restart the three active validators
+    // to reset their round timers, following Besu's documented procedure.
+    await cluster.stopNode(0);
+    await cluster.stopNode(1);
+    await cluster.restartNode(0);
+    await cluster.restartNode(1);
     await cluster.restartNode(2);
     await cluster.waitForBlockAdvance(RECOVERY_TIMEOUT_MS);
     const recovery = {
       started_at_utc: recoveryStartUtc,
       recovery_ms: elapsedMs(recoveryStartNs),
+      method:
+        "operator-assisted active-validator restart after quorum restoration",
+      round_timeout_reset: true,
+      restarted_validators: ["qbft1", "qbft2", "qbft3"],
       active_validators_when_progress_resumed: 3
     };
     await cluster.restartNode(3);
@@ -919,7 +930,7 @@ async function main() {
   const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
 
   const evidence = {
-    schema: "zktrustllm.permissioned-consensus-fault-evidence.v1",
+    schema: "zktrustllm.permissioned-consensus-fault-evidence.v2",
     session_id: SESSION_ID,
     started_at_utc: startedAtUtc,
     completed_at_utc: null,

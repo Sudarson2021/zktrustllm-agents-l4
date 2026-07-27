@@ -96,7 +96,17 @@ def write_session(root: Path, session_id: str, repeats: int = 3) -> Path:
                     {"rejected": True},
                 ]
             },
-            "lifecycle": {"recovery": {"recovery_ms": 900}},
+            "lifecycle": {
+                "recovery": {
+                    "recovery_ms": 900,
+                    "method": (
+                        "operator-assisted active-validator restart "
+                        "after quorum restoration"
+                    ),
+                    "round_timeout_reset": True,
+                    "restarted_validators": ["qbft1", "qbft2", "qbft3"],
+                }
+            },
             "observations": {
                 "baseline": qbft_rows("baseline"),
                 "one_validator_offline": qbft_rows("one_validator_offline"),
@@ -163,6 +173,28 @@ class PermissionedAnalysisTests(unittest.TestCase):
             with self.assertRaises(MODULE.EvidenceError):
                 MODULE.validate_session(
                     benchmark, min_observations=3, allow_smoke=True
+                )
+
+    def test_unrecorded_qbft_recovery_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            benchmark = write_session(Path(temporary), "bad-recovery")
+            data = json.loads(benchmark.read_text())
+            data["qbft"]["lifecycle"]["recovery"][
+                "round_timeout_reset"
+            ] = False
+            benchmark.write_text(json.dumps(data), encoding="utf-8")
+            checksum = hashlib.sha256(
+                benchmark.read_bytes()
+            ).hexdigest()
+            (benchmark.parent / "SHA256SUMS.txt").write_text(
+                f"{checksum}  benchmark.json\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(MODULE.EvidenceError):
+                MODULE.validate_session(
+                    benchmark,
+                    min_observations=3,
+                    allow_smoke=True,
                 )
 
 

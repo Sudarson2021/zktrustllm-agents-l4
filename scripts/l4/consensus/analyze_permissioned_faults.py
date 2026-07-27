@@ -18,7 +18,7 @@ import statistics
 from pathlib import Path
 from typing import Any, Iterable
 
-SCHEMA = "zktrustllm.permissioned-consensus-fault-evidence.v1"
+SCHEMA = "zktrustllm.permissioned-consensus-fault-evidence.v2"
 
 
 class EvidenceError(ValueError):
@@ -184,8 +184,23 @@ def validate_session(
         len({int(row["block_number"]) for row in stalled}) == 1,
         f"{prefix}: QBFT produced blocks with only 2/4 validators",
     )
+    recovery = qbft["lifecycle"]["recovery"]
     require(
-        float(qbft["lifecycle"]["recovery"]["recovery_ms"]) >= 0,
+        recovery.get("method")
+        == "operator-assisted active-validator restart after quorum restoration",
+        f"{prefix}: missing or unexpected QBFT recovery procedure",
+    )
+    require(
+        recovery.get("round_timeout_reset") is True,
+        f"{prefix}: QBFT round-timeout reset was not recorded",
+    )
+    require(
+        recovery.get("restarted_validators")
+        == ["qbft1", "qbft2", "qbft3"],
+        f"{prefix}: unexpected QBFT recovery validator set",
+    )
+    require(
+        float(recovery["recovery_ms"]) >= 0,
         f"{prefix}: invalid QBFT recovery time",
     )
     return data
@@ -226,7 +241,7 @@ def aggregate(sessions: list[dict[str, Any]]) -> dict[str, Any]:
         session["qbft"]["lifecycle"]["recovery"]["recovery_ms"] for session in sessions
     )
     return {
-        "schema": "zktrustllm.permissioned-consensus-fault-summary.v1",
+        "schema": "zktrustllm.permissioned-consensus-fault-summary.v2",
         "session_count": len(sessions),
         "session_ids": [session["session_id"] for session in sessions],
         "git_commit": sessions[0]["git"]["commit"],
@@ -319,8 +334,10 @@ The real four-validator Besu/QBFT network included all
 {qbft['one_validator_offline']['n']} retained audit-anchor transactions with one
 validator stopped, produced no block-height change in
 {loss['qbft_stalled_probes']}/{loss['qbft_total_probes']} retained probes with
-only two validators active, and resumed after a median
-{fmt(qbft['quorum_recovery']['median'])}\,ms once a third validator returned.
+only two validators active.  After quorum restoration and the documented
+operator-assisted restart that reset the backed-off QBFT round timers, block
+production resumed after a median
+{fmt(qbft['quorum_recovery']['median'])}\,ms.
 These interventions measure process crash/non-participation and quorum loss;
 they do not inject equivocation, forged votes, or arbitrary Byzantine messages.
 Absolute Raft and QBFT latencies are not ranked because the measured workloads
