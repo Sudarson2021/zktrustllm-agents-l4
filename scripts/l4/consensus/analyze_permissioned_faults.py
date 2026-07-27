@@ -18,7 +18,7 @@ import statistics
 from pathlib import Path
 from typing import Any, Iterable
 
-SCHEMA = "zktrustllm.permissioned-consensus-fault-evidence.v2"
+SCHEMA = "zktrustllm.permissioned-consensus-fault-evidence.v3"
 
 
 class EvidenceError(ValueError):
@@ -164,6 +164,11 @@ def validate_session(
     qbft = data["qbft"]
     require(qbft["cluster_size"] == 4, f"{prefix}: QBFT cluster is not four validators")
     require(qbft["chain_id"] == 13371, f"{prefix}: unexpected QBFT chain ID")
+    require(
+        qbft["configuration"].get("transaction_nonce_management")
+        == "ethers.NonceManager with sequential confirmed submissions",
+        f"{prefix}: deterministic QBFT nonce management not recorded",
+    )
     require(qbft["byzantine_faults_measured"] is False, f"{prefix}: invalid QBFT fault claim")
     require(
         qbft["arbitrary_byzantine_messages_or_equivocation_injected"] is False,
@@ -241,7 +246,7 @@ def aggregate(sessions: list[dict[str, Any]]) -> dict[str, Any]:
         session["qbft"]["lifecycle"]["recovery"]["recovery_ms"] for session in sessions
     )
     return {
-        "schema": "zktrustllm.permissioned-consensus-fault-summary.v2",
+        "schema": "zktrustllm.permissioned-consensus-fault-summary.v3",
         "session_count": len(sessions),
         "session_ids": [session["session_id"] for session in sessions],
         "git_commit": sessions[0]["git"]["commit"],

@@ -89,6 +89,12 @@ def write_session(root: Path, session_id: str, repeats: int = 3) -> Path:
             "byzantine_faults_measured": False,
             "arbitrary_byzantine_messages_or_equivocation_injected": False,
             "binary_sha256": "e" * 64,
+            "configuration": {
+                "transaction_nonce_management": (
+                    "ethers.NonceManager with sequential "
+                    "confirmed submissions"
+                )
+            },
             "contract": {
                 "security_probes": [
                     {"rejected": True},

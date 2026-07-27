@@ -36,6 +36,9 @@ within each implementation and refuses a cross-family speed ranking.
   the installed launcher hash is embedded in every session.
 - Solidity 0.8.20 through the repository's isolated
   `hardhat.consensus.config.js`.
+- Ethers 6.15.0 `NonceManager` serializes the admin signer's transaction
+  nonces. Every retained transaction is submitted sequentially and confirmed
+  before the next transaction is sent.
 
 Use the same pinned binaries, source commit, host, and settings for every
 reported session.

@@ -405,6 +405,7 @@ class BesuCluster {
     }));
     this.provider = null;
     this.admin = null;
+    this.adminAddress = null;
     this.contract = null;
     this.deployment = null;
   }
@@ -536,7 +537,12 @@ class BesuCluster {
     this.provider = new ethers.JsonRpcProvider(`http://127.0.0.1:${this.nodes[0].rpcPort}`, 13371, {
       staticNetwork: true
     });
-    this.admin = new ethers.Wallet(ADMIN_PRIVATE_KEY, this.provider);
+    const adminWallet = new ethers.Wallet(
+      ADMIN_PRIVATE_KEY,
+      this.provider
+    );
+    this.adminAddress = adminWallet.address;
+    this.admin = new ethers.NonceManager(adminWallet);
   }
 
   async blockNumber() {
@@ -576,7 +582,9 @@ class BesuCluster {
     );
     const startedAtUtc = nowUtc();
     const startNs = process.hrtime.bigint();
-    const contract = await factory.deploy(this.admin.address, { gasLimit: 4000000n });
+    const contract = await factory.deploy(this.adminAddress, {
+      gasLimit: 4000000n
+    });
     const tx = contract.deploymentTransaction();
     const receipt = await tx.wait(1);
     const address = await contract.getAddress();
@@ -860,6 +868,8 @@ async function collectQbft(artifact) {
         block_period_seconds: 1,
         request_timeout_seconds: 4,
         epoch_length: 30000,
+        transaction_nonce_management:
+          "ethers.NonceManager with sequential confirmed submissions",
         rpc_ports: cluster.nodes.map((node) => node.rpcPort),
         p2p_ports: cluster.nodes.map((node) => node.p2pPort)
       },
@@ -930,7 +940,7 @@ async function main() {
   const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
 
   const evidence = {
-    schema: "zktrustllm.permissioned-consensus-fault-evidence.v2",
+    schema: "zktrustllm.permissioned-consensus-fault-evidence.v3",
     session_id: SESSION_ID,
     started_at_utc: startedAtUtc,
     completed_at_utc: null,
