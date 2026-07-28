@@ -124,13 +124,13 @@ validator set, timeout reset, and measured recovery duration.
 
 ```bash
 bash scripts/l4/consensus/permissioned/run_publication_session.sh \
-  2026-07-27-permissioned-session-1
+  2026-07-28-permissioned-v3-session-1
 
 bash scripts/l4/consensus/permissioned/run_publication_session.sh \
-  2026-07-28-permissioned-session-2
+  2026-07-28-permissioned-v3-session-2
 
 bash scripts/l4/consensus/permissioned/run_publication_session.sh \
-  2026-07-29-permissioned-session-3
+  2026-07-28-permissioned-v3-session-3
 ```
 
 Each session includes:
@@ -157,9 +157,9 @@ done
 
 python3 scripts/l4/consensus/analyze_permissioned_faults.py \
   --out paper/l4_conference/derived_consensus \
-  evaluation_runs/permissioned-publication/2026-07-27-permissioned-session-1/benchmark.json \
-  evaluation_runs/permissioned-publication/2026-07-28-permissioned-session-2/benchmark.json \
-  evaluation_runs/permissioned-publication/2026-07-29-permissioned-session-3/benchmark.json
+  evaluation_runs/permissioned-publication/2026-07-28-permissioned-v3-session-1/benchmark.json \
+  evaluation_runs/permissioned-publication/2026-07-28-permissioned-v3-session-2/benchmark.json \
+  evaluation_runs/permissioned-publication/2026-07-28-permissioned-v3-session-3/benchmark.json
 ```
 
 The strict analyzer requires three distinct sessions, a single clean Git
@@ -179,11 +179,11 @@ artifact tree:
 
 ```bash
 mkdir -p runtime_artifacts/permissioned_faults
-cp -a evaluation_runs/permissioned-publication/2026-07-27-permissioned-session-1 \
+cp -a evaluation_runs/permissioned-publication/2026-07-28-permissioned-v3-session-1 \
   runtime_artifacts/permissioned_faults/
-cp -a evaluation_runs/permissioned-publication/2026-07-28-permissioned-session-2 \
+cp -a evaluation_runs/permissioned-publication/2026-07-28-permissioned-v3-session-2 \
   runtime_artifacts/permissioned_faults/
-cp -a evaluation_runs/permissioned-publication/2026-07-29-permissioned-session-3 \
+cp -a evaluation_runs/permissioned-publication/2026-07-28-permissioned-v3-session-3 \
   runtime_artifacts/permissioned_faults/
 ```
 

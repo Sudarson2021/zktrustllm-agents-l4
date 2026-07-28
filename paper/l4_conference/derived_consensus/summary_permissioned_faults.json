@@ -1,0 +1,116 @@
+{
+  "schema": "zktrustllm.permissioned-consensus-fault-summary.v3",
+  "session_count": 3,
+  "session_ids": [
+    "2026-07-28-permissioned-v3-session-1",
+    "2026-07-28-permissioned-v3-session-2",
+    "2026-07-28-permissioned-v3-session-3"
+  ],
+  "git_commit": "91f54743676f367ebc5a758a64b09a27e152af46",
+  "claim_boundary": {
+    "raft_qbft_absolute_latency_directly_comparable": false,
+    "reason": "etcd key/value replication and EVM contract execution are different workloads",
+    "byzantine_faults_measured": false,
+    "qbft_fault_interpretation": "stopped validators measure crash/non-participation and quorum loss, not equivocation or arbitrary Byzantine messages"
+  },
+  "raft": {
+    "baseline": {
+      "n": 90,
+      "median": 12.0175,
+      "p95": 16.2248,
+      "mean": 12.279533333333331,
+      "stdev": 2.1839918055573313,
+      "min": 9.588,
+      "max": 21.493
+    },
+    "one_follower_offline": {
+      "n": 90,
+      "median": 10.251999999999999,
+      "p95": 12.682299999999998,
+      "mean": 10.550566666666667,
+      "stdev": 1.0980407684660363,
+      "min": 9.272,
+      "max": 15.268
+    },
+    "post_leader_failover": {
+      "n": 90,
+      "median": 10.431999999999999,
+      "p95": 14.45535,
+      "mean": 11.016044444444445,
+      "stdev": 1.7969410956882486,
+      "min": 9.342,
+      "max": 19.452
+    },
+    "recovered": {
+      "n": 90,
+      "median": 10.5905,
+      "p95": 19.134399999999992,
+      "mean": 12.117433333333333,
+      "stdev": 3.48018851694605,
+      "min": 9.388,
+      "max": 28.015
+    },
+    "leader_failover_recovery": {
+      "n": 3,
+      "median": 1125.939,
+      "p95": 1129.5723,
+      "mean": 1126.5756666666666,
+      "stdev": 3.1309315440191194,
+      "min": 1123.812,
+      "max": 1129.976
+    },
+    "cluster_recovery": {
+      "n": 3,
+      "median": 373.708,
+      "p95": 1044.3646,
+      "mean": 618.4140000000001,
+      "stdev": 433.45325359489465,
+      "min": 362.652,
+      "max": 1118.882
+    }
+  },
+  "qbft": {
+    "baseline": {
+      "n": 90,
+      "median": 4101.137,
+      "p95": 4116.5899500000005,
+      "mean": 4101.730377777778,
+      "stdev": 8.555302371317415,
+      "min": 4087.638,
+      "max": 4120.701
+    },
+    "one_validator_offline": {
+      "n": 90,
+      "median": 4100.056500000001,
+      "p95": 8116.963600000001,
+      "mean": 4854.368488888888,
+      "stdev": 1691.3607337580827,
+      "min": 69.754,
+      "max": 8128.596
+    },
+    "recovered": {
+      "n": 90,
+      "median": 4105.2384999999995,
+      "p95": 8126.650099999999,
+      "mean": 4907.033933333333,
+      "stdev": 1615.2571348172387,
+      "min": 4085.62,
+      "max": 8137.93
+    },
+    "quorum_recovery": {
+      "n": 3,
+      "median": 14649.685,
+      "p95": 15127.693,
+      "mean": 14816.385,
+      "stdev": 315.977866946405,
+      "min": 14618.665,
+      "max": 15180.805
+    }
+  },
+  "quorum_loss": {
+    "raft_failed_writes": 90,
+    "raft_total_writes": 90,
+    "qbft_stalled_probes": 90,
+    "qbft_total_probes": 90
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "analyzer_path": "scripts/l4/consensus/analyze_permissioned_faults.py",
+  "analyzer_sha256": "b8fab8663ace96b7c6940264b8aaebbc33afce089a53b711076271f9a09a0298",
+  "claim_boundary": {
+    "cross_family_absolute_latency_ranking": false,
+    "measured": "process crash/non-participation, quorum loss, and operator-assisted QBFT recovery",
+    "not_measured": "equivocation, forged votes, state corruption, or arbitrary Byzantine messages"
+  },
+  "evidence_schema": "zktrustllm.permissioned-consensus-fault-evidence.v3",
+  "latest_session_completed_at_utc": "2026-07-27T23:41:40.571Z",
+  "outputs": [
+    {
+      "path": "paper/l4_conference/derived_consensus/summary_permissioned_faults.json",
+      "sha256": "9a31752a5f09f29b7cc1b5d4338840dfcacc624977493f2deb404360faaa34ef"
+    },
+    {
+      "path": "paper/l4_conference/derived_consensus/summary_permissioned_faults.csv",
+      "sha256": "3044beff0add2f2aabdd1890019d3cd526822ec0af16301f89850d857516f8d9"
+    },
+    {
+      "path": "paper/l4_conference/derived_consensus/results_permissioned_faults.tex",
+      "sha256": "f23ef491e40c5a9a95593b1c7b37cbb0ca3b89e49aed077c96b3f6fe073ca7f4"
+    },
+    {
+      "path": "paper/l4_conference/derived_consensus/table_permissioned_faults.tex",
+      "sha256": "c2ae69a5624595c4c49a57154938c6878a2fc146593a6fc385e2a1604a4289fa"
+    }
+  ],
+  "schema": "zktrustllm.permissioned-fault-derivation-manifest.v1",
+  "session_count": 3,
+  "source_git_commit": "91f54743676f367ebc5a758a64b09a27e152af46",
+  "sources": [
+    {
+      "benchmark_path": "runtime_artifacts/permissioned_faults/2026-07-28-permissioned-v3-session-1/benchmark.json",
+      "benchmark_sha256": "b6ebb1678f7c49299cf7a6cb0f60305d587d61d010f4c763cb10ead046d6db11",
+      "manifest_path": "runtime_artifacts/permissioned_faults/2026-07-28-permissioned-v3-session-1/SHA256SUMS.txt",
+      "manifest_sha256": "7deb14ded5548c73ad22fd81a1a8df673eb8eeb38c230287df1a18c41dd7657d",
+      "session_id": "2026-07-28-permissioned-v3-session-1"
+    },
+    {
+      "benchmark_path": "runtime_artifacts/permissioned_faults/2026-07-28-permissioned-v3-session-2/benchmark.json",
+      "benchmark_sha256": "055a5b15fd9346767dc921838530399e255d14a36edd3335013921fd5613b5ee",
+      "manifest_path": "runtime_artifacts/permissioned_faults/2026-07-28-permissioned-v3-session-2/SHA256SUMS.txt",
+      "manifest_sha256": "8f093c896a2c4f1903a914acc556e655572ad1c4b83a5e4a9ff77361c1334a57",
+      "session_id": "2026-07-28-permissioned-v3-session-2"
+    },
+    {
+      "benchmark_path": "runtime_artifacts/permissioned_faults/2026-07-28-permissioned-v3-session-3/benchmark.json",
+      "benchmark_sha256": "36d0b525b0549384f5a16e482ba31b2ee67832c566103b8894f4f51fea66567e",
+      "manifest_path": "runtime_artifacts/permissioned_faults/2026-07-28-permissioned-v3-session-3/SHA256SUMS.txt",
+      "manifest_sha256": "7f2e172a51ceba11bc32d0228441a26965c2eda32749f5ff355f43b9692bdc62",
+      "session_id": "2026-07-28-permissioned-v3-session-3"
+    }
+  ]
+}
