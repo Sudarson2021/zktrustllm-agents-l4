@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import importlib.util
+import csv
+import hashlib
 import json
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -15,6 +18,8 @@ TOOLS = ROOT / "scripts" / "l4" / "tnsm_revision"
 
 
 def load_module(name: str):
+    if str(TOOLS) not in sys.path:
+        sys.path.insert(0, str(TOOLS))
     spec = importlib.util.spec_from_file_location(name, TOOLS / f"{name}.py")
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)
@@ -23,6 +28,148 @@ def load_module(name: str):
 
 
 class RevisionToolsTest(unittest.TestCase):
+    def test_frozen_oracle_export_excludes_target_leakage(self) -> None:
+        module = load_module("export_frozen_oracle")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            n8n_root = root / "n8n"
+            experiment = n8n_root / "runtime" / "experiments" / module.EXPERIMENT_ID
+            scenarios_dir = n8n_root / "scenarios" / "configs"
+            responses_dir = experiment / "responses"
+            scenarios_dir.mkdir(parents=True)
+            responses_dir.mkdir(parents=True)
+
+            labels = {
+                "S1": ("COMPLIANT", "HUMAN"),
+                "S2": ("NON_COMPLIANT", "HUMAN"),
+                "S3": ("NON_COMPLIANT", "HUMAN"),
+                "S4": ("NON_COMPLIANT", "NEVER"),
+                "S5": ("NON_COMPLIANT", "NEVER"),
+                "S6": ("UNCERTAIN", "HUMAN"),
+            }
+            manifest_scenarios = []
+            for scenario_id, (filename, _) in module.EXPECTED_SCENARIO_FILES.items():
+                configuration = {"scenario_id": scenario_id, "component": "O-RAN"}
+                (scenarios_dir / filename).write_text(
+                    json.dumps(configuration) + "\n", encoding="utf-8"
+                )
+                decision, action = labels[scenario_id]
+                manifest_scenarios.append(
+                    {
+                        "scenario_id": scenario_id,
+                        "oracle_decision": decision,
+                        "oracle_action_class": action,
+                    }
+                )
+            (experiment / "oracle_scenario_manifest.json").write_text(
+                json.dumps({"scenarios": manifest_scenarios, "expert_verified": False}) + "\n",
+                encoding="utf-8",
+            )
+
+            fieldnames = [
+                "experiment_id",
+                "phase",
+                "scenario_id",
+                "scenario_title",
+                "retrieval_mode",
+                "repeat",
+                "ground_truth_decision",
+                "ground_truth_action_class",
+                "expert_verified",
+                "run_id",
+                "report_hash",
+                "execution_mode",
+                "workflow_status",
+                "wall_clock_sec",
+                "timestamp_utc",
+                "response_file",
+                "status",
+                "error",
+            ]
+            index_rows = []
+            for scenario_id, (decision, action) in labels.items():
+                for mode in module.EXPECTED_MODES:
+                    for repeat in range(1, 11):
+                        run_id = f"{scenario_id}-{mode}-{repeat}"
+                        report_hash = hashlib.sha256(run_id.encode()).hexdigest()
+                        chunks = [] if mode == "NO_RAG" else [
+                            {
+                                "chunk_id": "c1",
+                                "document": "synthetic",
+                                "text": "frozen evidence",
+                                "chunk_hash": hashlib.sha256(b"frozen evidence").hexdigest(),
+                            }
+                        ]
+                        report = {
+                            "run_id": run_id,
+                            "report_hash": report_hash,
+                            "metadata": {
+                                "scenario_id": scenario_id,
+                                "retrieval_mode": mode,
+                                "expected_oracle_decision": decision,
+                                "expected_oracle_action_class": action,
+                            },
+                            "retrieval": {
+                                "bundle_hash": hashlib.sha256((run_id + "bundle").encode()).hexdigest(),
+                                "grounding_available": bool(chunks),
+                                "query": {"retrieval_mode": mode, "query_text": "security"},
+                                "chunks": chunks,
+                            },
+                            "providers": {"model": {"assessment": {"decision": decision}}},
+                            "policy": {"decision": decision, "enforced_action_class": action},
+                        }
+                        response = responses_dir / f"{run_id}.json"
+                        response.write_text(json.dumps(report) + "\n", encoding="utf-8")
+                        index_rows.append(
+                            {
+                                "experiment_id": module.EXPERIMENT_ID,
+                                "phase": "oracle",
+                                "scenario_id": scenario_id,
+                                "scenario_title": scenario_id,
+                                "retrieval_mode": mode,
+                                "repeat": repeat,
+                                "ground_truth_decision": decision,
+                                "ground_truth_action_class": action,
+                                "expert_verified": "false",
+                                "run_id": run_id,
+                                "report_hash": report_hash,
+                                "execution_mode": "LIVE",
+                                "workflow_status": "ANCHORED",
+                                "wall_clock_sec": "1.0",
+                                "timestamp_utc": "2026-01-01T00:00:00Z",
+                                "response_file": f"responses/{response.name}",
+                                "status": "SUCCESS",
+                                "error": "",
+                            }
+                        )
+            with (experiment / "run_index_success_matrix.csv").open(
+                "w", newline="", encoding="utf-8"
+            ) as handle:
+                writer = csv.DictWriter(handle, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(index_rows)
+
+            output = root / "canonical.jsonl"
+            export_manifest = root / "export_manifest.json"
+            probe = root / "probe.json"
+            result = module.export_oracle(
+                experiment,
+                n8n_root,
+                output,
+                export_manifest,
+                probe,
+                strict_source_hashes=False,
+            )
+            self.assertEqual(result["canonical_jsonl"]["rows"], 180)
+            self.assertTrue(result["canonical_validation"]["valid"])
+            first = json.loads(output.read_text(encoding="utf-8").splitlines()[0])
+            prompt = json.loads(first["scenario"])
+            self.assertNotIn("oracle_decision", prompt)
+            self.assertNotIn("providers", prompt)
+            self.assertNotIn("policy", prompt)
+            self.assertEqual(prompt["retrieval_mode"], "NO_RAG")
+            self.assertEqual(prompt["retrieval_evidence"]["chunks"], [])
+
     def test_canonical_oracle_contract(self) -> None:
         module = load_module("preflight_experiments")
         with tempfile.TemporaryDirectory() as temporary:
