@@ -1,27 +1,24 @@
-# ZKTrustLLM — Artifact & Prototype (Phase 1–5)
+# ZKTrustLLM-Agents L4
 
-Prototype + artifacts for **ZKTrustLLM: IPFS-Anchored Zero-Knowledge Accountability for Secure 5G Edge Multicast**.
+Proof-governed agentic zero-trust control and reproducible evaluation for O-RAN edge security.
 
-## Clarifications (addresses ICC reviewer concerns)
-- IPFS is NOT used for live video streaming. IPFS stores audit evidence objects; the live media path remains DTLS/RTP/multicast.
-- CID = Content Identifier (content-address for evidence in IPFS).
-- ZK = Zero-Knowledge proof attesting properties about (score, evidence commitment, context) without revealing sensitive evidence.
+This repository contains artifact support for the ZKTrustLLM-Agents L4 journal manuscript. The goal is to make each major paper claim traceable to scripts, logs, hashes, generated tables, and explicit claim boundaries.
 
-## Reproduce / collect artifacts
+## Scope
+
+ZKTrustLLM-Agents L4 evaluates governed autonomous O-RAN security workflows. It separates O-RAN governance, bounded telemetry/reasoning/policy/proof/audit agents, and evidence/trust/reproducibility functions.
+
+The artifact focuses on reproducibility, policy gating, audit anchoring, negative-security rejection checks, and bounded AI-assisted workflow evaluation.
+
+## Quick start
+
 Run:
-  bash scripts/reproduce_all.sh
 
-Outputs are collected under:
-  artifacts/out/
+    bash scripts/reproduce_paper_258.sh
 
-## Baselines (comparisons)
-Run:
-  bash scripts/baselines/run_oracle_only.sh
-  bash scripts/baselines/run_no_ipfs.sh
+Outputs are written to:
 
-## Paper ↔ Code mapping
-See:
-  ARTIFACTS.md
+    artifacts/out/paper_258/
 
 ## Scoring model
 See:
@@ -104,3 +101,38 @@ Raft is not Byzantine-fault tolerant, and the standard EVM provides a SHA-256
 precompile but no SHA-512 precompile. The local SHA-512 bar is explicitly a
 pure-Solidity reference; deployment computes SHA-512 off chain and anchors the
 full 64-byte digest.
+
+## Main commands
+
+- Paper-level validation wrapper: bash scripts/reproduce_paper_258.sh
+- Core local reproduction: bash scripts/reproduce_all.sh
+- Oracle-only baseline: bash scripts/baselines/run_oracle_only.sh
+- No-IPFS baseline: bash scripts/baselines/run_no_ipfs.sh
+- Packet-capture/direct telemetry smoke test: bash scripts/l4/media/run_packet_capture_smoke.sh
+- AUTH_V2.x timing boundary check: bash scripts/l4/zk/collect_auth_v2_timing_guarded.sh
+- Paper claim validation: python3 scripts/l4/validation/validate_paper_258_claims.py
+
+## Claim boundary
+
+This repository supports local scientific validation. It does not claim production-grade O-RAN deployment, Ethereum mainnet performance, semantic correctness of LLM reasoning, live media QoE unless a packet-capture experiment is explicitly run, or complete AUTH_V2.x prover timing unless direct timing logs exist for every reported row.
+
+## API-key handling
+
+For live AI evaluation, copy config/n8n/ai_eval.env.example to .env.ai_eval, fill keys locally, and source it. Never commit .env.ai_eval or raw logs containing provider credentials.
+
+## Paper-to-code mapping
+
+See ARTIFACTS.md.
+
+## IEEE TNSM supervisor revision
+
+The comment-by-comment revision package, manuscript-ready text, vector figure
+replacements, updated standards references, submission materials, and empirical
+completion gates are in
+`docs/journal/tnsm_revision_20260808/`. New results must pass the supplied
+baseline, injection, metadata, HTTP-failure, and human-label scripts before they
+are inserted into the paper.
+
+## Evidence classes
+
+The artifact separates direct runtime evidence, public-testnet evidence, configured profile evidence, reproducibility evidence, and claim-boundary evidence. Configured media-profile values must not be reported as packet-capture measurements.

@@ -1,0 +1,23 @@
+```json
+{
+  "decision": "SUPPORTED",
+  "action_class": "MIXED",
+  "evidence_class": "CONFIGURED_PROFILE",
+  "claim_boundary_ok": true,
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "No explicit runtime measurements or packet-capture evidence provided",
+    "No production RAN deployment confirmation",
+    "No cryptographic proof of key rotation execution",
+    "No operator approval log or audit trail timestamps"
+  ],
+  "risk_flags": [
+    "NEVER action present in candidate set—requires explicit blocking confirmation",
+    "PRIVILEGED action (multicast key rotation) lacks approval chain evidence",
+    "HUMAN action (suspicious tenant review) lacks operator context or SLA",
+    "Policy admissibility of executed actions not independently verified",
+    "Zero/duplicate anchor rejection rule stated but not testable without runtime state"
+  ],
+  "recommended_next_step": "Confirm blocking mechanism for 'bypass policy gate' action; supply operator approval logs for PRIVILEGED and HUMAN actions; provide audit commitment hash and policy proof before execution; validate against live anchor state to enforce zero/duplicate rejection rule."
+}
+```

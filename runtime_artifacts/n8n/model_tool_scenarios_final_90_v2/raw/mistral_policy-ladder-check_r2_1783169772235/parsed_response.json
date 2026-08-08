@@ -1,0 +1,10 @@
+{
+  "action_class": "NONE",
+  "claim_boundary_ok": true,
+  "decision": "SUPPORTED",
+  "evidence_class": "CLAIM_BOUNDARY",
+  "recommended_next_step": "Validate action-class mappings against runtime policy profiles and confirm operator approval workflows for HUMAN/PRIVILEGED actions.",
+  "risk_flags": [],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": []
+}

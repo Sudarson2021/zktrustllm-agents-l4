@@ -1,0 +1,176 @@
+{
+  "name": "ZKTrustLLM-Agents L4 — Multi-Model & Multi-Agent n8n Evaluation",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "ZKTrustLLM-Agents L4 — Multi-Model & Multi-Agent n8n Evaluation\n\nPurpose:\nThis workflow implements the supervisor-requested extension of the experimental section. It evaluates AI-model/tool behaviour around the local ZKTrustLLM-Agents L4 evidence pipeline using Claude, DeepSeek, and Mistral.\n\nStage E:\nCross-model single-agent tool-scenario evaluation.\nScenarios:\n1. Evidence-summary generation\n2. Claim-boundary review\n3. Policy-ladder checking\n\nStage F:\nMeaningful multi-agent evaluation.\nCases:\n1. Task decomposition\n2. Agent collaboration\n3. Failure recovery\n4. Verification agent\n5. Model disagreement resolution\n\nMeasured outcomes:\nAccuracy, valid JSON rate, execution time, p95 latency, estimated cost, failed runs, consistency, and improvement over the single-agent baseline.\n\nClaim boundary:\nThis evaluates AI-model/tool and multi-agent orchestration behaviour around the local n8n artifact. It is not claimed as production O-RAN deployment, packet-capture network benchmarking, public-chain benchmarking, or full media-plane QoE validation.",
+        "height": 620,
+        "width": 620
+      },
+      "id": "sticky-stage-ef-claim-boundary",
+      "name": "Stage E/F Evaluation Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -360
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "manual-start-stage-ef",
+      "name": "Start Stage E/F Evaluation",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "mode",
+              "name": "mode",
+              "value": "both",
+              "type": "string"
+            },
+            {
+              "id": "providers",
+              "name": "providers",
+              "value": "anthropic,deepseek,mistral",
+              "type": "string"
+            },
+            {
+              "id": "single_repeats",
+              "name": "single_repeats",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "multi_repeats",
+              "name": "multi_repeats",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "out_prefix",
+              "name": "out_prefix",
+              "value": "stage_ef_three_model_n8n_pilot",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "configure-model-agent-matrix",
+      "name": "Configure Model-Agent Matrix",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8766/run_stage_ef",
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "={\n  \"mode\": \"{{$json.mode}}\",\n  \"providers\": \"{{$json.providers}}\",\n  \"single_repeats\": {{$json.single_repeats}},\n  \"multi_repeats\": {{$json.multi_repeats}},\n  \"out_prefix\": \"{{$json.out_prefix}}\"\n}",
+        "options": {
+          "timeout": 3600000
+        }
+      },
+      "id": "run-local-stage-ef-evaluation",
+      "name": "Run Claude/DeepSeek/Mistral + Multi-Agent Evaluation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        520,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nreturn [{\n  json: {\n    ok: r.ok,\n    returncode: r.returncode,\n    command: r.cmd,\n    claim_boundary: r.claim_boundary,\n    stdout_preview: r.stdout,\n    stderr_preview: r.stderr,\n    generated_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "build-numerical-results-summary",
+      "name": "Build Numerical Results Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst text = String(r.stdout_preview || '') + '\\n' + String(r.claim_boundary || '');\nconst forbidden = [\n  '240-run six-variant',\n  'production O-RAN deployment readiness',\n  'packet-capture network-impairment benchmark',\n  'public-chain benchmark',\n  'full media-plane QoE validation'\n];\nconst hits = forbidden.filter(x => text.toLowerCase().includes(x.toLowerCase()));\nreturn [{\n  json: {\n    ...r,\n    claim_boundary_review_passed: hits.length === 0,\n    forbidden_phrase_hits: hits,\n    reviewer_note: hits.length === 0\n      ? 'Claim-boundary review passed for the generated Stage E/F summary.'\n      : 'Claim-boundary review detected unsupported language. Inspect before using in the paper.'\n  }\n}];"
+      },
+      "id": "claim-boundary-review-agent",
+      "name": "Claim-Boundary Review Agent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        -160
+      ]
+    }
+  ],
+  "connections": {
+    "Start Stage E/F Evaluation": {
+      "main": [
+        [
+          {
+            "node": "Configure Model-Agent Matrix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Model-Agent Matrix": {
+      "main": [
+        [
+          {
+            "node": "Run Claude/DeepSeek/Mistral + Multi-Agent Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Claude/DeepSeek/Mistral + Multi-Agent Evaluation": {
+      "main": [
+        [
+          {
+            "node": "Build Numerical Results Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Numerical Results Summary": {
+      "main": [
+        [
+          {
+            "node": "Claim-Boundary Review Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "versionId": "stage-ef-local-template"
+}

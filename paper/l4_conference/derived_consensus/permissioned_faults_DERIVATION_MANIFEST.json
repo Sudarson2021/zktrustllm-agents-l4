@@ -1,6 +1,6 @@
 {
   "analyzer_path": "scripts/l4/consensus/analyze_permissioned_faults.py",
-  "analyzer_sha256": "b8fab8663ace96b7c6940264b8aaebbc33afce089a53b711076271f9a09a0298",
+  "analyzer_sha256": "4e3f7e042e9fbf7a349dfc3b17ef4b4e9fe86730fe85d5af33e1b94ff9eedea1",
   "claim_boundary": {
     "cross_family_absolute_latency_ranking": false,
     "measured": "process crash/non-participation, quorum loss, and operator-assisted QBFT recovery",

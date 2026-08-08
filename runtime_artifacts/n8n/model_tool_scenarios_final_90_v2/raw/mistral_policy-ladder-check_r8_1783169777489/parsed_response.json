@@ -1,0 +1,10 @@
+{
+  "action_class": "NONE",
+  "claim_boundary_ok": true,
+  "decision": "SUPPORTED",
+  "evidence_class": "CLAIM_BOUNDARY",
+  "recommended_next_step": "Verify runtime enforcement of AUTOMATIC/HUMAN/PRIVILEGED/NEVER action classes via policy-ladder-check tool in a configured profile.",
+  "risk_flags": [],
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": []
+}

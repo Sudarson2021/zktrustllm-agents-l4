@@ -1,0 +1,25 @@
+\begin{table}[t]
+\centering
+\caption{Stage E/F multimodel and multi-agent n8n evaluation results. Costs are reported using the configured pricing variables in the experiment environment.}
+\label{tab:stage-ef-n8n-results}
+\scriptsize
+\begin{tabular}{llrrrrrr}
+\hline
+Stage/Task & Model & Runs & Pass/Partial/Fail & Valid JSON & Accuracy & Mean Lat. & Consistency \\
+ & & & & (\%) & (\%) & (ms) & (\%) \\
+\hline
+Stage E: claim-boundary-review & Claude Fable 5 & 5 & 5/0/0 & 100.0 & 100.0 & 5596.4 & 100.0 \\
+Stage E: evidence-summary & Claude Fable 5 & 5 & 5/0/0 & 100.0 & 100.0 & 4393.8 & 100.0 \\
+Stage E: policy-ladder-check & Claude Fable 5 & 5 & 5/0/0 & 100.0 & 100.0 & 6363.6 & 20.0 \\
+Stage E: claim-boundary-review & DeepSeek & 5 & 5/0/0 & 100.0 & 100.0 & 1429.0 & 100.0 \\
+Stage E: evidence-summary & DeepSeek & 5 & 5/0/0 & 100.0 & 100.0 & 1360.8 & 100.0 \\
+Stage E: policy-ladder-check & DeepSeek & 5 & 4/1/0 & 100.0 & 96.0 & 2252.0 & 20.0 \\
+Stage E: claim-boundary-review & Mistral & 5 & 5/0/0 & 100.0 & 100.0 & 1271.4 & 100.0 \\
+Stage E: evidence-summary & Mistral & 5 & 5/0/0 & 100.0 & 100.0 & 1267.2 & 100.0 \\
+Stage E: policy-ladder-check & Mistral & 5 & 5/0/0 & 100.0 & 100.0 & 1871.0 & 40.0 \\
+Stage F: multi-agent cases & Claude Fable 5 & 15 & 15/0/0 & 100.0 & 100.0 & 5144.4 & 100.0 \\
+Stage F: multi-agent cases & DeepSeek & 15 & 15/0/0 & 100.0 & 100.0 & 1658.1 & 100.0 \\
+Stage F: multi-agent cases & Mistral & 15 & 15/0/0 & 100.0 & 100.0 & 1455.2 & 100.0 \\
+\hline
+\end{tabular}
+\end{table}

@@ -1,0 +1,36 @@
+```json
+{
+  "decision": "PARTIAL",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": false,
+  "supported_numerical_claims": [
+    "240",
+    "6",
+    "4",
+    "10"
+  ],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs completeness",
+    "RTP/DTLS-RTP delay quantitative values",
+    "RTP/DTLS-RTP jitter quantitative values",
+    "RTP/DTLS-RTP loss quantitative values",
+    "reasoning latency numerical result",
+    "anchor gas numerical result",
+    "replay rejection rate or count",
+    "zero-anchor rejection rate or count",
+    "unauthorized-submitter rejection rate or count",
+    "Sepolia gas usage absolute value",
+    "Sepolia block confirmation latency"
+  ],
+  "risk_flags": [
+    "configured_profiles_not_measured: RTP/DTLS parameters are scenario inputs, not empirical observations",
+    "partial_zk_prover_instrumentation: full-L4 row coverage incomplete",
+    "stage3_hooks_lack_quantification: runtime hooks identified but no numerical results provided",
+    "stage4_testnet_incomplete: deploy/anchor tx observable but gas and block data not numerically stated",
+    "measurement_boundary_violation: mixing configured parameters with claimed runtime evidence",
+    "reproducibility_gap: no packet capture, no prover logs, no tx hash references"
+  ],
+  "recommended_next_step": "Collect and supply: (1) quantified RTP/DTLS delay/jitter/loss measurements from packet capture or network simulator output; (2) complete full-ZK prover-time logs for all Full-L4 rows with timestamps; (3) numerical results for all stage3 runtime hooks (latency in ms, gas in wei, rejection counts); (4) explicit Sepolia tx hashes, block numbers, and gas usage from stage4 audit. Separate configured scenario parameters from measured evidence in documentation."
+}
+```

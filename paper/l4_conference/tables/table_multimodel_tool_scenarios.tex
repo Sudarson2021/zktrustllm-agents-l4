@@ -1,0 +1,22 @@
+\begin{table*}[!t]
+\centering
+\caption{n8n Multi-Model Tool-Scenario Validation}
+\label{tab:n8n_multimodel_tools}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llcrrrrr}
+\toprule
+Provider & Model & Tool scenario & Runs & Pass (\%) & JSON (\%) & Boundary (\%) & p95 latency (ms) \\
+\midrule
+claude & claude-haiku-4-5-20251001 & claim-boundary-review & 10 & 0.0 & 100.0 & 100.0 & 4400.3 \\
+claude & claude-haiku-4-5-20251001 & evidence-summary & 10 & 0.0 & 100.0 & 0.0 & 10287.6 \\
+claude & claude-haiku-4-5-20251001 & policy-ladder-check & 10 & 0.0 & 100.0 & 100.0 & 4000.0 \\
+deepseek & deepseek-chat & claim-boundary-review & 10 & 0.0 & 100.0 & 100.0 & 2498.7 \\
+deepseek & deepseek-chat & evidence-summary & 10 & 0.0 & 100.0 & 0.0 & 2380.7 \\
+deepseek & deepseek-chat & policy-ladder-check & 10 & 0.0 & 100.0 & 100.0 & 1653.6 \\
+mistral & mistral-small-latest & claim-boundary-review & 10 & 0.0 & 100.0 & 100.0 & 1715.1 \\
+mistral & mistral-small-latest & evidence-summary & 10 & 100.0 & 100.0 & 100.0 & 1536.3 \\
+mistral & mistral-small-latest & policy-ladder-check & 10 & 0.0 & 100.0 & 100.0 & 941.4 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

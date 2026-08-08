@@ -1,0 +1,62 @@
+{
+  "run_id": "d7c0e31b-fa9e-437b-87d2-acdeef4a6ba1",
+  "role": "arbiter",
+  "provider": "mistral",
+  "model_id": "mistral-medium-3-5",
+  "provider_request_id": "147e389a6c504803b8dcf3b0679c3280",
+  "valid_json": true,
+  "provider_call_succeeded": true,
+  "artifact": {
+    "role": "arbiter",
+    "decision": "NON_COMPLIANT",
+    "violations": [
+      {
+        "parameter": "drb_integrity",
+        "observed_value": false,
+        "required_value": true,
+        "document": "EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt",
+        "clause": "P-01",
+        "retrieved_chunk_id": "1ce2e95151c4d68a653a3920-p1-c1-f9663571fa",
+        "severity": "HIGH",
+        "justification": "The configuration sets drb_integrity to false while its supplied mno_security_profile (EXPERIMENTAL-S2-DRB-INTEGRITY-REQUIRED) sets drb_integrity_required to true. The retrieved chunk states: 'Data radio bearer integrity protection MUST be enabled when the applicable MNO security profile classifies integrity protection as required.' The observed configuration directly contradicts this MUST requirement."
+      }
+    ],
+    "corrected_configuration_patch": "{\"drb_integrity\": true}",
+    "proposed_action": "Reject the request to continue service without operator approval. Submit a privileged change to enable DRB integrity for authorized human review; do not auto-apply.",
+    "action_class": "PRIVILEGED",
+    "confidence": 0.99,
+    "claim_boundary_ok": true,
+    "findings": [
+      "All prior role artifacts (planner, critic, recovery) agree on NON_COMPLIANT with PRIVILEGED action class, and the independent-provider aggregate confirms unanimous NON_COMPLIANT consensus.",
+      "The single retained violation (P-01) is factually grounded: configuration drb_integrity=false contradicts mno_security_profile drb_integrity_required=true, and retrieved chunk 1ce2e95151c4d68a653a3920-p1-c1-f9663571fa explicitly states the MUST requirement.",
+      "No retrieved chunk authorizes continuing service without operator approval; operator_approval_present is false, so the requested change is unsupported by evidence and must be denied.",
+      "The policy is explicitly labeled experimental (retrieved chunk 1ce2e95151c4d68a653a3920-p1-c0-950ef8ce3e), but this does not invalidate the MUST requirement for the given scenario.",
+      "Severity divergence (HIGH vs CRITICAL) is resolved to HIGH as the majority classification, with no retrieved chunk providing impact quantification to justify CRITICAL.",
+      "No unsafe action escalation: all roles correctly avoided executing the change and gated it behind authorized review.",
+      "No invented documents, clauses, chunk identifiers, KPI measurements, proof results, chain results, or deployment claims were detected in any artifact."
+    ],
+    "needs_recovery": false,
+    "uncertainties": [
+      "The cited policy is explicitly labeled an experimental operator policy and not an O-RAN or 3GPP specification (retrieved chunk 1ce2e95151c4d68a653a3920-p1-c0-950ef8ce3e).",
+      "No retrieved chunk defines the approval workflow or states whether operator approval is mandatory for this specific requested change.",
+      "No retrieved chunk establishes the runtime, service-impact, or deployment consequences of enabling DRB integrity on the O-CU F1-U interface."
+    ]
+  },
+  "deterministic_validation": {
+    "valid": true,
+    "grounding_valid": true,
+    "errors": [],
+    "bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6",
+    "checked_at": "2026-07-18T15:14:29.843577+00:00"
+  },
+  "prompt_hash": "dd25fda527020353945480b03205f50e3869cc8b5a7482b1ce527428d98776ba",
+  "raw_response_hash": "17c60f4399c46e330b39dea661a1bd5c1b8850e23e03c8a16d0c85ca76f10440",
+  "parsed_response_hash": "9e9a692706040a6252c9d557a7b6e143f050f3dad87336cb4290d27a658ed6cf",
+  "latency_ms": 5048.281,
+  "provider_started_ns": 244536876398744,
+  "provider_ended_ns": 244541924679368,
+  "input_tokens": 7748,
+  "output_tokens": 790,
+  "created_at": "2026-07-18T15:14:29.843778+00:00",
+  "execution_mode": "LIVE"
+}

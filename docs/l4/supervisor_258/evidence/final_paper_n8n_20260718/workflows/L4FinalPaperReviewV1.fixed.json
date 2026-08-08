@@ -1,0 +1,286 @@
+[
+  {
+    "updatedAt": "2026-07-18T12:24:59.813Z",
+    "createdAt": "2026-07-17T00:29:17.994Z",
+    "id": "L4FinalPaperReviewV1",
+    "name": "ZKTrustLLM-Agents L4 — FINAL PAPER DEMO: Human and Privileged Review Callback",
+    "description": null,
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {
+          "content": "## Human and privileged review callback\n\nThe reviewer identity and role are validated by the gateway. Approval permits only a **dry-run simulated action ledger** outcome. Rejection is final and auditable.",
+          "height": 210,
+          "width": 720
+        },
+        "id": "note-review",
+        "name": "Human Review Boundary",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -120,
+          -360
+        ]
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "l4-action-review",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "id": "review-hook",
+        "name": "Human Review Decision",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          0,
+          0
+        ],
+        "webhookId": "review-hook"
+      },
+      {
+        "parameters": {
+          "jsCode": "const b=$json.body||$json; for(const k of ['run_id','reviewer_id','reviewer_role','approved']) if(b[k]===undefined) throw new Error(k+' is required'); return [{json:{run_id:String(b.run_id),reviewer_id:String(b.reviewer_id),reviewer_role:String(b.reviewer_role),approved:Boolean(b.approved),rationale:String(b.rationale||'')}}];"
+        },
+        "id": "validate-review",
+        "name": "Validate Review Payload",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          300,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/actions/review\" }}",
+          "options": {
+            "timeout": 300000
+          },
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "keypair",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "reviewer_id",
+                "value": "={{ $json.reviewer_id }}"
+              },
+              {
+                "name": "reviewer_role",
+                "value": "={{ $json.reviewer_role }}"
+              },
+              {
+                "name": "approved",
+                "value": "={{ $json.approved }}"
+              },
+              {
+                "name": "rationale",
+                "value": "={{ $json.rationale }}"
+              }
+            ]
+          }
+        },
+        "id": "submit-review",
+        "name": "Submit Authorised Review",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          600,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "is-approved-condition",
+                "leftValue": "={{ $json.status }}",
+                "rightValue": "APPROVED",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "is-approved",
+        "name": "Review Approved?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          900,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/actions/execute\" }}",
+          "options": {
+            "timeout": 300000
+          },
+          "sendBody": true,
+          "contentType": "json",
+          "jsonBody": "={{ { actor: $json.reviewer_id || \"authorised-reviewer\", execution_target: \"SIMULATED_O_RAN_ACTION_LEDGER\", dry_run: true } }}"
+        },
+        "id": "execute-reviewed",
+        "name": "Execute Approved Simulation",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1200,
+          -100
+        ]
+      },
+      {
+        "parameters": {
+          "respondWith": "json",
+          "responseBody": "={{ $json }}",
+          "options": {
+            "responseCode": 200
+          }
+        },
+        "id": "respond-approved",
+        "name": "Respond Approved Outcome",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.4,
+        "position": [
+          1500,
+          -100
+        ]
+      },
+      {
+        "parameters": {
+          "respondWith": "json",
+          "responseBody": "={{ $json }}",
+          "options": {
+            "responseCode": 200
+          }
+        },
+        "id": "respond-rejected",
+        "name": "Respond Review Rejection",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.4,
+        "position": [
+          1200,
+          140
+        ]
+      }
+    ],
+    "connections": {
+      "Human Review Decision": {
+        "main": [
+          [
+            {
+              "node": "Validate Review Payload",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Validate Review Payload": {
+        "main": [
+          [
+            {
+              "node": "Submit Authorised Review",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Submit Authorised Review": {
+        "main": [
+          [
+            {
+              "node": "Review Approved?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Review Approved?": {
+        "main": [
+          [
+            {
+              "node": "Execute Approved Simulation",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Respond Review Rejection",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute Approved Simulation": {
+        "main": [
+          [
+            {
+              "node": "Respond Approved Outcome",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "staticData": null,
+    "meta": null,
+    "nodeGroups": [],
+    "pinData": {},
+    "versionId": "89afec73-05db-40cc-9d37-ba7a9c7a94cd",
+    "activeVersionId": "89afec73-05db-40cc-9d37-ba7a9c7a94cd",
+    "versionCounter": 1,
+    "triggerCount": 1,
+    "sourceWorkflowId": null,
+    "tags": [],
+    "shared": [
+      {
+        "updatedAt": "2026-07-17T00:29:17.994Z",
+        "createdAt": "2026-07-17T00:29:17.994Z",
+        "role": "workflow:owner",
+        "workflowId": "L4FinalPaperReviewV1",
+        "projectId": "nkJRKYTKCoQ2X1KE",
+        "project": {
+          "updatedAt": "2026-07-15T20:49:51.238Z",
+          "createdAt": "2026-07-15T20:47:59.185Z",
+          "id": "nkJRKYTKCoQ2X1KE",
+          "name": "Dave Karmaker <davekarmaker111@gmail.com>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "customTelemetryTags": [],
+          "creatorId": "11582d5e-dc7a-41fc-8de8-0075e3187d04"
+        }
+      }
+    ],
+    "versionMetadata": {
+      "name": null,
+      "description": null
+    }
+  }
+]

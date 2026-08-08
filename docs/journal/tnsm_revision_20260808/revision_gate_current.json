@@ -1,0 +1,25 @@
+{
+  "blocking_gates": [
+    "current_journal_source_present",
+    "external_baseline_180_live",
+    "open_weights_180_live",
+    "injection_suite_30_fail_closed",
+    "human_label_subset_30_complete",
+    "model_metadata_publication_ready",
+    "zenodo_doi_minted",
+    "three_author_headshots_present"
+  ],
+  "gates": {
+    "current_journal_source_present": false,
+    "external_baseline_180_live": false,
+    "human_label_subset_30_complete": false,
+    "injection_suite_30_fail_closed": false,
+    "model_metadata_publication_ready": false,
+    "open_weights_180_live": false,
+    "revision_package_present": true,
+    "three_author_headshots_present": false,
+    "zenodo_doi_minted": false
+  },
+  "schema": "zktrustllm.tnsm.revision_gate.v1",
+  "submission_ready": false
+}

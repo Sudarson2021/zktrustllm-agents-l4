@@ -1,0 +1,28 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=7mm and 13mm,
+  state/.style={draw, rounded corners=1.5pt, align=center, minimum height=7mm, minimum width=17mm, fill=blue!5},
+  terminal/.style={draw, rounded corners=1.5pt, align=center, minimum height=7mm, minimum width=17mm, fill=gray!10},
+  guard/.style={draw, diamond, aspect=2.0, align=center, inner sep=1.5pt, fill=orange!10},
+  flow/.style={-Latex, semithick}
+]
+\node[state] (validate) {Validate\\schema + policy};
+\node[state, right=of validate] (submit) {Submit\\HUMAN request};
+\node[guard, right=of submit] (decision) {Operator\\decision};
+\node[state, right=of decision] (ledger) {Simulated\\ledger write};
+\node[terminal, below=of decision] (stop) {Reject / expire\\no actuation};
+
+\draw[flow] (validate) -- (submit);
+\draw[flow] (validate) |- node[pos=.25,left]{invalid / NEVER} (stop);
+\draw[flow] (submit) -- (decision);
+\draw[flow] (decision) -- node[above,font=\scriptsize]{approve} (ledger);
+\draw[flow] (decision) -- node[right]{reject / timeout} (stop);
+\end{tikzpicture}
+\caption{HUMAN-gate state transition. Only a valid HUMAN proposal followed by
+an explicit approval reaches the simulated ledger; every invalid, rejected, or
+expired path terminates without actuation. The ledger and actuation are
+simulated, not a production O-RAN deployment.}
+\label{fig:human-gate-state-machine}
+\end{figure}

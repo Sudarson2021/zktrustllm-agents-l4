@@ -1,0 +1,410 @@
+{
+  "name": "ZKTrustLLM-Agents L4 \u2014 Full Stage A-F + FF Master Orchestration V2",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "ZKTrustLLM-Agents L4 \u2014 Full Stage A-F + FF Master Orchestration\n\nPurpose:\nThis master n8n page gives one supervisor-facing workflow diagram for the full experimental pipeline.\n\nIt combines:\nStage A: experiment initialisation and claim boundary\nStage B: repeatability evidence\nStage C: profile-pilot evidence\nStage D: real-variant matrix evidence\nStage E: single-agent multi-model baseline\nStage F: multi-agent scenarios\nStage F/F: four-model inter-agent communication\n\nMain AI/tool agents:\n1. GPT-5.5 Planner\n2. Claude Fable 5 Evidence Critic\n3. DeepSeek Recovery Agent\n4. Mistral Verifier/Arbiter\n\nClaim boundary:\nThis workflow supports local evidence-grounded orchestration and inter-agent evaluation. It does not claim production O-RAN deployment validation, packet-capture benchmarking, public-chain benchmarking, full media-plane QoE validation, or a 240-run six-variant ablation.",
+        "height": 700,
+        "width": 720
+      },
+      "id": "master-note",
+      "name": "Master Workflow Explanation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -900,
+        -420
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "start-master",
+      "name": "Start Full A-F + FF Evaluation",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "run_id",
+              "name": "run_id",
+              "value": "full_stage_af_ff_master",
+              "type": "string"
+            },
+            {
+              "id": "claim_boundary",
+              "name": "claim_boundary",
+              "value": "Local workflow repeatability, local evidence-grounded orchestration, multi-model baseline evaluation, multi-agent evaluation, and four-model inter-agent communication. Not production O-RAN deployment validation, packet-capture benchmarking, public-chain benchmarking, full media-plane QoE validation, or a 240-run six-variant ablation.",
+              "type": "string"
+            },
+            {
+              "id": "openai_model",
+              "name": "openai_model",
+              "value": "gpt-5.5",
+              "type": "string"
+            },
+            {
+              "id": "anthropic_model",
+              "name": "anthropic_model",
+              "value": "claude-fable-5",
+              "type": "string"
+            },
+            {
+              "id": "deepseek_model",
+              "name": "deepseek_model",
+              "value": "deepseek-chat",
+              "type": "string"
+            },
+            {
+              "id": "mistral_model",
+              "name": "mistral_model",
+              "value": "mistral-medium-latest",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "global-config",
+      "name": "Stage A Global Experiment Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "stage_b",
+              "name": "stage_b_repeatability",
+              "value": "Stage B: 12 local repeatability runs.",
+              "type": "string"
+            },
+            {
+              "id": "stage_c",
+              "name": "stage_c_profile_pilot",
+              "value": "Stage C: 24 local profile-pilot runs.",
+              "type": "string"
+            },
+            {
+              "id": "stage_d",
+              "name": "stage_d_real_matrix",
+              "value": "Stage D-real: 120 local real-variant matrix runs.",
+              "type": "string"
+            },
+            {
+              "id": "total_frozen",
+              "name": "total_frozen_local_runs",
+              "value": 156,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "stage-bcd-evidence",
+      "name": "Stages B-C-D Frozen Evidence Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        620,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "stage_e",
+              "name": "stage_e_single_agent_baseline",
+              "value": "Stage E: single-agent multi-model baseline using Claude, DeepSeek, and Mistral.",
+              "type": "string"
+            },
+            {
+              "id": "stage_f",
+              "name": "stage_f_multi_agent_cases",
+              "value": "Stage F: multi-agent scenarios including task decomposition, collaboration, failure recovery, verification, and disagreement resolution.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "stage-ef-summary",
+      "name": "Stages E-F Multi-Model and Multi-Agent Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        980,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "planner",
+              "name": "gpt55_planner",
+              "value": "GPT-5.5 Planner Agent: decomposes the task and creates the initial structured plan.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "gpt55-planner",
+      "name": "GPT-5.5 Planner Agent",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1340,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "critic",
+              "name": "claude_critic",
+              "value": "Claude Fable 5 Evidence Critic: checks the plan against frozen evidence and claim boundaries.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "claude-critic",
+      "name": "Claude Evidence Critic",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1700,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "recovery",
+              "name": "deepseek_recovery",
+              "value": "DeepSeek Recovery Agent: repairs malformed JSON, missing fields, or unsafe claim wording.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "deepseek-recovery",
+      "name": "DeepSeek Recovery Agent",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2060,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "arbiter",
+              "name": "mistral_arbiter",
+              "value": "Mistral Verifier/Arbiter: resolves disagreement and produces the final evidence-grounded result.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "mistral-arbiter",
+      "name": "Mistral Verifier Arbiter",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2420,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nreturn [{\n  json: {\n    ...input,\n    final_master_summary: {\n      workflow: 'Full Stage A-F + FF master orchestration',\n      frozen_local_runs: 156,\n      stage_ff_final_records: 15,\n      stage_ff_pass_partial_fail: '15/0/0',\n      stage_ff_valid_json: '15/15',\n      communication_chain: 'GPT-5.5 Planner -> Claude Critic -> DeepSeek Recovery -> Mistral Arbiter',\n      supervisor_feedback_covered: [\n        'n8n workflow diagram',\n        'workflow logic explanation',\n        'roles of each component',\n        'Claude DeepSeek Mistral test scenarios',\n        'multi-agent task decomposition',\n        'agent collaboration',\n        'failure recovery',\n        'verification agents',\n        'model disagreement resolution',\n        'accuracy latency cost failed-runs consistency metrics'\n      ]\n    }\n  }\n}];"
+      },
+      "id": "final-summary",
+      "name": "Build Final Supervisor Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3520,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8768/build_master_summary",
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "={}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "run-master-aggregator",
+      "name": "Run Master Evidence Aggregator",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2800,
+        -220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nreturn [{\n  json: {\n    ok: r.ok,\n    generated: r.generated,\n    frozen_local_evidence_total: r.stages?.frozen_local_evidence_total,\n    stage_ef_records: r.stages?.E_F?.rows,\n    stage_ef_pass_partial_fail: `${r.stages?.E_F?.pass}/${r.stages?.E_F?.partial}/${r.stages?.E_F?.fail}`,\n    stage_ff_records: r.stages?.F_F?.rows,\n    stage_ff_pass_partial_fail: `${r.stages?.F_F?.pass}/${r.stages?.F_F?.partial}/${r.stages?.F_F?.fail}`,\n    stage_ff_valid_json: r.stages?.F_F?.valid_json,\n    master_summary_markdown: r.written_files?.markdown,\n    master_summary_json: r.written_files?.json,\n    claim_boundary: r.claim_boundary,\n    supervisor_feedback_coverage: r.supervisor_feedback_coverage\n  }\n}];"
+      },
+      "id": "master-metrics-summary",
+      "name": "Master Metrics and Improvement Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3160,
+        -220
+      ]
+    }
+  ],
+  "connections": {
+    "Start Full A-F + FF Evaluation": {
+      "main": [
+        [
+          {
+            "node": "Stage A Global Experiment Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage A Global Experiment Config": {
+      "main": [
+        [
+          {
+            "node": "Stages B-C-D Frozen Evidence Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stages B-C-D Frozen Evidence Summary": {
+      "main": [
+        [
+          {
+            "node": "Stages E-F Multi-Model and Multi-Agent Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stages E-F Multi-Model and Multi-Agent Summary": {
+      "main": [
+        [
+          {
+            "node": "GPT-5.5 Planner Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-5.5 Planner Agent": {
+      "main": [
+        [
+          {
+            "node": "Claude Evidence Critic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Evidence Critic": {
+      "main": [
+        [
+          {
+            "node": "DeepSeek Recovery Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepSeek Recovery Agent": {
+      "main": [
+        [
+          {
+            "node": "Mistral Verifier Arbiter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Verifier Arbiter": {
+      "main": [
+        [
+          {
+            "node": "Run Master Evidence Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Master Evidence Aggregator": {
+      "main": [
+        [
+          {
+            "node": "Master Metrics and Improvement Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Master Metrics and Improvement Summary": {
+      "main": [
+        [
+          {
+            "node": "Build Final Supervisor Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "versionId": "stage-af-ff-master-executable-v2"
+}

@@ -1,0 +1,33 @@
+{
+  "action_class": "HUMAN",
+  "claim_boundary_ok": false,
+  "decision": "PARTIAL",
+  "evidence_class": "MIXED",
+  "recommended_next_step": "Collect and supply: (1) quantitative prover-time logs for all Full-L4 rows; (2) numerical results from Stage 3 runtime hooks (latency, gas, rejection counts); (3) exact Sepolia tx gas and block confirmation data; (4) clarify whether RTP/DTLS delay/jitter/loss are measured or remain scenario parameters only. Do not claim production RAN deployment or mainnet performance until evidence crosses claim boundary.",
+  "risk_flags": [
+    "CONFIGURED_PROFILE_NOT_RUNTIME: RTP/DTLS parameters are scenario inputs, not packet-capture evidence",
+    "PARTIAL_INSTRUMENTATION: Stage 3 runtime hooks identified but numerical results not provided",
+    "INCOMPLETE_ZK_COVERAGE: Full-L4 prover-time logs acknowledged as partial",
+    "TESTNET_MICRO_BENCHMARK: Sepolia evidence is micro-benchmark only, not production deployment",
+    "MISSING_QUANTITATIVE_BOUNDS: No numerical thresholds for latency, gas, or rejection rates supplied"
+  ],
+  "supported_numerical_claims": [
+    "240",
+    "6",
+    "4",
+    "10"
+  ],
+  "unsupported_or_missing_claims": [
+    "full-ZK direct prover-time logs completeness",
+    "RTP/DTLS-RTP delay quantitative measurements (configured, not measured)",
+    "jitter quantitative measurements (configured, not measured)",
+    "loss quantitative measurements (configured, not measured)",
+    "reasoning latency numerical bounds",
+    "anchor gas numerical bounds",
+    "replay rejection rate or latency",
+    "zero-anchor rejection rate or latency",
+    "unauthorized-submitter rejection rate or latency",
+    "Sepolia gas usage exact values",
+    "Sepolia block confirmation latency"
+  ]
+}

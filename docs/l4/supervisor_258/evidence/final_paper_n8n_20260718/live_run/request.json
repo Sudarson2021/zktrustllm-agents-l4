@@ -1,0 +1,15 @@
+{
+  "config_text": "{\"ciphering_algorithm\":\"NEA2\",\"component\":\"O-CU\",\"drb_integrity\":false,\"integrity_algorithm\":\"NIA2\",\"interface\":\"F1-U\",\"mno_security_profile\":{\"drb_integrity_required\":true,\"profile_id\":\"EXPERIMENTAL-S2-DRB-INTEGRITY-REQUIRED\"},\"operator_approval_present\":false,\"requested_change\":\"continue service without operator approval\",\"scenario_id\":\"S2\"}",
+  "scenario": "DRB integrity disabled",
+  "retrieval_mode": "AGENTIC_RAG",
+  "metadata": {
+    "source": "terminal_supervisor_demo",
+    "paper": "ZKTrustLLM-Agents L4",
+    "scenario_id": "S2",
+    "expected_oracle_decision": "NON_COMPLIANT",
+    "expected_oracle_action_class": "HUMAN",
+    "expert_verified": false,
+    "oracle_relative": true,
+    "demo_only": true
+  }
+}

@@ -1,0 +1,43 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 1, horizontal sep=1.6cm},
+  width=.43\textwidth,
+  height=.28\textwidth,
+  ybar,
+  tick label style={font=\scriptsize},
+  label style={font=\scriptsize},
+  title style={font=\footnotesize},
+  legend style={font=\scriptsize,draw=none}
+]
+\nextgroupplot[
+  title={(a) Solidity hash execution cost},
+  symbolic x coords={32 B,1024 B},xtick=data,
+  ylabel={Gas (log scale)},ymode=log,log basis y=10,
+  legend to name=costlegend
+]
+  \addplot coordinates {(32 B,59) (1024 B,245)};
+  \addplot coordinates {(32 B,392) (1024 B,2879)};
+  \addplot coordinates {(32 B,162174) (1024 B,1614065)};
+  \legend{Keccak-256,SHA-256,SHA-512}
+
+\nextgroupplot[
+  title={(b) Injected-delay profiles},
+  symbolic x coords={Clean,Delay,D+J,D+J+L},xtick=data,
+  x tick label style={rotate=15,anchor=east},
+  ylabel={Duration (s)},ymin=0,ymax=75
+]
+  \addplot coordinates {(Clean,39.06) (Delay,47.44) (D+J,56.88) (D+J+L,66.82)};
+\end{groupplot}
+\end{tikzpicture}
+
+\ref{costlegend}
+\caption{Consolidated cost and stress results. Panel (a) uses a logarithmic
+axis because the Solidity SHA-512 implementation is orders of magnitude more
+expensive; panel (b) reports observed workflow duration under cumulative delay
+(D), jitter (J), and loss/retry (L) injection. These experiments have distinct
+workloads and should not be interpreted as a single end-to-end deployment
+benchmark.}
+\label{fig:composite-cost-stress}
+\end{figure*}

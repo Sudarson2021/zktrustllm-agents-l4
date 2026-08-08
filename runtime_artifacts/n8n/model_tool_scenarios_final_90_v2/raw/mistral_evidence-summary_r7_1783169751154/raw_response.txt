@@ -1,0 +1,10 @@
+{
+  "decision": "PARTIAL",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": true,
+  "supported_numerical_claims": ["240", "6", "4", "10"],
+  "unsupported_or_missing_claims": ["full-ZK direct prover-time logs for every Full-L4 row", "production-grade RAN deployment performance", "Ethereum mainnet performance", "semantic correctness of LLM reasoning"],
+  "risk_flags": ["partial prover-time logs may understate runtime overhead", "Sepolia testnet may not reflect mainnet gas/latency behavior"],
+  "recommended_next_step": "Collect full prover-time logs for every Full-L4 row to close the known gap and validate runtime hooks under production-like load."
+}

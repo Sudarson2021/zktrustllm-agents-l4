@@ -14,7 +14,7 @@
   "matched_pair_count": 90,
   "methods": {
     "bootstrap_seed": 20260721,
-    "confidence_interval": "95% two-level hierarchical bootstrap of the median; sessions and within-session pairs resampled; 10000 replicates",
+    "confidence_interval": "Descriptive 95% two-level hierarchical bootstrap interval of the median; sessions and within-session pairs resampled; only three session clusters, so nominal coverage is not asserted; 10000 replicates",
     "primary_metric": "client-observed submission-to-first-inclusion latency",
     "quantile": "R-7 linear interpolation"
   },
@@ -115,19 +115,19 @@
     }
   },
   "paired_effect": {
-    "iotex_minus_sepolia_latency_ms": {
-      "max": 287.111,
-      "mean": -7984.244,
-      "median": -4381.823,
+    "sepolia_minus_iotex_latency_ms": {
+      "max": 20253.612,
+      "mean": 7984.244,
+      "median": 4381.823,
       "median_hierarchical_bootstrap_95_ci": [
-        -7909.772,
-        -3930.597
+        3930.597,
+        7909.772
       ],
-      "min": -20253.612,
+      "min": -287.111,
       "n": 90,
-      "p95": 72.747,
-      "q1": -11991.235,
-      "q3": -3893.604,
+      "p95": 20132.158,
+      "q1": 3893.604,
+      "q3": 11991.235,
       "sample_sd": 6051.851
     },
     "sepolia_over_iotex_latency_ratio": {

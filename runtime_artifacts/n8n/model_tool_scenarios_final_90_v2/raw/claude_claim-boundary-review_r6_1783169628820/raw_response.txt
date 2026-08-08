@@ -1,0 +1,24 @@
+```json
+{
+  "decision": "UNSUPPORTED",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": false,
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "production-grade real-time O-RAN deployment",
+    "Ethereum mainnet performance",
+    "packet-capture media QoE",
+    "semantic correctness of the LLM reasoning"
+  ],
+  "risk_flags": [
+    "OVERCLAIM: production-grade RAN deployment not evidenced by local orchestration or micro-benchmarks",
+    "OVERCLAIM: mainnet performance claimed but only Sepolia public-testnet evidence available",
+    "OVERCLAIM: packet-capture QoE metrics not present in available evidence list",
+    "OVERCLAIM: LLM semantic correctness is not measurable by audit ledgers or timing data",
+    "EVIDENCE_MISMATCH: configured impairment profiles are not runtime measurements",
+    "EVIDENCE_MISMATCH: partial ZK prover timing does not establish end-to-end production readiness"
+  ],
+  "recommended_next_step": "Decompose claim into four separate bounded assertions: (1) local n8n orchestration capability (AUTOMATIC review with local evidence), (2) Sepolia testnet audit results (HUMAN review with public-testnet evidence), (3) configured impairment profiles as simulation inputs only (HUMAN review, not performance claims), (4) defer LLM semantic correctness to separate interpretability audit outside claim boundary. Reject unified production-grade claim."
+}
+```

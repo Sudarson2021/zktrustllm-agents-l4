@@ -130,6 +130,17 @@ class PosRollDposAnalysisTest(unittest.TestCase):
                 summary["paired_effect"]["sepolia_over_iotex_latency_ratio"]["median"],
                 4.0,
             )
+            self.assertGreater(
+                summary["paired_effect"]["sepolia_minus_iotex_latency_ms"]["median"],
+                0.0,
+            )
+            self.assertNotIn(
+                "iotex_minus_sepolia_latency_ms", summary["paired_effect"]
+            )
+            self.assertIn(
+                "only three session clusters",
+                summary["methods"]["confidence_interval"],
+            )
             for name in (
                 "DERIVATION_MANIFEST.json",
                 "table_pos_rolldpos.tex",

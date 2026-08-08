@@ -1,0 +1,21 @@
+{
+  "payload": {
+    "artifact": "ZKTrustLLM-Agents L4",
+    "implemented_evidence": {
+      "configured_profiles": "RTP/DTLS-RTP delay, jitter and loss are configured scenario parameters, not packet-capture measurements",
+      "dataset": "240 clean records = 6 variants x 4 profiles x 10 repeats",
+      "known_gap": "full-ZK direct prover-time logs are partial until collected for every Full-L4 row",
+      "stage3_runtime_hooks": [
+        "anchor gas",
+        "reasoning latency",
+        "replay rejection",
+        "zero-anchor rejection",
+        "unauthorized-submitter rejection"
+      ],
+      "stage4_public_testnet": "Sepolia audit micro-benchmark with externally observable deploy/anchor tx, block number and gas usage"
+    }
+  },
+  "scenario_description": "Summarise the implemented L4 evidence without extending beyond the measurement boundary.",
+  "task": "Evaluate the payload under the ZKTrustLLM-Agents L4 claim boundary and return only the requested JSON schema.",
+  "tool_scenario": "evidence-summary"
+}

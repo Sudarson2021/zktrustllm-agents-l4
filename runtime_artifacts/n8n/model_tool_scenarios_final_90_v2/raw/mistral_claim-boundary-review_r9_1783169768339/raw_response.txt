@@ -1,0 +1,20 @@
+{
+  "decision": "UNSUPPORTED",
+  "action_class": "HUMAN",
+  "evidence_class": "MIXED",
+  "claim_boundary_ok": false,
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "production-grade real-time O-RAN deployment",
+    "Ethereum mainnet performance",
+    "packet-capture media QoE",
+    "semantic correctness of the LLM reasoning"
+  ],
+  "risk_flags": [
+    "overclaiming beyond measured scope",
+    "unsubstantiated production-grade deployment",
+    "unsupported Ethereum mainnet performance claim",
+    "unverified semantic correctness of LLM reasoning"
+  ],
+  "recommended_next_step": "Refine claims to match available evidence: local n8n orchestration, Sepolia testnet audit, and configured impairment profiles. Remove unsupported assertions about production-grade deployment, mainnet performance, media QoE, and LLM semantic correctness."
+}

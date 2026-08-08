@@ -1,0 +1,34 @@
+{
+  "title": "ZKTrustLLM-Agents: Proof-Governed Auditable Zero-Trust Control for O-RAN Edge Security",
+  "description": "Reproducibility artifact containing workflows, formal models, machine-readable measurements, validation scripts, and evidence manifests for proof-governed O-RAN security automation.",
+  "upload_type": "software",
+  "license": "mit",
+  "creators": [
+    {
+      "name": "Karmaker, Sudarson",
+      "affiliation": "Institute for Communication Systems, University of Surrey"
+    },
+    {
+      "name": "Shojafar, Mohammad",
+      "affiliation": "Institute for Communication Systems, University of Surrey"
+    },
+    {
+      "name": "Cruickshank, Haitham S.",
+      "affiliation": "Institute for Communication Systems, University of Surrey"
+    }
+  ],
+  "keywords": [
+    "O-RAN",
+    "zero trust",
+    "agentic AI",
+    "reproducible evaluation",
+    "blockchain audit"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Sudarson2021/zktrustllm-agents-l4",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}

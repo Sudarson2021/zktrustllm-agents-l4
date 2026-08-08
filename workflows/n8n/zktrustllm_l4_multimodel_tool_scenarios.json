@@ -1,0 +1,57 @@
+{
+  "name": "ZKTrustLLM L4 - Multi-Model Tool Scenarios",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const repeats = Number($env.N8N_L4_MODEL_TOOL_REPEATS || 3);\nconst repoDir = $env.ZKTRUSTLLM_L4_REPO || '/home/sk02352/zktrustllm-agents-l4';\nreturn [{ json: { repoDir, repeats, providers: ['claude', 'deepseek', 'mistral'], tools: ['evidence-summary', 'claim-boundary-review', 'policy-ladder-check'] } }];"
+      },
+      "id": "configure-matrix",
+      "name": "Configure Matrix",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [260, 0]
+    },
+    {
+      "parameters": {
+        "command": "cd \"{{ $json.repoDir }}\" && python3 scripts/l4/n8n/run_multi_model_tool_scenarios.py --providers {{ $json.providers.join(' ') }} --tools {{ $json.tools.join(' ') }} --repeats {{ $json.repeats }} --out-dir runtime_artifacts/n8n/model_tool_scenarios --strict-live"
+      },
+      "id": "execute-multimodel-scenarios",
+      "name": "Execute Claude/DeepSeek/Mistral Scenarios",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [580, 0]
+    },
+    {
+      "parameters": {
+        "command": "cd \"{{ $('Configure Matrix').item.json.repoDir }}\" && python3 scripts/l4/metrics/build_n8n_model_tool_tables.py --input runtime_artifacts/n8n/model_tool_scenarios/records.jsonl --out-dir runtime_artifacts/n8n/model_tool_scenarios --paper-table paper/l4_conference/tables/table_multimodel_tool_scenarios.tex --require-live-providers claude deepseek mistral"
+      },
+      "id": "build-paper-table",
+      "name": "Build Measured Table",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [920, 0]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{"node": "Configure Matrix", "type": "main", "index": 0}]]
+    },
+    "Configure Matrix": {
+      "main": [[{"node": "Execute Claude/DeepSeek/Mistral Scenarios", "type": "main", "index": 0}]]
+    },
+    "Execute Claude/DeepSeek/Mistral Scenarios": {
+      "main": [[{"node": "Build Measured Table", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

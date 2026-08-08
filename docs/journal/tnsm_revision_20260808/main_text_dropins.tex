@@ -1,0 +1,163 @@
+% Manuscript-ready text derived only from retained evidence.
+% Integrate into the current journal source; section labels may need adjustment.
+
+% TITLE -- removes an undefined project-specific label and replaces a claim
+% about the manuscript with a property of the system.
+\title{ZKTrustLLM-Agents: Proof-Governed Auditable Zero-Trust Control for O-RAN Edge Security}
+
+% ABSTRACT
+\begin{abstract}
+Agentic automation can assist O-RAN security operations, but unconstrained
+large-language-model workflows can bypass operator policy, replay evidence, and
+produce decisions that cannot be audited. Existing agent frameworks provide
+orchestration without jointly enforcing action admissibility, proof-bound
+evidence, and reproducible evaluation. We present ZKTrustLLM-Agents, a
+proof-governed zero-trust architecture that separates telemetry, reasoning,
+policy, proof, and audit/anchor functions. Candidate actions pass an
+AUTOMATIC--HUMAN--PRIVILEGED--NEVER ladder and are bound to hash-addressed
+evidence before audit anchoring. TLC exhaustively checks six safety invariants
+over 320 reachable states, and the frozen 180-cell oracle benchmark gives
+Agentic RAG 100.0\% oracle-relative decision accuracy with zero unsafe automatic
+executions. Across 90 matched public-testnet pairs, median first-inclusion
+latency is 12.427~s on Sepolia and 7.225~s on IoTeX, with a median paired ratio
+of 1.874. A live n8n run reaches a simulated ledger only after HUMAN approval.
+The measured 80.5--109.8~s median decision times target Non-RT RIC/A1 policy
+loops rather than Near-RT control, and the results establish properties only of
+the released artifacts, synthetic oracle, testnets, and simulated actuation
+path.
+\end{abstract}
+
+% INSERT AT THE START OF THE RESULTS SECTION.
+\paragraph{Operational timescale and intended use.}
+The evaluated workflow is intended for Non-RT RIC rApps and A1 policy loops,
+where security-policy decisions are made over seconds to minutes. Its measured
+median end-to-end decision times (80.453--109.793~s across retrieval modes) are
+therefore incompatible with Near-RT RIC xApp control and are not presented as
+such. Operationally, the system is a deliberative governance and audit layer:
+it can recommend or gate a policy change, preserve the evidence used, and route
+sensitive actions to a human, but it is not an inline packet-processing or
+sub-second radio-control mechanism.
+
+% KEEP THIS AS THE SINGLE AUTHORITATIVE CLAIM-BOUNDARY SUBSECTION.
+\subsection{Claim Boundary}
+The claims in this paper are restricted to the released implementation and
+retained evidence. TLC establishes the stated invariants for the finite model
+and explored state space, not for arbitrary implementations or deployments.
+Oracle-relative metrics measure agreement with the frozen synthetic oracle;
+they are not clinical, operational, or population-level accuracy estimates.
+Public-testnet measurements include RPC, client, and transient network effects
+and measure first inclusion rather than economic finality. The n8n demonstration
+uses simulated actuation and a simulated ledger, so it does not establish
+production O-RAN integration, availability, or safety. Cross-provider and
+supplemental multi-agent observations describe the recorded model endpoints and
+prompts at their access dates and do not imply persistence across model updates.
+Unless a figure could otherwise be mistaken for production actuation or
+economic finality, other sections should refer to this subsection instead of
+repeating a separate disclaimer.
+
+% ADD TO THE THREAT MODEL OR LIMITATIONS.
+\paragraph{Standards grounding.}
+The threat model and controls are grounded in the O-RAN Alliance WG11 Security
+Requirements and Controls Specifications v14.0, Security Protocols
+Specifications v15.00, and Security Threat Modeling and Risk Assessment v9.00.
+For stable public document identifiers, we also cite the ETSI PAS
+transpositions ETSI TS~104~104 V9.1.0
+(O-RAN.WG11.SecReqSpecs-R003-v09.01), ETSI TS~104~107 V9.0.0
+(O-RAN.WG11.Security-Protocols-Specification.O-R003-v09.00), and ETSI
+TR~104~106 V3.0.0 (O-RAN.WG11.Threat-Modeling.O-R003-v03.00), together with
+3GPP TS~33.501 V18.11.0 (Release~18). The bibliography records the release and
+access dates; version updates after artifact freeze should not be substituted
+without checking whether requirement identifiers changed.
+
+\paragraph{Adversarial instructions and prompt injection.}
+An untrusted scenario, retrieved passage, or model response may contain text
+that attempts to override the policy ladder or induce a NEVER action. The
+architecture reduces, but does not eliminate, this risk by extracting a fixed
+feature schema, freezing and hashing retrieved evidence, treating model output
+as an untrusted proposal, reconciling proposals deterministically, and enforcing
+the action ladder outside the model. Thus an injected instruction cannot by
+itself authorise actuation; malformed, contradictory, or prohibited proposals
+must fail closed. Prompt-injection resistance is not inferred from the benign
+oracle benchmark. The accompanying 30-case suite separately tests whether
+adversarial variants ever produce an executed NEVER action; its result should be
+reported only after the released suite has been run against the frozen system.
+
+% REPLACE THE MIXED-ORIENTATION ESTIMANDS.
+\begin{equation}
+\Delta_i=L_{\mathrm{Sepolia},i}-L_{\mathrm{IoTeX},i},\qquad
+R_i=\frac{L_{\mathrm{Sepolia},i}}{L_{\mathrm{IoTeX},i}}.
+\end{equation}
+The aligned estimands give a median paired difference of
+$+4381.823$~ms (Sepolia minus IoTeX; descriptive hierarchical-bootstrap 95\%
+interval $+3930.597$ to $+7909.772$~ms) and a median paired ratio of 1.874
+(descriptive interval 1.477--2.737). With only three session clusters, these
+intervals summarise the retained sessions; reliable nominal 95\% coverage is
+not claimed.
+
+% ADD AFTER THE CROSS-NETWORK GAS RESULT.
+Identical deployed runtime bytecode and matched payload fields do not guarantee
+equal charged gas across distinct EVM-compatible chains because execution rules
+and fork activation are chain-configured. The retained receipts contain gas
+totals but no opcode-level traces, so the 48,973-versus-43,685 median difference
+is reported descriptively and is not attributed to a particular pricing rule.
+A fork-level explanation would require archived chain configuration and traces
+for the measured blocks.
+
+% REPLACE THE POSITIVE SPIN ON THE 53 HTTP-500 ATTEMPTS.
+The attempt index records 180 successful responses and 53 HTTP-500 responses
+before retry (22.7\% of 233 attempts). The retained records do not contain
+provider subcodes or end-to-end trace identifiers sufficient to distinguish
+rate limiting, upstream timeouts, and n8n-side failures; root cause is therefore
+unresolved. We report the attempts as workflow-boundary failures, exclude them
+from accuracy denominators, and retain them to make retry and availability
+behaviour inspectable. Future runs must capture provider request IDs, response
+headers, exception classes, node identifiers, and timestamps.
+
+% CLARIFY MODEL ROLES; REPLACE PLACEHOLDERS WITH RETURNED IMMUTABLE IDs.
+The oracle benchmark assessor and the supplemental Stage F/F planner are
+different roles and runs. The assessor used the endpoint reported as GPT-5.6,
+whereas Stage F/F used the endpoint alias \texttt{gpt-5.5} as one of four
+planners. Stage F/F is not evidence for the oracle benchmark and is moved to the
+supplement. Because the retained records expose mutable aliases rather than
+immutable returned snapshot identifiers, the final manuscript must replace
+these labels with captured provider-returned IDs (or explicitly state that the
+provider did not expose one), access dates, temperature, top-$p$, token limits,
+and prompt hashes.
+
+% REPLACE THE STAGE E/F AND F/F MAIN-TEXT SUBSECTIONS/TABLES.
+Additional Stage E/F and Stage F/F tool-orchestration observations are provided
+in the supplement for artifact inspection. Their small, selectively valid
+samples are not used to support the paper's principal effectiveness or
+generalisability claims.
+
+% REPLACE THE ASYMPTOTIC COMPLEXITY SECTION/TABLE.
+% Delete the unmeasured O(1)/O(nb)/O(r) table. Do not insert a scaling claim
+% until decisions/hour, anchor throughput, and cost are measured over load.
+
+% REPLACE THE QUALITATIVE NOVELTY TICK TABLE AFTER RUNNING THE BASELINE.
+\begin{table}[t]
+\centering
+\caption{Frozen-oracle comparison under identical scenarios and scoring.}
+\label{tab:external-baseline}
+\begin{tabular}{lrrrr}
+\hline
+System & Decision acc. & Action acc. & Unsafe exec. & Median latency \\
+\hline
+LangGraph baseline & \textit{run required} & \textit{run required} & \textit{run required} & \textit{run required} \\
+ZKTrustLLM-Agents & 100.0\% & 96.7\% & 0 & 109.793~s \\
+\hline
+\end{tabular}
+\end{table}
+
+% DATA / ARTIFACT / ETHICS STATEMENT.
+\section*{Data and Artifact Availability}
+Source code, workflows, machine-readable measurements, validation scripts, and
+artifact manifests are available in the project repository and in the archived
+Zenodo release at DOI: \textit{insert DOI after deposit}. Public-testnet
+transaction identifiers and hashes permit independent receipt checks. API
+credentials, provider-side logs, and personal data are not distributed. The
+reported experiments use synthetic scenarios, public blockchain metadata, and
+simulated actuation; they do not involve patients, subscribers, or human
+subjects. If independent annotators are added for oracle validation, the authors
+will confirm and report the applicable institutional ethics determination and
+consent procedure before submission.

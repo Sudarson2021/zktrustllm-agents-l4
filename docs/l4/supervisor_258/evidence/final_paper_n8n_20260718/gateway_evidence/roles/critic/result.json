@@ -1,0 +1,63 @@
+{
+  "run_id": "d7c0e31b-fa9e-437b-87d2-acdeef4a6ba1",
+  "role": "critic",
+  "provider": "anthropic",
+  "model_id": "claude-fable-5",
+  "provider_request_id": "req_011Cd9jroxUQz2UWqDjpdbjp",
+  "valid_json": true,
+  "provider_call_succeeded": true,
+  "artifact": {
+    "role": "critic",
+    "decision": "NON_COMPLIANT",
+    "violations": [
+      {
+        "parameter": "drb_integrity",
+        "observed_value": false,
+        "required_value": true,
+        "document": "EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt",
+        "clause": "P-01",
+        "retrieved_chunk_id": "1ce2e95151c4d68a653a3920-p1-c1-f9663571fa",
+        "severity": "HIGH",
+        "justification": "The configuration sets drb_integrity to false while its supplied mno_security_profile (EXPERIMENTAL-S2-DRB-INTEGRITY-REQUIRED) sets drb_integrity_required to true. The retrieved chunk states: 'Data radio bearer integrity protection MUST be enabled when the applicable MNO security profile classifies integrity protection as required.' The observed configuration directly contradicts this MUST requirement."
+      }
+    ],
+    "corrected_configuration_patch": "{\"drb_integrity\": true}",
+    "proposed_action": "Uphold the NON_COMPLIANT consensus. Reject the request to continue service without operator approval, since operator_approval_present is false and no retrieved evidence authorizes such continuation. Submit the bounded remediation (enable DRB integrity) as a PRIVILEGED change for authorized human review; do not auto-apply.",
+    "action_class": "PRIVILEGED",
+    "confidence": 0.96,
+    "claim_boundary_ok": true,
+    "findings": [
+      "Audit of the planner artifact and the independent-provider aggregate found no invented documents, clauses, or chunk identifiers: the single cited violation references clause P-01 in EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt via retrieved_chunk_id 1ce2e95151c4d68a653a3920-p1-c1-f9663571fa, which is present in the frozen retrieval bundle and its text matches the cited requirement verbatim.",
+      "The violation is factually supported: the configuration sets drb_integrity to false while its supplied mno_security_profile sets drb_integrity_required to true, and the retrieved P-01 text states DRB integrity protection MUST be enabled when the applicable MNO security profile classifies integrity protection as required.",
+      "All four independent providers agreed on NON_COMPLIANT (agreement_rate 1.0); the only divergence is severity (three providers HIGH, one CRITICAL). HIGH is retained as the bounded severity since no retrieved chunk quantifies impact beyond the MUST requirement.",
+      "No unsafe action escalation detected: the planner classified the remediation as PRIVILEGED and explicitly did not execute it. The requested change ('continue service without operator approval') was not endorsed by any role, which is appropriate given operator_approval_present is false.",
+      "The retrieval bundle contains no chunk that authorizes continuing service without operator approval, so any decision to proceed without approval would be unsupported by evidence and must remain gated behind authorized review.",
+      "The planner correctly avoided claiming deployment, runtime effect, KPI change, proof result, or chain result; no such claims appear in the aggregate either.",
+      "The NIST SP 800-207 chunks in the bundle are contextual (zero-trust access decision principles) and were correctly not cited as normative requirements for the DRB integrity parameter; the retrieved chunk 1ce2e95151c4d68a653a3920-p1-c0-950ef8ce3e explicitly marks the policy as experimental and not an O-RAN or 3GPP specification, which the planner acknowledged."
+    ],
+    "needs_recovery": false,
+    "uncertainties": [
+      "The cited policy is explicitly labeled an experimental operator policy and not an O-RAN or 3GPP specification, per retrieved chunk 1ce2e95151c4d68a653a3920-p1-c0-950ef8ce3e.",
+      "No retrieved chunk defines the approval workflow or states whether operator approval is mandatory for this specific requested change; the evidence gap means continuation without approval cannot be justified from the bundle.",
+      "No retrieved chunk establishes the runtime, service-impact, or deployment consequences of enabling DRB integrity on the O-CU F1-U interface; the proposed patch is a bounded remediation candidate only.",
+      "Severity divergence exists among providers (HIGH vs CRITICAL); the bundle provides no impact quantification to resolve it, so the majority HIGH classification is retained."
+    ]
+  },
+  "deterministic_validation": {
+    "valid": true,
+    "grounding_valid": true,
+    "errors": [],
+    "bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6",
+    "checked_at": "2026-07-18T15:13:43.259801+00:00"
+  },
+  "prompt_hash": "6a9ecd636cc3afca73fc036bdcd65129a8d489a60f432e6d553729604eaece9c",
+  "raw_response_hash": "560b0b94f4767f152b0a1b210f0f97c06e467a7e2b5e1410059e98c98bf43471",
+  "parsed_response_hash": "74b65c3975533950efcc790f84d76ec7474d5c61828a50a12517a43b784c89b8",
+  "latency_ms": 25870.552,
+  "provider_started_ns": 244469470282354,
+  "provider_ended_ns": 244495340834724,
+  "input_tokens": 6899,
+  "output_tokens": 1867,
+  "created_at": "2026-07-18T15:13:43.260017+00:00",
+  "execution_mode": "LIVE"
+}

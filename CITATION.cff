@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite the archived release and the associated paper."
+title: "ZKTrustLLM-Agents: Proof-Governed Auditable Zero-Trust Control for O-RAN Edge Security"
+type: software
+authors:
+  - family-names: Karmaker
+    given-names: Sudarson
+    affiliation: "Institute for Communication Systems, University of Surrey"
+  - family-names: Shojafar
+    given-names: Mohammad
+    affiliation: "Institute for Communication Systems, University of Surrey"
+  - family-names: Cruickshank
+    given-names: "Haitham S."
+    affiliation: "Institute for Communication Systems, University of Surrey"
+repository-code: "https://github.com/Sudarson2021/zktrustllm-agents-l4"
+license: MIT
+keywords:
+  - O-RAN
+  - zero trust
+  - agentic AI
+  - reproducible evaluation
+  - blockchain audit
+# Add version, release-date, and doi after the final tagged Zenodo deposit.

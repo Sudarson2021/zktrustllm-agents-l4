@@ -1,0 +1,14 @@
+% Standalone visual-QA wrapper; the target manuscript should use IEEEtran.
+\documentclass[10pt]{article}
+\usepackage[letterpaper,margin=.65in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\input{figures/human_gate_state_machine}
+\input{figures/five_stage_pipeline}
+\input{figures/composite_oracle_results}
+\input{figures/composite_cost_stress}
+\end{document}

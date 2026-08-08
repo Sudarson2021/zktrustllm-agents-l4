@@ -1,0 +1,101 @@
+{
+  "id": "resp_08f698c3d02a9d72006a5b9808781881919c4e0a4630568cf8",
+  "object": "response",
+  "created_at": 1784387592,
+  "status": "completed",
+  "background": false,
+  "billing": {
+    "payer": "openai"
+  },
+  "completed_at": 1784387597,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "incomplete_details": null,
+  "instructions": "Act as the GPT planning agent. Decompose the O-RAN compliance task, identify only evidence-supported violations, and produce a bounded candidate decision and action. Do not perform final arbitration. Use only the supplied configuration, frozen retrieval bundle, independent-provider aggregate, and prior role artifacts. Never invent a standards document, clause, chunk identifier, KPI measurement, proof result, chain result, or production deployment claim. Every violation must cite an exact retrieved chunk. For every violation, copy the document, clause, and retrieved_chunk_id exactly from the selected retrieved chunk; clause must contain only the short retrieved identifier. The uncertainties field must contain plain strings only, never objects or nested arrays. Any remediation must use corrected_configuration_patch as a valid JSON Merge Patch object encoded as a JSON string; otherwise use an empty string. Return one JSON object only, without Markdown.",
+  "max_output_tokens": 4500,
+  "max_tool_calls": null,
+  "model": "gpt-5.6-terra",
+  "moderation": null,
+  "output": [
+    {
+      "id": "rs_08f698c3d02a9d72006a5b980917e48191ab6b900bb4380e08",
+      "type": "reasoning",
+      "content": [],
+      "encrypted_content": "gAAAAABqW5gNi1gkeUrTRqtXmj39tp_qWEPyO7_hRZgSUAQ_PnVwnMfLwoeIt05WZ7ARJbILIzl_Ey3mnzkFDwTCgzSo8lzUq7KfY0Lf3JCdlOOqcsmw3IcSgxEukJF58cLz4TSecUGZNcz3R9fJOmm-ZxAK3Mm8DnmMvYBep0FEtwGGljm9Tpp6bUXgMOr5_ePqIEbu1-hLjcy92j5GJn75IAUFovLxEoLpQArWkRUM0ahWzCWQXnXrGYXv4z1TuOdNQ1Yhzl-Qd-_dAxS5_a3HC61KAXzwCu_bNrUZLQcPm0geOVOfWQFwHOUQhxyzNH1LOyoXF5SQgzmnESpktBVBKCpqIWH482qSfd3bUDklL02pcN7n550UZZXZ39PKul2f0Kncinq85meEVu5gCd70AlT0U2FHoXujgJf2lN843tU8-K5V61qWCilAKnYDkf5lBH82Hrp7SYgsl7wVWKiJTh1qQFeW6MFmvOFYeEMmWxlr8Qq0AqlAmgEcyCE83A30xPK7mpVRdI6SPYoSzys4JxEIkreXFqTdmPScsggesj3kM-RCqRnCUJr5kBT7JnU3WKhshfHObwpVS_k4RYnI_9e5M1MJAd36TQjoiPsMWnRFEx0Lp0MQZzD6WUoC0hG1jOCKy1ULeYt1EiubsnagMj5Xq6qTAZ_hEYAWbCNDMnEZIhEMOMK30ZZ3Y3bcAg62RetReUFGHJQWZqIwzbuquTl2VSRZoWijMH-D6wdufhkyF78auqBlsF_tMCsezOmSnh-6lgdTrFAu6gma8xLmAsiUeGjcZFA8SCjV7CfsOhFkyW37ZgmMF7QszyxHexNBKGyZk0uUMBLndOOcrHcp72g2gOoqsqdoTIK6v3dIr54MWQlNcn25D93Peip3hRC10yCebOUFu72nAoidxGq6n5kgNKoFATa_MalokTsFouuUoZ-8nC09LsU6q7jtTflL1qHW25zb9DLpYndS1BPxb7zbh2H4SOjPbPySFXZ2xqYhihdNP3-iPVwXiSISjTwEajjatqiP1ZhHix86MwLLszXEJatyTkXHUwdInhV1SFNwWveaiuwlXjhz2-PTeU9Kr3SjSqgmj56XICA_X2VCb7cgUzGi761tBL1lnDPmlGHxFjJRL6Rk8o7GkShAsuSdyPBLYf4cL4fYJKYxa0ApCTFGKX9grinIvCTcpmU5hXJUJZXx6GVCP_68wu-uJOI_rqOLHBy4KHAesN-iJSa_KrQs14cE3EoHctFLb7w_m3uh-_XCEomw_9iU8HNQOZNfk3K9vhIAvuaF6IIqFTj7y0T2VFVIDIKXd4ULCB4obdQng41t4XcDeMLx9IOeoWxDeIuNL9cMH7dh5TI3ZddYoiQEenlqp4eXOhm3wXtYXcT56JRDmYKEdPET6EO6uwUJsNayJJbMaa86ihJWB39ZTi43VhBA3rfgoJ8JQyp0aJlisJTIKXQ3cuqECDmv3KIx6TleEGkjJfXnXrKkk5yE_J_OhAeGpaO2EbfQSXSY04eNB3o6PLQGi2HyOmEr6aa_ym2E5JnUsOa0c36FgMjCEEg9Q1y-6pTpTbj1W02wpADwREJdnNTpsPJoJ-RbfVi-apXYMz7I2CuPgDAwaYLzEJMVnxWBDnjPBSoH81-4RujgVq1GZOIBobeJqCVYS06Yui6Mf8hwu0Zt9M9di85AY_NE2V6b1NCanglVUQZs3_TcIT7qhjDCYqvFdakdMSPc5MqxQ6jRb62UdV-W2lDRc9Dwx5Hj5pCVCKmW4wJuKDTQVFZr7qvcjq2yJMnWqCWGUKwQb8wqOyx763YH_W7pOKKdTp_WOcRcuta9gfs3uDaKRLj1mQbfjjd0K2qvt1oIgO_xqoDfgIyYzz_1q268JEKe8LpBnoZ6_aPEHRW4objV3_31dN1IyHOg7At6j4ArkuaVq4-5ChpBcSLAvWPNl9z3J04x8aMM5W8Znqj6o4Uj9L0Bhnfl6zcEf1NmFG1QR_VMvghDk8ZfeuPM-tHtClc0kJzN9QMvNsKNPkW0pqsKbRFNWqh5nDiZzppQ17wLO8gJ_WILdx5QNhKzHBf6NEK3l_0zSw==",
+      "summary": []
+    },
+    {
+      "id": "msg_08f698c3d02a9d72006a5b980ad5008191900e44ef06ae2e61",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"role\":\"planner\",\"decision\":\"NON_COMPLIANT\",\"action_class\":\"PRIVILEGED\",\"confidence\":0.98,\"claim_boundary_ok\":true,\"findings\":[\"Configuration drb_integrity is false while the supplied MNO security profile states drb_integrity_required is true.\",\"Retrieved policy P-01 requires data radio bearer integrity protection when the applicable MNO security profile requires it.\",\"A bounded remediation candidate is to enable DRB integrity; this is proposed as a privileged action and not executed.\"],\"violations\":[{\"parameter\":\"drb_integrity\",\"document\":\"EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt\",\"clause\":\"P-01\",\"retrieved_chunk_id\":\"1ce2e95151c4d68a653a3920-p1-c1-f9663571fa\",\"severity\":\"HIGH\",\"justification\":\"The configuration sets drb_integrity to false, while its supplied mno_security_profile sets drb_integrity_required to true. P-01 states that data radio bearer integrity protection MUST be enabled when the applicable MNO security profile classifies integrity protection as required.\",\"observed_value\":false,\"required_value\":true}],\"proposed_action\":\"Submit a privileged change for authorized review to enable DRB integrity before continuing the requested service state.\",\"corrected_configuration_patch\":\"{\\\"drb_integrity\\\":true}\",\"needs_recovery\":false,\"uncertainties\":[\"The retrieved policy is explicitly identified as an experimental operator policy and not an O-RAN or 3GPP specification.\",\"No retrieved chunk establishes whether operator approval is required for this specific requested change.\",\"No retrieved chunk establishes deployment status, runtime effect, or service impact of applying the patch.\"]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "all_turns",
+    "effort": "medium",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": true,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "text"
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 3639,
+    "input_tokens_details": {
+      "cache_write_tokens": 3636,
+      "cached_tokens": 0
+    },
+    "output_tokens": 492,
+    "output_tokens_details": {
+      "reasoning_tokens": 145
+    },
+    "total_tokens": 4131
+  },
+  "user": null,
+  "metadata": {}
+}

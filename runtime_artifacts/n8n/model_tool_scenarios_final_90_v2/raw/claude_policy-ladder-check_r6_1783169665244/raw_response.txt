@@ -1,0 +1,23 @@
+```json
+{
+  "decision": "SUPPORTED",
+  "action_class": "MIXED",
+  "evidence_class": "CONFIGURED_PROFILE",
+  "claim_boundary_ok": true,
+  "supported_numerical_claims": [],
+  "unsupported_or_missing_claims": [
+    "No explicit runtime measurements or packet-capture evidence provided",
+    "No production RAN deployment confirmation",
+    "No cryptographic proof of key rotation execution",
+    "No operator approval log or audit trail timestamps"
+  ],
+  "risk_flags": [
+    "action_class MIXED indicates heterogeneous safety levels across candidate set",
+    "NEVER action present but only classified, not executed—blocking mechanism assumed operational",
+    "PRIVILEGED action (multicast key rotation) requires out-of-band approval confirmation not supplied",
+    "Policy admissibility of executed actions not independently verified",
+    "Zero and duplicate anchor rejection claimed but no anchor data provided for validation"
+  ],
+  "recommended_next_step": "Confirm blocking enforcement of NEVER-class action via runtime policy gate; supply operator approval log for PRIVILEGED action; provide audit commitment hash and policy admissibility proof before production deployment; validate anchor deduplication logic with sample anchor set."
+}
+```

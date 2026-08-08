@@ -1,0 +1,4 @@
+stage,run_id,provider,model_id,scenario_id,case_id,repeat,status,valid_json,accuracy,correct,total,latency_ms,input_tokens,output_tokens,estimated_cost_usd,output_hash,error
+Stage_E_single_agent,Stage_E_single_agent_anthropic_evidence-summary_r1,anthropic,claude-fable-5,evidence-summary,,1,PASS,True,1.0,6,6,4414,458,122,0.01068,e3486cee5f323506,
+Stage_E_single_agent,Stage_E_single_agent_anthropic_claim-boundary-review_r1,anthropic,claude-fable-5,claim-boundary-review,,1,PASS,True,1.0,6,6,7681,577,136,0.01257,7731d20d85304252,
+Stage_E_single_agent,Stage_E_single_agent_anthropic_policy-ladder-check_r1,anthropic,claude-fable-5,policy-ladder-check,,1,PASS,True,1.0,5,5,6638,461,343,0.02176,86d421f3e2011b91,

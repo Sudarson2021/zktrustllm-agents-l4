@@ -43,3 +43,8 @@ Stage 3 introduces an isolated Stage3AnomalyLedger micro-benchmark and a determi
 % SHA-2 numerical results remain absent until three measured sessions pass
 % payload rehashing, chain-ID, bytecode, receipt, event, and security gates.
 }
+
+\subsection{Multi-Model Tool-Scenario Results}
+Table~\ref{tab:n8n_multimodel_tools} reports the n8n multi-model tool-scenario extension. Claude, DeepSeek, and Mistral are evaluated on evidence summarisation, claim-boundary review, and policy-ladder checking. The reported values are measured from live API calls and include JSON/schema compliance, claim-boundary agreement, action-ladder violations, and provider latency. The table is interpreted as an orchestration and bounded-reasoning robustness test, not as evidence of production O-RAN deployment, packet-capture QoE, Ethereum mainnet performance, or semantic correctness of LLM reasoning.
+
+\input{tables/table_multimodel_tool_scenarios}

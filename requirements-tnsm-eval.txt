@@ -1,0 +1,3 @@
+# External orchestration baseline. The runner uses only the standard library in
+# --mock mode; install this file for a publication-eligible LangGraph run.
+langgraph==1.2.10

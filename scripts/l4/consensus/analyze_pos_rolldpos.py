@@ -291,7 +291,9 @@ def build_summary(sessions: list[dict[str, Any]], inputs: list[Path]) -> dict[st
             latency_by_network["iotex_testnet"][session_id].append(dpos_latency)
             gas_by_network["sepolia"][session_id].append(float(pos["gas_used"]))
             gas_by_network["iotex_testnet"][session_id].append(float(dpos["gas_used"]))
-            paired_difference_by_session[session_id].append(dpos_latency - pos_latency)
+            # Keep the additive and multiplicative estimands in the same
+            # orientation: Sepolia relative to IoTeX.
+            paired_difference_by_session[session_id].append(pos_latency - dpos_latency)
             paired_ratio_by_session[session_id].append(pos_latency / dpos_latency)
 
     network_stats: dict[str, Any] = {}
@@ -329,15 +331,16 @@ def build_summary(sessions: list[dict[str, Any]], inputs: list[Path]) -> dict[st
         "methods": {
             "quantile": "R-7 linear interpolation",
             "confidence_interval": (
-                "95% two-level hierarchical bootstrap of the median; sessions and "
-                f"within-session pairs resampled; {BOOTSTRAP_REPLICATES} replicates"
+                "Descriptive 95% two-level hierarchical bootstrap interval of the median; "
+                "sessions and within-session pairs resampled; only three session clusters, "
+                f"so nominal coverage is not asserted; {BOOTSTRAP_REPLICATES} replicates"
             ),
             "bootstrap_seed": BOOTSTRAP_SEED,
             "primary_metric": "client-observed submission-to-first-inclusion latency",
         },
         "networks": network_stats,
         "paired_effect": {
-            "iotex_minus_sepolia_latency_ms": {
+            "sepolia_minus_iotex_latency_ms": {
                 **describe(all_differences),
                 "median_hierarchical_bootstrap_95_ci": hierarchical_median_ci(
                     paired_difference_by_session, BOOTSTRAP_SEED + 20
@@ -440,7 +443,7 @@ def latex_figure(summary: dict[str, Any]) -> str:
 concurrently submitted audit-anchor transactions. Public-testnet load and
 RPC/client overhead are included; economic finality is not measured. Raft and
 QBFT are compared structurally in Fig.~\\ref{{fig:consensus-protocols}} but are
-omitted here because no corresponding measured deployment evidence exists.}}
+reported separately because their workloads and estimands are not comparable.}}
 \\label{{fig:pos-rolldpos-latency}}
 \\end{{figure}}
 """
@@ -449,20 +452,32 @@ omitted here because no corresponding measured deployment evidence exists.}}
 def latex_results(summary: dict[str, Any]) -> str:
     pos = summary["networks"]["sepolia"]["first_inclusion_latency_ms"]
     dpos = summary["networks"]["iotex_testnet"]["first_inclusion_latency_ms"]
+    difference = summary["paired_effect"]["sepolia_minus_iotex_latency_ms"]
     ratio = summary["paired_effect"]["sepolia_over_iotex_latency_ratio"]
     gas_pos = summary["networks"]["sepolia"]["anchor_gas"]
     gas_dpos = summary["networks"]["iotex_testnet"]["anchor_gas"]
     ratio_ci = ratio["median_hierarchical_bootstrap_95_ci"]
+    difference_ci = difference["median_hierarchical_bootstrap_95_ci"]
     return (
         "% AUTO-GENERATED from measured benchmark.json evidence; do not hand-edit.\n"
         f"Across {summary['matched_pair_count']} matched transaction pairs collected in "
         f"{summary['session_count']} independent sessions, median client-observed "
         f"first-inclusion latency was {fmt(pos['median'])}~ms on Ethereum Sepolia and "
         f"{fmt(dpos['median'])}~ms on IoTeX testnet (Table~\\ref{{tab:pos-rolldpos}}). "
-        f"The median paired Sepolia-to-IoTeX latency ratio was {fmt(ratio['median'])} "
-        f"(hierarchical-bootstrap 95\\% CI: {fmt(ratio_ci[0])}--{fmt(ratio_ci[1])}). "
+        f"The median paired difference (Sepolia minus IoTeX) was "
+        f"{fmt(difference['median'])}~ms (descriptive hierarchical-bootstrap 95\\% "
+        f"interval: {fmt(difference_ci[0])}--{fmt(difference_ci[1])}~ms), and the "
+        f"median paired Sepolia-to-IoTeX latency ratio was {fmt(ratio['median'])} "
+        f"(descriptive hierarchical-bootstrap 95\\% interval: "
+        f"{fmt(ratio_ci[0])}--{fmt(ratio_ci[1])}). With only three session clusters, "
+        "these intervals summarise the retained sessions and are not claimed to have "
+        "reliable nominal frequentist coverage. "
         f"The median anchor execution gas was {int(gas_pos['median'])} and "
-        f"{int(gas_dpos['median'])}, respectively; gas-price values are not converted "
+        f"{int(gas_dpos['median'])}, respectively. Identical runtime bytecode and calldata "
+        "do not force equal gas across different EVM-compatible chains because execution "
+        "rules are chain-configured; the retained evidence has no opcode traces, so the "
+        "difference is reported descriptively rather than assigned to a particular fork. "
+        "Gas-price values are not converted "
         "into a cross-asset economic comparison. All three read-only rejection probes "
         "(duplicate, zero, and unauthorised submitter) reverted on both deployed "
         "contracts. These values describe public-testnet first inclusion for the isolated "

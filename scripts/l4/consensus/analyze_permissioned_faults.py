@@ -281,7 +281,7 @@ def fmt(value: float) -> str:
 def write_csv(out_dir: Path, summary: dict[str, Any]) -> None:
     path_out = out_dir / "summary_permissioned_faults.csv"
     with path_out.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(["family", "condition", "n", "median_ms", "p95_ms", "mean_ms", "stdev_ms"])
         for family in ("raft", "qbft"):
             for condition, values in summary[family].items():

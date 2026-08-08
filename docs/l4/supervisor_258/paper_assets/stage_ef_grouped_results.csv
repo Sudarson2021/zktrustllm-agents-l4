@@ -1,0 +1,13 @@
+stage,stage_label,provider,model_id,model_label,scenario_or_case,runs,pass_partial_fail,valid_json_pct,mean_accuracy_pct,mean_latency_ms,p95_latency_ms,mean_cost_run_usd,consistency_pct
+Stage_E_single_agent,Stage E,anthropic,claude-fable-5,Claude Fable 5,claim-boundary-review,5,5/0/0,100.0,100.0,5596.4,5761,0.01383,100.0
+Stage_E_single_agent,Stage E,anthropic,claude-fable-5,Claude Fable 5,evidence-summary,5,5/0/0,100.0,100.0,4393.8,4507,0.01064,100.0
+Stage_E_single_agent,Stage E,anthropic,claude-fable-5,Claude Fable 5,policy-ladder-check,5,5/0/0,100.0,100.0,6363.6,6966,0.01994,20.0
+Stage_E_single_agent,Stage E,deepseek,deepseek-chat,DeepSeek,claim-boundary-review,5,5/0/0,100.0,100.0,1429,1636,6.846e-05,100.0
+Stage_E_single_agent,Stage E,deepseek,deepseek-chat,DeepSeek,evidence-summary,5,5/0/0,100.0,100.0,1360.8,1350,5.642e-05,100.0
+Stage_E_single_agent,Stage E,deepseek,deepseek-chat,DeepSeek,policy-ladder-check,5,4/1/0,100.0,96.0,2252,2354,7.658e-05,20.0
+Stage_E_single_agent,Stage E,mistral,mistral-medium-latest,Mistral,claim-boundary-review,5,5/0/0,100.0,100.0,1271.4,1876,0.0,100.0
+Stage_E_single_agent,Stage E,mistral,mistral-medium-latest,Mistral,evidence-summary,5,5/0/0,100.0,100.0,1267.2,1832,0.0,100.0
+Stage_E_single_agent,Stage E,mistral,mistral-medium-latest,Mistral,policy-ladder-check,5,5/0/0,100.0,100.0,1871,2662,0.0,40.0
+Stage_F_multi_agent,Stage F,anthropic,claude-fable-5,Claude Fable 5,multi-agent cases,15,15/0/0,100.0,100.0,5144.4,6041,0.01678133,100.0
+Stage_F_multi_agent,Stage F,deepseek,deepseek-chat,DeepSeek,multi-agent cases,15,15/0/0,100.0,100.0,1658.1,1801,9.675e-05,100.0
+Stage_F_multi_agent,Stage F,mistral,mistral-medium-latest,Mistral,multi-agent cases,15,15/0/0,100.0,100.0,1455.2,2356,0.0,100.0

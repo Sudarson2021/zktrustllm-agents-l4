@@ -1,0 +1,27 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  stage/.style={draw, rounded corners=2pt, align=center, text width=2.6cm,
+    minimum height=15mm, fill=blue!5},
+  flow/.style={-Latex, semithick},
+  node distance=7mm
+]
+\node[stage] (observe) {1. Observe\\telemetry + scenario};
+\node[stage, right=of observe] (reason) {2. Propose\\retrieval + agents};
+\node[stage, right=of reason] (govern) {3. Govern\\policy ladder};
+\node[stage, right=of govern] (prove) {4. Bind\\proof +\\evidence hash};
+\node[stage, right=of prove] (audit) {5. Audit\\HUMAN gate + anchor};
+
+\draw[flow] (observe) -- (reason);
+\draw[flow] (reason) -- (govern);
+\draw[flow] (govern) -- (prove);
+\draw[flow] (prove) -- (audit);
+\draw[flow, dashed] (audit.south) to[bend left=25]
+  node[below]{receipt, decision, and evidence identifiers} (observe.south);
+\end{tikzpicture}
+\caption{Five-stage journal schematic. Model output remains an untrusted
+proposal until the external policy ladder admits it; the full 35-node n8n
+canvas and node-level configuration belong in the supplement.}
+\label{fig:five-stage-pipeline}
+\end{figure*}

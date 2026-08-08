@@ -1,0 +1,47 @@
+{
+  "provider": "deepseek",
+  "model_id": "deepseek-v4-pro",
+  "provider_request_id": "f9ab9b16-bd99-4bf8-9b3c-5517f45e8c83",
+  "valid_json": true,
+  "provider_call_succeeded": true,
+  "response_channel": "content",
+  "assessment": {
+    "decision": "NON_COMPLIANT",
+    "violations": [
+      {
+        "parameter": "drb_integrity",
+        "observed_value": "false",
+        "required_value": "true",
+        "document": "EXPERIMENTAL_MNO_SECURITY_POLICY_v1.txt",
+        "clause": "P-01",
+        "retrieved_chunk_id": "1ce2e95151c4d68a653a3920-p1-c1-f9663571fa",
+        "severity": "CRITICAL",
+        "justification": "The configuration disables DRB integrity (drb_integrity: false), but the MNO security profile (EXPERIMENTAL-S2-DRB-INTEGRITY-REQUIRED) requires DRB integrity protection to be enabled, as per policy clause P-01."
+      }
+    ],
+    "corrected_configuration_patch": "{\"drb_integrity\":true}",
+    "proposed_action": "Enable DRB integrity protection to comply with MNO security profile EXPERIMENTAL-S2-DRB-INTEGRITY-REQUIRED.",
+    "action_class": "HUMAN",
+    "confidence": 0.95,
+    "claim_boundary_ok": true,
+    "uncertainties": []
+  },
+  "deterministic_validation": {
+    "valid": true,
+    "grounding_valid": true,
+    "errors": [],
+    "bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6",
+    "checked_at": "2026-07-18T15:13:10.991985+00:00"
+  },
+  "retrieval_bundle_hash": "70b886a9d434aaba3824f999d3176d348cdf8a0d2accceb7011d05b7f74ce9d6",
+  "prompt_hash": "4c35ed960b0951b32471f6d4eb619c52989b261ec47f8b02ac57b62cef25311e",
+  "raw_response_hash": "0b5a3cbe4a9a1bb36ef5606c6c8cb43b2e1486bfef08ee2adcc69eeed6f122bb",
+  "parsed_response_hash": "faa07c460d40ec3f04366e7f19cdebb6cd27524a3e3cf1035b8a3ea0364d78b9",
+  "latency_ms": 25043.385,
+  "provider_started_ns": 244438030129334,
+  "provider_ended_ns": 244463073514448,
+  "input_tokens": 2924,
+  "output_tokens": 1828,
+  "created_at": "2026-07-18T15:13:10.992084+00:00",
+  "execution_mode": "LIVE"
+}

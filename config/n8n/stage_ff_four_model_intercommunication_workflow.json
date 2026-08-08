@@ -1,0 +1,158 @@
+{
+  "name": "ZKTrustLLM-Agents L4 — Stage F/F Four-Model Intercommunication",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "ZKTrustLLM-Agents L4 — Stage F/F Four-Model Intercommunication\n\nPurpose:\nThis single-page n8n workflow evaluates inter-AI model communication around the local ZKTrustLLM-Agents L4 evidence artifact.\n\nModel roles:\n1. GPT-5.5 Planner Agent\n2. Claude Fable 5 Evidence Critic\n3. DeepSeek Recovery Agent\n4. Mistral Verifier/Arbiter\n\nCommunication chain:\nGPT-5.5 creates the planning/decomposition trace. Claude reviews the plan against the frozen evidence and claim boundary. DeepSeek repairs missing fields, malformed JSON, or unsafe claim language. Mistral resolves disagreement and produces the final verified classification.\n\nMeasured outcomes:\nValid JSON across all steps, final task accuracy, inter-model agreement, execution time, p95 latency, configured estimated cost, repaired steps, failed runs, and claim-boundary preservation.\n\nClaim boundary:\nThis evaluates local inter-AI model communication and orchestration behaviour. It is not production O-RAN deployment validation, packet-capture network benchmarking, public-chain benchmarking, full media-plane QoE validation, or a 240-run six-variant ablation.",
+        "height": 620,
+        "width": 660
+      },
+      "id": "stage-ff-sticky-note",
+      "name": "Stage F/F Communication Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -780,
+        -380
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "stage-ff-manual-trigger",
+      "name": "Start Stage F/F Four-Model Communication",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "repeats",
+              "name": "repeats",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "out_prefix",
+              "name": "out_prefix",
+              "value": "stage_ff_four_model_comm_n8n_final15",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "stage-ff-configure",
+      "name": "Configure F/F Scenario Matrix",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8767/run_stage_ff",
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "={\n  \"repeats\": {{$json.repeats}},\n  \"out_prefix\": \"{{$json.out_prefix}}\"\n}",
+        "options": {
+          "timeout": 7200000
+        }
+      },
+      "id": "stage-ff-http-runner",
+      "name": "Run GPT-5.5 Claude DeepSeek Mistral Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        650,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nreturn [{\n  json: {\n    ok: r.ok,\n    returncode: r.returncode,\n    command: r.cmd,\n    stdout_preview: r.stdout,\n    stderr_preview: r.stderr,\n    claim_boundary: r.claim_boundary,\n    communication_chain: 'GPT-5.5 Planner -> Claude Fable 5 Evidence Critic -> DeepSeek Recovery Agent -> Mistral Verifier/Arbiter',\n    generated_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "stage-ff-summary",
+      "name": "Build Communication Trace Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1030,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst text = String(r.stdout_preview || '') + '\\n' + String(r.claim_boundary || '');\nconst forbiddenAsProven = [\n  'production O-RAN deployment validation as proven',\n  'packet-capture network benchmarking as proven',\n  'public-chain benchmarking as proven',\n  'full media-plane QoE validation as proven',\n  '240-run six-variant ablation as completed'\n];\nconst hits = forbiddenAsProven.filter(x => text.toLowerCase().includes(x.toLowerCase()));\nreturn [{\n  json: {\n    ...r,\n    claim_boundary_review_passed: hits.length === 0,\n    forbidden_phrase_hits: hits,\n    reviewer_note: hits.length === 0\n      ? 'Stage F/F claim-boundary review passed.'\n      : 'Unsupported language detected. Inspect before paper use.'\n  }\n}];"
+      },
+      "id": "stage-ff-claim-review",
+      "name": "Claim-Boundary Review Agent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        -120
+      ]
+    }
+  ],
+  "connections": {
+    "Start Stage F/F Four-Model Communication": {
+      "main": [
+        [
+          {
+            "node": "Configure F/F Scenario Matrix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure F/F Scenario Matrix": {
+      "main": [
+        [
+          {
+            "node": "Run GPT-5.5 Claude DeepSeek Mistral Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run GPT-5.5 Claude DeepSeek Mistral Communication": {
+      "main": [
+        [
+          {
+            "node": "Build Communication Trace Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Communication Trace Summary": {
+      "main": [
+        [
+          {
+            "node": "Claim-Boundary Review Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "versionId": "stage-ff-four-model-intercommunication-v1"
+}

@@ -1,0 +1,15 @@
+{
+  "payload": {
+    "available_evidence": [
+      "local n8n orchestration evidence",
+      "Stage3AnomalyLedger audit micro-benchmark",
+      "Sepolia public-testnet audit evidence",
+      "configured impairment profiles",
+      "partial full-ZK prover timing"
+    ],
+    "candidate_claim": "The workflow proves production-grade real-time O-RAN deployment, Ethereum mainnet performance, packet-capture media QoE, and semantic correctness of the LLM reasoning."
+  },
+  "scenario_description": "Reject overclaims and separate supported measurements from unsupported claims.",
+  "task": "Evaluate the payload under the ZKTrustLLM-Agents L4 claim boundary and return only the requested JSON schema.",
+  "tool_scenario": "claim-boundary-review"
+}

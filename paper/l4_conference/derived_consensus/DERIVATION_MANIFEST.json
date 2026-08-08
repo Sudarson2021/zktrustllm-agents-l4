@@ -6,9 +6,9 @@
     "runtime_artifacts/consensus_comparison/2026-07-23-session-3-retry1/benchmark.json": "836a44d0b5987d6fa47d6e8fb4bda4691c64381f177bf5a3e2ecee69bec691d4"
   },
   "output_hashes": {
-    "fig_pos_rolldpos_latency.tex": "3c2ccdc9c409e6ca3835928f205fe2b1477d70de45e16f18de9971e251107564",
-    "results_pos_rolldpos.tex": "dc11f0b1cf8c673bd69ba90af8265646320987909ca947f2b607ee0a6e515332",
-    "summary.json": "1f0eedb87179a52ef51d502d399fd973bb72c950b04fcacd724eeb386688b07c",
+    "fig_pos_rolldpos_latency.tex": "2c04eff8f2be9cd929740860ffcc94bb3a1c721fd997e7a3405de7096760e3de",
+    "results_pos_rolldpos.tex": "1dfc46e0da824ae04197adcf085a885a48dccd32d97a3925122847b0c1631688",
+    "summary.json": "fb3afe749a80a78156dfde0f008cd5e489ede0c312c7e83e4c84e847f9e5a316",
     "table_pos_rolldpos.tex": "39df36db2b1bd3ced8f835990d8de3bf086491a3e947591efd977030ba8ae1ac"
   },
   "schema": "zktrustllm.pos_rolldpos.derivation_manifest.v1"

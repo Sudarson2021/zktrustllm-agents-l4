@@ -1,0 +1,4337 @@
+{
+  "candidate_records": 270,
+  "files_scanned": 6,
+  "findings": [
+    {
+      "locator": "$[0].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_e_claude_fable5_n8n_server_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_e_claude_fable5_n8n_server_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_e_claude_fable5_n8n_server_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_e_claude_fable5_single_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_e_claude_fable5_single_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_e_claude_fable5_single_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[3].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[4].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[5].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[6].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[7].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[8].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[9].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[10].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[11].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[12].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[13].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[14].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[15].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[16].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[17].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[18].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[19].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[20].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[21].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[22].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[23].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[24].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[25].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[26].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[27].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[28].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[29].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[30].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[31].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[32].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[33].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[34].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[35].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[36].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[37].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[38].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[39].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[40].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[41].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[42].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[43].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[44].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[45].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[46].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[47].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[48].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[49].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[50].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[51].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[52].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[53].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[54].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[55].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[56].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[57].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[58].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[59].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[60].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[61].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[62].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[63].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[64].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[65].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[66].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[67].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[68].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[69].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[70].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[71].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[72].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[73].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[74].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[75].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[76].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[77].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[78].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[79].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[80].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[81].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[82].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[83].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[84].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[85].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[86].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[87].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[88].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[89].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[3].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[4].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[5].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[6].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[7].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[8].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[9].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[10].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[11].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[12].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[13].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[14].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[15].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[16].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[17].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[18].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[19].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[20].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[21].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[22].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[23].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[24].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[25].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[26].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[27].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[28].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[29].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[30].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[31].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[32].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[33].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[34].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[35].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[36].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[37].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[38].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[39].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[40].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[41].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[42].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[43].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[44].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[45].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[46].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[47].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[48].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[49].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[50].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[51].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[52].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[53].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[54].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[55].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[56].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[57].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[58].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[59].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[60].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[61].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[62].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[63].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[64].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[65].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[66].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[67].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[68].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[69].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[70].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[71].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[72].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[73].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[74].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[75].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[76].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[77].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[78].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[79].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[80].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[81].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[82].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[83].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[84].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[85].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[86].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[87].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[88].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[89].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_n8n_final90.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[3].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[4].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[5].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[6].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[7].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[8].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[9].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[10].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[11].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[12].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[13].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[14].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[15].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[16].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[17].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[18].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[19].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[20].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[21].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[22].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[23].model_id",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval/stage_ef_three_model_terminal_pilot.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[0].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[1].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[2].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[3].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[3].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[3].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[3].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[4].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[4].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[4].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[4].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[5].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[5].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[5].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[5].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[6].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[6].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[6].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[6].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[7].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[7].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[7].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[7].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[8].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[8].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[8].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[8].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[9].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[9].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[9].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[9].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[10].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[10].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[10].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[10].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[11].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[11].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[11].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[11].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[12].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[12].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[12].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[12].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[13].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[13].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[13].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[13].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[14].openai_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "gpt-5.5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[14].anthropic_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "claude-fable-5",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[14].deepseek_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "deepseek-chat",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    },
+    {
+      "locator": "$[14].mistral_model",
+      "missing": [
+        "returned_model_id",
+        "accessed_at",
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "system_prompt_sha256"
+      ],
+      "path": "docs/l4/supervisor_258/results/ai_eval_ff/stage_ff_four_model_comm_n8n_final15.jsonl",
+      "ready": false,
+      "requested_model": "mistral-medium-latest",
+      "returned_id_appears_mutable": false,
+      "returned_model_id": null
+    }
+  ],
+  "publication_ready": false,
+  "ready_records": 0,
+  "required_fields": [
+    "returned_model_id",
+    "accessed_at",
+    "temperature",
+    "top_p",
+    "max_tokens",
+    "system_prompt_sha256"
+  ],
+  "schema": "zktrustllm.tnsm.model_metadata_audit.v1"
+}
