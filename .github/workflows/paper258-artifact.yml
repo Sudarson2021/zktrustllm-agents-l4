@@ -58,6 +58,8 @@ jobs:
           bash -n scripts/l4/tnsm_revision/run_model_metadata_audit.sh
           bash -n scripts/l4/tnsm_revision/run_gateway_model_provenance_probe.sh
           bash -n scripts/l4/tnsm_revision/run_r10_prompt_provenance_reconstruction.sh
+          bash -n scripts/l4/tnsm_revision/run_human_label_package.sh
+          bash -n scripts/l4/tnsm_revision/run_human_label_analysis.sh
           node -c scripts/l4/zk/deploy_auth_v2_2_localhost.js
 
       - name: Lightweight claim validation

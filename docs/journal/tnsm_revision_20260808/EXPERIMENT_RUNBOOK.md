@@ -377,13 +377,56 @@ aliases because the gateway did not separately retain immutable
 provider-returned snapshots. Upload
 `tnsm_stage7c_r10_prompt_provenance_*.tar.gz` before manuscript integration.
 
-## Later stages (run only after the preceding gate passes)
+## Stage 8A: blinded human-label packages
 
-1. Generate the deterministic 30-cell human-label sheet; two independent
-   O-RAN-literate annotators label it before oracle labels are revealed.
-2. Compute agreement and Cohen's kappa, freeze all hashes, and pass the journal
-   revision gate before editing result claims in LaTeX.
+Stage 8A deterministically samples 30 cells from the pinned canonical oracle:
+five per scenario and ten per retrieval mode. It creates two annotator packages
+with different case orders and no oracle labels, source cell IDs, or scenario
+IDs. A separate coordinator directory contains the mapping and oracle key.
 
-Exact commands for each later stage will be added only after the preceding
-artifact is validated. This prevents running a plausible-looking experiment on
-a reconstructed or differently encoded oracle.
+Before distributing the packages, confirm the applicable University ethics
+and data-protection treatment with the supervisor or responsible institutional
+process. The package requests no annotator name or email address, but it does
+record a coded independence and experience declaration.
+
+Run:
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+bash scripts/l4/tnsm_revision/run_human_label_package.sh
+```
+
+Send only the `annotator_1` archive to the first O-RAN-literate annotator and
+only the `annotator_2` archive to the second. Never send the coordinator or full
+archive, repository mapping, manuscript results, or the other person's labels.
+Freeze both returned `blinded_cases.csv` and `annotator_declaration.csv` files
+before revealing or analysing the oracle key.
+
+### Stage 8A pass condition
+
+The source hash must equal the Stage 2 pin, `selected_rows=30`, scenario counts
+must be five each, retrieval-mode counts must be ten each, the annotator orders
+must differ, and `publication_ready_for_distribution=true`. Upload the full
+`DO_NOT_SHARE` archive here for validation; do not give it to annotators.
+
+## Stage 8B: agreement and Cohen's kappa
+
+After both independent submissions are frozen, set the five input paths and
+the oracle-key hash printed by Stage 8A, then run:
+
+```bash
+COORDINATOR_KEY="/path/to/oracle_key.csv" \
+ANNOTATOR_1_LABELS="/path/to/annotator_1/blinded_cases.csv" \
+ANNOTATOR_2_LABELS="/path/to/annotator_2/blinded_cases.csv" \
+ANNOTATOR_1_DECLARATION="/path/to/annotator_1/annotator_declaration.csv" \
+ANNOTATOR_2_DECLARATION="/path/to/annotator_2/annotator_declaration.csv" \
+EXPECTED_KEY_SHA256="<Stage-8A-oracle-key-sha256>" \
+  bash scripts/l4/tnsm_revision/run_human_label_analysis.sh
+```
+
+Stage 8B validates that case evidence was not edited and reports decision,
+action, and joint decision/action agreement for oracle-versus-each-annotator
+and annotator-versus-annotator. Because the 30 cells are clustered repetitions
+of six scenario configurations, cell-level kappa is descriptive; the artifact
+also reports a six-scenario majority-label sensitivity result with an explicit
+small-cluster limitation.

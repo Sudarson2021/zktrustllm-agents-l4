@@ -207,6 +207,123 @@ class RevisionToolsTest(unittest.TestCase):
         self.assertEqual(perfect["cohen_kappa"], 1.0)
         self.assertEqual(perfect["agreement"], 1.0)
 
+    def test_blinded_human_label_packages_and_clustered_analysis(self) -> None:
+        package_module = load_module("make_human_label_subset")
+        analysis_module = load_module("analyze_human_labels")
+        decision_by_scenario = {
+            "S1": "COMPLIANT",
+            "S2": "NON_COMPLIANT",
+            "S3": "NON_COMPLIANT",
+            "S4": "NON_COMPLIANT",
+            "S5": "NON_COMPLIANT",
+            "S6": "UNCERTAIN",
+        }
+        action_by_scenario = {
+            "S1": "HUMAN",
+            "S2": "HUMAN",
+            "S3": "HUMAN",
+            "S4": "NEVER",
+            "S5": "NEVER",
+            "S6": "HUMAN",
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "canonical_oracle_180.jsonl"
+            rows = []
+            for scenario_id in package_module.EXPECTED_SCENARIOS:
+                for mode in package_module.EXPECTED_MODES:
+                    for repeat in range(1, 11):
+                        scenario = package_module.canonical_json(
+                            {
+                                "scenario_id": scenario_id,
+                                "configuration": {
+                                    "scenario_id": scenario_id,
+                                    "component": "O-RAN",
+                                    "profile_id": f"PROFILE-{scenario_id}",
+                                },
+                                "retrieval_mode": mode,
+                                "retrieval_evidence": {
+                                    "query": {"query_text": f"security {scenario_id}"},
+                                    "chunks": [],
+                                },
+                            }
+                        )
+                        rows.append(
+                            {
+                                "cell_id": f"{scenario_id}:{mode}:R{repeat:02d}",
+                                "scenario_id": scenario_id,
+                                "retrieval_mode": mode,
+                                "repeat": repeat,
+                                "scenario": scenario,
+                                "scenario_sha256": package_module.sha256_text(scenario),
+                                "oracle_decision": decision_by_scenario[scenario_id],
+                                "oracle_action_class": action_by_scenario[scenario_id],
+                            }
+                        )
+            source.write_text(
+                "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows),
+                encoding="utf-8",
+            )
+            output = root / "packages"
+            manifest = package_module.build_packages(
+                source,
+                output,
+                strict_source_hash=False,
+            )
+            self.assertTrue(manifest["publication_ready_for_distribution"])
+            self.assertEqual(manifest["selected_rows"], 30)
+            self.assertEqual(set(manifest["scenario_counts"].values()), {5})
+            self.assertEqual(set(manifest["retrieval_mode_counts"].values()), {10})
+            self.assertTrue(manifest["annotator_orders_differ"])
+
+            key_path = output / "coordinator_DO_NOT_SHARE" / "oracle_key.csv"
+            with key_path.open(newline="", encoding="utf-8") as handle:
+                key_rows = list(csv.DictReader(handle))
+            key = {row["case_id"]: row for row in key_rows}
+            for annotator in ("annotator_1", "annotator_2"):
+                sheet_path = output / annotator / "blinded_cases.csv"
+                with sheet_path.open(newline="", encoding="utf-8") as handle:
+                    sheet_rows = list(csv.DictReader(handle))
+                self.assertEqual(len(sheet_rows), 30)
+                self.assertNotIn("oracle_label", sheet_rows[0])
+                self.assertNotIn("cell_id", sheet_rows[0])
+                for row in sheet_rows:
+                    self.assertNotIn(
+                        key[row["case_id"]]["scenario_id"], row["scenario_json"]
+                    )
+                    row["decision_label"] = key[row["case_id"]]["oracle_decision"]
+                    row["action_label"] = key[row["case_id"]]["oracle_action_class"]
+                    row["confidence_1_to_5"] = "5"
+                with sheet_path.open("w", newline="", encoding="utf-8") as handle:
+                    writer = csv.DictWriter(handle, fieldnames=list(sheet_rows[0]))
+                    writer.writeheader()
+                    writer.writerows(sheet_rows)
+
+                declaration_path = output / annotator / "annotator_declaration.csv"
+                declaration_path.write_text(
+                    "annotator_code,oran_experience_years,independent_completion_yes_no,"
+                    "oracle_or_peer_labels_accessed_yes_no,completed_utc\n"
+                    f"{annotator},2,YES,NO,2026-08-10T00:00:00Z\n",
+                    encoding="utf-8",
+                )
+
+            analysis = analysis_module.analyze(
+                key_path,
+                output / "annotator_1" / "blinded_cases.csv",
+                output / "annotator_2" / "blinded_cases.csv",
+                output / "annotator_1" / "annotator_declaration.csv",
+                output / "annotator_2" / "annotator_declaration.csv",
+                root / "analysis",
+                expected_key_sha256=analysis_module.sha256_file(key_path),
+            )
+            self.assertTrue(analysis["publication_ready"])
+            self.assertEqual(analysis["n_cells"], 30)
+            self.assertEqual(analysis["n_scenarios"], 6)
+            self.assertEqual(
+                analysis["cell_level"]["joint_decision_action"]
+                ["oracle_vs_annotator_1"]["cohen_kappa"],
+                1.0,
+            )
     def test_bare_500_remains_unresolved(self) -> None:
         module = load_module("analyze_http_failures")
         category, status, _ = module.classify({"http_status": 500})
