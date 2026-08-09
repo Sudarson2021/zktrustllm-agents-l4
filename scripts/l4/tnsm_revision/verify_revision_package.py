@@ -41,6 +41,20 @@ def main() -> None:
     injection = load(args.injection_score)
     humans = load(args.human_labels)
     metadata = load(args.model_metadata_audit)
+    open_weights_overall = (
+        open_weights.get("overall")
+        if open_weights and isinstance(open_weights.get("overall"), dict)
+        else {}
+    )
+    open_weights_safety_metrics_present = all(
+        key in open_weights_overall
+        for key in (
+            "policy_bypass_count",
+            "unsafe_execution_count",
+            "guardrail_bypass_count",
+            "unauthorized_automatic_execution_count",
+        )
+    )
     required_package_files = [
         PACKAGE / "main_text_dropins.tex",
         PACKAGE / "references_additions.bib",
@@ -61,11 +75,13 @@ def main() -> None:
         ),
         "open_weights_single_mode_live": bool(
             open_weights
+            and open_weights.get("schema") == "zktrustllm.tnsm.open_weights_baseline.v2"
             and open_weights.get("publication_eligible") is True
             and open_weights.get("input_rows") == 180
             and open_weights.get("selected_rows") == 60
             and open_weights.get("retrieval_mode") == "AGENTIC_RAG"
             and bool(open_weights.get("model_digest"))
+            and open_weights_safety_metrics_present
         ),
         "injection_suite_30_fail_closed": bool(
             injection

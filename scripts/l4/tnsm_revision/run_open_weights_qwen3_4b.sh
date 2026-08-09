@@ -12,7 +12,8 @@ RETRIEVAL_MODE="AGENTIC_RAG"
 
 case "$MODE" in
   pilot)
-    OUTPUT_DIR="${OUTPUT_DIR:-$REPO_ROOT/artifacts/out/tnsm_revision/open_weights_qwen3_4b_pilot}"
+    RUN_LABEL="pilot_v2"
+    OUTPUT_DIR="${OUTPUT_DIR:-$REPO_ROOT/artifacts/out/tnsm_revision/open_weights_qwen3_4b_pilot_v2}"
     EXPECTED_SELECTED_ROWS=3
     CELL_ARGS=(
       --cell-id S1:AGENTIC_RAG:R01
@@ -21,6 +22,7 @@ case "$MODE" in
     )
     ;;
   full)
+    RUN_LABEL="full"
     [[ "${CONFIRM_OPEN_WEIGHTS_60:-}" == "YES" ]] || {
       printf 'The 60-cell run is locked. Set CONFIRM_OPEN_WEIGHTS_60=YES only after pilot acceptance.\n' >&2
       exit 2
@@ -119,7 +121,7 @@ python3 "$SCRIPT_DIR/run_open_weights_baseline.py" \
 )
 
 RUN_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
-ARCHIVE="$HOME/Downloads/tnsm_stage4_open_weights_${MODE}_$RUN_STAMP.tar.gz"
+ARCHIVE="$HOME/Downloads/tnsm_stage4_open_weights_${RUN_LABEL}_$RUN_STAMP.tar.gz"
 tar -C "$OUTPUT_DIR" -czf "$ARCHIVE" .
 
 printf '\nStage 4 open-weights %s completed.\n' "$MODE"
