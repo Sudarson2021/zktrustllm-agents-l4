@@ -245,6 +245,7 @@ class RevisionToolsTest(unittest.TestCase):
             success_rows = []
             payloads = [
                 {
+                    "report_hash": "report-1",
                     "error": {
                         "status_code": 429,
                         "type": "rate_limit_error",
@@ -252,7 +253,10 @@ class RevisionToolsTest(unittest.TestCase):
                         "request_id": "req-private-one",
                     }
                 },
-                {"error": {"status_code": 500, "message": "Internal Server Error"}},
+                {
+                    "report_hash": "report-2",
+                    "error": {"status_code": 500, "message": "Internal Server Error"},
+                },
             ]
             for index, payload in enumerate(payloads, 1):
                 response = responses / f"failed-{index}.json"
@@ -287,8 +291,8 @@ class RevisionToolsTest(unittest.TestCase):
                     {
                         **failed_rows[-1],
                         "run_id": f"success-{index}",
+                        "report_hash": f"report-{index}",
                         "timestamp_utc": f"2026-01-01T00:01:0{index}Z",
-                        "response_file": "",
                         "status": "SUCCESS",
                         "error": "",
                     }
@@ -316,6 +320,17 @@ class RevisionToolsTest(unittest.TestCase):
             self.assertEqual(summary["root_cause_category_counts"]["provider_rate_limit"], 1)
             self.assertEqual(summary["root_cause_category_counts"]["unresolved_http_5xx"], 1)
             self.assertFalse(summary["root_cause_resolved"])
+            self.assertEqual(
+                summary["linked_response_evidence"]["shared_paths_with_success_retry"],
+                2,
+            )
+            self.assertEqual(
+                summary["linked_response_evidence"]["matches_success_report_hash"],
+                2,
+            )
+            self.assertEqual(
+                summary["linked_response_evidence"]["causally_eligible_files"], 0
+            )
             frozen_output = "\n".join(
                 path.read_text(encoding="utf-8")
                 for path in output.iterdir()
@@ -331,6 +346,35 @@ class RevisionToolsTest(unittest.TestCase):
             {"http_status": 500, "error": {"message": "Provider request timed out"}}
         )
         self.assertEqual(category, "timeout")
+        self.assertEqual(status, 500)
+
+    def test_generic_n8n_webhook_error_is_only_a_boundary(self) -> None:
+        module = load_module("analyze_http_failures")
+        category, status, _ = module.classify(
+            {
+                "http_status": 500,
+                "error": (
+                    "HTTP 500 from http://127.0.0.1:5678/webhook/test: "
+                    '{"message":"Error in workflow"}'
+                ),
+            }
+        )
+        self.assertEqual(category, "unresolved_http_5xx")
+        self.assertEqual(status, 500)
+
+    def test_explicit_n8n_node_error_is_attributable(self) -> None:
+        module = load_module("analyze_http_failures")
+        category, status, _ = module.classify(
+            {
+                "http_status": 500,
+                "error": {
+                    "name": "NodeExecutionError",
+                    "node_name": "Collect Provider Completion Status",
+                    "message": "Error in node Collect Provider Completion Status",
+                },
+            }
+        )
+        self.assertEqual(category, "n8n_workflow_or_node")
         self.assertEqual(status, 500)
 
     def test_langgraph_mock_is_not_publication_eligible(self) -> None:

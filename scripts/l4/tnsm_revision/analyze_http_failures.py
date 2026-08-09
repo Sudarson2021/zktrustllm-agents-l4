@@ -177,6 +177,22 @@ def diagnostic_facts(value: Any, limit: int = 80) -> tuple[list[dict[str, str]],
     return facts, redactions
 
 
+def scalar_values(value: Any, wanted_key: str, limit: int = 20) -> list[str]:
+    found: list[str] = []
+    queue: deque[Any] = deque([value])
+    while queue and len(found) < limit:
+        current = queue.popleft()
+        if isinstance(current, dict):
+            for key, child in current.items():
+                if key == wanted_key and isinstance(child, (str, int, float)):
+                    found.append(str(child))
+                elif isinstance(child, (dict, list)):
+                    queue.append(child)
+        elif isinstance(current, list):
+            queue.extend(current)
+    return found
+
+
 def status_from_evidence(row: dict[str, Any], facts: list[dict[str, str]]) -> int | None:
     # Preserve the client-observed workflow boundary when the index records it.
     # Nested provider/node status values remain in diagnostic_facts for causal
@@ -241,11 +257,17 @@ def classify_evidence(
         "provider-marked upstream 5xx evidence",
     ):
         return "provider_upstream_5xx", "high", matches
-    if has(
-        r"workflow execution failed|error in workflow|nodeexecutionerror|problem executing workflow",
-        "explicit n8n workflow/node evidence",
-    ):
+    node_keys_present = bool({"node", "node_name", "node_type"} & keys)
+    node_specific_text = has(
+        r"nodeexecutionerror|error (?:in|at) node|node [^.;]{0,80} failed|workflow execution failed at",
+        "explicit n8n node evidence",
+    )
+    if node_keys_present or node_specific_text:
         return "n8n_workflow_or_node", "high", matches
+    has(
+        r"error in workflow|problem executing workflow|127\.0\.0\.1:5678/webhook",
+        "generic n8n webhook boundary only",
+    )
     if status is not None and 500 <= status <= 599:
         return "unresolved_http_5xx", "unresolved", matches
     if status is not None and 400 <= status <= 499:
@@ -386,12 +408,23 @@ def manuscript_statement(summary: dict[str, Any]) -> str:
     recovered = summary["eventually_recovered_unique_cells"]
     unresolved = summary["unresolved_attempts"]
     categories = summary["root_cause_category_counts"]
+    shared_success = summary["linked_response_evidence"][
+        "shared_paths_with_success_retry"
+    ]
+    matched_success = summary["linked_response_evidence"][
+        "matches_success_report_hash"
+    ]
     if unresolved == total:
         cause = (
-            "The retained response/error fields expose only an HTTP-500 workflow "
-            "boundary and contain no discriminating provider subcode, request/trace "
-            "identifier, timeout exception, or n8n node/worker error; the upstream "
-            "root cause is therefore unresolved."
+            "All retained failure rows expose only an HTTP-500 response from the "
+            "local n8n webhook with the generic body `Error in workflow`; they "
+            "contain no failure-time provider subcode, request/trace identifier, "
+            "timeout exception, or n8n node/worker error. "
+            f"Moreover, {shared_success}/{total} linked response paths are reused "
+            "by later successful retries and "
+            f"{matched_success}/{total} currently contain the successful report "
+            "hash, so those payloads are excluded from causal diagnosis. The "
+            "underlying provider-side versus n8n-internal root cause is unresolved."
         )
     else:
         resolved = ", ".join(
@@ -461,11 +494,16 @@ def analyze(
     details: list[dict[str, Any]] = []
     redaction_count = 0
     response_found = response_missing = response_json = response_text = 0
+    response_shared_with_success = response_matches_success_report = 0
+    causally_eligible_responses = excluded_response_facts = 0
     diagnostic_key_counts: Counter[str] = Counter()
+    excluded_diagnostic_key_counts: Counter[str] = Counter()
     failure_times: list[dt.datetime] = []
     by_cell: defaultdict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
 
     for index, row in enumerate(failures):
+        key = cell_key(row)
+        success = success_by_cell.get(key)
         row_facts, redactions = diagnostic_facts(row)
         redaction_count += redactions
         linked: dict[str, Any] = {
@@ -474,6 +512,14 @@ def analyze(
         }
         response_facts: list[dict[str, str]] = []
         raw_response_file = row.get("response_file", "").strip()
+        raw_success_response_file = (
+            str(success.get("response_file", "")).strip() if success else ""
+        )
+        success_response_path = None
+        if raw_success_response_file:
+            success_response_path, _ = resolve_linked_path(
+                raw_success_response_file, experiment_dir, n8n_root
+            )
         if raw_response_file:
             response_path, checked = resolve_linked_path(
                 raw_response_file, experiment_dir, n8n_root
@@ -484,6 +530,29 @@ def analyze(
                 payload, payload_format, read_error = load_linked_response(response_path)
                 response_facts, response_redactions = diagnostic_facts(payload)
                 redaction_count += response_redactions
+                shared_with_success = bool(
+                    success_response_path is not None
+                    and response_path.resolve() == success_response_path.resolve()
+                )
+                success_report_hash = (
+                    str(success.get("report_hash", "")).strip() if success else ""
+                )
+                matches_success_report = bool(
+                    shared_with_success
+                    and success_report_hash
+                    and success_report_hash in scalar_values(payload, "report_hash")
+                )
+                causal_eligible = not shared_with_success
+                if shared_with_success:
+                    response_shared_with_success += 1
+                    excluded_response_facts += len(response_facts)
+                    excluded_diagnostic_key_counts.update(
+                        fact["key"] for fact in response_facts
+                    )
+                else:
+                    causally_eligible_responses += 1
+                if matches_success_report:
+                    response_matches_success_report += 1
                 linked.update(
                     {
                         "found": True,
@@ -492,6 +561,25 @@ def analyze(
                         "sha256": sha256_file(response_path),
                         "format": payload_format,
                         "read_error": read_error,
+                        "shared_path_with_success_retry": shared_with_success,
+                        "matches_success_report_hash": matches_success_report,
+                        "causal_diagnostic_eligible": causal_eligible,
+                        "provenance": (
+                            "eventual_success_artifact"
+                            if matches_success_report
+                            else (
+                                "shared_cell_path_with_success_retry"
+                                if shared_with_success
+                                else "failure_specific_path"
+                            )
+                        ),
+                        "exclusion_reason": (
+                            "The failed and successful indexes reuse this cell-scoped "
+                            "path; its current contents cannot be attributed to the "
+                            "earlier failed attempt."
+                            if shared_with_success
+                            else None
+                        ),
                     }
                 )
                 if payload_format == "json":
@@ -501,13 +589,16 @@ def analyze(
             else:
                 response_missing += 1
 
-        facts = row_facts + response_facts
+        eligible_response_facts = (
+            response_facts
+            if linked.get("causal_diagnostic_eligible", False)
+            else []
+        )
+        facts = row_facts + eligible_response_facts
         diagnostic_key_counts.update(fact["key"] for fact in facts)
         status = status_from_evidence(row, facts)
         evidence_text = " ".join(fact["value"] for fact in facts)
         category, confidence, matches = classify_evidence(status, evidence_text, facts)
-        key = cell_key(row)
-        success = success_by_cell.get(key)
         failure_time = parse_timestamp(str(row.get("timestamp_utc", "")))
         success_time = (
             parse_timestamp(str(success.get("timestamp_utc", ""))) if success else None
@@ -522,7 +613,7 @@ def analyze(
         safe_error, count = redact(str(row.get("error", "")))
         redaction_count += count
         detail = {
-            "schema": "zktrustllm.tnsm.http_failure_record.v2",
+            "schema": "zktrustllm.tnsm.http_failure_record.v3",
             "failure_index": index,
             "source_row_sha256": sha256_text(canonical_json(row)),
             "scenario_id": key[0],
@@ -578,7 +669,7 @@ def analyze(
         if item["recovery_delay_sec"] is not None
     ]
     summary: dict[str, Any] = {
-        "schema": "zktrustllm.tnsm.http_failure_analysis.v2",
+        "schema": "zktrustllm.tnsm.http_failure_analysis.v3",
         "experiment_id": EXPERIMENT_ID,
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "provider_calls_made": False,
@@ -602,7 +693,14 @@ def analyze(
             "files_missing": response_missing,
             "json_files": response_json,
             "text_files": response_text,
+            "shared_paths_with_success_retry": response_shared_with_success,
+            "matches_success_report_hash": response_matches_success_report,
+            "causally_eligible_files": causally_eligible_responses,
+            "excluded_diagnostic_fact_count": excluded_response_facts,
             "diagnostic_key_counts": dict(sorted(diagnostic_key_counts.items())),
+            "excluded_success_artifact_key_counts": dict(
+                sorted(excluded_diagnostic_key_counts.items())
+            ),
         },
         "temporal_bursts": burst_summary(failure_times),
         "recovery_delay_sec": {
@@ -626,7 +724,9 @@ def analyze(
         "method_note": (
             "A bare HTTP 5xx identifies the observed workflow boundary only. "
             "Provider, timeout, n8n node, queue/worker, or transport attribution is "
-            "made only when a retained diagnostic field supplies explicit evidence."
+            "made only when a failure-specific retained diagnostic field supplies "
+            "explicit evidence. Cell-scoped response files shared with a later "
+            "successful retry are inventoried but excluded from causal classification."
         ),
     }
     summary["manuscript_ready_statement"] = manuscript_statement(summary)
@@ -683,6 +783,9 @@ def analyze(
             f"- Eventually recovered cells: {recovered_cells} / {len(by_cell)}",
             f"- Root-cause categories: `{json.dumps(dict(sorted(category_counts.items())))}`",
             f"- Linked response files found: {response_found}",
+            f"- Linked paths reused by successful retries: {response_shared_with_success}",
+            f"- Linked files matching successful report hashes: {response_matches_success_report}",
+            f"- Failure-specific linked files eligible for causal diagnosis: {causally_eligible_responses}",
             f"- Root cause fully resolved: {'YES' if summary['root_cause_resolved'] else 'NO'}",
             "",
             "## Manuscript-ready statement",
@@ -697,7 +800,7 @@ def analyze(
     )
     atomic_write_text(output_dir / "http_failure_summary.md", markdown)
     source_manifest = {
-        "schema": "zktrustllm.tnsm.http_failure_source_manifest.v1",
+        "schema": "zktrustllm.tnsm.http_failure_source_manifest.v2",
         "experiment_id": EXPERIMENT_ID,
         "experiment_directory_name": experiment_dir.name,
         "n8n_root_name": n8n_root.name,

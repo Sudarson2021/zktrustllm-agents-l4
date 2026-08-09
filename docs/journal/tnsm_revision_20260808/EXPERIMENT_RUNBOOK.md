@@ -263,6 +263,14 @@ only when retained diagnostic fields explicitly identify that cause. Retry
 recovery is reconstructed by joining failures and successes on the frozen
 `scenario_id`/`retrieval_mode`/`repeat` key.
 
+The R10 runner used cell-scoped response filenames. If a failed row and its
+later successful retry point to the same file, the current file is a success-
+time artifact, not immutable failure-time evidence. The analyzer records its
+hash and success-report match but excludes all of its diagnostic fields from
+root-cause classification. Likewise, n8n's generic webhook body `Error in
+workflow` identifies the HTTP boundary only; an n8n-internal cause requires a
+retained node name, node exception, queue/worker error, or equivalent field.
+
 ### Stage 6 pass condition
 
 The source hashes and row counts must pass, all 53 failures must be represented,
