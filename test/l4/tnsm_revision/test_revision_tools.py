@@ -296,6 +296,31 @@ class RevisionToolsTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "whitespace"):
             module.validate_api_key(" sk-test-value", "OPENAI_API_KEY")
 
+    def test_langgraph_response_header_allowlist_excludes_identifiers(self) -> None:
+        module = load_module("run_langgraph_baseline")
+        filtered = module.normalize_headers(
+            {
+                "X-Request-ID": "req_test",
+                "OpenAI-Processing-Ms": "123",
+                "Retry-After": "2",
+                "Set-Cookie": "private-cookie",
+                "OpenAI-Organization": "org_private",
+                "OpenAI-Project": "proj_private",
+                "CF-Ray": "private-trace",
+            }
+        )
+        self.assertEqual(
+            filtered,
+            {
+                "x-request-id": "req_test",
+                "openai-processing-ms": "123",
+                "retry-after": "2",
+            },
+        )
+        self.assertNotIn("set-cookie", module.RETAINED_RESPONSE_HEADERS)
+        self.assertNotIn("openai-organization", module.RETAINED_RESPONSE_HEADERS)
+        self.assertNotIn("openai-project", module.RETAINED_RESPONSE_HEADERS)
+
     def test_injection_generator_has_thirty_cases(self) -> None:
         module = load_module("generate_prompt_injection_suite")
         self.assertEqual(len(module.BASE_CONTEXTS) * len(module.ATTACKS), 30)

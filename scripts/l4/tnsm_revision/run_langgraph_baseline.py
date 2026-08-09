@@ -37,6 +37,25 @@ VALID_DECISIONS = {"COMPLIANT", "NON_COMPLIANT", "UNCERTAIN"}
 VALID_ACTIONS = {"AUTOMATIC", "HUMAN", "PRIVILEGED", "NEVER"}
 EXPECTED_MODES = {"NO_RAG", "RAG", "AGENTIC_RAG"}
 CLIENT_REQUEST_NAMESPACE = uuid.UUID("80c7fe04-29bf-4b2a-91a2-3b0ffd17e9b2")
+RETAINED_RESPONSE_HEADERS = frozenset(
+    {
+        "content-length",
+        "content-type",
+        "date",
+        "openai-processing-ms",
+        "openai-version",
+        "retry-after",
+        "retry-after-ms",
+        "x-ratelimit-limit-requests",
+        "x-ratelimit-limit-tokens",
+        "x-ratelimit-remaining-requests",
+        "x-ratelimit-remaining-tokens",
+        "x-ratelimit-reset-requests",
+        "x-ratelimit-reset-tokens",
+        "x-request-id",
+        "x-should-retry",
+    }
+)
 
 SYSTEM_PROMPT = """You are the sole assessor in a minimal external LangGraph baseline for an O-RAN security-policy benchmark.
 
@@ -223,7 +242,12 @@ def normalize_headers(headers: Any) -> dict[str, str]:
     if headers is None:
         return {}
     try:
-        return {str(key).lower(): str(value) for key, value in headers.items()}
+        normalized = {str(key).lower(): str(value) for key, value in headers.items()}
+        return {
+            key: value
+            for key, value in normalized.items()
+            if key in RETAINED_RESPONSE_HEADERS
+        }
     except AttributeError:
         return {}
 
@@ -842,6 +866,11 @@ def build_run_config(
         "input_price_per_mtok": args.input_price_per_mtok,
         "output_price_per_mtok": args.output_price_per_mtok,
         "pricing_snapshot_date": args.pricing_snapshot_date,
+        "retained_response_headers": sorted(RETAINED_RESPONSE_HEADERS),
+        "response_header_policy": (
+            "Allowlist only; cookie, organization, project, CDN trace, and other "
+            "nonessential provider headers are not persisted."
+        ),
     }
 
 
