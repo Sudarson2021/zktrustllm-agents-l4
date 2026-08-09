@@ -145,6 +145,9 @@ the installed model digest, GGUF format, parameter size, quantization, Ollama
 version, template/parameter/model-info hashes, host details, prompt/schema
 hashes, seed, and decoding settings.  It rejects non-loopback endpoints, uses
 no API key, and verifies that the model digest is unchanged after the run.
+Preflight and generation execute in one runner process so the same local model
+snapshot and configuration hash govern both phases; `preflight.json` is
+written before the first generation request.
 The wrapper explicitly fixes temperature 0, top-p 1, top-k 20, min-p 0,
 repeat penalty 1, seed 20260808, non-thinking mode, and a 256-token output
 limit rather than relying on mutable model defaults.

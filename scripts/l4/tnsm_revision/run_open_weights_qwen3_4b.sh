@@ -98,9 +98,9 @@ COMMON_ARGS=(
   --request-delay 0.25
 )
 
-python3 "$SCRIPT_DIR/run_open_weights_baseline.py" \
-  "${COMMON_ARGS[@]}" "${CELL_ARGS[@]}" --preflight-only
-
+# The live invocation writes preflight.json before the first generation call.
+# Keeping preflight and generation in one process ensures that a single Ollama
+# model snapshot/configuration hash governs the complete evidence directory.
 python3 "$SCRIPT_DIR/run_open_weights_baseline.py" \
   "${COMMON_ARGS[@]}" "${CELL_ARGS[@]}"
 
