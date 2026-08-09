@@ -288,6 +288,14 @@ class RevisionToolsTest(unittest.TestCase):
         self.assertIn("untrusted data", module.SYSTEM_PROMPT)
         self.assertFalse(module.OUTPUT_SCHEMA["additionalProperties"])
 
+    def test_langgraph_rejects_redacted_or_malformed_api_keys(self) -> None:
+        module = load_module("run_langgraph_baseline")
+        module.validate_api_key("sk-test_ascii-value", "OPENAI_API_KEY")
+        with self.assertRaisesRegex(ValueError, "U\\+2026"):
+            module.validate_api_key("sk-proj-redacted…", "OPENAI_API_KEY")
+        with self.assertRaisesRegex(ValueError, "whitespace"):
+            module.validate_api_key(" sk-test-value", "OPENAI_API_KEY")
+
     def test_injection_generator_has_thirty_cases(self) -> None:
         module = load_module("generate_prompt_injection_suite")
         self.assertEqual(len(module.BASE_CONTEXTS) * len(module.ATTACKS), 30)

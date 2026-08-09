@@ -51,6 +51,7 @@ jobs:
 
       - name: Lightweight claim validation
         run: |
+          python -m unittest discover -s test/l4/tnsm_revision -p 'test_*.py'
           python scripts/l4/validation/summarize_ai_evidence.py
           python scripts/l4/validation/validate_paper_258_claims.py
           python scripts/l4/validation/build_evidence_manifest.py

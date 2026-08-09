@@ -197,6 +197,24 @@ def validate_matrix(rows: list[dict[str, Any]], expect_full: bool) -> None:
         raise ValueError(f"invalid repeat counts: {dict(repeat_counts)}")
 
 
+def validate_api_key(api_key: str, environment_name: str) -> None:
+    if not api_key:
+        raise ValueError(f"environment variable {environment_name} is empty")
+    try:
+        encoded = api_key.encode("ascii")
+    except UnicodeEncodeError as error:
+        code_points = sorted({f"U+{ord(character):04X}" for character in api_key if ord(character) > 127})
+        raise ValueError(
+            f"{environment_name} must be the full unredacted ASCII API key; "
+            f"found non-ASCII character(s) {', '.join(code_points)}. "
+            "Do not use a shortened value containing an ellipsis."
+        ) from error
+    if api_key != api_key.strip() or any(byte < 33 or byte > 126 for byte in encoded):
+        raise ValueError(
+            f"{environment_name} must not contain whitespace or control characters"
+        )
+
+
 def safe_component(value: str) -> str:
     return "".join(character if character.isalnum() or character in "-_" else "_" for character in value)
 
@@ -387,7 +405,9 @@ class AttemptRecorder:
         self.counts: Counter[str] = Counter()
         if self.attempts_path.is_file():
             for record in load_existing_jsonl(self.attempts_path):
-                self.counts[str(record.get("cell_id"))] += 1
+                cell_id = str(record.get("cell_id"))
+                attempt_number = int(record.get("attempt_number") or 0)
+                self.counts[cell_id] = max(self.counts[cell_id], attempt_number)
 
     def call(self, row: dict[str, Any]) -> dict[str, Any]:
         cell_id = str(row["cell_id"])
@@ -406,6 +426,22 @@ class AttemptRecorder:
             )
             attempt_id = f"{safe_component(cell_id)}-a{attempt_number:02d}-{client_request_id[:8]}"
             attempt_dir = self.output_dir / "raw" / safe_component(cell_id) / attempt_id
+            while attempt_dir.exists():
+                self.counts[cell_id] += 1
+                attempt_number = self.counts[cell_id]
+                client_request_id = str(
+                    uuid.uuid5(
+                        CLIENT_REQUEST_NAMESPACE,
+                        f"{self.config_hash}:{cell_id}:{attempt_number}",
+                    )
+                )
+                attempt_id = (
+                    f"{safe_component(cell_id)}-a{attempt_number:02d}-"
+                    f"{client_request_id[:8]}"
+                )
+                attempt_dir = (
+                    self.output_dir / "raw" / safe_component(cell_id) / attempt_id
+                )
             attempt_dir.mkdir(parents=True, exist_ok=False)
             atomic_write_json(attempt_dir / "request.json", body)
             started_at = utc_now()
@@ -825,6 +861,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     validate_matrix(rows, expect_full=not args.mock)
     chosen_rows = selected_rows(rows, args.cell_id)
 
+    api_key = ""
+    langgraph_version: str | None = None
+    if not args.mock:
+        api_key = os.environ.get(args.api_key_env, "")
+        validate_api_key(api_key, args.api_key_env)
+        langgraph_version = importlib.metadata.version("langgraph")
+        if langgraph_version != "1.2.10":
+            raise ValueError(f"expected langgraph 1.2.10; found {langgraph_version}")
+
     output_dir = args.output_dir
     if output_dir is None:
         if args.output is None:
@@ -833,16 +878,6 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     output_dir = output_dir.expanduser().resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     summary_path = args.output.expanduser().resolve() if args.output else output_dir / "summary.json"
-
-    api_key = ""
-    langgraph_version: str | None = None
-    if not args.mock:
-        api_key = os.environ.get(args.api_key_env, "")
-        if not api_key:
-            raise ValueError(f"environment variable {args.api_key_env} is empty")
-        langgraph_version = importlib.metadata.version("langgraph")
-        if langgraph_version != "1.2.10":
-            raise ValueError(f"expected langgraph 1.2.10; found {langgraph_version}")
 
     cell_ids = [str(row["cell_id"]) for row in chosen_rows]
     run_config = build_run_config(args, input_hash, cell_ids, langgraph_version)

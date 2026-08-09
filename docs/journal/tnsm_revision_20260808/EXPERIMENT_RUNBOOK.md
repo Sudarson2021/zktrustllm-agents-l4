@@ -103,6 +103,11 @@ system fingerprints, token usage, latency, file hashes, summary JSON/CSV, and a
 package freeze. API-key values are neither printed nor written. A failed run is
 resumable by repeating the same command.
 
+`OPENAI_API_KEY` must contain the complete unredacted ASCII key. A shortened
+dashboard/password-manager display containing `...` or the Unicode ellipsis
+`…` is not a usable credential. The runner validates this before creating a
+new run manifest or making a provider request and never prints the key value.
+
 The default model is `gpt-5.6-terra`, matching the OpenAI assessor family in
 the frozen experiment. Provider documentation does not expose a dated snapshot
 for this alias, so the artifact retains the returned model identifier and
