@@ -1042,6 +1042,183 @@ class RevisionToolsTest(unittest.TestCase):
         self.assertEqual(len(prompts), 1)
         self.assertEqual(prompts[0]["name"], "$.system_prompt")
 
+    def test_r10_prompt_reconstruction_helpers_bind_hashes_and_omissions(self) -> None:
+        module = load_module("reconstruct_r10_prompt_provenance")
+        source = '''
+def assessment_prompt(run: dict[str, Any]) -> tuple[str, str]:
+    system = "This is a complete assessor system prompt for testing."
+    user = canonical_json({"scenario": run["scenario"], "configuration": run["input_text"]})
+    return system, user
+
+async def call_provider(provider: str, system: str, user: str, *, max_tokens: int = 5000):
+    if provider == "openai":
+        body = {"model": "openai-model", "instructions": system, "input": user, "max_output_tokens": max_tokens}
+    elif provider == "anthropic":
+        body = {"model": "anthropic-model", "system": system, "messages": [], "max_tokens": max_tokens}
+    elif provider == "deepseek":
+        body = {"model": "deepseek-model", "messages": [], "stream": False}
+    elif provider == "mistral":
+        body = {"model": "mistral-model", "messages": [], "max_tokens": max_tokens}
+    else:
+        raise ValueError(provider)
+    return body
+'''
+        builder, prompt_function_hash = module.compile_prompt_builder(source)
+        system, user = builder(
+            {"scenario": "test", "input_text": '{"scenario_id":"S1"}'}
+        )
+        retained = module.sha256_text(
+            module.canonical_json({"system": system, "user": user})
+        )
+        self.assertEqual(len(retained), 64)
+        self.assertEqual(len(prompt_function_hash), 64)
+
+        decoding, _ = module.request_decoding_inventory(source)
+        self.assertEqual(
+            decoding["providers"]["openai"]["max_token_value"], 5000
+        )
+        self.assertEqual(
+            decoding["providers"]["deepseek"]["max_token_field"], None
+        )
+        self.assertEqual(
+            decoding["providers"]["mistral"]["temperature"], "NOT_SENT"
+        )
+
+        with tempfile.TemporaryDirectory() as temporary:
+            scenario = Path(temporary) / "S1.json"
+            scenario.write_text(
+                '{\n  "scenario_id": "S1",\n  "component": "O-RAN"\n}\n',
+                encoding="utf-8",
+            )
+            compact = '{"scenario_id":"S1","component":"O-RAN"}'
+            candidates = module.configuration_candidates(
+                scenario, {"request": {"config_text": compact}}
+            )
+            matches = candidates[module.sha256_text(compact)]
+            self.assertTrue(
+                any(row["origin"].startswith("response_string:") for row in matches)
+            )
+
+    def test_r10_prompt_reconstruction_accepts_only_exact_prompt_hash(self) -> None:
+        module = load_module("reconstruct_r10_prompt_provenance")
+        source = '''
+def assessment_prompt(run: dict[str, Any]) -> tuple[str, str]:
+    system = "This is a complete No-RAG assessor system prompt for testing."
+    user = canonical_json({"scenario": run["scenario"], "configuration": run["input_text"]})
+    return system, user
+
+async def call_provider(provider: str, system: str, user: str, *, max_tokens: int = 5000):
+    if provider == "openai":
+        body = {"model": "openai-model", "instructions": system, "input": user, "max_output_tokens": max_tokens}
+    elif provider == "anthropic":
+        body = {"model": "anthropic-model", "system": system, "messages": [], "max_tokens": max_tokens}
+    elif provider == "deepseek":
+        body = {"model": "deepseek-model", "messages": [], "stream": False}
+    elif provider == "mistral":
+        body = {"model": "mistral-model", "messages": [], "max_tokens": max_tokens}
+    else:
+        raise ValueError(provider)
+    return body
+
+async def assess(provider, request):
+    return provider
+'''
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            n8n = root / "n8n"
+            experiment = n8n / "runtime" / "experiments" / "r10"
+            responses = experiment / "responses"
+            scenarios = n8n / "scenarios" / "configs"
+            responses.mkdir(parents=True)
+            scenarios.mkdir(parents=True)
+            for relative in module.gateway_probe.EXPECTED_SOURCE_HASHES:
+                if not relative.endswith(".py") or relative == "scripts/update_env_v2.py":
+                    continue
+                path = n8n / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(source, encoding="utf-8")
+
+            scenario_file = scenarios / "S1.json"
+            scenario_file.write_text(
+                '{\n  "scenario_id": "S1",\n  "component": "O-RAN"\n}\n',
+                encoding="utf-8",
+            )
+            config_text = '{"scenario_id":"S1","component":"O-RAN"}'
+            builder, _ = module.compile_prompt_builder(source)
+            system, user = builder(
+                {"scenario": "Synthetic S1", "input_text": config_text}
+            )
+            prompt_hash = module.sha256_text(
+                module.canonical_json({"system": system, "user": user})
+            )
+            report_hash = hashlib.sha256(b"report").hexdigest()
+            providers = {
+                provider: {
+                    "model_id": f"{provider}-model",
+                    "created_at": "2099-01-01T00:00:00+00:00",
+                    "provider_request_id": f"request-{provider}",
+                    "prompt_hash": prompt_hash,
+                    "raw_response_hash": hashlib.sha256(provider.encode()).hexdigest(),
+                }
+                for provider in module.PROVIDERS
+            }
+            response = responses / "S1.json"
+            response.write_text(
+                json.dumps(
+                    {
+                        "report_hash": report_hash,
+                        "run_id": "run-1",
+                        "scenario": "Synthetic S1",
+                        "input_hash": module.sha256_text(config_text),
+                        "metadata": {"retrieval_mode": "NO_RAG"},
+                        "retrieval": {"chunks": [], "bundle_hash": "bundle"},
+                        "providers": providers,
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            with (experiment / "run_index_success_matrix.csv").open(
+                "w", newline="", encoding="utf-8"
+            ) as handle:
+                writer = csv.DictWriter(
+                    handle,
+                    fieldnames=[
+                        "scenario_id",
+                        "scenario_title",
+                        "scenario_file",
+                        "retrieval_mode",
+                        "repeat",
+                        "report_hash",
+                        "response_file",
+                    ],
+                )
+                writer.writeheader()
+                writer.writerow(
+                    {
+                        "scenario_id": "S1",
+                        "scenario_title": "Synthetic S1",
+                        "scenario_file": "S1.json",
+                        "retrieval_mode": "NO_RAG",
+                        "repeat": "1",
+                        "report_hash": report_hash,
+                        "response_file": "responses/S1.json",
+                    }
+                )
+
+            output = root / "output"
+            summary = module.reconstruct(
+                n8n,
+                experiment,
+                output,
+                expected_successes=1,
+                strict_source_hashes=False,
+            )
+            self.assertTrue(summary["publication_ready"])
+            self.assertEqual(summary["prompt_hash_matches"], 1)
+            self.assertEqual(summary["provider_records"], 4)
+            self.assertEqual(summary["full_system_prompts_recovered"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

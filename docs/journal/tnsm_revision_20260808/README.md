@@ -42,7 +42,7 @@ and explain why it is not an O-RAN or autonomy-level standard.
 | 12 | Caveat three-cluster bootstrap | **Code/text fixed** | Generated interval is labelled descriptive; nominal coverage is not asserted. |
 | 13 | Align estimand orientation | **Code fixed** | Difference is now Sepolia minus IoTeX, aligned with the ratio. |
 | 14 | Root-cause HTTP 500s | **Experiment complete** | All 53 records expose only the local webhook's generic HTTP-500 boundary; 53/53 response paths were overwritten by successful retries, so provider-versus-n8n attribution remains unresolved. All 39 affected cells recovered. |
-| 15 | Model snapshots/decoding/prompts | **Stage 7B ready** | Stage 7A inventories all 720 R10 records but confirms that returned snapshots, decoding fields, and full dynamic prompts were not retained. Stage 7B probes the hash-identified gateway source before any rerun. |
+| 15 | Model snapshots/decoding/prompts | **Stage 7C execution required** | Stages 7A/7B inventory the 720 records and hash-pinned gateway sources. Stage 7C must reproduce all 180 retained prompt hashes and report request-field omissions without inventing provider defaults or immutable snapshots. |
 | 16 | GPT-5.6/GPT-5.5 inconsistency | **Resolved by evidence** | GPT-5.6 was the R10 independent assessor; GPT-5.5 was a planner alias in the separate 15-row supplemental Stage F/F chain. |
 | 17 | Human oracle validation | **Execution required** | Deterministic 30-cell sampler and Cohen’s-kappa analyser are ready; independent O-RAN-literate labels are required. |
 | 18 | Move Stage E/F and F/F | **Draft ready** | Two-sentence main-text pointer supplied; tables remain evidence for a supplement. |
@@ -82,6 +82,7 @@ python scripts/l4/tnsm_revision/score_prompt_injection.py --help
 python scripts/l4/tnsm_revision/make_human_label_subset.py --help
 python scripts/l4/tnsm_revision/analyze_human_labels.py --help
 python scripts/l4/tnsm_revision/audit_model_metadata.py --help
+python scripts/l4/tnsm_revision/reconstruct_r10_prompt_provenance.py --help
 python scripts/l4/tnsm_revision/analyze_http_failures.py --help
 ```
 

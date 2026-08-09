@@ -348,6 +348,35 @@ current environment values may be reported as source-configured values, but
 they become original-R10 facts only if a retained hash or reproducible prompt
 construction links them to the July records.
 
+## Stage 7C: hash-verified R10 prompt and request reconstruction
+
+Stage 7C makes no provider call. It reads the original six scenario files and
+180 successful reports, resolves the exact configuration serialization by each
+retained `input_hash`, and executes only the `assessment_prompt` function
+extracted from the hash-pinned gateway sources. Every reconstructed prompt must
+match the prompt hash retained independently by all four providers. The stage
+also requires a timestamped pre-run source whose prompt, dispatch, and provider
+call functions match the accepted source family before it reports request
+fields such as token limits or omitted sampling controls.
+
+Run:
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+bash scripts/l4/tnsm_revision/run_r10_prompt_provenance_reconstruction.sh
+```
+
+### Stage 7C pass condition
+
+The run passes only with 180/180 prompt-hash matches, six resolved input
+serializations, 720 provider records, two recovered assessor system prompts,
+and `publication_ready=true`. A parameter reported as `NOT_SENT` was absent
+from the retained source request dictionary; this does not establish the
+provider's server-side default. The recorded `model_id` values remain requested
+aliases because the gateway did not separately retain immutable
+provider-returned snapshots. Upload
+`tnsm_stage7c_r10_prompt_provenance_*.tar.gz` before manuscript integration.
+
 ## Later stages (run only after the preceding gate passes)
 
 1. Generate the deterministic 30-cell human-label sheet; two independent

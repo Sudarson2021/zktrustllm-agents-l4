@@ -46,6 +46,7 @@ jobs:
           python -m py_compile scripts/l4/tnsm_revision/analyze_human_labels.py
           python -m py_compile scripts/l4/tnsm_revision/audit_model_metadata.py
           python -m py_compile scripts/l4/tnsm_revision/collect_gateway_model_provenance.py
+          python -m py_compile scripts/l4/tnsm_revision/reconstruct_r10_prompt_provenance.py
           python -m py_compile scripts/l4/tnsm_revision/analyze_http_failures.py
           python -m py_compile scripts/l4/tnsm_revision/verify_revision_package.py
           bash -n scripts/l4/tnsm_revision/run_preflight.sh
@@ -56,6 +57,7 @@ jobs:
           bash -n scripts/l4/tnsm_revision/run_http_failure_analysis.sh
           bash -n scripts/l4/tnsm_revision/run_model_metadata_audit.sh
           bash -n scripts/l4/tnsm_revision/run_gateway_model_provenance_probe.sh
+          bash -n scripts/l4/tnsm_revision/run_r10_prompt_provenance_reconstruction.sh
           node -c scripts/l4/zk/deploy_auth_v2_2_localhost.js
 
       - name: Lightweight claim validation
