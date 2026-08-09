@@ -279,13 +279,56 @@ the 180 success cells must be unique, and `analysis_complete` must be true.
 when the frozen evidence contains only bare HTTP 500s. Upload the generated
 `tnsm_stage6_http500_root_cause_*.tar.gz` before changing manuscript language.
 
+## Stage 7A: model metadata and role provenance audit
+
+This read-only stage addresses the model-reporting requirements without
+inventing information that the original run did not retain. It joins all 180
+successful R10 cells to their four provider records, verifies the pinned source
+index, and inventories model IDs, access times, request IDs, prompt hashes, and
+raw-response hashes. It separately audits the 15-row Stage F/F data so that the
+R10 GPT-5.6 assessor cannot be confused with the GPT-5.5 planner used in a
+different supplemental experiment.
+
+The audit also searches the supplied n8n source tree for static prompt
+constants and request dictionaries containing decoding parameters. Those
+current source files are hashed and inventoried, but they are not treated as
+proof of the July R10 payload unless the retained experiment binds their hash
+or commit. Secrets, raw provider responses, `.env` files, response directories,
+and credential values are not copied.
+
+Run:
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+bash scripts/l4/tnsm_revision/run_model_metadata_audit.sh
+```
+
+If the frozen deployment tree is elsewhere, bind the paths explicitly:
+
+```bash
+N8N_ROOT="/absolute/path/to/n8n_l4_parallel" \
+EXPERIMENT_DIR="/absolute/path/to/l4_oracle_20260716T131803Z_r10" \
+SOURCE_ROOT="/absolute/path/to/source/tree" \
+  bash scripts/l4/tnsm_revision/run_model_metadata_audit.sh
+```
+
+### Stage 7A interpretation
+
+`audit_complete=true` means the retained evidence was fully inventoried; it
+does not mean every desired field existed. `supervisor_comment_16_resolved`
+must be true after the roles are separated. Comment 15 is complete only if
+`supervisor_comment_15_resolved=true`. A false value is an admissible discovery
+result and identifies the exact metadata that cannot be recovered
+retrospectively. Do not replace absent temperature, top-p, token limits, system
+prompts, or returned snapshots with provider defaults. Upload
+`tnsm_stage7a_model_metadata_audit_*.tar.gz` before deciding whether a
+source-bound recovery is possible or a carefully logged rerun is required.
+
 ## Later stages (run only after the preceding gate passes)
 
-1. Audit provider-returned model identifiers, access timestamps, decoding
-   parameters, and full system prompts.
-2. Generate the deterministic 30-cell human-label sheet; two independent
+1. Generate the deterministic 30-cell human-label sheet; two independent
    O-RAN-literate annotators label it before oracle labels are revealed.
-3. Compute agreement and Cohen's kappa, freeze all hashes, and pass the journal
+2. Compute agreement and Cohen's kappa, freeze all hashes, and pass the journal
    revision gate before editing result claims in LaTeX.
 
 Exact commands for each later stage will be added only after the preceding

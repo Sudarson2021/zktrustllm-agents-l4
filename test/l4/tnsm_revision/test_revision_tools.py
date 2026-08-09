@@ -838,6 +838,128 @@ class RevisionToolsTest(unittest.TestCase):
             self.assertIn("U+2026", result.stderr)
             self.assertFalse(output.exists())
 
+    def test_model_metadata_audit_preserves_missing_field_boundary(self) -> None:
+        module = load_module("audit_model_metadata")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            n8n_root = root / "n8n"
+            experiment = (
+                n8n_root
+                / "runtime"
+                / "experiments"
+                / module.EXPERIMENT_ID
+            )
+            responses = experiment / "responses"
+            responses.mkdir(parents=True)
+            report_hash = hashlib.sha256(b"report").hexdigest()
+            providers = {}
+            for provider, model_id in module.EXPECTED_PROVIDERS.items():
+                providers[provider] = {
+                    "model_id": model_id,
+                    "created_at": "2026-07-18T00:00:00+00:00",
+                    "provider_request_id": f"request-{provider}",
+                    "prompt_hash": hashlib.sha256(b"dynamic prompt").hexdigest(),
+                    "raw_response_hash": hashlib.sha256(
+                        f"raw-{provider}".encode()
+                    ).hexdigest(),
+                    "parsed_response_hash": hashlib.sha256(
+                        f"parsed-{provider}".encode()
+                    ).hexdigest(),
+                    "input_tokens": 10,
+                    "output_tokens": 5,
+                    "execution_mode": "LIVE",
+                }
+            response = responses / "S1__NO_RAG__r01.json"
+            response.write_text(
+                json.dumps(
+                    {
+                        "run_id": "run-1",
+                        "report_hash": report_hash,
+                        "manifest_version": "test",
+                        "metadata": {"gateway_version": "2.0.0"},
+                        "providers": providers,
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            index = experiment / "run_index_success_matrix.csv"
+            with index.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(
+                    handle,
+                    fieldnames=[
+                        "scenario_id",
+                        "retrieval_mode",
+                        "repeat",
+                        "run_id",
+                        "report_hash",
+                        "response_file",
+                    ],
+                )
+                writer.writeheader()
+                writer.writerow(
+                    {
+                        "scenario_id": "S1",
+                        "retrieval_mode": "NO_RAG",
+                        "repeat": "1",
+                        "run_id": "run-1",
+                        "report_hash": report_hash,
+                        "response_file": "responses/S1__NO_RAG__r01.json",
+                    }
+                )
+
+            output = root / "audit"
+            output.mkdir()
+            summary, inventory = module.audit_r10(
+                experiment,
+                n8n_root,
+                output,
+                expected_successes=1,
+                expected_provider_records=4,
+                strict_source_hashes=False,
+            )
+            self.assertEqual(len(inventory), 4)
+            self.assertTrue(summary["identity_and_access_fields_complete"])
+            self.assertFalse(summary["immutable_provider_snapshot_exposed"])
+            self.assertFalse(summary["decoding_parameters_retained"])
+            self.assertFalse(summary["full_system_prompts_retained"])
+
+            source = root / "source"
+            source.mkdir()
+            (source / "providers.py").write_text(
+                "SYSTEM_PROMPT = 'This is a complete static system prompt for testing.'\n"
+                "REQUEST = {'model': 'gpt-5.6-terra', 'temperature': 0, "
+                "'top_p': 1, 'max_tokens': 256}\n",
+                encoding="utf-8",
+            )
+            scan = module.scan_sources(source, output)
+            self.assertEqual(scan["candidate_files"], 1)
+            self.assertEqual(scan["extracted_static_prompts"], 1)
+            self.assertEqual(scan["extracted_decoding_objects"], 1)
+            prompt = json.loads(
+                (output / "extracted_prompt_inventory.jsonl")
+                .read_text(encoding="utf-8")
+                .strip()
+            )
+            self.assertEqual(
+                prompt["sha256"],
+                hashlib.sha256(prompt["value"].encode("utf-8")).hexdigest(),
+            )
+
+    def test_model_role_resolution_separates_r10_and_stage_ff(self) -> None:
+        module = load_module("audit_model_metadata")
+        source = (
+            ROOT
+            / "docs/l4/supervisor_258/results/ai_eval_ff"
+            / "stage_ff_four_model_comm_n8n_final15.jsonl"
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            summary = module.audit_stage_ff(source, Path(temporary), True)
+        resolution = summary["role_resolution"]
+        self.assertFalse(resolution["same_experiment"])
+        self.assertEqual(resolution["r10_openai_model_id"], "gpt-5.6-terra")
+        self.assertEqual(resolution["stage_ff_openai_aliases"], ["gpt-5.5"])
+
 
 if __name__ == "__main__":
     unittest.main()
