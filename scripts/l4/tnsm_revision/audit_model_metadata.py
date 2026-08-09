@@ -548,6 +548,8 @@ def walk_json_metadata(
             if (
                 isinstance(child, str)
                 and re.search(r"PROMPT|SYSTEM|INSTRUCTION", str(key), re.I)
+                and not str(key).lower().endswith("_hash")
+                and not re.fullmatch(r"[0-9a-fA-F]{32,}", child.strip())
             ):
                 append_prompt(prompts, source, child_locator, child, None)
             walk_json_metadata(child, source, prompts, decoding, child_locator)

@@ -960,6 +960,88 @@ class RevisionToolsTest(unittest.TestCase):
         self.assertEqual(resolution["r10_openai_model_id"], "gpt-5.6-terra")
         self.assertEqual(resolution["stage_ff_openai_aliases"], ["gpt-5.5"])
 
+    def test_gateway_provenance_redacts_secrets_and_keeps_model_settings(self) -> None:
+        module = load_module("collect_gateway_model_provenance")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            n8n = root / "n8n"
+            experiment = n8n / "runtime" / "experiments" / "r10"
+            experiment.mkdir(parents=True)
+            for relative in module.EXPECTED_SOURCE_HASHES:
+                path = n8n / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(
+                    "import os\n"
+                    "OPENAI_MODEL = os.getenv('OPENAI_MODEL', 'gpt-5.6-terra')\n"
+                    "SYSTEM_PROMPT = 'This is a sufficiently long scientific system prompt.'\n"
+                    "API_KEY = 'sk-proj-abcdefghijklmnop123456'\n"
+                    "PAYLOAD = {'model': OPENAI_MODEL, 'temperature': 0, "
+                    "'top_p': 1, 'max_output_tokens': 256}\n",
+                    encoding="utf-8",
+                )
+            (experiment / "protocol.json").write_text(
+                json.dumps(
+                    {
+                        "model": "gpt-5.6-terra",
+                        "temperature": 0,
+                        "api_key": "sk-proj-abcdefghijklmnop123456",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            (n8n / ".env").write_text(
+                "OPENAI_MODEL=gpt-5.6-terra\n"
+                "OPENAI_MAX_OUTPUT_TOKENS=256\n"
+                "OPENAI_API_KEY=sk-proj-abcdefghijklmnop123456\n",
+                encoding="utf-8",
+            )
+            output = root / "output"
+            summary = module.collect(
+                n8n,
+                experiment,
+                output,
+                strict_source_hashes=False,
+            )
+            self.assertFalse(summary["credentials_copied"])
+            self.assertFalse(summary["raw_provider_responses_copied"])
+            sanitized = (
+                output / "sanitized_sources" / "gateway/app.py.txt"
+            ).read_text(encoding="utf-8")
+            self.assertNotIn("sk-proj-abcdefghijklmnop123456", sanitized)
+            self.assertIn("<REDACTED", sanitized)
+            environment = json.loads(
+                (output / "environment_allowlist.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(
+                environment["allowlisted_values"][".env"]["OPENAI_MODEL"],
+                "gpt-5.6-terra",
+            )
+            self.assertNotIn(
+                "OPENAI_API_KEY", environment["allowlisted_values"][".env"]
+            )
+            inventory = json.loads(
+                (output / "python_ast_inventory.json").read_text(encoding="utf-8")
+            )["gateway/app.py"]
+            self.assertEqual(len(inventory["static_prompts"]), 1)
+            self.assertTrue(inventory["provider_request_payloads"])
+
+    def test_json_prompt_scan_ignores_prompt_hash_values(self) -> None:
+        module = load_module("audit_model_metadata")
+        prompts = []
+        decoding = []
+        module.walk_json_metadata(
+            {
+                "prompt_hash": "a" * 64,
+                "system_prompt": "This is the actual full system prompt text.",
+            },
+            "record.json",
+            prompts,
+            decoding,
+        )
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(prompts[0]["name"], "$.system_prompt")
+
 
 if __name__ == "__main__":
     unittest.main()

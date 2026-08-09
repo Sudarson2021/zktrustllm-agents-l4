@@ -324,6 +324,30 @@ prompts, or returned snapshots with provider defaults. Upload
 `tnsm_stage7a_model_metadata_audit_*.tar.gz` before deciding whether a
 source-bound recovery is possible or a carefully logged rerun is required.
 
+## Stage 7B: secret-safe gateway provenance probe
+
+Run Stage 7B only when Stage 7A found the expected deployed gateway source and
+pre-run backups but could not bind request settings to R10. This stage makes no
+provider call. It verifies the exact Stage 7A source hashes, extracts Python AST
+metadata for model environment reads and request payloads, records only a
+strict allowlist of non-secret model/decoding values from `.env*`, and creates
+sanitized copies of the gateway source and R10 protocol/preflight files.
+Credential values, raw provider responses, authorization headers, passwords,
+and private material are excluded or redacted.
+
+Run:
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+bash scripts/l4/tnsm_revision/run_gateway_model_provenance_probe.sh
+```
+
+Upload `tnsm_stage7b_gateway_model_provenance_*.tar.gz`. Do not make a paid
+rerun until this bundle has been independently checked. Source defaults or
+current environment values may be reported as source-configured values, but
+they become original-R10 facts only if a retained hash or reproducible prompt
+construction links them to the July records.
+
 ## Later stages (run only after the preceding gate passes)
 
 1. Generate the deterministic 30-cell human-label sheet; two independent

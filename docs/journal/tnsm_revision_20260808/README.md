@@ -42,8 +42,8 @@ and explain why it is not an O-RAN or autonomy-level standard.
 | 12 | Caveat three-cluster bootstrap | **Code/text fixed** | Generated interval is labelled descriptive; nominal coverage is not asserted. |
 | 13 | Align estimand orientation | **Code fixed** | Difference is now Sepolia minus IoTeX, aligned with the ratio. |
 | 14 | Root-cause HTTP 500s | **Experiment complete** | All 53 records expose only the local webhook's generic HTTP-500 boundary; 53/53 response paths were overwritten by successful retries, so provider-versus-n8n attribution remains unresolved. All 39 affected cells recovered. |
-| 15 | Model snapshots/decoding/prompts | **Stage 7A ready** | The provenance audit inventories all 720 R10 provider records, current source constants, and later reproducibility runs while reporting missing original fields as not recorded. |
-| 16 | GPT-5.6/GPT-5.5 inconsistency | **Stage 7A ready** | The audit formally separates the GPT-5.6 R10 independent assessor from the GPT-5.5 planner in the separate supplemental Stage F/F chain. |
+| 15 | Model snapshots/decoding/prompts | **Stage 7B ready** | Stage 7A inventories all 720 R10 records but confirms that returned snapshots, decoding fields, and full dynamic prompts were not retained. Stage 7B probes the hash-identified gateway source before any rerun. |
+| 16 | GPT-5.6/GPT-5.5 inconsistency | **Resolved by evidence** | GPT-5.6 was the R10 independent assessor; GPT-5.5 was a planner alias in the separate 15-row supplemental Stage F/F chain. |
 | 17 | Human oracle validation | **Execution required** | Deterministic 30-cell sampler and Cohen’s-kappa analyser are ready; independent O-RAN-literate labels are required. |
 | 18 | Move Stage E/F and F/F | **Draft ready** | Two-sentence main-text pointer supplied; tables remain evidence for a supplement. |
 | 19 | Replace Fig. 3 | **Figure ready** | Vector HUMAN-gate state transition in `figures/human_gate_state_machine.tex`. |
