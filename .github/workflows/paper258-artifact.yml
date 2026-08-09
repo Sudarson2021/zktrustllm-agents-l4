@@ -52,6 +52,7 @@ jobs:
           bash -n scripts/l4/tnsm_revision/run_langgraph_external_baseline.sh
           bash -n scripts/l4/tnsm_revision/run_open_weights_qwen3_4b.sh
           bash -n scripts/l4/tnsm_revision/run_prompt_injection_experiment.sh
+          bash -n scripts/l4/tnsm_revision/run_http_failure_analysis.sh
           node -c scripts/l4/zk/deploy_auth_v2_2_localhost.js
 
       - name: Lightweight claim validation

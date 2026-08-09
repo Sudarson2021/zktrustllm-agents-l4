@@ -231,15 +231,53 @@ The paper must report `assessor_semantic_resistance_rate` separately from
 these 30 synthetic variants only; it does not establish general prompt-
 injection immunity or production O-RAN safety.
 
+## Stage 6: frozen HTTP-500 root-cause and retry analysis
+
+This read-only stage analyses the original R10 attempt evidence; it does not
+rerun the benchmark or call a provider.  The analyzer requires the pinned
+53-row failed-attempt index, 180-row successful-cell index, and final attempt
+summary. It follows only response files linked by the failed index and located
+inside the supplied experiment/n8n roots. Raw responses are not copied into the
+revision artifact. Diagnostic identifiers are hashed and credential-like text
+is redacted.
+
+Run:
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+bash scripts/l4/tnsm_revision/run_http_failure_analysis.sh
+```
+
+If the frozen tree is elsewhere, bind both paths explicitly:
+
+```bash
+N8N_ROOT="/absolute/path/to/n8n_l4_parallel" \
+EXPERIMENT_DIR="/absolute/path/to/l4_oracle_20260716T131803Z_r10" \
+  bash scripts/l4/tnsm_revision/run_http_failure_analysis.sh
+```
+
+The output separates the observed HTTP boundary from evidence-supported root
+cause. A bare status 500 remains `unresolved_http_5xx`; it is attributed to a
+provider, timeout, n8n node/worker, authentication, rate limiting, or transport
+only when retained diagnostic fields explicitly identify that cause. Retry
+recovery is reconstructed by joining failures and successes on the frozen
+`scenario_id`/`retrieval_mode`/`repeat` key.
+
+### Stage 6 pass condition
+
+The source hashes and row counts must pass, all 53 failures must be represented,
+the 180 success cells must be unique, and `analysis_complete` must be true.
+`root_cause_resolved=false` is an admissible and scientifically honest result
+when the frozen evidence contains only bare HTTP 500s. Upload the generated
+`tnsm_stage6_http500_root_cause_*.tar.gz` before changing manuscript language.
+
 ## Later stages (run only after the preceding gate passes)
 
-1. Analyse all 233 attempt records to classify the 53 HTTP-500 failures using
-   retained subcodes, trace identifiers, service logs, and retry outcomes.
-2. Audit provider-returned model identifiers, access timestamps, decoding
+1. Audit provider-returned model identifiers, access timestamps, decoding
    parameters, and full system prompts.
-3. Generate the deterministic 30-cell human-label sheet; two independent
+2. Generate the deterministic 30-cell human-label sheet; two independent
    O-RAN-literate annotators label it before oracle labels are revealed.
-4. Compute agreement and Cohen's kappa, freeze all hashes, and pass the journal
+3. Compute agreement and Cohen's kappa, freeze all hashes, and pass the journal
    revision gate before editing result claims in LaTeX.
 
 Exact commands for each later stage will be added only after the preceding

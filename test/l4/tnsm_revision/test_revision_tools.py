@@ -213,6 +213,126 @@ class RevisionToolsTest(unittest.TestCase):
         self.assertEqual(category, "unresolved_http_5xx")
         self.assertEqual(status, 500)
 
+    def test_http_failure_analysis_binds_recovery_and_redacts(self) -> None:
+        module = load_module("analyze_http_failures")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            n8n_root = root / "n8n"
+            experiment = n8n_root / "runtime" / "experiments" / module.EXPERIMENT_ID
+            responses = experiment / "responses"
+            responses.mkdir(parents=True)
+            fieldnames = [
+                "experiment_id",
+                "phase",
+                "scenario_id",
+                "scenario_title",
+                "retrieval_mode",
+                "repeat",
+                "ground_truth_decision",
+                "ground_truth_action_class",
+                "expert_verified",
+                "run_id",
+                "report_hash",
+                "execution_mode",
+                "workflow_status",
+                "wall_clock_sec",
+                "timestamp_utc",
+                "response_file",
+                "status",
+                "error",
+            ]
+            failed_rows = []
+            success_rows = []
+            payloads = [
+                {
+                    "error": {
+                        "status_code": 429,
+                        "type": "rate_limit_error",
+                        "message": "Too many requests",
+                        "request_id": "req-private-one",
+                    }
+                },
+                {"error": {"status_code": 500, "message": "Internal Server Error"}},
+            ]
+            for index, payload in enumerate(payloads, 1):
+                response = responses / f"failed-{index}.json"
+                response.write_text(json.dumps(payload) + "\n", encoding="utf-8")
+                failed_rows.append(
+                    {
+                        "experiment_id": module.EXPERIMENT_ID,
+                        "phase": "oracle",
+                        "scenario_id": f"S{index}",
+                        "scenario_title": f"S{index}",
+                        "retrieval_mode": "NO_RAG",
+                        "repeat": "1",
+                        "ground_truth_decision": "NON_COMPLIANT",
+                        "ground_truth_action_class": "HUMAN",
+                        "expert_verified": "false",
+                        "run_id": f"failed-{index}",
+                        "report_hash": "",
+                        "execution_mode": "LIVE",
+                        "workflow_status": "HTTP 500",
+                        "wall_clock_sec": "1",
+                        "timestamp_utc": f"2026-01-01T00:00:0{index}Z",
+                        "response_file": f"responses/{response.name}",
+                        "status": "HTTP 500",
+                        "error": (
+                            "rate limit sk-secretvalue1234567890"
+                            if index == 1
+                            else "HTTP Error 500: Internal Server Error"
+                        ),
+                    }
+                )
+                success_rows.append(
+                    {
+                        **failed_rows[-1],
+                        "run_id": f"success-{index}",
+                        "timestamp_utc": f"2026-01-01T00:01:0{index}Z",
+                        "response_file": "",
+                        "status": "SUCCESS",
+                        "error": "",
+                    }
+                )
+            for filename, rows in (
+                ("run_index_failed_attempts.csv", failed_rows),
+                ("run_index_success_matrix.csv", success_rows),
+            ):
+                with (experiment / filename).open("w", newline="", encoding="utf-8") as handle:
+                    writer = csv.DictWriter(handle, fieldnames=fieldnames)
+                    writer.writeheader()
+                    writer.writerows(rows)
+
+            output = root / "analysis"
+            summary = module.analyze(
+                experiment,
+                n8n_root,
+                output,
+                expected_failures=2,
+                expected_successes=2,
+                strict_source_hashes=False,
+            )
+            self.assertTrue(summary["analysis_complete"])
+            self.assertEqual(summary["eventually_recovered_unique_cells"], 2)
+            self.assertEqual(summary["root_cause_category_counts"]["provider_rate_limit"], 1)
+            self.assertEqual(summary["root_cause_category_counts"]["unresolved_http_5xx"], 1)
+            self.assertFalse(summary["root_cause_resolved"])
+            frozen_output = "\n".join(
+                path.read_text(encoding="utf-8")
+                for path in output.iterdir()
+                if path.is_file()
+            )
+            self.assertNotIn("sk-secretvalue1234567890", frozen_output)
+            self.assertNotIn("req-private-one", frozen_output)
+            self.assertIn("[REDACTED_SECRET]", frozen_output)
+
+    def test_explicit_timeout_is_not_reported_as_bare_500(self) -> None:
+        module = load_module("analyze_http_failures")
+        category, status, _ = module.classify(
+            {"http_status": 500, "error": {"message": "Provider request timed out"}}
+        )
+        self.assertEqual(category, "timeout")
+        self.assertEqual(status, 500)
+
     def test_langgraph_mock_is_not_publication_eligible(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             work = Path(temporary)
