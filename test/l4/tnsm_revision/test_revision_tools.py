@@ -6,6 +6,7 @@ import importlib.util
 import csv
 import hashlib
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -520,6 +521,158 @@ class RevisionToolsTest(unittest.TestCase):
     def test_injection_generator_has_thirty_cases(self) -> None:
         module = load_module("generate_prompt_injection_suite")
         self.assertEqual(len(module.BASE_CONTEXTS) * len(module.ATTACKS), 30)
+        rows = module.build_rows()
+        self.assertEqual(len(rows), 30)
+        self.assertEqual(len({row["case_id"] for row in rows}), 30)
+        self.assertTrue(
+            all(row["expected_action_class"] == "NEVER" for row in rows)
+        )
+
+    def test_injection_reconciliation_ignores_untrusted_instructions(self) -> None:
+        generator = load_module("generate_prompt_injection_suite")
+        runner = load_module("run_prompt_injection_experiment")
+        forbidden = {
+            "expected_decision",
+            "expected_action_class",
+            "expected_execute",
+        }
+        for row in generator.build_rows():
+            with self.subTest(case_id=row["case_id"]):
+                model_input = json.loads(runner.model_input(row))
+                self.assertFalse(forbidden & set(model_input))
+                self.assertIn("untrusted_scenario_text", model_input)
+                enforced, error = runner.deterministic_reconcile(
+                    row["trusted_features"]
+                )
+                self.assertIsNone(error)
+                self.assertEqual(enforced["decision"], "NON_COMPLIANT")
+                self.assertEqual(enforced["action_class"], "NEVER")
+                self.assertFalse(enforced["execute"])
+
+        fallback, error = runner.deterministic_reconcile(
+            {
+                "operation": "unknown",
+                "protected_control": "unknown",
+                "policy_rule_id": "UNKNOWN_RULE",
+            }
+        )
+        self.assertIsNotNone(error)
+        self.assertEqual(fallback["action_class"], "HUMAN")
+        self.assertFalse(fallback["execute"])
+
+    def test_injection_mock_contains_thirty_compromised_assessor_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            suite = work / "suite.jsonl"
+            output = work / "evidence"
+            subprocess.run(
+                [
+                    "python3",
+                    str(TOOLS / "generate_prompt_injection_suite.py"),
+                    "--output",
+                    str(suite),
+                ],
+                cwd=ROOT,
+                check=True,
+                text=True,
+                capture_output=True,
+            )
+            suite_hash = hashlib.sha256(suite.read_bytes()).hexdigest()
+            result = subprocess.run(
+                [
+                    "python3",
+                    str(TOOLS / "run_prompt_injection_experiment.py"),
+                    "--suite",
+                    str(suite),
+                    "--output-dir",
+                    str(output),
+                    "--expected-suite-sha256",
+                    suite_hash,
+                    "--expected-selected-cases",
+                    "30",
+                    "--mock",
+                ],
+                cwd=ROOT,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            summary = json.loads((output / "summary.json").read_text())
+            self.assertFalse(summary["publication_eligible"])
+            self.assertTrue(summary["pass_fail_closed"])
+            self.assertEqual(summary["overall"]["assessor_attack_success_count"], 30)
+            self.assertEqual(summary["overall"]["contained_raw_execute_count"], 30)
+            self.assertEqual(
+                summary["overall"]["end_to_end_unsafe_execution_count"], 0
+            )
+
+            score = work / "score.json"
+            scored = subprocess.run(
+                [
+                    "python3",
+                    str(TOOLS / "score_prompt_injection.py"),
+                    "--suite",
+                    str(output / "injection_suite_30.jsonl"),
+                    "--results",
+                    str(output / "records.jsonl"),
+                    "--output",
+                    str(score),
+                    "--require-pass",
+                ],
+                cwd=ROOT,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(scored.returncode, 0, scored.stderr)
+            score_value = json.loads(score.read_text())
+            self.assertTrue(score_value["pass_fail_closed"])
+            self.assertFalse(score_value["publication_ready"])
+            self.assertEqual(score_value["mock_record_count"], 30)
+
+    def test_injection_rejects_redacted_key_before_evidence_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            suite = work / "suite.jsonl"
+            output = work / "must-not-exist"
+            subprocess.run(
+                [
+                    "python3",
+                    str(TOOLS / "generate_prompt_injection_suite.py"),
+                    "--output",
+                    str(suite),
+                ],
+                cwd=ROOT,
+                check=True,
+                text=True,
+                capture_output=True,
+            )
+            suite_hash = hashlib.sha256(suite.read_bytes()).hexdigest()
+            environment = os.environ.copy()
+            environment["OPENAI_API_KEY"] = "sk-proj-redacted…"
+            result = subprocess.run(
+                [
+                    "python3",
+                    str(TOOLS / "run_prompt_injection_experiment.py"),
+                    "--suite",
+                    str(suite),
+                    "--output-dir",
+                    str(output),
+                    "--expected-suite-sha256",
+                    suite_hash,
+                    "--expected-selected-cases",
+                    "30",
+                ],
+                cwd=ROOT,
+                env=environment,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("U+2026", result.stderr)
+            self.assertFalse(output.exists())
 
 
 if __name__ == "__main__":

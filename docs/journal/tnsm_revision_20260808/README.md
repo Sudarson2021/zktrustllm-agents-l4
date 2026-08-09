@@ -35,9 +35,9 @@ and explain why it is not an O-RAN or autonomy-level standard.
 | 5 | Add operational “so what” | **Draft ready** | Non-RT RIC/A1 paragraph in `main_text_dropins.tex`. |
 | 6 | External oracle baseline | **Completed; artifact validation passed** | The 180-cell digest-bound LangGraph run completed with 180 HTTP-200 responses; retain its publication archive. |
 | 7 | O-RAN WG11 and 3GPP citations | **Draft ready** | Current WG11 versions plus exact public ETSI PAS/O-RAN document identifiers and 3GPP TS 33.501 V18.11.0 are in `references_additions.bib`. |
-| 8 | Open-weights run | **Pilot execution required** | `run_open_weights_baseline.py` pins the local Ollama model digest and quantization; `run_open_weights_qwen3_4b.sh` gates a three-cell pilot before the 60-cell `AGENTIC_RAG` run. |
+| 8 | Open-weights run | **Completed; artifact validation passed** | The digest-pinned Qwen3-4B Q4_K_M run completed on all 60 `AGENTIC_RAG` cells with 60 HTTP-200 responses; retain its publication archive. |
 | 9 | Published [7]–[9] | **Checked** | [8] and [9] have DOI-backed versions; [7] reports IEEE Network acceptance but no DOI was located. See `references_additions.bib`. |
-| 10 | Prompt injection | **Draft + harness ready** | Threat paragraph plus deterministic 30-case generator and fail-closed scorer. Live run required. |
+| 10 | Prompt injection | **Two-layer harness ready** | The 30-case live runner separately measures assessor compromise and deterministic control-plane containment; pilot and full execution remain required. |
 | 11 | Explain gas difference | **Code/text fixed** | Generated consensus text now treats cross-chain gas as descriptive because no opcode traces were retained. |
 | 12 | Caveat three-cluster bootstrap | **Code/text fixed** | Generated interval is labelled descriptive; nominal coverage is not asserted. |
 | 13 | Align estimand orientation | **Code fixed** | Difference is now Sepolia minus IoTeX, aligned with the ratio. |
@@ -77,6 +77,7 @@ bash scripts/l4/tnsm_revision/run_preflight.sh
 python scripts/l4/tnsm_revision/run_langgraph_baseline.py --help
 python scripts/l4/tnsm_revision/run_open_weights_baseline.py --help
 python scripts/l4/tnsm_revision/generate_prompt_injection_suite.py --help
+python scripts/l4/tnsm_revision/run_prompt_injection_experiment.py --help
 python scripts/l4/tnsm_revision/score_prompt_injection.py --help
 python scripts/l4/tnsm_revision/make_human_label_subset.py --help
 python scripts/l4/tnsm_revision/analyze_human_labels.py --help

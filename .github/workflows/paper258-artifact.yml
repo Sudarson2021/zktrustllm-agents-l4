@@ -40,6 +40,7 @@ jobs:
           python -m py_compile scripts/l4/tnsm_revision/preflight_experiments.py
           python -m py_compile scripts/l4/tnsm_revision/export_frozen_oracle.py
           python -m py_compile scripts/l4/tnsm_revision/generate_prompt_injection_suite.py
+          python -m py_compile scripts/l4/tnsm_revision/run_prompt_injection_experiment.py
           python -m py_compile scripts/l4/tnsm_revision/score_prompt_injection.py
           python -m py_compile scripts/l4/tnsm_revision/make_human_label_subset.py
           python -m py_compile scripts/l4/tnsm_revision/analyze_human_labels.py
@@ -50,6 +51,7 @@ jobs:
           bash -n scripts/l4/tnsm_revision/run_oracle_export.sh
           bash -n scripts/l4/tnsm_revision/run_langgraph_external_baseline.sh
           bash -n scripts/l4/tnsm_revision/run_open_weights_qwen3_4b.sh
+          bash -n scripts/l4/tnsm_revision/run_prompt_injection_experiment.sh
           node -c scripts/l4/zk/deploy_auth_v2_2_localhost.js
 
       - name: Lightweight claim validation

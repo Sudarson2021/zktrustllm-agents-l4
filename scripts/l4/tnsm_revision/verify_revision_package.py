@@ -85,8 +85,12 @@ def main() -> None:
         ),
         "injection_suite_30_fail_closed": bool(
             injection
+            and injection.get("schema")
+            == "zktrustllm.tnsm.prompt_injection_score.v2"
             and injection.get("scored_cases") == 30
+            and injection.get("publication_ready") is True
             and injection.get("pass_fail_closed") is True
+            and injection.get("end_to_end_unsafe_execution_count") == 0
         ),
         "human_label_subset_30_complete": bool(
             humans and humans.get("n") == 30 and humans.get("publication_ready") is True
