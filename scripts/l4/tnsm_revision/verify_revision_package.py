@@ -59,10 +59,13 @@ def main() -> None:
             and baseline.get("publication_eligible") is True
             and baseline.get("input_rows") == 180
         ),
-        "open_weights_180_live": bool(
+        "open_weights_single_mode_live": bool(
             open_weights
             and open_weights.get("publication_eligible") is True
             and open_weights.get("input_rows") == 180
+            and open_weights.get("selected_rows") == 60
+            and open_weights.get("retrieval_mode") == "AGENTIC_RAG"
+            and bool(open_weights.get("model_digest"))
         ),
         "injection_suite_30_fail_closed": bool(
             injection

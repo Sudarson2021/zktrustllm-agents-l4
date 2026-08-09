@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 
@@ -320,6 +321,112 @@ class RevisionToolsTest(unittest.TestCase):
         self.assertNotIn("set-cookie", module.RETAINED_RESPONSE_HEADERS)
         self.assertNotIn("openai-organization", module.RETAINED_RESPONSE_HEADERS)
         self.assertNotIn("openai-project", module.RETAINED_RESPONSE_HEADERS)
+
+    def test_open_weights_runner_restricts_endpoint_and_pins_model_digest(self) -> None:
+        module = load_module("run_open_weights_baseline")
+        self.assertEqual(
+            module.validate_loopback_endpoint("http://127.0.0.1:11434"),
+            "http://127.0.0.1:11434",
+        )
+        with self.assertRaisesRegex(ValueError, "loopback"):
+            module.validate_loopback_endpoint("https://example.invalid")
+
+        tag = {
+            "name": "qwen3:4b",
+            "model": "qwen3:4b",
+            "digest": "a" * 64,
+            "size": 2_500_000_000,
+            "modified_at": "2026-08-09T00:00:00Z",
+            "details": {
+                "format": "gguf",
+                "family": "qwen3",
+                "families": ["qwen3"],
+                "parameter_size": "4.0B",
+                "quantization_level": "Q4_K_M",
+            },
+        }
+        show = {
+            "capabilities": ["completion"],
+            "template": "chat-template",
+            "parameters": "temperature 0",
+            "model_info": {"general.architecture": "qwen3"},
+            "license": "Apache-2.0",
+        }
+        with mock.patch.object(
+            module,
+            "api_json",
+            side_effect=[({"models": [tag]}, 1.0, 200), (show, 1.0, 200)],
+        ):
+            snapshot, observed_show = module.resolve_model_snapshot(
+                "http://127.0.0.1:11434", "qwen3:4b", 10
+            )
+        self.assertEqual(snapshot["digest"], "a" * 64)
+        self.assertEqual(snapshot["quantization_level"], "Q4_K_M")
+        self.assertEqual(snapshot["parameter_size"], "4.0B")
+        self.assertEqual(observed_show, show)
+
+    def test_open_weights_mock_cannot_be_publication_eligible(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            source = work / "oracle.jsonl"
+            rows = []
+            for scenario_number in range(1, 7):
+                for mode in ("NO_RAG", "RAG", "AGENTIC_RAG"):
+                    for repeat in range(1, 11):
+                        rows.append(
+                            {
+                                "cell_id": f"S{scenario_number}:{mode}:R{repeat:02d}",
+                                "scenario_id": f"S{scenario_number}",
+                                "retrieval_mode": mode,
+                                "repeat": repeat,
+                                "scenario": json.dumps(
+                                    {
+                                        "scenario_id": f"S{scenario_number}",
+                                        "retrieval_mode": mode,
+                                    },
+                                    sort_keys=True,
+                                ),
+                                "oracle_decision": "NON_COMPLIANT",
+                                "oracle_action_class": "HUMAN",
+                            }
+                        )
+            source.write_text(
+                "".join(json.dumps(row) + "\n" for row in rows),
+                encoding="utf-8",
+            )
+            input_hash = hashlib.sha256(source.read_bytes()).hexdigest()
+            output = work / "evidence"
+            result = subprocess.run(
+                [
+                    "python3",
+                    str(TOOLS / "run_open_weights_baseline.py"),
+                    "--input",
+                    str(source),
+                    "--output-dir",
+                    str(output),
+                    "--retrieval-mode",
+                    "AGENTIC_RAG",
+                    "--cell-id",
+                    "S1:AGENTIC_RAG:R01",
+                    "--expected-selected-rows",
+                    "1",
+                    "--expected-input-sha256",
+                    input_hash,
+                    "--mock",
+                ],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
+            self.assertFalse(summary["publication_eligible"])
+            self.assertTrue(summary["pilot"])
+            self.assertTrue(summary["mock"])
+            self.assertEqual(summary["input_rows"], 180)
+            self.assertEqual(summary["selected_rows"], 1)
+            self.assertEqual(summary["retrieval_mode"], "AGENTIC_RAG")
 
     def test_injection_generator_has_thirty_cases(self) -> None:
         module = load_module("generate_prompt_injection_suite")

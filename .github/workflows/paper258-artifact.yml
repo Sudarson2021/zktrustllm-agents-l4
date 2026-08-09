@@ -8,6 +8,7 @@ on:
       - l4-supervisor258-n8n-multimodel
       - l4-zktrustllm-agents
       - agent/tnsm-*
+      - tnsm-supervisor-revision-*
 
 jobs:
   lightweight-artifact-check:
@@ -35,6 +36,7 @@ jobs:
           python -m py_compile scripts/l4/validation/build_evidence_manifest.py
           python -m py_compile scripts/l4/validation/summarize_ai_evidence.py
           python -m py_compile scripts/l4/tnsm_revision/run_langgraph_baseline.py
+          python -m py_compile scripts/l4/tnsm_revision/run_open_weights_baseline.py
           python -m py_compile scripts/l4/tnsm_revision/preflight_experiments.py
           python -m py_compile scripts/l4/tnsm_revision/export_frozen_oracle.py
           python -m py_compile scripts/l4/tnsm_revision/generate_prompt_injection_suite.py
@@ -47,6 +49,7 @@ jobs:
           bash -n scripts/l4/tnsm_revision/run_preflight.sh
           bash -n scripts/l4/tnsm_revision/run_oracle_export.sh
           bash -n scripts/l4/tnsm_revision/run_langgraph_external_baseline.sh
+          bash -n scripts/l4/tnsm_revision/run_open_weights_qwen3_4b.sh
           node -c scripts/l4/zk/deploy_auth_v2_2_localhost.js
 
       - name: Lightweight claim validation

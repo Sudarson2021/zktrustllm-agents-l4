@@ -130,19 +130,57 @@ The full run is deliberately locked. After the pilot has been independently
 checked, it can be enabled with both `MODE=full` and
 `CONFIRM_FULL_180=YES`; neither flag should be used before that check.
 
+## Stage 4: local open-weights baseline
+
+The Stage 1 host snapshot records 31.1 GiB RAM, eight logical Intel i7-1185G7
+threads, no NVIDIA GPU, and Ollama 0.12.3.  The selected model is the official
+Ollama `qwen3:4b` tag, run locally in non-thinking mode.  Qwen documents the
+underlying Qwen3-4B as a 4B dense Apache-2.0 open-weight model with a 32K
+context window.  The experiment uses a 16,384-token context because the
+largest frozen prompt is substantially smaller, and evaluates the 60
+`AGENTIC_RAG` cells requested by the supervisor's one-retrieval-mode boundary.
+
+The runner queries `/api/tags` and `/api/show` before generation and freezes
+the installed model digest, GGUF format, parameter size, quantization, Ollama
+version, template/parameter/model-info hashes, host details, prompt/schema
+hashes, seed, and decoding settings.  It rejects non-loopback endpoints, uses
+no API key, and verifies that the model digest is unchanged after the run.
+
+Install the pinned tag before creating an evidence directory:
+
+```bash
+ollama pull qwen3:4b
+```
+
+Run the three-cell pilot first:
+
+```bash
+MODE=pilot bash scripts/l4/tnsm_revision/run_open_weights_qwen3_4b.sh
+```
+
+Do not interpret pilot accuracy. Upload the resulting
+`tnsm_stage4_open_weights_pilot_*.tar.gz`; it must pass digest, provenance,
+structured-output, fail-closed, and model-snapshot checks.  Only after that
+independent check may the single-mode run be unlocked:
+
+```bash
+CONFIRM_OPEN_WEIGHTS_60=YES MODE=full \
+  bash scripts/l4/tnsm_revision/run_open_weights_qwen3_4b.sh
+```
+
+An interrupted run is resumable with the identical command and output
+directory. A changed model digest or any configuration change is rejected.
+
 ## Later stages (run only after the preceding gate passes)
 
-1. Run the approved full 180-cell LangGraph baseline and retain raw responses.
-2. Select a local open-weights model based on the recorded VRAM/RAM, freeze its
-   model/revision/quantization hashes, and run one retrieval mode.
-3. Generate and execute the deterministic 30-case prompt-injection suite.
-4. Analyse all 233 attempt records to classify the 53 HTTP-500 failures using
+1. Generate and execute the deterministic 30-case prompt-injection suite.
+2. Analyse all 233 attempt records to classify the 53 HTTP-500 failures using
    retained subcodes, trace identifiers, service logs, and retry outcomes.
-5. Audit provider-returned model identifiers, access timestamps, decoding
+3. Audit provider-returned model identifiers, access timestamps, decoding
    parameters, and full system prompts.
-6. Generate the deterministic 30-cell human-label sheet; two independent
+4. Generate the deterministic 30-cell human-label sheet; two independent
    O-RAN-literate annotators label it before oracle labels are revealed.
-7. Compute agreement and Cohen's kappa, freeze all hashes, and pass the journal
+5. Compute agreement and Cohen's kappa, freeze all hashes, and pass the journal
    revision gate before editing result claims in LaTeX.
 
 Exact commands for each later stage will be added only after the preceding
