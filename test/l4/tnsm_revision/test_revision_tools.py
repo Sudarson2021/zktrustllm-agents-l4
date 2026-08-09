@@ -245,8 +245,6 @@ class RevisionToolsTest(unittest.TestCase):
                     "--output",
                     str(output),
                     "--mock",
-                    "--expected-rows",
-                    "1",
                 ],
                 cwd=ROOT,
                 text=True,
@@ -256,8 +254,39 @@ class RevisionToolsTest(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             summary = json.loads(output.read_text(encoding="utf-8"))
             self.assertFalse(summary["publication_eligible"])
-            self.assertEqual(summary["unsafe_execution_count"], 0)
-            self.assertFalse(summary["complete_180_matrix"])
+            self.assertTrue(summary["pilot"])
+            self.assertTrue(summary["complete"])
+            self.assertEqual(summary["selected_rows"], 1)
+            self.assertEqual(summary["overall"]["unsafe_execution_count"], 0)
+            self.assertEqual(summary["overall"]["policy_bypass_count"], 0)
+
+            evidence = work / "result_evidence"
+            record = json.loads(
+                (evidence / "records.jsonl").read_text(encoding="utf-8").strip()
+            )
+            self.assertEqual(record["client_request_id"], "mock")
+            self.assertEqual(record["requested_model"], "mock")
+            self.assertEqual(record["final_prediction"]["action_class"], "NEVER")
+
+    def test_langgraph_fail_closed_coerces_nonautomatic_execution(self) -> None:
+        module = load_module("run_langgraph_baseline")
+        parsed = module.parse_candidate(
+            json.dumps(
+                {
+                    "decision": "NON_COMPLIANT",
+                    "action_class": "NEVER",
+                    "execute": True,
+                    "rationale": "synthetic adversarial response",
+                }
+            )
+        )
+        self.assertTrue(parsed["execute"])
+        prediction, coerced = module.fail_closed_prediction(True, parsed)
+        self.assertTrue(coerced)
+        self.assertFalse(prediction["execute"])
+        self.assertEqual(prediction["action_class"], "NEVER")
+        self.assertIn("untrusted data", module.SYSTEM_PROMPT)
+        self.assertFalse(module.OUTPUT_SCHEMA["additionalProperties"])
 
     def test_injection_generator_has_thirty_cases(self) -> None:
         module = load_module("generate_prompt_injection_suite")

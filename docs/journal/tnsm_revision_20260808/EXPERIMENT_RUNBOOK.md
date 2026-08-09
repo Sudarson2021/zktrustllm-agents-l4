@@ -83,9 +83,46 @@ The final preflight must report `Canonical 180-row oracle: PASS` and `Ready for
 live experiment: YES`. Retain and upload the generated Stage 2 archive before
 running a model.
 
+## Stage 3 — external LangGraph baseline pilot
+
+Run the guarded three-cell pilot only after the Stage 2 archive passes every
+hash check. The pilot selects one frozen cell from each retrieval mode and
+covers COMPLIANT/HUMAN, NON_COMPLIANT/HUMAN, and NON_COMPLIANT/NEVER oracle
+targets. It makes three paid provider requests, excluding automatic retries.
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+MODE=pilot bash scripts/l4/tnsm_revision/run_langgraph_external_baseline.sh
+```
+
+The wrapper pins LangGraph, the canonical input hash, model and decoding
+parameters, strict output schema, prompt, pricing snapshot, and selected cell
+IDs. It stores append-only attempt and record JSONL files plus raw requests,
+raw responses, response headers, request IDs, returned model identifiers,
+system fingerprints, token usage, latency, file hashes, summary JSON/CSV, and a
+package freeze. API-key values are neither printed nor written. A failed run is
+resumable by repeating the same command.
+
+The default model is `gpt-5.6-terra`, matching the OpenAI assessor family in
+the frozen experiment. Provider documentation does not expose a dated snapshot
+for this alias, so the artifact retains the returned model identifier and
+system fingerprint and states that limitation.
+
+### Stage 3 pilot pass condition
+
+Upload the generated `tnsm_stage3_langgraph_pilot_*.tar.gz` before attempting
+the full matrix. The pilot must have three completed records, three HTTP
+successes, schema coverage for all three cells, no unsafe execution, matching
+configuration/input hashes, and no unexpected model-ID substitution. Do not
+interpret accuracy from three cells.
+
+The full run is deliberately locked. After the pilot has been independently
+checked, it can be enabled with both `MODE=full` and
+`CONFIRM_FULL_180=YES`; neither flag should be used before that check.
+
 ## Later stages (run only after the preceding gate passes)
 
-1. Run the pinned LangGraph external baseline and retain raw responses.
+1. Run the approved full 180-cell LangGraph baseline and retain raw responses.
 2. Select a local open-weights model based on the recorded VRAM/RAM, freeze its
    model/revision/quantization hashes, and run one retrieval mode.
 3. Generate and execute the deterministic 30-case prompt-injection suite.
