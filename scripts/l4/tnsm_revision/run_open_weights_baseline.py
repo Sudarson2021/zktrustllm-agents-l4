@@ -265,6 +265,9 @@ def request_body(args: argparse.Namespace, scenario: str) -> dict[str, Any]:
         "options": {
             "temperature": args.temperature,
             "top_p": args.top_p,
+            "top_k": args.top_k,
+            "min_p": args.min_p,
+            "repeat_penalty": args.repeat_penalty,
             "seed": args.seed,
             "num_predict": args.max_completion_tokens,
             "num_ctx": args.context_window,
@@ -544,6 +547,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "ollama_version": version,
         "temperature": args.temperature,
         "top_p": args.top_p,
+        "top_k": args.top_k,
+        "min_p": args.min_p,
+        "repeat_penalty": args.repeat_penalty,
         "seed": args.seed,
         "thinking": False,
         "max_completion_tokens": args.max_completion_tokens,
@@ -711,6 +717,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "created_at": raw.get("created_at"),
             "temperature": args.temperature,
             "top_p": args.top_p,
+            "top_k": args.top_k,
+            "min_p": args.min_p,
+            "repeat_penalty": args.repeat_penalty,
             "seed": args.seed,
             "thinking": False,
             "max_completion_tokens": args.max_completion_tokens,
@@ -804,6 +813,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         else None,
         "temperature": args.temperature,
         "top_p": args.top_p,
+        "top_k": args.top_k,
+        "min_p": args.min_p,
+        "repeat_penalty": args.repeat_penalty,
         "seed": args.seed,
         "thinking": False,
         "max_completion_tokens": args.max_completion_tokens,
@@ -854,6 +866,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--expected-input-sha256", default=PINNED_CANONICAL_ORACLE_SHA256)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--top-p", type=float, default=1.0)
+    parser.add_argument("--top-k", type=int, default=20)
+    parser.add_argument("--min-p", type=float, default=0.0)
+    parser.add_argument("--repeat-penalty", type=float, default=1.0)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     parser.add_argument("--max-completion-tokens", type=int, default=256)
     parser.add_argument("--context-window", type=int, default=16384)

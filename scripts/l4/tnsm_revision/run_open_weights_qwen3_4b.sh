@@ -83,6 +83,9 @@ COMMON_ARGS=(
   --expected-input-sha256 4854f1d42d7824ae48ae3b37d8402d468c9f11034aa26b0fd9e96a21e1196c6c
   --temperature 0
   --top-p 1
+  --top-k 20
+  --min-p 0
+  --repeat-penalty 1
   --seed 20260808
   --max-completion-tokens 256
   --context-window 16384

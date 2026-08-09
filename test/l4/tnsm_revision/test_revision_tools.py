@@ -9,6 +9,7 @@ import json
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest import mock
 from pathlib import Path
@@ -364,6 +365,37 @@ class RevisionToolsTest(unittest.TestCase):
         self.assertEqual(snapshot["quantization_level"], "Q4_K_M")
         self.assertEqual(snapshot["parameter_size"], "4.0B")
         self.assertEqual(observed_show, show)
+
+        request = module.request_body(
+            SimpleNamespace(
+                model="qwen3:4b",
+                temperature=0.0,
+                top_p=1.0,
+                top_k=20,
+                min_p=0.0,
+                repeat_penalty=1.0,
+                seed=20260808,
+                max_completion_tokens=256,
+                context_window=16384,
+                num_thread=8,
+                keep_alive="15m",
+            ),
+            "frozen scenario",
+        )
+        self.assertEqual(
+            request["options"],
+            {
+                "temperature": 0.0,
+                "top_p": 1.0,
+                "top_k": 20,
+                "min_p": 0.0,
+                "repeat_penalty": 1.0,
+                "seed": 20260808,
+                "num_predict": 256,
+                "num_ctx": 16384,
+                "num_thread": 8,
+            },
+        )
 
     def test_open_weights_mock_cannot_be_publication_eligible(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
