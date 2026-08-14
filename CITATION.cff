@@ -20,6 +20,7 @@ repository-code: "https://github.com/Sudarson2021/zktrustllm-agents-l4"
 url: "https://github.com/Sudarson2021/zktrustllm-agents-l4"
 license: MIT
 version: 1.0.0
+doi: 10.5281/zenodo.21939774
 date-released: 2026-08-14
 keywords:
   - O-RAN

@@ -1,5 +1,9 @@
 # ZKTrustLLM-Agents L4
 
+[![DOI](https://zenodo.org/badge/1200854469.svg)](https://doi.org/10.5281/zenodo.21939773)
+Frozen artifact version 1.0.0: https://doi.org/10.5281/zenodo.21939774
+
+
 Proof-governed agentic zero-trust control and reproducible evaluation for O-RAN edge security.
 
 This repository contains artifact support for the ZKTrustLLM-Agents L4 journal manuscript. The goal is to make each major paper claim traceable to scripts, logs, hashes, generated tables, and explicit claim boundaries.
