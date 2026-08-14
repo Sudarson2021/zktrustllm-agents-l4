@@ -1,0 +1,120 @@
+{
+  "archives": {
+    "oracle_clustered_statistics": {
+      "internal_manifest_verified": true,
+      "name": "tnsm_oracle_clustered_statistics_20260814T181044Z.tar.gz",
+      "sha256": "e173a9bbe9a9c3538964a58b05b88bd084f90d1f9f0b8bcb895d34a65fce903c"
+    },
+    "zk_240_coverage": {
+      "internal_manifest_verified": true,
+      "name": "tnsm_zk_240_coverage_audit_20260814T181044Z.tar.gz",
+      "sha256": "f806b0e22f85b90ac851dde9c279dd37e29e50c47da0a595829f989c00c09f48"
+    }
+  },
+  "oracle_clustered_statistics": {
+    "by_mode": {
+      "AGENTIC_RAG": {
+        "coverage": {
+          "estimate": 0.8333333333333334,
+          "scenario_cluster_bootstrap_ci95": [
+            0.5,
+            1.0
+          ]
+        },
+        "decision_accuracy": {
+          "estimate": 1.0,
+          "scenario_cluster_bootstrap_ci95": [
+            1.0,
+            1.0
+          ]
+        },
+        "enforced_action_accuracy": {
+          "estimate": 0.9666666666666667,
+          "scenario_cluster_bootstrap_ci95": [
+            0.9333333333333333,
+            1.0
+          ]
+        }
+      },
+      "NO_RAG": {
+        "coverage": {
+          "estimate": 0.0,
+          "scenario_cluster_bootstrap_ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "decision_accuracy": {
+          "estimate": 0.16666666666666666,
+          "scenario_cluster_bootstrap_ci95": [
+            0.0,
+            0.5
+          ]
+        },
+        "enforced_action_accuracy": {
+          "estimate": 0.6666666666666666,
+          "scenario_cluster_bootstrap_ci95": [
+            0.3333333333333333,
+            1.0
+          ]
+        }
+      },
+      "RAG": {
+        "coverage": {
+          "estimate": 0.6666666666666666,
+          "scenario_cluster_bootstrap_ci95": [
+            0.3333333333333333,
+            1.0
+          ]
+        },
+        "decision_accuracy": {
+          "estimate": 0.8333333333333334,
+          "scenario_cluster_bootstrap_ci95": [
+            0.5,
+            1.0
+          ]
+        },
+        "enforced_action_accuracy": {
+          "estimate": 0.8333333333333334,
+          "scenario_cluster_bootstrap_ci95": [
+            0.5,
+            1.0
+          ]
+        }
+      }
+    },
+    "interval_method": {
+      "cluster": "scenario_id",
+      "confidence_level": 0.95,
+      "finite_sample_coverage_claimed": false,
+      "method": "scenario-cluster bootstrap percentile interval",
+      "replicates": 20000,
+      "seed": 20260808
+    },
+    "repeat_determinism": {
+      "action_stable_groups": 16,
+      "decision_stable_groups": 18,
+      "scenario_mode_groups": 18
+    },
+    "schema": "zktrustllm.tnsm.oracle_clustered_statistics.v1",
+    "source_success_matrix_sha256": "d9143f5c17fffc14caa5764360b7841a191bf6ce435fffc70742fa0f545a5f5c",
+    "successful_cells": 180
+  },
+  "schema": "zktrustllm.tnsm.verified_audit_evidence.v1",
+  "verified_date": "2026-08-14",
+  "zk_240_coverage": {
+    "circuit_sha256": "27814e144f577660002d7338dae993f8e0b84c3ffe9405782e7c1843e15e165a",
+    "decision": "RETITLE",
+    "matrix_rows": 240,
+    "matrix_sha256": "95e2e6de5c55735de874e8817df70553b8cc1ea816d3d03eef78061695707f68",
+    "proof_outcome_columns": [],
+    "provider_or_chain_calls_made": false,
+    "row_binding_columns": [],
+    "row_bound_verified_rows": 0,
+    "schema": "zktrustllm.tnsm.zk_240_coverage_audit.v1",
+    "verify_all_240_supported_by_retained_evidence": false,
+    "verifier_gas_counts": {
+      "47913": 240
+    }
+  }
+}

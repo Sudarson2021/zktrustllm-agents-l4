@@ -17,9 +17,11 @@ architecture that separates telemetry, reasoning, policy, and audit/anchor
 functions. Candidate actions pass an
 AUTOMATIC--HUMAN--PRIVILEGED--NEVER ladder and are bound to hash-addressed
 evidence before audit anchoring. TLC exhaustively checks six safety invariants
-over 320 reachable states, and the frozen 180-cell oracle benchmark gives
-Agentic RAG 100.0\% oracle-relative decision accuracy with zero unsafe automatic
-executions. Across 90 matched public-testnet pairs, median first-inclusion
+over 320 reachable states. On the frozen 180-cell oracle benchmark, Agentic RAG
+reaches 100.0\% decision accuracy (descriptive scenario-clustered 95\% interval
+100.0--100.0\%) and 96.7\% enforced-action accuracy (93.3--100.0\%), versus
+83.3\% and 66.7\% for the external LangGraph baseline; neither records an unsafe
+execution. Across 90 matched public-testnet pairs, median first-inclusion
 latency is 12.427~s on Sepolia and 7.225~s on IoTeX, with a median paired ratio
 of 1.874. A live n8n run reaches a simulated ledger only after HUMAN approval.
 The measured 80.5--109.8~s median decision times target Non-RT RIC/A1 policy
@@ -56,6 +58,17 @@ Unless a figure could otherwise be mistaken for production actuation or
 economic finality, other sections should refer to this subsection instead of
 repeating a separate disclaimer.
 
+\paragraph{Retained zero-knowledge evidence and title boundary.}
+AUTH\_V2.2 encodes the stated admissibility, trust-state, action-class, and
+additive-commitment relation, but the frozen 240-row matrix retains neither a
+per-row proof outcome nor proof/public-input binding. Full system and No IPFS
+have 40/40 missing prover-time records each, while the remaining four variants
+record that the prover was not invoked. The constant 47,913-gas verifier field
+cannot establish validity. The retained evidence therefore supports 0/240
+row-bound successful verifications. We accordingly make no system-level
+zero-knowledge claim and report AUTH\_V2.2 only as a bounded component
+experiment, including the observed \texttt{verifyTx=false} outcome.
+
 % ADD TO THE THREAT MODEL OR LIMITATIONS.
 \paragraph{Standards grounding.}
 The threat model and controls are grounded in the O-RAN Alliance WG11 Security
@@ -79,9 +92,11 @@ as an untrusted proposal, reconciling proposals deterministically, and enforcing
 the action ladder outside the model. Thus an injected instruction cannot by
 itself authorise actuation; malformed, contradictory, or prohibited proposals
 must fail closed. Prompt-injection resistance is not inferred from the benign
-oracle benchmark. The accompanying 30-case suite separately tests whether
-adversarial variants ever produce an executed NEVER action; its result should be
-reported only after the released suite has been run against the frozen system.
+oracle benchmark. In the separate frozen 30-case adversarial suite, all 30
+cases retained the required NEVER classification and deterministic
+reconciliation produced zero unsafe executions (30/30; Wilson 95\% lower bound
+0.886). This synthetic containment result does not establish resistance to
+arbitrary attacks or production inputs.
 
 % REPLACE THE MIXED-ORIENTATION ESTIMANDS.
 \begin{equation}
@@ -120,10 +135,10 @@ different roles and runs. The assessor used the endpoint reported as GPT-5.6,
 whereas Stage F/F used the endpoint alias \texttt{gpt-5.5} as one of four
 planners. Stage F/F is not evidence for the oracle benchmark and is moved to the
 supplement. Because the retained records expose mutable aliases rather than
-immutable returned snapshot identifiers, the final manuscript must replace
-these labels with captured provider-returned IDs (or explicitly state that the
-provider did not expose one), access dates, temperature, top-$p$, token limits,
-and prompt hashes.
+immutable returned snapshot identifiers, the final manuscript must use the
+captured aliases and explicitly state that immutable provider snapshots were
+not exposed. Access dates, submitted decoding fields, token limits, full system
+prompts, and prompt hashes are retained in the artifact.
 
 % REPLACE THE STAGE E/F AND F/F MAIN-TEXT SUBSECTIONS/TABLES.
 Additional Stage E/F and Stage F/F tool-orchestration observations are provided
@@ -134,6 +149,33 @@ generalisability claims.
 % REPLACE THE ASYMPTOTIC COMPLEXITY SECTION/TABLE.
 % Delete the unmeasured O(1)/O(nb)/O(r) table. Do not insert a scaling claim
 % until decisions/hour, anchor throughput, and cost are measured over load.
+
+% REPLACE TABLE V OR ITS ORACLE-RESULT ROWS.
+\begin{table}[t]
+\centering
+\caption{Frozen-oracle percentages with descriptive scenario-clustered 95\%
+intervals in brackets. Each mode contains six scenarios with ten retained
+repeats.}
+\label{tab:oracle-clustered}
+\scriptsize
+\begin{tabular}{lccc}
+\hline
+Mode & Decision acc. & Enforced-action acc. & Coverage \\
+\hline
+No RAG & 16.7 [0.0, 50.0] & 66.7 [33.3, 100.0] & 0.0 [0.0, 0.0] \\
+RAG & 83.3 [50.0, 100.0] & 83.3 [50.0, 100.0] & 66.7 [33.3, 100.0] \\
+Agentic RAG & 100.0 [100.0, 100.0] & 96.7 [93.3, 100.0] & 83.3 [50.0, 100.0] \\
+\hline
+\end{tabular}
+\end{table}
+
+Decision outputs were repeat-stable in all 18 scenario-mode groups, whereas
+enforced actions were stable in 16/18. The two instabilities occurred for
+Agentic RAG: S2 produced HUMAN in nine repeats and NEVER in one, while S4
+produced NEVER in nine and HUMAN in one. The intervals use 20,000 percentile
+bootstrap replicates that resample the six whole-scenario clusters. Ten repeats
+measure within-cell repeatability but do not create 60 independent scenarios;
+with only six clusters, reliable nominal 95\% coverage is not claimed.
 
 % REPLACE THE QUALITATIVE NOVELTY TICK TABLE.
 \begin{table}[t]

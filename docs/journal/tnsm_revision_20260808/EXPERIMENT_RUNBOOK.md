@@ -398,6 +398,32 @@ Choose one of two defensible paths: execute a new generalized, row-bound 240-row
 proof experiment and retain all inputs/outcomes, or retitle and present
 AUTH_V2.2 only as a bounded component experiment.
 
+Completed result (14 August 2026): the retitle path was selected. The verified
+archive `tnsm_zk_240_coverage_audit_20260814T181044Z.tar.gz` has SHA-256
+`f806b0e22f85b90ac851dde9c279dd37e29e50c47da0a595829f989c00c09f48`.
+Its internal manifest passes and its machine-readable verdict records 0/240
+row-bound successful verifications, no proof-outcome columns, and no row-binding
+columns. No provider or chain call was made.
+
+## Critical oracle-statistics gate: clustered intervals and repeat stability
+
+Run the read-only analysis against the frozen R10 directory:
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+bash scripts/l4/tnsm_revision/run_oracle_clustered_statistics.sh
+```
+
+Completed result (14 August 2026): the verified archive
+`tnsm_oracle_clustered_statistics_20260814T181044Z.tar.gz` has SHA-256
+`e173a9bbe9a9c3538964a58b05b88bd084f90d1f9f0b8bcb895d34a65fce903c`.
+It reports 180 successful cells, six scenario clusters, three modes, ten
+repeats per scenario-mode group, and 20,000 whole-scenario bootstrap
+replicates. Decisions were repeat-stable in 18/18 groups and actions in 16/18.
+The exact per-mode estimates and descriptive intervals are recorded in
+`verified_audit_results_20260814.json`. With only six clusters, reliable
+finite-sample interval coverage is not asserted. No provider call was made.
+
 ## Stage 8: deferred future human validation (do not run for this submission)
 
 No eligible independent annotators are currently available. Under the

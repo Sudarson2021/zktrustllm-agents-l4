@@ -18,6 +18,14 @@ The zero-knowledge index term and title claim will be removed. AUTH_V2.2 will be
 reported only as a bounded component experiment, including `verifyTx=false`,
 unless a new row-bound experiment supersedes it.
 
+The completed audit archive is
+`tnsm_zk_240_coverage_audit_20260814T181044Z.tar.gz` (SHA-256
+`f806b0e22f85b90ac851dde9c279dd37e29e50c47da0a595829f989c00c09f48`).
+Its source matrix has SHA-256
+`95e2e6de5c55735de874e8817df70553b8cc1ea816d3d03eef78061695707f68`;
+the audited circuit has SHA-256
+`27814e144f577660002d7338dae993f8e0b84c3ffe9405782e7c1843e15e165a`.
+
 ## (b) Oracle statistics
 
 The 180 cells comprise six scenarios, three retrieval modes, and ten repeats per
@@ -28,8 +36,22 @@ cell, reports repeat stability for all 18 scenario-mode groups, and adds
 20,000-replicate whole-scenario percentile-bootstrap intervals for decision
 accuracy, enforced-action accuracy, and coverage. Only six clusters are
 available, so interval coverage is explicitly described as limited and
-descriptive. Run the script against the frozen R10 directory before inserting
-the numerical intervals.
+descriptive. The completed run found decision-repeat stability in 18/18
+scenario-mode groups and action-repeat stability in 16/18; the two action
+instabilities were Agentic RAG on S2 and S4.
+
+Agentic RAG obtained 100.0% decision accuracy (descriptive clustered 95% CI
+100.0--100.0%), 96.7% enforced-action accuracy (93.3--100.0%), and 83.3%
+coverage (50.0--100.0%). RAG obtained 83.3% (50.0--100.0%), 83.3%
+(50.0--100.0%), and 66.7% (33.3--100.0%), respectively. No RAG obtained
+16.7% (0.0--50.0%), 66.7% (33.3--100.0%), and 0.0% (0.0--0.0%),
+respectively. These intervals resample the six whole-scenario clusters with
+20,000 replicates and seed 20260808; reliable finite-sample coverage is not
+asserted.
+
+The completed statistics archive is
+`tnsm_oracle_clustered_statistics_20260814T181044Z.tar.gz` (SHA-256
+`e173a9bbe9a9c3538964a58b05b88bd084f90d1f9f0b8bcb895d34a65fce903c`).
 
 Scenario expansion is not claimed as completed. Any new scenarios will be a
 separately versioned benchmark extension and will not modify the frozen R10

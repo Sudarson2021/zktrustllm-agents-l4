@@ -1404,6 +1404,38 @@ async def assess(provider, request):
             self.assertEqual(summary["provider_records"], 4)
             self.assertEqual(summary["full_system_prompts_recovered"], 1)
 
+    def test_verified_audit_evidence_records_frozen_results(self) -> None:
+        evidence_path = (
+            ROOT
+            / "docs"
+            / "journal"
+            / "tnsm_revision_20260808"
+            / "verified_audit_results_20260814.json"
+        )
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            evidence["schema"], "zktrustllm.tnsm.verified_audit_evidence.v1"
+        )
+        zk = evidence["zk_240_coverage"]
+        self.assertEqual(zk["matrix_rows"], 240)
+        self.assertEqual(zk["row_bound_verified_rows"], 0)
+        self.assertFalse(zk["verify_all_240_supported_by_retained_evidence"])
+        self.assertEqual(zk["proof_outcome_columns"], [])
+        self.assertEqual(zk["row_binding_columns"], [])
+
+        oracle = evidence["oracle_clustered_statistics"]
+        self.assertEqual(oracle["successful_cells"], 180)
+        self.assertEqual(oracle["interval_method"]["replicates"], 20000)
+        self.assertFalse(
+            oracle["interval_method"]["finite_sample_coverage_claimed"]
+        )
+        self.assertEqual(oracle["repeat_determinism"]["decision_stable_groups"], 18)
+        self.assertEqual(oracle["repeat_determinism"]["action_stable_groups"], 16)
+        self.assertEqual(
+            oracle["by_mode"]["AGENTIC_RAG"]["enforced_action_accuracy"]["estimate"],
+            0.9666666666666667,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -60,6 +60,7 @@ def main() -> None:
         PACKAGE / "references_additions.bib",
         PACKAGE / "cover_letter.md",
         PACKAGE / "submission_checklist.md",
+        PACKAGE / "verified_audit_results_20260814.json",
         PACKAGE / "figures" / "human_gate_state_machine.tex",
         PACKAGE / "figures" / "five_stage_pipeline.tex",
         PACKAGE / "figures" / "composite_oracle_results.tex",
