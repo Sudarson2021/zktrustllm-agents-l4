@@ -9,7 +9,7 @@ Suggested replacements for repetitive prose:
 
 | Repeated wording | Use when accurate |
 |---|---|
-| bounded agentic L4 control plane | proof-governed agentic control plane |
+| bounded agentic L4 control plane | policy-governed agentic control plane |
 | bounded evidence | fixed evidence bundle; hash-addressed evidence |
 | bounded action | policy-admissible action; ladder-constrained action |
 | bounded evaluation | frozen evaluation; scoped evaluation |

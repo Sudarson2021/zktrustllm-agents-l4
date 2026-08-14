@@ -1,7 +1,7 @@
 Dear Editor-in-Chief,
 
-Please consider our manuscript, “ZKTrustLLM-Agents: Proof-Governed Auditable
-Zero-Trust Control for O-RAN Edge Security,” for publication in *IEEE
+Please consider our manuscript, “Auditable Policy-Governed LLM-Agent Control
+for O-RAN Edge Security,” for publication in *IEEE
 Transactions on Network and Service Management*.
 
 The manuscript addresses a network/service-management problem at the

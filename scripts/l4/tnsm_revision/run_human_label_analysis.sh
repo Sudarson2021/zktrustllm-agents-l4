@@ -6,16 +6,19 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd -- "$SCRIPT_DIR/../../.." && pwd)"
 : "${COORDINATOR_KEY:?Set COORDINATOR_KEY to the Stage 8A oracle_key.csv path}"
+: "${PREREGISTRATION:?Set PREREGISTRATION to the Stage 8A analysis_preregistration.json path}"
 : "${ANNOTATOR_1_LABELS:?Set ANNOTATOR_1_LABELS to annotator 1 completed blinded_cases.csv}"
 : "${ANNOTATOR_2_LABELS:?Set ANNOTATOR_2_LABELS to annotator 2 completed blinded_cases.csv}"
 : "${ANNOTATOR_1_DECLARATION:?Set ANNOTATOR_1_DECLARATION to annotator 1 completed declaration CSV}"
 : "${ANNOTATOR_2_DECLARATION:?Set ANNOTATOR_2_DECLARATION to annotator 2 completed declaration CSV}"
 : "${EXPECTED_KEY_SHA256:?Set EXPECTED_KEY_SHA256 to the frozen Stage 8A oracle-key digest}"
+: "${EXPECTED_PREREGISTRATION_SHA256:?Set EXPECTED_PREREGISTRATION_SHA256 to the frozen Stage 8A preregistration digest}"
 RUN_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 OUTPUT_DIR="${OUTPUT_DIR:-$REPO_ROOT/artifacts/out/tnsm_revision/human_label_analysis_$RUN_STAMP}"
 
 for path in \
   "$COORDINATOR_KEY" \
+  "$PREREGISTRATION" \
   "$ANNOTATOR_1_LABELS" \
   "$ANNOTATOR_2_LABELS" \
   "$ANNOTATOR_1_DECLARATION" \
@@ -32,11 +35,13 @@ done
 
 python3 "$SCRIPT_DIR/analyze_human_labels.py" \
   --coordinator-key "$COORDINATOR_KEY" \
+  --preregistration "$PREREGISTRATION" \
   --annotator-1 "$ANNOTATOR_1_LABELS" \
   --annotator-2 "$ANNOTATOR_2_LABELS" \
   --annotator-1-declaration "$ANNOTATOR_1_DECLARATION" \
   --annotator-2-declaration "$ANNOTATOR_2_DECLARATION" \
   --expected-key-sha256 "$EXPECTED_KEY_SHA256" \
+  --expected-preregistration-sha256 "$EXPECTED_PREREGISTRATION_SHA256" \
   --output-dir "$OUTPUT_DIR"
 
 {

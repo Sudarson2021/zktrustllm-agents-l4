@@ -44,6 +44,8 @@ jobs:
           python -m py_compile scripts/l4/tnsm_revision/score_prompt_injection.py
           python -m py_compile scripts/l4/tnsm_revision/make_human_label_subset.py
           python -m py_compile scripts/l4/tnsm_revision/analyze_human_labels.py
+          python -m py_compile scripts/l4/tnsm_revision/audit_zk_240_coverage.py
+          python -m py_compile scripts/l4/tnsm_revision/analyze_oracle_clustered.py
           python -m py_compile scripts/l4/tnsm_revision/audit_model_metadata.py
           python -m py_compile scripts/l4/tnsm_revision/collect_gateway_model_provenance.py
           python -m py_compile scripts/l4/tnsm_revision/reconstruct_r10_prompt_provenance.py
@@ -60,6 +62,8 @@ jobs:
           bash -n scripts/l4/tnsm_revision/run_r10_prompt_provenance_reconstruction.sh
           bash -n scripts/l4/tnsm_revision/run_human_label_package.sh
           bash -n scripts/l4/tnsm_revision/run_human_label_analysis.sh
+          bash -n scripts/l4/tnsm_revision/run_zk_240_coverage_audit.sh
+          bash -n scripts/l4/tnsm_revision/run_oracle_clustered_statistics.sh
           node -c scripts/l4/zk/deploy_auth_v2_2_localhost.js
 
       - name: Lightweight claim validation

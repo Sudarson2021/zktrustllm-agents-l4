@@ -1,19 +1,20 @@
 % Manuscript-ready text derived only from retained evidence.
 % Integrate into the current journal source; section labels may need adjustment.
 
-% TITLE -- removes an undefined project-specific label and replaces a claim
-% about the manuscript with a property of the system.
-\title{ZKTrustLLM-Agents: Proof-Governed Auditable Zero-Trust Control for O-RAN Edge Security}
+% TITLE -- selected after the frozen 240-row audit found no row-bound proof
+% outcome evidence. Do not restore a zero-knowledge title/index claim unless a
+% new generalized circuit verifies and retains evidence for all 240 rows.
+\title{Auditable Policy-Governed LLM-Agent Control for O-RAN Edge Security}
 
 % ABSTRACT
 \begin{abstract}
 Agentic automation can assist O-RAN security operations, but unconstrained
 large-language-model workflows can bypass operator policy, replay evidence, and
 produce decisions that cannot be audited. Existing agent frameworks provide
-orchestration without jointly enforcing action admissibility, proof-bound
-evidence, and reproducible evaluation. We present ZKTrustLLM-Agents, a
-proof-governed zero-trust architecture that separates telemetry, reasoning,
-policy, proof, and audit/anchor functions. Candidate actions pass an
+orchestration without jointly enforcing action admissibility, evidence
+integrity, and reproducible evaluation. We present a policy-governed zero-trust
+architecture that separates telemetry, reasoning, policy, and audit/anchor
+functions. Candidate actions pass an
 AUTOMATIC--HUMAN--PRIVILEGED--NEVER ladder and are bound to hash-addressed
 evidence before audit anchoring. TLC exhaustively checks six safety invariants
 over 320 reachable states, and the frozen 180-cell oracle benchmark gives
@@ -134,7 +135,7 @@ generalisability claims.
 % Delete the unmeasured O(1)/O(nb)/O(r) table. Do not insert a scaling claim
 % until decisions/hour, anchor throughput, and cost are measured over load.
 
-% REPLACE THE QUALITATIVE NOVELTY TICK TABLE AFTER RUNNING THE BASELINE.
+% REPLACE THE QUALITATIVE NOVELTY TICK TABLE.
 \begin{table}[t]
 \centering
 \caption{Frozen-oracle comparison under identical scenarios and scoring.}
@@ -143,8 +144,10 @@ generalisability claims.
 \hline
 System & Decision acc. & Action acc. & Unsafe exec. & Median latency \\
 \hline
-LangGraph baseline & \textit{run required} & \textit{run required} & \textit{run required} & \textit{run required} \\
-ZKTrustLLM-Agents & 100.0\% & 96.7\% & 0 & 109.793~s \\
+LangGraph, No RAG & 83.3\% & 66.7\% & 0 & 1.487~s \\
+LangGraph, RAG & 83.3\% & 66.7\% & 0 & 1.683~s \\
+LangGraph, Agentic RAG & 83.3\% & 66.7\% & 0 & 1.843~s \\
+Proposed system, Agentic RAG & 100.0\% & 96.7\% & 0 & 109.793~s \\
 \hline
 \end{tabular}
 \end{table}
@@ -157,7 +160,15 @@ Zenodo release at DOI: \textit{insert DOI after deposit}. Public-testnet
 transaction identifiers and hashes permit independent receipt checks. API
 credentials, provider-side logs, and personal data are not distributed. The
 reported experiments use synthetic scenarios, public blockchain metadata, and
-simulated actuation; they do not involve patients, subscribers, or human
-subjects. If independent annotators are added for oracle validation, the authors
-will confirm and report the applicable institutional ethics determination and
-consent procedure before submission.
+simulated actuation. No human-label exercise was conducted and no
+human-participant or subscriber data were collected. Independent expert
+validation of the frozen oracle remains planned future work; the oracle will not
+be revised in response to any future labels.
+
+% ADD TO THE ORACLE LIMITATIONS PARAGRAPH.
+Independent human validation was not performed because eligible independent
+O-RAN-literate annotators were unavailable within the revision schedule. The
+reported values are therefore oracle-relative, not expert-verified. A
+preregistered future study will compare each annotator with the frozen oracle
+and with the other annotator, report disagreements without adjudication, and
+leave the oracle unchanged.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build two leakage-resistant annotation packages for the R10 oracle subset."""
+"""Build two leakage-resistant, preregistered annotation packages."""
 from __future__ import annotations
 
 import argparse
@@ -22,6 +22,9 @@ EXPECTED_SCENARIOS = ("S1", "S2", "S3", "S4", "S5", "S6")
 EXPECTED_MODES = ("NO_RAG", "RAG", "AGENTIC_RAG")
 DECISIONS = ("COMPLIANT", "NON_COMPLIANT", "UNCERTAIN")
 ACTIONS = ("AUTOMATIC", "HUMAN", "PRIVILEGED", "NEVER")
+ANALYSIS_SCRIPT = Path(__file__).with_name("analyze_human_labels.py")
+BOOTSTRAP_REPLICATES = 20_000
+BOOTSTRAP_SEED = 20260808
 OUTPUT_COLUMNS = (
     "case_id",
     "retrieval_mode",
@@ -192,12 +195,12 @@ Before starting, confirm with the study coordinator that the institution's
 ethics and data-protection requirements for this professional-judgement task
 have been satisfied. The package does not request a name or email address.
 
-## Decision label
+## Binary clearance-decision label
 
-- `COMPLIANT`: supplied evidence supports conformity with the applicable
-  policy requirements.
-- `NON_COMPLIANT`: supplied evidence shows at least one policy violation.
-- `UNCERTAIN`: evidence is missing, conflicting, or insufficient.
+- `CLEAR`: supplied evidence supports policy conformity and clearance.
+- `NOT_CLEAR`: supplied evidence shows a violation or is missing, conflicting,
+  or insufficient. This fail-closed class combines the frozen oracle's
+  `NON_COMPLIANT` and `UNCERTAIN` outcomes.
 
 ## Action label
 
@@ -208,6 +211,10 @@ have been satisfied. The package does not request a name or email address.
 - `PRIVILEGED`: execution requires a specifically authorised elevated role.
 - `NEVER`: the proposed/requested action is explicitly prohibited and must not
   execute.
+
+For the preregistered ordinal analysis, the restriction order is
+`AUTOMATIC < HUMAN < PRIVILEGED < NEVER`. Do not use that ordering to infer a
+label; apply the definitions above to each case.
 
 ## Completion procedure
 
@@ -223,6 +230,70 @@ have been satisfied. The package does not request a name or email address.
 expected to stop matching after you enter labels; the coordinator will hash
 the two completed CSV files separately on receipt.
 """
+
+
+def preregistration_plan(
+    oracle_key_sha256: str,
+    ethics_reference: str,
+    annotator_approval_reference: str,
+) -> dict[str, Any]:
+    return {
+        "schema": "zktrustllm.tnsm.human_label_preregistration.v1",
+        "registered_at": utc_now(),
+        "registered_before_labels": True,
+        "labels_received_at_registration": False,
+        "oracle_key_sha256": oracle_key_sha256,
+        "analysis_script": ANALYSIS_SCRIPT.name,
+        "analysis_script_sha256": sha256_file(ANALYSIS_SCRIPT),
+        "ethics_self_assessment_reference": ethics_reference,
+        "supervisor_annotator_approval_reference": annotator_approval_reference,
+        "primary_estimands": {
+            "binary_clearance_decision": {
+                "labels": ["CLEAR", "NOT_CLEAR"],
+                "oracle_mapping": {
+                    "COMPLIANT": "CLEAR",
+                    "NON_COMPLIANT": "NOT_CLEAR",
+                    "UNCERTAIN": "NOT_CLEAR",
+                },
+                "statistic": "unweighted Cohen's kappa",
+            },
+            "ordinal_action_class": {
+                "labels_in_order": list(ACTIONS),
+                "statistic": "linear-weighted Cohen's kappa",
+            },
+        },
+        "comparisons": [
+            "oracle_vs_annotator_1",
+            "oracle_vs_annotator_2",
+            "annotator_1_vs_annotator_2",
+        ],
+        "interval": {
+            "method": "scenario-cluster bootstrap percentile interval",
+            "confidence_level": 0.95,
+            "cluster": "scenario_id",
+            "clusters": 6,
+            "resample_whole_clusters": True,
+            "replicates": BOOTSTRAP_REPLICATES,
+            "seed": BOOTSTRAP_SEED,
+            "undefined_replicates": "exclude and report count",
+            "small_cluster_boundary": (
+                "Only six scenario clusters are available; intervals are descriptive "
+                "and finite-sample coverage is not asserted."
+            ),
+        },
+        "disagreement_rule": (
+            "Report every pairwise disagreement and confusion matrix. Do not adjudicate, "
+            "repair, relabel, or revise the frozen oracle in response to annotations."
+        ),
+        "invalid_input_rule": (
+            "Missing, out-of-vocabulary, edited-evidence, or incomplete-declaration inputs "
+            "fail closed; they are not imputed."
+        ),
+        "authorship_boundary": (
+            "Annotators are acknowledged for professional judgement and are not added as "
+            "authors solely for annotation."
+        ),
+    }
 
 
 def casebook(rows: list[dict[str, str]]) -> str:
@@ -272,17 +343,19 @@ def write_annotator_package(
         [
             {
                 "annotator_code": annotator,
-                "oran_experience_years": "",
+                "oran_familiarity_yes_no": "",
                 "independent_completion_yes_no": "",
                 "oracle_or_peer_labels_accessed_yes_no": "",
+                "contributed_to_oracle_prompts_or_scenarios_yes_no": "",
                 "completed_utc": "",
             }
         ],
         (
             "annotator_code",
-            "oran_experience_years",
+            "oran_familiarity_yes_no",
             "independent_completion_yes_no",
             "oracle_or_peer_labels_accessed_yes_no",
+            "contributed_to_oracle_prompts_or_scenarios_yes_no",
             "completed_utc",
         ),
     )
@@ -307,9 +380,17 @@ def build_packages(
     size: int = 30,
     seed: int = 20260808,
     strict_source_hash: bool = True,
+    ethics_reference: str = "",
+    annotator_approval_reference: str = "",
 ) -> dict[str, Any]:
     source_path = source_path.expanduser().resolve()
     output_dir = output_dir.expanduser().resolve()
+    ethics_reference = ethics_reference.strip()
+    annotator_approval_reference = annotator_approval_reference.strip()
+    if not ethics_reference:
+        raise ValueError("an ethics self-assessment reference is required before packaging")
+    if not annotator_approval_reference:
+        raise ValueError("a supervisor annotator-approval reference is required before packaging")
     source_hash = sha256_file(source_path)
     if strict_source_hash and source_hash != EXPECTED_ORACLE_SHA256:
         raise ValueError(
@@ -358,6 +439,16 @@ def build_packages(
         coordinator_rows,
         tuple(coordinator_rows[0]),
     )
+    oracle_key_sha256 = sha256_file(coordinator / "oracle_key.csv")
+    preregistration = preregistration_plan(
+        oracle_key_sha256,
+        ethics_reference,
+        annotator_approval_reference,
+    )
+    (coordinator / "analysis_preregistration.json").write_text(
+        json.dumps(preregistration, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     (coordinator / "DO_NOT_SHARE.md").write_text(
         "# Coordinator-only material\n\nThis directory contains oracle labels and source cell IDs. "
         "Do not provide it, the full Stage 8A archive, or its hashes to either annotator.\n",
@@ -365,7 +456,7 @@ def build_packages(
     )
 
     manifest = {
-        "schema": "zktrustllm.tnsm.human_label_package.v2",
+        "schema": "zktrustllm.tnsm.human_label_package.v3",
         "generated_at": utc_now(),
         "source_path": source_path.name,
         "source_sha256": source_hash,
@@ -377,18 +468,25 @@ def build_packages(
         "repeat_counts": dict(sorted(Counter(row["repeat"] for row in coordinator_rows).items())),
         "annotator_packages": [package_one, package_two],
         "annotator_orders_differ": package_one["case_order"] != package_two["case_order"],
-        "oracle_key_sha256": sha256_file(coordinator / "oracle_key.csv"),
+        "oracle_key_sha256": oracle_key_sha256,
+        "analysis_preregistration_sha256": sha256_file(
+            coordinator / "analysis_preregistration.json"
+        ),
+        "analysis_script_sha256": preregistration["analysis_script_sha256"],
+        "ethics_self_assessment_reference": ethics_reference,
+        "supervisor_annotator_approval_reference": annotator_approval_reference,
         "provider_calls_made": False,
         "labels_authored_by_generator": False,
         "publication_ready_for_distribution": True,
         "statistical_boundary": (
             "The 30 cells are balanced across six scenario classes and three retrieval modes but remain clustered "
-            "repeated observations of six scenario configurations. Cell-level kappa is descriptive; the final "
-            "analysis must also report a six-scenario clustered sensitivity result."
+            "repeated observations of six scenario configurations. The preregistered analysis reports "
+            "scenario-cluster-bootstrap intervals and explicitly disclaims reliable finite-sample coverage "
+            "with only six clusters."
         ),
         "ethics_boundary": (
-            "No names or email addresses are requested. The study coordinator must confirm applicable institutional "
-            "ethics and data-protection requirements before distributing either annotator package."
+            "The University ethics self-assessment must be lodged before distribution. No names, email addresses, "
+            "experience duration, or opinions about individuals are requested or retained."
         ),
     }
     (coordinator / "sampling_manifest.json").write_text(
@@ -404,6 +502,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--size", type=int, default=30)
     parser.add_argument("--seed", type=int, default=20260808)
     parser.add_argument("--no-strict-source-hash", action="store_true")
+    parser.add_argument("--ethics-reference", required=True)
+    parser.add_argument("--annotator-approval-reference", required=True)
     return parser.parse_args()
 
 
@@ -415,6 +515,8 @@ def main() -> None:
         size=args.size,
         seed=args.seed,
         strict_source_hash=not args.no_strict_source_hash,
+        ethics_reference=args.ethics_reference,
+        annotator_approval_reference=args.annotator_approval_reference,
     )
     print(
         json.dumps(

@@ -33,8 +33,9 @@ Do not submit until every unchecked item is completed.
 - [ ] Create a tagged GitHub release, deposit it on Zenodo, insert the DOI into
   the paper, `CITATION.cff`, `.zenodo.json`, README, and cover letter, then
   verify the archived checksums.
-- [ ] Confirm the institutional ethics determination for the independent-label
-  exercise and update the availability/ethics statement.
+- [ ] Confirm that the manuscript states no human-label exercise was conducted,
+  no human-participant data were collected, and expert validation is future
+  work. Do not include kappa, annotator, consent, or ethics-reference claims.
 - [ ] Upload the ICC Workshops paper as supplementary material.
 - [ ] Ask Mohammad Shojafar for the requested final check only after this gate is
   fully green.

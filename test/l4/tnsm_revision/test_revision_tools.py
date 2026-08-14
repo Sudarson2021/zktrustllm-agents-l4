@@ -205,7 +205,47 @@ class RevisionToolsTest(unittest.TestCase):
         module = load_module("analyze_human_labels")
         perfect = module.cohen_kappa(["A", "B", "A"], ["A", "B", "A"])
         self.assertEqual(perfect["cohen_kappa"], 1.0)
-        self.assertEqual(perfect["agreement"], 1.0)
+        self.assertEqual(perfect["exact_agreement"], 1.0)
+        weighted = module.cohen_kappa(
+            ["AUTOMATIC", "HUMAN", "NEVER"],
+            ["HUMAN", "HUMAN", "PRIVILEGED"],
+            module.ACTION_ORDER,
+            "linear",
+        )
+        self.assertTrue(weighted["defined"])
+        self.assertEqual(weighted["weighting"], "linear")
+
+    def test_frozen_240_matrix_does_not_support_row_bound_zk(self) -> None:
+        module = load_module("audit_zk_240_coverage")
+        result = module.audit(
+            ROOT / "docs/l4/supervisor_258/results/n8n_all_runs_240runs_duration.csv",
+            ROOT / "circuits/auth_v2_2.zok",
+        )
+        self.assertEqual(result["matrix"]["rows"], 240)
+        self.assertEqual(result["row_bound_verified_rows"], 0)
+        self.assertFalse(result["verify_all_240_supported_by_retained_evidence"])
+        self.assertEqual(result["matrix"]["proof_outcome_columns"], [])
+        self.assertEqual(result["matrix"]["row_binding_columns"], [])
+        self.assertEqual(
+            result["matrix"]["by_variant"]["full_l4"]["prover_time_source_counts"],
+            {"missing_log_evidence": 40},
+        )
+
+    def test_scenario_cluster_accuracy_interval(self) -> None:
+        module = load_module("analyze_oracle_clustered")
+        records = [
+            {"scenario_id": f"S{scenario}", "correct": scenario != 6}
+            for scenario in range(1, 7)
+            for _ in range(10)
+        ]
+        interval = module.cluster_accuracy_interval(
+            records,
+            lambda row: row["correct"],
+            seed=20260808,
+            replicates=1_000,
+        )
+        self.assertLessEqual(interval[0], 5 / 6)
+        self.assertGreaterEqual(interval[1], 5 / 6)
 
     def test_blinded_human_label_packages_and_clustered_analysis(self) -> None:
         package_module = load_module("make_human_label_subset")
@@ -269,12 +309,17 @@ class RevisionToolsTest(unittest.TestCase):
                 source,
                 output,
                 strict_source_hash=False,
+                ethics_reference="SELF-ASSESSMENT-TEST-001",
+                annotator_approval_reference="SUPERVISOR-EMAIL-TEST-001",
             )
             self.assertTrue(manifest["publication_ready_for_distribution"])
             self.assertEqual(manifest["selected_rows"], 30)
             self.assertEqual(set(manifest["scenario_counts"].values()), {5})
             self.assertEqual(set(manifest["retrieval_mode_counts"].values()), {10})
             self.assertTrue(manifest["annotator_orders_differ"])
+            self.assertEqual(
+                manifest["schema"], "zktrustllm.tnsm.human_label_package.v3"
+            )
 
             key_path = output / "coordinator_DO_NOT_SHARE" / "oracle_key.csv"
             with key_path.open(newline="", encoding="utf-8") as handle:
@@ -291,7 +336,9 @@ class RevisionToolsTest(unittest.TestCase):
                     self.assertNotIn(
                         key[row["case_id"]]["scenario_id"], row["scenario_json"]
                     )
-                    row["decision_label"] = key[row["case_id"]]["oracle_decision"]
+                    row["decision_label"] = analysis_module.ORACLE_DECISION_MAP[
+                        key[row["case_id"]]["oracle_decision"]
+                    ]
                     row["action_label"] = key[row["case_id"]]["oracle_action_class"]
                     row["confidence_1_to_5"] = "5"
                 with sheet_path.open("w", newline="", encoding="utf-8") as handle:
@@ -301,29 +348,50 @@ class RevisionToolsTest(unittest.TestCase):
 
                 declaration_path = output / annotator / "annotator_declaration.csv"
                 declaration_path.write_text(
-                    "annotator_code,oran_experience_years,independent_completion_yes_no,"
-                    "oracle_or_peer_labels_accessed_yes_no,completed_utc\n"
-                    f"{annotator},2,YES,NO,2026-08-10T00:00:00Z\n",
+                    "annotator_code,oran_familiarity_yes_no,independent_completion_yes_no,"
+                    "oracle_or_peer_labels_accessed_yes_no,"
+                    "contributed_to_oracle_prompts_or_scenarios_yes_no,completed_utc\n"
+                    f"{annotator},YES,YES,NO,NO,2026-08-10T00:00:00Z\n",
                     encoding="utf-8",
                 )
 
+            preregistration_path = (
+                output
+                / "coordinator_DO_NOT_SHARE"
+                / "analysis_preregistration.json"
+            )
             analysis = analysis_module.analyze(
                 key_path,
+                preregistration_path,
                 output / "annotator_1" / "blinded_cases.csv",
                 output / "annotator_2" / "blinded_cases.csv",
                 output / "annotator_1" / "annotator_declaration.csv",
                 output / "annotator_2" / "annotator_declaration.csv",
                 root / "analysis",
                 expected_key_sha256=analysis_module.sha256_file(key_path),
+                expected_preregistration_sha256=analysis_module.sha256_file(
+                    preregistration_path
+                ),
             )
             self.assertTrue(analysis["publication_ready"])
             self.assertEqual(analysis["n_cells"], 30)
             self.assertEqual(analysis["n_scenarios"], 6)
             self.assertEqual(
-                analysis["cell_level"]["joint_decision_action"]
-                ["oracle_vs_annotator_1"]["cohen_kappa"],
+                analysis["estimands"]["ordinal_action_class"]["comparisons"]
+                ["oracle_vs_annotator_1"]["point"]["cohen_kappa"],
                 1.0,
             )
+            self.assertEqual(analysis["oracle_revision_count"], 0)
+            self.assertTrue(analysis["oracle_frozen"])
+            self.assertEqual(
+                analysis["estimands"]["binary_clearance_decision"]["weighting"],
+                "unweighted",
+            )
+            self.assertEqual(
+                analysis["estimands"]["ordinal_action_class"]["weighting"],
+                "linear",
+            )
+            self.assertTrue((root / "analysis" / "disagreements.csv").exists())
     def test_bare_500_remains_unresolved(self) -> None:
         module = load_module("analyze_http_failures")
         category, status, _ = module.classify({"http_status": 500})

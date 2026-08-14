@@ -377,56 +377,101 @@ aliases because the gateway did not separately retain immutable
 provider-returned snapshots. Upload
 `tnsm_stage7c_r10_prompt_provenance_*.tar.gz` before manuscript integration.
 
-## Stage 8A: blinded human-label packages
+## Critical ZK-title gate: frozen 240-row coverage
+
+Run the read-only audit before deciding whether to retain a zero-knowledge
+claim in the title and index terms:
+
+```bash
+cd "$HOME/zktrustllm-agents-l4"
+bash scripts/l4/tnsm_revision/run_zk_240_coverage_audit.sh
+```
+
+The historical matrix passes this gate only if retained evidence binds a proof,
+public inputs, and a successful verification outcome to every one of its 240
+rows. A prover timing or constant gas field is not a proof-validity result.
+The current frozen CSV has no proof-outcome or row-binding columns, Full-L4 and
+No-IPFS have missing prover evidence, and four ablations record the prover as
+not invoked. Therefore the current evidence supports 0/240 row-bound successful
+verifications. Do not manufacture or replay one proof across diverse rows.
+Choose one of two defensible paths: execute a new generalized, row-bound 240-row
+proof experiment and retain all inputs/outcomes, or retitle and present
+AUTH_V2.2 only as a bounded component experiment.
+
+## Stage 8: deferred future human validation (do not run for this submission)
+
+No eligible independent annotators are currently available. Under the
+supervisor's stated fallback, this exercise is not on the critical path and is
+recorded as planned future validation. No human labels were collected, no kappa
+result may be reported, and the frozen oracle must remain unchanged. The v2
+packages are superseded and must not be distributed. The v3 generator and
+analysis plan below are retained for a future, separately approved study only.
+
+### Future Stage 8A: ethics-gated, preregistered blinded packages
 
 Stage 8A deterministically samples 30 cells from the pinned canonical oracle:
 five per scenario and ten per retrieval mode. It creates two annotator packages
 with different case orders and no oracle labels, source cell IDs, or scenario
 IDs. A separate coordinator directory contains the mapping and oracle key.
 
-Before distributing the packages, confirm the applicable University ethics
-and data-protection treatment with the supervisor or responsible institutional
-process. The package requests no annotator name or email address, but it does
-record a coded independence and experience declaration.
+The earlier v2 packages are superseded and must not be distributed. Before
+generating v3, lodge the University ethics self-assessment and obtain the
+supervisor's written approval of both named annotators. Neither annotator may
+be a co-author or have contributed to the oracle, prompts, or scenario design.
+The package requests no name, email address, experience duration, or opinion
+about any person. Its coded declaration records only yes/no O-RAN familiarity,
+independent completion, non-access to oracle/peer labels, and non-contribution
+to the benchmark design.
 
 Run:
 
 ```bash
 cd "$HOME/zktrustllm-agents-l4"
-bash scripts/l4/tnsm_revision/run_human_label_package.sh
+ETHICS_REFERENCE="<Ethics-RM-reference-or-no-review-reference>" \
+ANNOTATOR_APPROVAL_REFERENCE="<dated-supervisor-email-reference>" \
+  bash scripts/l4/tnsm_revision/run_human_label_package.sh
 ```
 
 Send only the `annotator_1` archive to the first O-RAN-literate annotator and
 only the `annotator_2` archive to the second. Never send the coordinator or full
 archive, repository mapping, manuscript results, or the other person's labels.
 Freeze both returned `blinded_cases.csv` and `annotator_declaration.csv` files
-before revealing or analysing the oracle key.
+before revealing or analysing the oracle key. Annotators are acknowledged for
+their professional judgement; annotation alone does not justify authorship.
 
 ### Stage 8A pass condition
 
 The source hash must equal the Stage 2 pin, `selected_rows=30`, scenario counts
 must be five each, retrieval-mode counts must be ten each, the annotator orders
-must differ, and `publication_ready_for_distribution=true`. Upload the full
-`DO_NOT_SHARE` archive here for validation; do not give it to annotators.
+must differ, and `publication_ready_for_distribution=true`. The coordinator
+package must contain `analysis_preregistration.json`, bound to the oracle-key
+and analyzer hashes before labels are collected. Upload the full `DO_NOT_SHARE`
+archive here for validation; do not give it to annotators.
 
-## Stage 8B: agreement and Cohen's kappa
+## Future Stage 8B: agreement and Cohen's kappa
 
-After both independent submissions are frozen, set the five input paths and
-the oracle-key hash printed by Stage 8A, then run:
+After both independent submissions are frozen, set the seven input paths/hashes
+printed by Stage 8A, then run:
 
 ```bash
 COORDINATOR_KEY="/path/to/oracle_key.csv" \
+PREREGISTRATION="/path/to/analysis_preregistration.json" \
 ANNOTATOR_1_LABELS="/path/to/annotator_1/blinded_cases.csv" \
 ANNOTATOR_2_LABELS="/path/to/annotator_2/blinded_cases.csv" \
 ANNOTATOR_1_DECLARATION="/path/to/annotator_1/annotator_declaration.csv" \
 ANNOTATOR_2_DECLARATION="/path/to/annotator_2/annotator_declaration.csv" \
 EXPECTED_KEY_SHA256="<Stage-8A-oracle-key-sha256>" \
+EXPECTED_PREREGISTRATION_SHA256="<Stage-8A-preregistration-sha256>" \
   bash scripts/l4/tnsm_revision/run_human_label_analysis.sh
 ```
 
-Stage 8B validates that case evidence was not edited and reports decision,
-action, and joint decision/action agreement for oracle-versus-each-annotator
-and annotator-versus-annotator. Because the 30 cells are clustered repetitions
-of six scenario configurations, cell-level kappa is descriptive; the artifact
-also reports a six-scenario majority-label sensitivity result with an explicit
-small-cluster limitation.
+Stage 8B validates that case evidence, the oracle key, the preregistration, and
+the analyzer have not changed. It reports unweighted Cohen's kappa for the
+binary clearance decision and linear-weighted Cohen's kappa for the ordinal
+action scale `AUTOMATIC < HUMAN < PRIVILEGED < NEVER`. Both estimands report
+oracle-versus-annotator 1, oracle-versus-annotator 2, and annotator
+1-versus-annotator 2, each with a 20,000-replicate whole-scenario percentile
+bootstrap interval. All disagreements are written to `disagreements.csv` and
+are not adjudicated. The frozen oracle is never revised in response to labels.
+Only six clusters exist, so interval coverage is explicitly described as
+limited and descriptive.
