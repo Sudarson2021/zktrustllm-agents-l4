@@ -1,8 +1,11 @@
 {
-  "title": "ZKTrustLLM-Agents: Proof-Governed Auditable Zero-Trust Control for O-RAN Edge Security",
-  "description": "Reproducibility artifact containing workflows, formal models, machine-readable measurements, validation scripts, and evidence manifests for proof-governed O-RAN security automation.",
+  "title": "Reproducibility Artifact for Auditable Policy-Governed LLM-Agent Control for O-RAN Edge Security",
+  "description": "Frozen reproducibility artifact for the IEEE TNSM manuscript \"Auditable Policy-Governed LLM-Agent Control for O-RAN Edge Security.\" It contains the frozen synthetic-policy oracle, external LangGraph and open-weights baselines, prompt-injection experiment, analysis scripts, hash manifests, and manuscript-support evidence. The artifact does not claim production O-RAN actuation, completed independent human validation, or successful row-bound zero-knowledge verification across the retained 240-row matrix.",
   "upload_type": "software",
   "license": "mit",
+  "version": "1.0.0",
+  "access_right": "open",
+  "language": "eng",
   "creators": [
     {
       "name": "Karmaker, Sudarson",
@@ -19,10 +22,15 @@
   ],
   "keywords": [
     "O-RAN",
-    "zero trust",
     "agentic AI",
-    "reproducible evaluation",
-    "blockchain audit"
+    "policy governance",
+    "zero trust",
+    "auditability",
+    "reproducibility",
+    "LangGraph",
+    "open-weights language model",
+    "prompt injection",
+    "distributed ledger"
   ],
   "related_identifiers": [
     {

@@ -1,7 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this artifact, please cite the archived release and the associated paper."
-title: "ZKTrustLLM-Agents: Proof-Governed Auditable Zero-Trust Control for O-RAN Edge Security"
+title: "Reproducibility Artifact for Auditable Policy-Governed LLM-Agent Control for O-RAN Edge Security"
 type: software
+abstract: >-
+  Frozen reproducibility artifact containing the synthetic-policy oracle,
+  external LangGraph and open-weights baselines, prompt-injection experiment,
+  analysis scripts, hash manifests, and manuscript-support evidence.
 authors:
   - family-names: Karmaker
     given-names: Sudarson
@@ -13,11 +17,18 @@ authors:
     given-names: "Haitham S."
     affiliation: "Institute for Communication Systems, University of Surrey"
 repository-code: "https://github.com/Sudarson2021/zktrustllm-agents-l4"
+url: "https://github.com/Sudarson2021/zktrustllm-agents-l4"
 license: MIT
+version: 1.0.0
+date-released: 2026-08-14
 keywords:
   - O-RAN
-  - zero trust
   - agentic AI
-  - reproducible evaluation
-  - blockchain audit
-# Add version, release-date, and doi after the final tagged Zenodo deposit.
+  - policy governance
+  - zero trust
+  - auditability
+  - reproducibility
+  - LangGraph
+  - open-weights language model
+  - prompt injection
+  - distributed ledger
