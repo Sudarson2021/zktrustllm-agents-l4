@@ -15,7 +15,7 @@
   \addplot[fill=blue!35,draw=blue] coordinates {(No RAG,16.7) (RAG,83.3) (Agentic RAG,100.0)};
   \addplot[fill=red!35,draw=red] coordinates {(No RAG,66.7) (RAG,83.3) (Agentic RAG,96.7)};
   \addplot[fill=brown!25,draw=brown] coordinates {(No RAG,0.0) (RAG,66.7) (Agentic RAG,83.3)};
-\nextgroupplot[title={(b) Abstention and safe action}]
+\nextgroupplot[title={(b) Abstention and fail-closed routing}]
   \addplot[fill=blue!35,draw=blue] coordinates {(No RAG,100.0) (RAG,33.3) (Agentic RAG,16.7)};
   \addplot[fill=red!35,draw=red] coordinates {(No RAG,100.0) (RAG,100.0) (Agentic RAG,100.0)};
 \nextgroupplot[title={(c) Structural validity}]
@@ -30,7 +30,7 @@
 {\scriptsize
 \begin{tabular}{@{}p{.47\textwidth}@{\hspace{.03\textwidth}}p{.47\textwidth}@{}}
 (a) \textcolor{blue}{Decision agreement}; \textcolor{red}{action agreement}; \textcolor{brown}{coverage} &
-(b) \textcolor{blue}{Abstention}; \textcolor{red}{safe given abstention} \\
+(b) \textcolor{blue}{Abstention}; \textcolor{red}{fail-closed given abstention} \\
 (c) \textcolor{blue}{Provider validity}; \textcolor{red}{role validity} &
 (d) \textcolor{blue}{Median}; \textcolor{red}{P95}
 \end{tabular}}

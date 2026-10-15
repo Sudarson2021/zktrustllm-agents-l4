@@ -195,7 +195,7 @@ accountable agentic O-RAN security. The design is motivated by zero-trust
 principles~\cite{nistZeroTrust}, O-RAN WG11 security requirements and threat
 models~\cite{oranSecReq,oranSecProtocols,oranThreatModel}, 3GPP 5G security
 architecture~\cite{threegpp33501}, O-RAN policy-control
-workflows~\cite{oranA1}, xApp development practice~\cite{santos2024xapp},
+workflows~\cite{oranArchitecture}, xApp development practice~\cite{santos2024xapp},
 workflow orchestration~\cite{n8nDocs}, and recent agentic AI-RAN
 research~\cite{chatzimiltis2026,he2026agentic,elkael2025agentran,navidan2026}.
 \subsection{Contributions}
@@ -240,7 +240,7 @@ surveys of zero-trust and blockchain-assisted architectures for 6G and
 IoT~\cite{nahar2024zta,aleisa2025blockchain} chart this design space but do
 not govern LLM-agent actions or bind decisions to reproducible evidence.
 O-RAN enables policy-driven control through SMO, Non-RT RIC, Near-RT RIC,
-A1, E2, O1, and O2 interfaces~\cite{oranA1,oranSecReq,oranSecProtocols}.
+A1, E2, O1, and O2 interfaces~\cite{oranArchitecture,oranSecReq,oranSecProtocols}.
 WG11 threat modelling and 3GPP TS~33.501 motivate explicit trust boundaries,
 authorisation, integrity, and audit controls~\cite{oranThreatModel,threegpp33501}.
 A1 is the intended operational locus here: model reasoning is separated from
@@ -751,6 +751,8 @@ in the supplemental Stage~F/F workflow.
 
 \begin{revision}
 \paragraph{Operational timescale and intended use}
+Near-RT RIC loops operate around 10~ms--1~s; Non-RT rApp loops exceed
+1~s~\cite{oranArchitecture}.
 The recorded 80.453--109.793~s medians and 164.747~s Agentic-RAG P95 exclude
 Near-RT control and urgent inline containment. Non-RT positioning alone does
 not validate a deadline. Candidate tasks are policy-change preparation,
@@ -766,7 +768,7 @@ not an observed production property.
 \subsection{Live n8n Execution and Human-Governed Outcome}
 \label{sec:live-run}
 To distinguish architectural intent from observed execution, the final-paper
-production workflow was exercised as a live supervisor demonstration using
+\rev{experimental} workflow was exercised as a live supervisor demonstration using
 scenario S2 (DRB integrity disabled) in AGENTIC\_RAG mode. The production
 webhook returned HTTP 200, and n8n recorded successful master execution
 \#1412 in 109.436\,s for run
@@ -827,15 +829,11 @@ demonstrate gateway authentication or deployed approval enforcement.
 
 \begin{revision}
 \subsection{Frozen Oracle Benchmark Performance}
-Table~\ref{tab:oracle-results} reports the complete oracle-relative comparison
-over 180 canonical successful cells, with 60 cells per retrieval mode. The
-results show a monotonic improvement in decision agreement and coverage as
-retrieval structure increases. No RAG achieves only 16.7\% decision agreement
-and zero coverage because every cell is marked as an abstention. Its 66.7\%
-action agreement and 100\% safe-given-abstention rate indicate that the
-governance layer frequently selected a conservative action despite the absence
-of a covered semantic decision. This behaviour is safe but operationally
-uninformative.
+Table~\ref{tab:oracle-results} reports 180 canonical successful cells,
+60 per retrieval mode. No RAG yields 16.7\% decision agreement, 66.7\%
+action agreement and zero coverage: every cell abstains. Its 100\%
+safe-given-abstention rate describes fail-closed gating under the reported
+configuration; it does not establish semantic correctness.
 
 \begin{revision}
 \begin{table*}[!t]
@@ -917,7 +915,7 @@ review. \\
 
 \begin{revision}
 \subsection{External and Open-Weights Baselines}
-The external LangGraph baseline used version 1.2.10, the same canonical
+The external LangGraph~\cite{langchainDocs} baseline used version 1.2.10, the same canonical
 180-cell JSONL (SHA-256
 \texttt{4854f1d4\ldots e1196c6c}), the same scenario labels and scoring, and
 one assessor node followed by deterministic reconciliation. All 180 requests
@@ -1433,8 +1431,8 @@ policy-gate abstraction and found no violation of six safety rules. On the
 frozen 180-case benchmark, the proposed workflow achieved 100.0\% decision
 agreement and 96.7\% action agreement, compared with 83.3\% and 66.7\% for the
 external LangGraph baseline; both reported zero unsafe automatic flags under their respective benchmark definitions. The local
-Qwen3-4B run shows that reproducible deployment alone does not guarantee safe
-classification, and the 30-case injection suite supports only bounded
+Qwen3-4B run shows that reproducible deployment alone does not guarantee
+oracle-conformant classification, and the 30-case injection suite supports only bounded
 containment claims. Across 90 matched transaction pairs, median inclusion time
 was 12.427~s on Sepolia and 7.225~s on IoTeX, while the live n8n workflow wrote
 only to a simulated ledger after explicit human approval. These configured workflows differ simultaneously in reasoning, request budgets
@@ -1483,9 +1481,9 @@ Responsibility for the final content and validation rests with the authors.}
 \bibitem{nistZeroTrust}
 S. Rose, O. Borchert, S. Mitchell, and S. Connelly, ``Zero Trust
 Architecture,'' NIST Special Publication 800-207, 2020.
-\bibitem{oranA1}
-O-RAN Software Community, ``A1 mediator documentation,'' 2023. [Online].
-Available: \url{https://docs.o-ran-sc.org/}
+\bibitem{oranArchitecture}
+\rev{ETSI, ``O-RAN architecture description,'' ETSI TS~103~982 V14.0.0
+(O-RAN.WG1.TS.OAD-R004-v14.00), Mar. 2026, secs.~5.3.1.2.3 and 5.3.2.}
 \bibitem{oranSecReq}
 ETSI, ``O-RAN security requirements and controls specifications,'' ETSI
 TS~104~104 V9.1.0 (O-RAN.WG11.SecReqSpecs-R003-v09.01), Jun. 2025.

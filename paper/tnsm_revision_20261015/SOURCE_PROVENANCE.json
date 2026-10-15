@@ -30,5 +30,19 @@
     "canonical_report_hashes_match_released_reference": 180,
     "new_inference": false,
     "independent_provider_authentication_established": false
+  },
+  "supervisor_notes_checked": {
+    "date": "2026-10-15",
+    "images": [
+      {
+        "file": "ChatGPT Image Oct 15, 2026, 01_23_51 PM.jpg",
+        "sha256": "2f25b0dad6f8be371ce0df8c8be1af8079d30278bdb6b4541bdd22e7c2cbaf49"
+      },
+      {
+        "file": "ChatGPT Image Oct 15, 2026, 01_24_09 PM.jpg",
+        "sha256": "69975ff3c97e2ab54a3b5c277e7638abd15afe063d5c5bcabfdb300d7fa339c2"
+      }
+    ],
+    "scope": "Visual reading of legible instructions; Figure S1 note concerns AI-generated diagram provenance. Individual unclear words are not asserted as exact transcription."
   }
 }

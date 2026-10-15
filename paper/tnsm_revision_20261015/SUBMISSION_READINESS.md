@@ -18,6 +18,9 @@ The earlier missing-report caveats have been removed from the manuscript and res
 - Four PDF builds: main **14 pages**, supplement **14 pages**. Clean counterparts have identical text and character positions. Final pages and rendered Word documents inspected.
 - **43 Python tests**: 29 existing revision-tool, nine retained-evidence and five recovered-evidence tests. **14 callback payload cases**: two valid and twelve malformed inputs. The callback V2 export remains inactive.
 - All eight Reviewer 1 and three Reviewer 2 comments have a point-by-point response. R2.3 concerns semantics versus execution safety; the supervisor's old Table IV instruction is separate.
+- Both original supervisor photographs were visually inspected. `SUPERVISOR_ALIGNMENT.md` supplies the requested concern/change/response mapping. The Figure S1 note concerns an AI-generated diagram: Supplement III now explicitly identifies its archived JSON, generator, 54-node inventory, functional grouping and complete 49-connection topology. AI assistance is disclosed. Near-RT/Non-RT timescales now cite ETSI TS 103 982 V14.0.0; remaining semantic-safety wording was corrected.
+- Figure 7's hash legend is explicitly associated with panel (a). The supplement now carries the same descriptive Wilson-bound caveat as the main text, including the shared three-context limitation. Existing technical references are linked in the relevant prose for traceability; no new experimental results were introduced by these edits.
+- The supervisor's requested latency ablation remains only partially fulfilled experimentally: retained-output replay and all-180 descriptive phase timing are complete; a matched inference-time component experiment is not. The response uses R2.2's qualified-interpretation alternative without claiming that replay measures framework overhead.
 
 ## Remaining author and publication steps
 

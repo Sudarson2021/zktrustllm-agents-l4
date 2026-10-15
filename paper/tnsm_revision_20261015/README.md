@@ -14,6 +14,7 @@ The starting point is the TNSM artifact branch `tnsm-supervisor-revision-step1-2
 - VII-A expands operator review and unverified deployment obligations. A separate inactive V2 callback export rejects string Boolean coercion; local payload tests are included.
 - Editable TikZ figures replace supplementary screenshots. Fig. S1 is a functional map generated from archived JSON, with a complete edge-level draw.io diagram and node inventory. It is not an AI-detector figure or execution proof.
 - `RESPONSE_TO_REVIEWERS.md` answers all eight R1 and three R2 comments. The supervisor's former Table IV request is distinct from R2.3, which concerns safety versus semantics.
+- `SUPERVISOR_ALIGNMENT.md` maps the original photographed instructions to exact manuscript changes and response positions. It identifies the remaining matched inference-time ablation gap explicitly. Supplement III now explains Figure S1's JSON/generator provenance and disclosed AI assistance; the operational-timescale paragraph cites ETSI TS 103 982 V14.0.0.
 
 ## Important corrections
 

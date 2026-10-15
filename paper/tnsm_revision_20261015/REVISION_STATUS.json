@@ -97,5 +97,13 @@
     "source": "original final-action records; cross-checked against retained histograms"
   },
   "readiness_review": "SUBMISSION_READINESS.md",
-  "raw_evidence_verification": "RAW_EVIDENCE_VERIFICATION.md"
+  "raw_evidence_verification": "RAW_EVIDENCE_VERIFICATION.md",
+  "supervisor_alignment": {
+    "original_photographs_visually_checked": true,
+    "record": "SUPERVISOR_ALIGNMENT.md",
+    "matched_inference_time_ablation_completed": false,
+    "reviewer_qualified_interpretation_adopted": true,
+    "figure_s1_code_provenance_paragraph_added": true,
+    "near_rt_timescale_primary_standard_cited": true
+  }
 }

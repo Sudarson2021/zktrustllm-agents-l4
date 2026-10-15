@@ -126,7 +126,7 @@ agentic AI, policy governance, human-in-the-loop governance.
 \label{sec:roadmap}
 
 \subsection{Relationship to the Main Manuscript}
-The main manuscript states results and their boundaries; this supplement
+The main manuscript~\rev{\cite{mainpaper}} states results and their boundaries; this supplement
 states how each result was produced and how a reviewer can check it without
 trusting a screenshot, a narrative, or the authors. Nothing here weakens or
 extends a claim made in the main text. Where the two documents overlap
@@ -268,7 +268,7 @@ Any artifact file asserting one of these. \\
 
 \subsection{Public Repository and Entry Points}
 The public artifact repository is
-\url{https://github.com/Sudarson2021/zktrustllm-agents-l4}. A reviewer should
+\url{https://github.com/Sudarson2021/zktrustllm-agents-l4}~\rev{\cite{artifact}}. A reviewer should
 record the selected branch and the full output of
 \texttt{git rev-parse HEAD} before executing any script. The general local
 entry point is \artifactpath{scripts/reproduce_all.sh}; the paper-specific
@@ -491,7 +491,7 @@ load and RPC conditions differ. \\
 \section{n8n Trust Boundary and Workflow Families}
 \label{sec:n8n-boundary}
 
-The self-hosted n8n instance coordinates two workflow families: (i) the
+The self-hosted n8n instance~\rev{\cite{n8n}} coordinates two workflow families: (i) the
 54-node verified final-paper supervisor export and its eight-node human-review
 callback, and (ii) the Stage~A--F plus F/F paper-evidence workflow. n8n is a
 scientific orchestration, correlation, and reporting layer, not a trusted
@@ -510,10 +510,18 @@ implement the provider-completion loop. Table~\ref{tab:node-path} of this
 supplement, not the main-manuscript figure, is authoritative for the node set.
 The schematic groups functions. Exact node membership and edges are defined by the exported JSON, not by a one-to-one mapping from the five-stage figure.
 
-The editable workflow and callback maps below summarise the archived exports.
-The original exports, screenshots and manifests remain in the historical
-evidence directory; the maps are contextual summaries rather than execution
-proof. The JSON exports and hash manifests remain authoritative.
+\paragraph{Figure S1 data and code provenance}
+The source is the archived \texttt{L4FinalPaperDemoV1.verified.json} export.
+\artifactpath{scripts/l4/tnsm_revision/build_workflow_map.py} reads node
+names, types, positions and connections. It checks the 54-node total and complete
+membership of the 45 computational nodes in six predefined functional groups;
+nine sticky notes are documentation. It writes the node inventory, editable
+TikZ summary and draw.io topology with all 49 exported connections. The compact
+figure's grouped arrows express a functional interpretation; draw.io preserves
+the exported connections. AI assistance supported the generator and drawing,
+as disclosed in the main manuscript. Counts derive from the archived code;
+the original exports, screenshots, manifests and execution trace remain the
+evidence. The diagrams are contextual summaries, not new execution proof.
 
 \end{revision}
 \begin{figure*}[!t]
@@ -1258,9 +1266,9 @@ prevents post-hoc relabelling. The append-only index retained 233 attempts:
 180 successes and 53 HTTP-500 workflow-boundary failures affecting 39 unique
 cells. SUCCESS-only resumption recovered all cells, leaving zero pending cells
 and 180/180 audited evidence packages. Coverage, abstention, and
-safe-given-abstention are reported separately from oracle decision agreement because
-an abstaining system that stays fail-closed is safe but operationally
-uninformative, and a single agreement figure would hide that distinction.
+safe-given-abstention are reported separately from oracle decision agreement
+\rev{because fail-closed abstention alone establishes no semantic correctness;
+a single agreement figure would hide this distinction.}
 
 The repeated cells do not constitute 60 independent scenarios per mode.
 Decision labels were identical across all 18 scenario--mode groups; enforced
@@ -1356,9 +1364,12 @@ production safety.
 Prompt-injection resistance was tested with 30 frozen synthetic variants:
 ten attack families crossed with three prohibited base contexts, all requiring
 NEVER. The assessor returned NEVER with \texttt{execute=false} in 30/30 cases;
-no attack succeeded and no unsafe execution declaration occurred. The Wilson 95\% lower
-bound for semantic resistance is 88.6\%. This result is limited to the frozen
-suite and does not establish resistance to adaptive or unrestricted attacks.
+the scorer recorded zero unsafe execution declarations. The Wilson 95\% lower
+bound of 88.6\% is a descriptive binomial calculation. These 30 variants share
+only three base contexts and are not independent operational incidents, so the
+bound does not establish population-level resistance. This result is limited
+to the frozen suite and does not establish resistance to adaptive or
+unrestricted attacks.
 
 \end{revision}
 \subsection{Paired Consensus-Sensitivity Sessions}
@@ -1366,7 +1377,7 @@ suite and does not establish resistance to adaptive or unrestricted attacks.
 Three independent sessions were executed on 21, 22, and 23 July 2026 (the
 third retained as \texttt{retry1}). Each deployed identical Solidity~0.8.20
 bytecode (optimizer 200, \texttt{viaIR=true}) to Ethereum Sepolia (chain ID
-11155111) and IoTeX testnet (chain ID 4690), excluded three warm-up pairs,
+11155111)~\rev{\cite{sepolia}} and IoTeX testnet (chain ID 4690)~\rev{\cite{iotex}}, excluded three warm-up pairs,
 retained 30 measured pairs per session (90 pairs total), and recorded at least
 64 consecutive post-run block headers per session, from which 189 consecutive
 block intervals per network were derived. The analysis uses R-7 quantiles and
@@ -1392,8 +1403,8 @@ difference rather than explained causally.
 
 \subsection{Permissioned Raft and QBFT Fault Sessions}
 \label{sec:raftqbft}
-Pinned etcd~3.5.17 runs a real three-member Raft cluster and pinned
-Besu~24.5.4 runs a real four-validator QBFT network. Three clean sessions
+Pinned etcd~3.5.17 runs a real three-member Raft cluster~\rev{\cite{raft}} and pinned
+Besu~24.5.4 runs a real four-validator QBFT network~\rev{\cite{besu}}. Three clean sessions
 retain 30 observations per latency condition, giving $n=90$ per condition, and
 90 quorum-loss probes per implementation. Raft is exercised healthy, with one
 follower stopped, after leader failover, without a majority, and after
@@ -1429,7 +1440,7 @@ observations were retained in cyclically balanced order. All 30 calls in a
 cell return the same gas delta because the bytecode, input, and local EVM
 state are fixed; the repetition therefore evidences determinism rather than
 variance. The SHA-512 implementation is an experimental measurement instrument
-gated by the FIPS~180-4 empty-string and \texttt{abc} vectors, and is not the
+gated by the FIPS~180-4~\rev{\cite{fips}} empty-string and \texttt{abc} vectors, and is not the
 deployable path: the deployable workflow computes SHA-512 off chain and
 anchors the complete 64-byte digest through \texttt{HashCommitmentLedger}.
 Because SHA-256 has a standard EVM precompile and SHA-512 does not, the
@@ -1439,7 +1450,7 @@ throughput.
 
 \subsection{Formal Verification}
 \label{sec:formal-detail}
-The TLA\textsuperscript{+}/TLC run uses TLC~2.19 with \texttt{-deadlock},
+The TLA\textsuperscript{+}/TLC run~\rev{\cite{tla}} uses TLC~2.19 with \texttt{-deadlock},
 because ACT and BLOCK are deliberately terminal non-stuttering phases and
 would otherwise be reported as modelling errors. It enumerates 64 distinct
 initial states and 320 distinct reachable states to depth five. The six
@@ -1626,6 +1637,26 @@ They do not verify arbitrary code defects or deployed approval services.
 The finite model has no accepted-commitment history and does not check replay.
 
 \subsection{Timing definitions and recovered benchmark phases}
+\begin{table*}[!t]
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
+\caption{Recovered benchmark timing: marginal medians in seconds, 60 cells
+per mode. The four phase intervals partition each internal report duration;
+the indexed timer is separate. These are descriptive recorded-workflow
+statistics, not matched inference-time ablations.}
+\label{tab:recovered-timing}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Mode & $n$ & Indexed & Report & \shortstack{Input to\\retrieval} &
+\shortstack{Retrieval to\\aggregate} & \shortstack{Aggregate to\\reflection} &
+\shortstack{Reflection to\\report} \\
+\midrule
+No RAG & 60 & 80.453 & 80.363 & 0.011 & 20.220 & 57.698 & 0.036 \\
+RAG & 60 & 100.152 & 100.058 & 0.394 & 24.197 & 75.637 & 0.036 \\
+Agentic RAG & 60 & 109.793 & 109.711 & 3.062 & 26.224 & 79.608 & 0.036 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
 The baseline's recorded latency surrounds its assessor request. The original
 180-cell proposed values describe returned-workflow durations. They differ in
 provider count, role calls, budgets, prompts, dates and governance; their ratio
@@ -1652,25 +1683,7 @@ totalling 108.938646~s. Its 25.421263~s parallel assessment interval overlaps
 The separate approval callback follows report completion. These observations
 explain that trace's duration without claiming a matched framework ablation.
 
-\begin{table*}[!t]
-\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
-\caption{Recovered benchmark timing: marginal medians in seconds, 60 cells
-per mode. The four phase intervals partition each internal report duration;
-the indexed timer is separate. These are descriptive recorded-workflow
-statistics, not matched inference-time ablations.}
-\label{tab:recovered-timing}
-\begin{tabular}{lrrrrrrr}
-\toprule
-Mode & $n$ & Indexed & Report & \shortstack{Input to\\retrieval} &
-\shortstack{Retrieval to\\aggregate} & \shortstack{Aggregate to\\reflection} &
-\shortstack{Reflection to\\report} \\
-\midrule
-No RAG & 60 & 80.453 & 80.363 & 0.011 & 20.220 & 57.698 & 0.036 \\
-RAG & 60 & 100.152 & 100.058 & 0.394 & 24.197 & 75.637 & 0.036 \\
-Agentic RAG & 60 & 109.793 & 109.711 & 3.062 & 26.224 & 79.608 & 0.036 \\
-\bottomrule
-\end{tabular}
-\end{table*}
+
 
 \subsection{Approval export repair and deployment boundary}
 The archived callback coerces \texttt{approved} through JavaScript

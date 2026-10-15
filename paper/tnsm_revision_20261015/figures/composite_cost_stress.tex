@@ -9,19 +9,20 @@
 ]
 \nextgroupplot[title={(a) Solidity hash execution cost},
   symbolic x coords={32 B,1024 B},xtick=data,ylabel={Gas (log scale)},
-  ymode=log,log basis y=10,legend to name=costlegend]
-  \addplot coordinates {(32 B,59) (1024 B,245)};
-  \addplot coordinates {(32 B,392) (1024 B,2879)};
-  \addplot coordinates {(32 B,162174) (1024 B,1614065)};
-  \legend{Keccak-256,SHA-256,SHA-512}
+  ymode=log,log basis y=10]
+  \addplot[fill=blue!35,draw=blue] coordinates {(32 B,59) (1024 B,245)};
+  \addplot[fill=red!35,draw=red] coordinates {(32 B,392) (1024 B,2879)};
+  \addplot[fill=brown!25,draw=brown] coordinates {(32 B,162174) (1024 B,1614065)};
 \nextgroupplot[title={(b) Injected-delay profiles},
   symbolic x coords={Clean,Delay,D+J,D+J+L},xtick=data,
   x tick label style={rotate=15,anchor=east},ylabel={Duration (s)},ymin=0,ymax=75]
   \addplot coordinates {(Clean,39.06) (Delay,47.44) (D+J,56.88) (D+J+L,66.82)};
 \end{groupplot}
 \end{tikzpicture}
-\ref{costlegend}
-\caption{Hash cost and configured stress results. The panels have distinct
-workloads and are not an end-to-end deployment comparison.}
+\par\smallskip
+{\scriptsize (a) \textcolor{blue}{Keccak-256}; \textcolor{red}{SHA-256};
+\textcolor{brown}{SHA-512}. \quad (b) Configured end-to-end duration.}
+\caption{\rev{Hash cost and configured stress results. The panels have distinct
+workloads and are not an end-to-end deployment comparison.}}
 \label{fig:composite-cost-stress}
 \end{figure*}
