@@ -1,0 +1,72 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 71 and seed 20261015 with 1 worker on 8 cores with 1820MB heap and 64MB offheap memory [pid: 99] (Linux 6.18.44 amd64, Ubuntu 17.0.20 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /tmp/tnsm-tlc-5arma8gl/ZKTrustLLMPolicyGateZeroProbe.tla
+Parsing file /tmp/tnsm-tlc-5arma8gl/ZKTrustLLMPolicyGate.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/FiniteSets.tla
+Parsing file /tmp/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module ZKTrustLLMPolicyGate
+Semantic processing of module ZKTrustLLMPolicyGateZeroProbe
+Starting... (2026-10-15 15:11:10)
+Computing initial states...
+Computed 2 initial states...
+Computed 4 initial states...
+Computed 8 initial states...
+Computed 16 initial states...
+Computed 32 initial states...
+Computed 64 initial states...
+Finished computing initial states: 96 distinct states generated at 2026-10-15 15:11:11.
+Error: Invariant NonZeroAnchorRequired is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ proofValid = TRUE
+/\ privilegedApproved = FALSE
+/\ anchorCommitment = 0
+/\ humanApproved = FALSE
+/\ executed = FALSE
+/\ phase = "OBSERVE"
+/\ actionClass = "AUTOMATIC"
+
+State 2: <Next line 40, col 6 to line 43, col 60 of module ZKTrustLLMPolicyGate>
+/\ proofValid = TRUE
+/\ privilegedApproved = FALSE
+/\ anchorCommitment = 0
+/\ humanApproved = FALSE
+/\ executed = FALSE
+/\ phase = "REASON"
+/\ actionClass = "AUTOMATIC"
+
+State 3: <Next line 45, col 6 to line 48, col 60 of module ZKTrustLLMPolicyGate>
+/\ proofValid = TRUE
+/\ privilegedApproved = FALSE
+/\ anchorCommitment = 0
+/\ humanApproved = FALSE
+/\ executed = FALSE
+/\ phase = "PROVE"
+/\ actionClass = "AUTOMATIC"
+
+State 4: <Next line 50, col 6 to line 53, col 60 of module ZKTrustLLMPolicyGate>
+/\ proofValid = TRUE
+/\ privilegedApproved = FALSE
+/\ anchorCommitment = 0
+/\ humanApproved = FALSE
+/\ executed = FALSE
+/\ phase = "ANCHOR"
+/\ actionClass = "AUTOMATIC"
+
+State 5: <Next line 55, col 6 to line 60, col 50 of module ZKTrustLLMPolicyGate>
+/\ proofValid = TRUE
+/\ privilegedApproved = FALSE
+/\ anchorCommitment = 0
+/\ humanApproved = FALSE
+/\ executed = TRUE
+/\ phase = "ACT"
+/\ actionClass = "AUTOMATIC"
+
+388 states generated, 388 distinct states found, 95 states left on queue.
+The depth of the complete state graph search is 5.
+The average outdegree of the complete state graph is 1 (minimum is 1, the maximum 1 and the 95th percentile is 1).
+Finished in 02s at (2026-10-15 15:11:12)

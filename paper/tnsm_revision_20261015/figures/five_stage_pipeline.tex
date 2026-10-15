@@ -1,0 +1,29 @@
+
+\begin{revision}
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  stage/.style={draw,rounded corners=2pt,align=center,text width=2.6cm,
+    minimum height=15mm,fill=blue!5},
+  flow/.style={-Latex,semithick},
+  node distance=7mm
+]
+\node[stage] (observe) {1. Observe\\telemetry + scenario};
+\node[stage,right=of observe] (reason) {2. Propose\\retrieval + assessors};
+\node[stage,right=of reason] (govern) {3. Govern\\policy ladder};
+\node[stage,right=of govern] (bind) {4. Bind\\decision + evidence hash};
+\node[stage,right=of bind] (audit) {5. Audit\\HUMAN gate + anchor};
+\draw[flow] (observe) -- (reason);
+\draw[flow] (reason) -- (govern);
+\draw[flow] (govern) -- (bind);
+\draw[flow] (bind) -- (audit);
+\draw[flow,dashed] (audit.south) to[bend left=25]
+  node[below]{receipt, decision, and evidence identifiers} (observe.south);
+\end{tikzpicture}
+\caption{\rev{Five-stage execution schematic. Model output remains untrusted until
+the external policy ladder admits it. The complete exported workflow and its
+node-level configuration are provided in the supplement.}}
+\label{fig:five-stage-pipeline}
+\end{figure*}
+\end{revision}

@@ -1,0 +1,23 @@
+{
+  "revision_date": "2026-10-15",
+  "repository": "Sudarson2021/zktrustllm-agents-l4",
+  "base_branch": "tnsm-supervisor-revision-step1-20260808-1837",
+  "base_commit": "6f63fed2e20e467fa3139623c83648ca9baf4b73",
+  "source_archive": {
+    "filename": "TNSM_Haitham_Final_12p_Overleaf_FINAL.zip",
+    "sha256": "5bc761c501d1a0157adf4d8e7dc1988b209cc744a7b94104246afde4847b4bee",
+    "limit": "Recovered LaTeX source; compiled result is not asserted byte-identical to the October working PDF. Author membership and funding wording were reconciled with that PDF."
+  },
+  "supplied_working_pdf_sha256": "c45d492050216265ffc94d48d7c589d13c493d6fa4608b7b7ef96943b98ad68f",
+  "unchanged_experiment_archives": {
+    "tnsm_stage7c_r10_prompt_provenance_20260809T233153Z.tar.gz": "07887fd6aaa2f1cebf28c55f84a984480bb3aefec522507132de9df316aa4512",
+    "tnsm_stage2_oracle_export_20260808T190951Z.tar.gz": "d798ec99b02c7c7ff13f2d788f12e079c60ea6f4be46518fdf9f652efd535c3e",
+    "tnsm_oracle_clustered_statistics_20260814T181044Z.tar.gz": "e173a9bbe9a9c3538964a58b05b88bd084f90d1f9f0b8bcb895d34a65fce903c",
+    "tnsm_stage3_langgraph_full_20260809T153320Z.tar.gz": "4ba40fda523a2bad25a9845f0fa9da324d13a1e4414987bf02d3fa3273de1dd2",
+    "tnsm_stage4_open_weights_full_20260809T211302Z.tar.gz": "039237a776d92a0390f757138e4dec4c43e9c475f8098ead752e8282f1484141"
+  },
+  "ieeetran_class_origin": "https://ctan.org/pkg/ieeetran",
+  "ieeetran_class_sha256": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7",
+  "new_hosted_model_calls": 0,
+  "external_portal_modified": false
+}

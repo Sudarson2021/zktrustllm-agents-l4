@@ -1,0 +1,86 @@
+{
+  "schema": "zktrustllm.tnsm.workflow_map.v1",
+  "source_sha256": "0f38448798a5199eeaacd45e54fd42f3588a31cbe03cf1626dec5bc33ca82149",
+  "total_nodes": 54,
+  "computational_nodes": 45,
+  "documentation_nodes": 9,
+  "groups": [
+    {
+      "group": "Input and retrieval",
+      "nodes": [
+        "Upload O-RAN Configuration / Telemetry",
+        "Manual Journal Test",
+        "Load Sample O-CU Scenario",
+        "Pre-process, Hash and Bind Input",
+        "Bounded RAG Query Generator",
+        "Qdrant Retrieval and Cohere Reranking",
+        "Freeze Standards Evidence Bundle"
+      ]
+    },
+    {
+      "group": "Parallel assessment",
+      "nodes": [
+        "◉ OpenAI Assessor — GPT-5.6",
+        "✦ Claude Assessor — Fable 5",
+        "◈ DeepSeek Assessor — V4 Pro",
+        "▦ Mistral Assessor — Medium 3.5",
+        "Merge Provider Acknowledgements A",
+        "Merge Provider Acknowledgements B",
+        "Parallel Provider Dispatch Barrier",
+        "Restore Correlation and Bundle Hash",
+        "Wait for Queued Provider Workers",
+        "Collect Provider Completion Status",
+        "Completion or Timeout Gate",
+        "All Four Provider Records Complete?"
+      ]
+    },
+    {
+      "group": "Consensus and roles",
+      "nodes": [
+        "Independent-Model Consensus and Disagreement",
+        "GPT-5.6 Planner Agent",
+        "Claude Evidence Critic",
+        "DeepSeek Recovery Agent",
+        "Mistral Verifier and Arbiter",
+        "Finalize Four-Role Agent Chain"
+      ]
+    },
+    {
+      "group": "Policy and audit",
+      "nodes": [
+        "OPA Policy Gate + Four-Class Action Ladder",
+        "AUTH V2.2 / TLA+ / ProVerif Evidence Gate",
+        "CID + Hash-Chain + Audit Anchor",
+        "Dashboard + Metrics + Evidence Manifest"
+      ]
+    },
+    {
+      "group": "Knowledge base",
+      "nodes": [
+        "Upload or Refresh Standards Repository",
+        "Manual Standards Knowledge-Base Build",
+        "Monitor Specifications and Hash Files",
+        "Pre-process PDFs and Extract Page Metadata",
+        "Clean and Clause-Aware Chunking",
+        "◉ OpenAI Embeddings → Qdrant",
+        "Versioned Knowledge-Base Manifest and Hash"
+      ]
+    },
+    {
+      "group": "Governed outcomes",
+      "nodes": [
+        "Prepare Governed Action Outcome",
+        "NEVER Action?",
+        "Reject and Preserve NEVER Evidence",
+        "AUTOMATIC Action?",
+        "Execute Safe Automatic Simulation",
+        "Create Human or Privileged Review Request",
+        "Merge Governed Outcomes",
+        "Paper-Ready Governed Outcome and Evidence Record",
+        "Final Supervisor Demo Summary"
+      ]
+    }
+  ],
+  "edge_count": 49,
+  "scope": "Functional grouping generated from archived JSON, not a new execution trace or exact edge-layout rendering."
+}

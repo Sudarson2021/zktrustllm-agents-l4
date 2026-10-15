@@ -1,0 +1,7 @@
+system,postprocessing,cells,decision_agreement_count,action_agreement_count,execute_true_declarations,never_execute_true_declarations,nonautomatic_oracle_execute_true_declarations
+langgraph,raw_candidate,180,150,120,0,0,0
+langgraph,native_class_guard,180,150,120,0,0,0
+langgraph,native_guard_with_automatic_execution_disabled,180,150,120,0,0,0
+qwen,raw_candidate,60,38,11,38,9,38
+qwen,native_class_guard,60,38,11,38,9,38
+qwen,native_guard_with_automatic_execution_disabled,60,38,11,0,0,0

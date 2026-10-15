@@ -1,0 +1,34 @@
+
+\begin{revision}
+\begin{figure}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=7mm and 11mm,
+  state/.style={draw,rounded corners=1.5pt,align=center,minimum height=7mm,
+    minimum width=16mm,fill=blue!5},
+  terminal/.style={draw,rounded corners=1.5pt,align=center,minimum height=7mm,
+    minimum width=16mm,fill=gray!10},
+  guard/.style={draw,diamond,aspect=2.0,align=center,inner sep=1.5pt,
+    fill=orange!10},
+  flow/.style={-Latex,semithick}
+]
+\node[state] (validate) {Validate\\schema + policy};
+\node[state,right=of validate] (submit) {Submit\\HUMAN request};
+\node[guard,right=of submit] (decision) {Operator\\decision};
+\node[state,right=of decision] (ledger) {Simulated\\ledger write};
+\node[terminal,below=of decision] (stop) {Reject / expire\\no actuation};
+\draw[flow] (validate) -- (submit);
+\draw[flow] (validate) |- node[pos=.25,left,font=\scriptsize]{invalid / NEVER} (stop);
+\draw[flow] (submit) -- (decision);
+\draw[flow] (decision) -- node[above,font=\scriptsize]{approve} (ledger);
+\draw[flow] (decision) -- node[right,font=\scriptsize]{reject / timeout} (stop);
+\end{tikzpicture}
+}
+\caption{\rev{HUMAN-gate state transition. The approved simulated-ledger branch was observed.
+Invalid, reject and timeout branches show intended fail-closed requirements;
+complete branch coverage is not claimed.}}
+\label{fig:human-gate-state-machine}
+\end{figure}
+\end{revision}

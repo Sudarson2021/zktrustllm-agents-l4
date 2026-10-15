@@ -1,0 +1,43 @@
+
+\begin{revision}
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 2,horizontal sep=1.25cm,vertical sep=1.15cm},
+  width=.43\textwidth,height=.24\textwidth,ybar,
+  symbolic x coords={No RAG,RAG,Agentic RAG},xtick=data,
+  x tick label style={rotate=15,anchor=east,font=\scriptsize},
+  tick label style={font=\scriptsize},label style={font=\scriptsize},
+  title style={font=\footnotesize},ymin=0,ymax=110,ylabel={Percent}
+]
+\nextgroupplot[title={(a) Agreement with synthetic oracle}]
+  \addplot[fill=blue!35,draw=blue] coordinates {(No RAG,16.7) (RAG,83.3) (Agentic RAG,100.0)};
+  \addplot[fill=red!35,draw=red] coordinates {(No RAG,66.7) (RAG,83.3) (Agentic RAG,96.7)};
+  \addplot[fill=brown!25,draw=brown] coordinates {(No RAG,0.0) (RAG,66.7) (Agentic RAG,83.3)};
+\nextgroupplot[title={(b) Abstention and safe action}]
+  \addplot[fill=blue!35,draw=blue] coordinates {(No RAG,100.0) (RAG,33.3) (Agentic RAG,16.7)};
+  \addplot[fill=red!35,draw=red] coordinates {(No RAG,100.0) (RAG,100.0) (Agentic RAG,100.0)};
+\nextgroupplot[title={(c) Structural validity}]
+  \addplot[fill=blue!35,draw=blue] coordinates {(No RAG,85.0) (RAG,97.9) (Agentic RAG,95.8)};
+  \addplot[fill=red!35,draw=red] coordinates {(No RAG,100.0) (RAG,100.0) (Agentic RAG,100.0)};
+\nextgroupplot[title={(d) End-to-end latency},ylabel={Seconds},ymin=0,ymax=180]
+  \addplot[fill=blue!35,draw=blue] coordinates {(No RAG,80.453) (RAG,100.152) (Agentic RAG,109.793)};
+  \addplot[fill=red!35,draw=red] coordinates {(No RAG,108.753) (RAG,150.769) (Agentic RAG,164.747)};
+\end{groupplot}
+\end{tikzpicture}
+\par\smallskip
+{\scriptsize
+\begin{tabular}{@{}p{.47\textwidth}@{\hspace{.03\textwidth}}p{.47\textwidth}@{}}
+(a) \textcolor{blue}{Decision agreement}; \textcolor{red}{action agreement}; \textcolor{brown}{coverage} &
+(b) \textcolor{blue}{Abstention}; \textcolor{red}{safe given abstention} \\
+(c) \textcolor{blue}{Provider validity}; \textcolor{red}{role validity} &
+(d) \textcolor{blue}{Median}; \textcolor{red}{P95}
+\end{tabular}}
+\caption{\rev{Consolidated frozen-oracle results ($60$ cells per mode). Agreement is
+relative to six synthetic scenarios. Safe routing and structural validation
+do not establish semantic correctness. Latency is reported separately; no
+operational deadline is validated, and Near-RT use is excluded.}}
+\label{fig:composite-oracle-results}
+\end{figure*}
+\end{revision}

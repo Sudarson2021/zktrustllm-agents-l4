@@ -1,0 +1,11 @@
+\begin{tikzpicture}[font=\sffamily\scriptsize,box/.style={draw=trustblue,rounded corners=2pt,align=center,text width=3.0cm,minimum height=.8cm,fill=blue!3},flow/.style={-Latex,thick}]
+\node[box] (a) at (0,0) {Review webhook};
+\node[box] (b) at (3.6,0) {Validate payload};
+\node[box] (c) at (7.2,0) {Submit review to gateway};
+\node[box] (d) at (10.8,0) {Review approved};
+\node[box] (e) at (7.2,-1.5) {Approved simulation then response};
+\node[box] (f) at (10.8,-1.5) {Rejection response};
+\draw[flow] (a)--(b);\draw[flow] (b)--(c);\draw[flow] (c)--(d);
+\draw[flow] (d.south west)--node[above,sloped]{yes}(e.north east);
+\draw[flow] (d)--node[right]{no}(f);
+\end{tikzpicture}

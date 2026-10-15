@@ -1,0 +1,4 @@
+# Rebuild PDFs locally; track editable sources and evidence only.
+*.pdf
+!evidence/inputs/*.tar.gz
+!evidence/formal/*.log

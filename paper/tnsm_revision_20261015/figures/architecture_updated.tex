@@ -1,0 +1,150 @@
+
+\begin{revision}
+\begin{figure*}[t]
+\centering
+\resizebox{0.975\textwidth}{!}{%
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\sffamily\footnotesize,
+  cardshadow/.style={blur shadow={shadow blur steps=5,shadow xshift=0.7mm,
+    shadow yshift=-0.7mm,shadow opacity=0.22}},
+  oran/.style={draw=trustgreen!72!black,very thick,rounded corners=2.3pt,
+    shade,top color=white,bottom color=trustgreen!12,cardshadow,
+    align=center,minimum height=10mm,text width=2.65cm,inner sep=2.2mm},
+  iface/.style={draw=trustgreen!78!black,very thick,diamond,aspect=1.75,
+    shade,top color=white,bottom color=trustgreen!16,cardshadow,
+    align=center,minimum height=8mm,text width=1.05cm,
+    font=\sffamily\scriptsize\bfseries,inner sep=0.6mm},
+  stage/.style={draw=trustblue!82!black,very thick,rounded corners=2.3pt,
+    shade,top color=white,bottom color=trustblue!13,cardshadow,
+    align=center,minimum height=17mm,text width=2.72cm,inner sep=2.2mm},
+  reason/.style={draw=toolpurple!82!black,very thick,rounded corners=2.3pt,
+    shade,top color=white,bottom color=toolpurple!14,cardshadow,
+    align=center,minimum height=17mm,text width=2.72cm,inner sep=2.2mm},
+  gate/.style={draw=orange!80!black,very thick,rounded corners=2.3pt,
+    shade,top color=white,bottom color=orange!20,cardshadow,
+    align=center,minimum height=19mm,text width=3.15cm,inner sep=2.2mm},
+  evidence/.style={draw=trustblue!85!black,very thick,rounded corners=2.3pt,
+    shade,top color=white,bottom color=cyan!16,cardshadow,
+    align=center,minimum height=19mm,text width=3.00cm,inner sep=2.2mm},
+  human/.style={draw=orange!82!black,very thick,rounded corners=2pt,
+    shade,top color=white,bottom color=orange!16,cardshadow,
+    align=center,minimum height=8.5mm,text width=2.75cm,inner sep=1.5mm},
+  flow/.style={-Latex,very thick,draw=black!72,line cap=round},
+  policy/.style={-Latex,thick,dashed,draw=trustgreen!72!black,line cap=round},
+  approval/.style={Latex-Latex,thick,dashed,draw=orange!84!black,line cap=round},
+  bind/.style={-Latex,thick,densely dotted,draw=trustblue!82!black,line cap=round},
+  layerlabel/.style={anchor=west,font=\sffamily\bfseries\small,text=white},
+  mini/.style={font=\sffamily\scriptsize,align=center,inner sep=1pt}
+]
+
+% Raised O-RAN operational platform. The offset bottom/right faces provide
+% restrained pseudo-3D depth while preserving vector sharpness in print.
+\fill[trustgreen!25] (0.20,5.18) -- (19.40,5.18) -- (19.15,5.43) --
+  (0,5.43) -- cycle;
+\fill[trustgreen!18] (19.15,5.43) -- (19.40,5.18) -- (19.40,8.78) --
+  (19.15,9.03) -- cycle;
+\shade[top color=white,bottom color=trustgreen!3,rounded corners=4pt]
+  (0,5.43) rectangle (19.15,9.03);
+\draw[trustgreen!58!black,thick,rounded corners=4pt]
+  (0,5.43) rectangle (19.15,9.03);
+\shade[left color=trustgreen!82!black,right color=trustgreen!55!black,
+  rounded corners=3pt] (0,8.45) rectangle (19.15,9.03);
+\node[layerlabel] at (0.24,8.74) {O-RAN OPERATIONAL PLANE};
+\node[anchor=east,font=\sffamily\scriptsize\bfseries,text=white]
+  at (18.88,8.74) {intended deployment context; interfaces not exercised};
+
+\node[oran] (mno) at (1.50,7.10)
+  {\textbf{MNO governance}\\security intent\\operator policy};
+\node[oran,text width=2.95cm] (smo) at (4.95,7.10)
+  {\textbf{SMO / Non-RT RIC}\\rApp policy logic\\A1 policy management};
+\node[iface] (a1) at (7.95,7.10) {A1};
+\node[oran] (near) at (10.55,7.10)
+  {\textbf{Near-RT RIC}\\xApps\\policy enforcement};
+\node[iface] (e2) at (13.15,7.10) {E2};
+\node[oran,text width=3.25cm] (edge) at (16.65,7.10)
+  {\textbf{O-RAN edge}\\O-CU / O-DU / O-RU\\O-Cloud services};
+
+\draw[flow] (mno) -- (smo);
+\draw[flow] (smo) -- (a1);
+\draw[flow] (a1) -- (near);
+\draw[flow] (near) -- (e2);
+\draw[flow] (e2) -- (edge);
+
+% Raised accountability platform. Only this lower path contains LLM-based
+% assessment; enforcement ownership remains outside the untrusted boundary.
+\fill[trustblue!28] (0.20,0.30) -- (19.40,0.30) -- (19.15,0.55) --
+  (0,0.55) -- cycle;
+\fill[trustblue!20] (19.15,0.55) -- (19.40,0.30) -- (19.40,4.23) --
+  (19.15,4.48) -- cycle;
+\shade[top color=white,bottom color=trustblue!4,rounded corners=4pt]
+  (0,0.55) rectangle (19.15,4.48);
+\draw[trustblue!60!black,thick,rounded corners=4pt]
+  (0,0.55) rectangle (19.15,4.48);
+\shade[left color=trustblue!82!black,right color=trustblue!54!black,
+  rounded corners=3pt] (0,3.90) rectangle (19.15,4.48);
+\node[layerlabel] at (0.24,4.19) {POLICY-GOVERNED ACCOUNTABILITY PLANE};
+\node[anchor=east,font=\sffamily\scriptsize\bfseries,text=white]
+  at (18.88,4.19) {governed Non-RT path; no direct model-to-E2 actuation};
+
+\node[stage] (observe) at (1.70,2.35)
+  {\textbf{1. Observe \& bind}\\schema + fixed features\\input / policy hash};
+\node[reason] (assess) at (5.20,2.35)
+  {\textbf{2. Retrieve \& assess}\\frozen evidence\\multi-model proposals};
+\node[stage] (reconcile) at (8.70,2.35)
+  {\textbf{3. Reconcile}\\decision + action\\deterministic schema};
+\node[gate] (gate) at (12.35,2.35)
+  {\textbf{4. Deterministic policy gate}\\[-0.4mm]
+   \textcolor{trustgreen!58!black}{AUTOMATIC}\;\textbar\;
+   \textcolor{orange!88!black}{HUMAN}\\
+   \textcolor{toolpurple!82!black}{PRIVILEGED}\;\textbar\;
+   \textcolor{red!72!black}{NEVER}};
+\node[evidence] (audit) at (16.65,2.35)
+  {\textbf{5. Evidence \& audit}\\CID / hash lineage\\replay, zero, role checks\\audit anchor / receipt};
+
+\draw[flow] (observe) -- (assess);
+\draw[flow] (assess) -- (reconcile);
+\draw[flow] (reconcile) -- (gate);
+\draw[flow] (gate) -- (audit);
+
+% The shaded assessment card is the only LLM-containing region.
+\draw[toolpurple!78!black,dashed,thick,rounded corners=3pt]
+  (3.53,1.18) rectangle (6.87,3.50);
+\node[mini,font=\sffamily\scriptsize\bfseries,text=toolpurple!78!black,
+  fill=white,rounded corners=1pt] at (5.20,3.50) {UNTRUSTED AI BOUNDARY};
+
+% Cross-plane inputs and governed return. Labels sit in the inter-plane gap.
+\draw[policy] (smo.south) -- ++(0,-0.63) -| (observe.north);
+\node[mini,text=trustgreen!45!black,fill=white,rounded corners=1pt]
+  at (3.20,5.08) {policy intent + constraints};
+\draw[policy] (edge.south) -- ++(0,-1.02) -| (observe.north);
+\node[mini,text=trustgreen!45!black,fill=white,rounded corners=1pt]
+  at (10.35,5.78) {telemetry / KPI state};
+\draw[policy] (gate.north) -- ++(0,0.64) -| (a1.south);
+\node[mini,text=trustgreen!45!black,fill=white,rounded corners=1pt]
+  at (9.30,6.10) {admissible outcome only};
+
+% Human approval bridges the planes but never creates a model-to-E2 path.
+\node[human] (operator) at (14.15,5.10)
+  {\textbf{MNO approval}\\HUMAN / PRIVILEGED};
+\draw[approval] (gate.north east) to[bend left=12] (operator.south west);
+
+% Evidence lineage is independent of the solid decision-flow arrows and is
+% kept wholly inside the accountability-plane boundary.
+\draw[bind] (observe.south) -- ++(0,-0.47) -| (audit.south);
+\node[mini,font=\sffamily\tiny,fill=white,rounded corners=1pt]
+  at (10.10,0.86) {hash-bound lineage: input $\rightarrow$ evidence
+  $\rightarrow$ proposal $\rightarrow$ decision $\rightarrow$ approval / outcome};
+
+\end{tikzpicture}%
+}
+\caption{\rev{Two-plane architecture for policy-governed O-RAN security. The
+operational plane depicts the intended standard SMO/Non-RT RIC--A1--Near-RT RIC--E2
+path. The accountability plane binds policy and telemetry, isolates model
+assessment as untrusted, reconciles proposals, applies the four-class gate,
+and records the audit lineage. The SMO/A1 return is architectural and was not exercised;
+HUMAN and PRIVILEGED actions require MNO approval. Models never actuate E2
+directly.}}
+\label{fig:architecture}
+\end{figure*}
+\end{revision}

@@ -1,0 +1,67 @@
+{
+  "schema": "zktrustllm.tnsm.formal_revision_checks.v1",
+  "tla2tools_jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
+  "model_sha256": "1551fc4546b77b8b6477944aab0bb29f93fbf9112dc5cbfc8d97aaeac8986b55",
+  "zero_probe_sha256": "00074fc777f43b443177582d28a56ae103bff637f47e0574fff49d8cfbbc64fa",
+  "model_tool_version": "TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)",
+  "checks": [
+    {
+      "case": "original",
+      "expected_invariant_violation": null,
+      "observed_violation": null,
+      "returncode": 0,
+      "check_passed": true,
+      "generated_states": 320,
+      "distinct_states": 320,
+      "remaining_states": 0,
+      "log_sha256": "2bf2bfc6de8c60a750b02892502a7eb70af0c17d5511d27eb941143dffebe9e4"
+    },
+    {
+      "case": "zero_input_probe",
+      "expected_invariant_violation": null,
+      "observed_violation": null,
+      "returncode": 0,
+      "check_passed": true,
+      "generated_states": 480,
+      "distinct_states": 480,
+      "remaining_states": 0,
+      "log_sha256": "5b639f0de882dfbd0a2d977a9012437a09570176c6f07607bd22a85c6a424e30"
+    },
+    {
+      "case": "mutation_no_admissibility",
+      "expected_invariant_violation": "ProofRequired",
+      "observed_violation": "ProofRequired",
+      "returncode": 12,
+      "check_passed": true,
+      "generated_states": 386,
+      "distinct_states": 386,
+      "remaining_states": 95,
+      "log_sha256": "37848f5ec470ed386c93b31c8e6eaf1b9b58fd393a43ec248785d822ce2dd67c"
+    },
+    {
+      "case": "mutation_no_zero_guard",
+      "expected_invariant_violation": "NonZeroAnchorRequired",
+      "observed_violation": "NonZeroAnchorRequired",
+      "returncode": 12,
+      "check_passed": true,
+      "generated_states": 388,
+      "distinct_states": 388,
+      "remaining_states": 95,
+      "log_sha256": "d075ecc5d787a81ef355e36e5d6a75e4fc78d8ac6baec28a37c87aee78285de1"
+    },
+    {
+      "case": "mutation_no_human_for_privileged",
+      "expected_invariant_violation": "PrivilegedRequiresBoth",
+      "observed_violation": "PrivilegedRequiresBoth",
+      "returncode": 12,
+      "check_passed": true,
+      "generated_states": 295,
+      "distinct_states": 295,
+      "remaining_states": 63,
+      "log_sha256": "77ea477d92fb34a256951fddf553133655417db56006f3aba4d3e00712caec99"
+    }
+  ],
+  "production_implementation_verified": false,
+  "duplicate_anchor_rejection_modelled": false,
+  "scope": "Finite safety abstraction and mutation sensitivity. No liveness, deployment, cryptographic proof or code refinement result."
+}

@@ -1,5 +1,15 @@
 # ZKTrustLLM-Agents L4
 
+## TNSM major revision of 15 October 2026
+
+The evidence-audited revision for manuscript TNSM-2026-12002 is in
+[`paper/tnsm_revision_20261015`](paper/tnsm_revision_20261015/README.md),
+including marked/clean LaTeX sources, retained-output ablation, formal check
+logs, editable figures and the point-by-point response. Its README distinguishes
+completed local validation from independent annotation, matched inference and
+operational O-RAN validation that remain unavailable. Historical artifacts below
+are preserved.
+
 [![DOI](https://zenodo.org/badge/1200854469.svg)](https://doi.org/10.5281/zenodo.21939773)
 Frozen artifact version 1.0.0: https://doi.org/10.5281/zenodo.21939774
 

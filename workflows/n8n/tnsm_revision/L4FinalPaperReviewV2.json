@@ -1,0 +1,258 @@
+{
+  "id": "L4FinalPaperReviewV2",
+  "name": "TNSM revision strict review payload callback",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Strict Boolean validation for revision testing. Reviewer identity and role are asserted fields; authentication and action/evidence binding remain gateway responsibilities. No deployment or network actuation is demonstrated by this export.",
+        "height": 210,
+        "width": 720
+      },
+      "id": "note-review",
+      "name": "Human Review Boundary",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -360
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tnsm-action-review-v2",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "review-hook",
+      "name": "Human Review Decision",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "review-hook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $json.body ?? $json;\nif (b === null || typeof b !== 'object' || Array.isArray(b)) throw new Error('review payload must be an object');\nfor (const k of ['run_id', 'reviewer_id', 'reviewer_role']) {\n  if (typeof b[k] !== 'string' || b[k].trim().length === 0) throw new Error(k + ' must be a nonempty string');\n}\nif (typeof b.approved !== 'boolean') throw new Error('approved must be a Boolean');\nif (b.rationale !== undefined && typeof b.rationale !== 'string') throw new Error('rationale must be a string');\nreturn [{json: {run_id: b.run_id, reviewer_id: b.reviewer_id, reviewer_role: b.reviewer_role,\n  approved: b.approved, rationale: b.rationale ?? ''}}];"
+      },
+      "id": "validate-review",
+      "name": "Validate Review Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/actions/review\" }}",
+        "options": {
+          "timeout": 300000
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "keypair",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "reviewer_id",
+              "value": "={{ $json.reviewer_id }}"
+            },
+            {
+              "name": "reviewer_role",
+              "value": "={{ $json.reviewer_role }}"
+            },
+            {
+              "name": "approved",
+              "value": "={{ $json.approved }}"
+            },
+            {
+              "name": "rationale",
+              "value": "={{ $json.rationale }}"
+            }
+          ]
+        }
+      },
+      "id": "submit-review",
+      "name": "Submit Authorised Review",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "is-approved-condition",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "APPROVED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "is-approved",
+      "name": "Review Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        900,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ \"http://gateway:8080/v1/runs/\" + $json.run_id + \"/actions/execute\" }}",
+        "options": {
+          "timeout": 300000
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "jsonBody": "={{ { actor: $json.reviewer_id || \"authorised-reviewer\", execution_target: \"SIMULATED_O_RAN_ACTION_LEDGER\", dry_run: true } }}"
+      },
+      "id": "execute-reviewed",
+      "name": "Execute Approved Simulation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-approved",
+      "name": "Respond Approved Outcome",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1500,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-rejected",
+      "name": "Respond Review Rejection",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1200,
+        140
+      ]
+    }
+  ],
+  "connections": {
+    "Human Review Decision": {
+      "main": [
+        [
+          {
+            "node": "Validate Review Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Review Payload": {
+      "main": [
+        [
+          {
+            "node": "Submit Authorised Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Submit Authorised Review": {
+      "main": [
+        [
+          {
+            "node": "Review Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Review Approved?": {
+      "main": [
+        [
+          {
+            "node": "Execute Approved Simulation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Review Rejection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Approved Simulation": {
+      "main": [
+        [
+          {
+            "node": "Respond Approved Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "nodeGroups": [],
+  "activeVersionId": "89afec73-05db-40cc-9d37-ba7a9c7a94cd",
+  "versionCounter": 1,
+  "triggerCount": 1,
+  "sourceWorkflowId": null,
+  "versionMetadata": {
+    "name": null,
+    "description": null
+  }
+}

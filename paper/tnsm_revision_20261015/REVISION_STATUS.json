@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-15",
+  "manuscript_id": "TNSM-2026-12002",
+  "reviewer_comments": [
+    {
+      "comment": "R1.1",
+      "location": "Main IV-A and Table II, pp. 3\u20134; VI-D and Table IV, p. 6; VII-A, pp. 7\u20138; VIII, p. 13.",
+      "completed_change": "Implemented orchestration, simulated target and future A1/E2 integration separated.",
+      "interpretation": "No live rApp/A1/E2 integration is claimed."
+    },
+    {
+      "comment": "R1.2",
+      "location": "Main VI-D and Table IV, p. 6; VI-F, pp. 6\u20137; VII-K, p. 13; Supplement Major Revision Evidence Audit.",
+      "completed_change": "Six complete field-level cases, experimental rules, ambiguity and distribution limitations documented.",
+      "interpretation": "Claims remain limited to the author-designed reference; no new operational realism result is invented."
+    },
+    {
+      "comment": "R1.3",
+      "location": "Main V, pp. 4\u20135; Supplement Formal Verification and Major Revision Evidence Audit; evidence/formal/formal_revision_checks.json.",
+      "completed_change": "Six exact predicates; original run, zero probe and three expected counterexamples retained.",
+      "interpretation": "Finite safety checks do not prove the implementation, liveness or cryptography."
+    },
+    {
+      "comment": "R1.4",
+      "location": "Main VII opening, p. 7; VII-A, p. 8; VII-J and Table XIII, p. 12; VII-K, p. 13.",
+      "completed_change": "Medians/P95 and task scope clarified; one trace decomposed without adding overlapping call time.",
+      "interpretation": "Intended deliberative tasks require independent deadline validation."
+    },
+    {
+      "comment": "R1.5",
+      "location": "Main VII-C and Tables VIII\u2013IX, pp. 8\u201310; VII-J, p. 12; Supplement Major Revision Evidence Audit.",
+      "completed_change": "Shared inputs and differing prompts, budgets, calls, governance, timing and dates exposed.",
+      "interpretation": "Configured workflows support no causal framework or component comparison."
+    },
+    {
+      "comment": "R1.6",
+      "location": "Main VII-A and Fig. 3, pp. 7\u20138; Supplement approval export repair; workflows/n8n/tnsm_revision/L4FinalPaperReviewV2.json and payload tests.",
+      "completed_change": "Operator fields and unverified branches clarified; strict Boolean payload validation tested.",
+      "interpretation": "One positive simulated approval is historical evidence; deployment guarantees remain unverified."
+    },
+    {
+      "comment": "R1.7",
+      "location": "Main IV-C, VI-F, VII-E\u2013H and VIII; Table II; Supplement Major Revision Evidence Audit and AUTH_V2.2 Boundaries.",
+      "completed_change": "First inclusion, local live anchoring, finality, evidence truth and proof limits separated.",
+      "interpretation": "Hash binding and public-testnet inclusion establish bounded provenance feasibility only."
+    },
+    {
+      "comment": "R1.8",
+      "location": "Main II, Tables I\u2013II, IV, VI and IX; Supplement Figs. S1\u2013S2 and Major Revision Evidence Audit; editable TikZ and draw.io files.",
+      "completed_change": "Status table, scope-based related work, editable workflow figures and consistent terminology added.",
+      "interpretation": "Each evidence class retains its own denominator and boundary."
+    },
+    {
+      "comment": "R2.1",
+      "location": "Main abstract, p. 1; VI-D/Table IV, p. 6; VII-B/Table VI/Fig. 4, pp. 8\u20139; VII-K and VIII, p. 13.",
+      "completed_change": "Oracle-relative agreement used; six clusters and absent independent validation explicit.",
+      "interpretation": "Narrower claims address the reviewer alternative; no expert labels are reported."
+    },
+    {
+      "comment": "R2.2",
+      "location": "Main VII-C/Table IX, p. 10; VII-J/Table XIII, p. 12; Supplement replay and timing definitions; retained_output_ablation.csv.",
+      "completed_change": "Paired retained-output replay added; unequal latency ratio qualified; matched inference still absent.",
+      "interpretation": "Execution suppression preserves semantic errors; replay does not measure runtime overhead."
+    },
+    {
+      "comment": "R2.3",
+      "location": "Main VI-D, VII-B\u2013D, VII-J and VIII; Tables VI\u2013VIII and XIII; Supplement Major Revision Evidence Audit; audit_retained_revision_evidence.py.",
+      "completed_change": "Semantic agreement, policy routes, output flags and observed simulation distinguished.",
+      "interpretation": "Nine Qwen flags are declarations, with 38 declarations on all reference non-automatic cases."
+    }
+  ],
+  "remaining_validation": [
+    "Independent expert annotations",
+    "Matched inference-time/component/framework experiment",
+    "Live standards-conformant O-RAN integration and operational telemetry/noise validation",
+    "Deployed approval authentication, exact binding, expiry, replay/conflict/revocation and privileged-approval tests"
+  ],
+  "new_hosted_model_calls": 0,
+  "new_operational_network_actuation": false,
+  "portal_submission_performed": false
+}
