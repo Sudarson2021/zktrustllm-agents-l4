@@ -21,6 +21,36 @@
   },
   "oracle_cells": 180,
   "oracle_sha256": "4854f1d42d7824ae48ae3b37d8402d468c9f11034aa26b0fd9e96a21e1196c6c",
+  "proposed_metrics_from_retained_summary": {
+    "AGENTIC_RAG": {
+      "action_agreement_count": 58,
+      "cells": 60,
+      "decision_agreement_count": 60,
+      "joint_agreement_count": 58,
+      "never_action_recall": 0.95,
+      "never_class_correct_count": 19,
+      "never_reference_count": 20
+    },
+    "NO_RAG": {
+      "action_agreement_count": 40,
+      "cells": 60,
+      "decision_agreement_count": 10,
+      "joint_agreement_count": 10,
+      "never_action_recall": 0.0,
+      "never_class_correct_count": 0,
+      "never_reference_count": 20
+    },
+    "RAG": {
+      "action_agreement_count": 50,
+      "cells": 60,
+      "decision_agreement_count": 50,
+      "joint_agreement_count": 50,
+      "never_action_recall": 0.5,
+      "never_class_correct_count": 10,
+      "never_reference_count": 20
+    }
+  },
+  "proposed_summary_scope": "Derived from the archived repeat-consistency histograms, not a rerun or raw-row validation of the original proposed pipeline.",
   "scenario_count": 6,
   "scenarios": [
     {

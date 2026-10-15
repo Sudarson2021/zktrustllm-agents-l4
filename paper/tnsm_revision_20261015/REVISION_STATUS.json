@@ -70,12 +70,26 @@
     }
   ],
   "remaining_validation": [
-    "Independent expert annotations",
+    "Original proposed-workflow 180 per-run reports/manifests for full raw reproducibility",
+    "Independent expert annotations under an amended frozen nominal-category analysis plan",
     "Matched inference-time/component/framework experiment",
     "Live standards-conformant O-RAN integration and operational telemetry/noise validation",
     "Deployed approval authentication, exact binding, expiry, replay/conflict/revocation and privileged-approval tests"
   ],
   "new_hosted_model_calls": 0,
   "new_operational_network_actuation": false,
-  "portal_submission_performed": false
+  "portal_submission_performed": false,
+  "submission_status": "MAJOR_REVISION_DRAFT_WITH_EXPLICIT_EVIDENCE_LIMITS",
+  "accepted_camera_ready": false,
+  "main_pages": 14,
+  "supplement_pages": 14,
+  "python_tests": 38,
+  "javascript_payload_cases": 14,
+  "proposed_agentic_never_recall": {
+    "numerator": 19,
+    "denominator": 20,
+    "percent": 95,
+    "source": "retained repeat-stability histograms; not all original raw per-run packages"
+  },
+  "readiness_review": "SUBMISSION_READINESS.md"
 }

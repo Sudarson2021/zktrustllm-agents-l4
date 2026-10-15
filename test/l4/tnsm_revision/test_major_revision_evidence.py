@@ -42,6 +42,24 @@ class RevisionEvidenceTests(unittest.TestCase):
         self.assertEqual(self.report['oracle_action_counts'],{'HUMAN':120,'NEVER':60})
         self.assertEqual(self.report['scenario_count'],6)
 
+    def test_proposed_never_recall_matches_retained_histograms_and_manuscript(self):
+        modes=self.report['proposed_metrics_from_retained_summary']
+        self.assertEqual(modes['AGENTIC_RAG']['never_class_correct_count'],19)
+        self.assertEqual(modes['AGENTIC_RAG']['never_reference_count'],20)
+        self.assertEqual(modes['AGENTIC_RAG']['never_action_recall'],.95)
+        self.assertEqual(modes['RAG']['never_action_recall'],.5)
+        self.assertEqual(modes['NO_RAG']['never_action_recall'],0)
+        text=(ROOT/'paper/tnsm_revision_20261015/main.tex').read_text()
+        proposed_row=text.split('Proposed system & Agentic RAG / 60')[1].split('\\\\')[0]
+        self.assertIn('95.0\\%',proposed_row)
+        self.assertNotIn('100.0\\% & 109.793',proposed_row)
+
+    def test_summary_joint_score_refuses_unstable_decision_marginals(self):
+        group={'by_mode':{'TEST':{'repeat_consistency':[{'scenario_id':'S1','repeats':2,
+            'decision_counts':{'COMPLIANT':1,'UNCERTAIN':1},'action_counts':{'HUMAN':2}}]}}}
+        with self.assertRaisesRegex(ValueError,'joint count unavailable'):
+            audit.proposed_metrics_from_summary(group,{'S1':('COMPLIANT','HUMAN')})
+
     def test_timing_intervals_do_not_sum_overlapping_provider_calls(self):
         t=self.report['live_trace_timing']
         self.assertAlmostEqual(t['internal_report_wall_s'],108.938646,places=6)

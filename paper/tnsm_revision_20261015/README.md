@@ -17,6 +17,10 @@ The starting point is the TNSM artifact branch `tnsm-supervisor-revision-step1-2
 
 ## Important corrections
 
+The proposed Agentic-RAG NEVER-class recall is **19/20 = 95.0%**, not the previous 100% entry. It is final-action-class recall, not the execution-flag rate. The audit reconstructs this count from preserved repeat-stability histograms and rejects unstable decision marginals that would make the joint count unidentified.
+
+The original 180 proposed-workflow per-run report/manifest packages have **not been recovered in this revision archive**. Proposed-workflow metrics are checked against retained aggregate/repeat-stability summaries, not independently recomputed from those missing raw packages. The raw LangGraph/Qwen baseline records and frozen reference are included. The historical DOI (10.5281/zenodo.21939774) is a versioned source snapshot; it must not be represented as containing these new revision scripts. A self-contained revision repository ZIP is supplied separately, pending public publication. No missing data are reconstructed or claimed as a new experiment.
+
 The archived baseline `unsafe_execution` field means `oracle_action_class == NEVER and final_prediction.execute == true`. No executor is invoked by either baseline runner. Qwen's nine such flags are erroneous output declarations, not observed executions. The broader non-automatic-reference count is 38. A replay with execution disabled changes these counts to zero while leaving decision agreement 38/60 and action agreement 11/60. LangGraph remains 150/180 and 120/180, with zero declarations. Original fields are unchanged; corrected interpretations are derived separately.
 
 The original formal initialisation excludes a zero commitment. It checks 320 reachable states. A separate zero-input probe checks 480 states; three broken guards trigger their expected invariant violations. These are finite-model results, not deployed code refinement, liveness, authentication or cryptographic proof verification. Duplicate-commitment history is not modelled.
@@ -35,7 +39,7 @@ python3 -m unittest discover -s test/l4/tnsm_revision -p test_revision_tools.py 
 node test/l4/tnsm_revision/test_review_payload_v2.cjs
 ```
 
-The archive audit rejects traversal and malformed/checksum-mismatched archives; validates all five internal manifests; joins 180 LangGraph and 60 Qwen records to the 180-cell frozen reference; verifies raw-response hashes; and reconstructs native guards before replay. It sends no provider requests and performs no actuation. Its outputs are `evidence/derived/retained_output_audit.json` and `retained_output_ablation.csv`.
+The nine new evidence tests and 29 existing revision-tool tests pass, together with 14 callback cases. The archive audit rejects traversal and malformed/checksum-mismatched archives; validates all five internal manifests; joins 180 LangGraph and 60 Qwen records to the 180-cell frozen reference; verifies raw-response hashes; and reconstructs native guards before replay. It sends no provider requests and performs no actuation. Its outputs are `evidence/derived/retained_output_audit.json` and `retained_output_ablation.csv`.
 
 The figure generator checks the frozen export's 54 nodes (45 computational and 9 documentation) and full computational-node membership. The editable draw.io file includes all 49 exported edges. The compact TikZ figure is a functional grouping and does not reproduce every graph edge.
 
@@ -60,9 +64,13 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error supplementary_material.tex
 latexmk -pdf -interaction=nonstopmode -halt-on-error supplementary-clean.tex
 ```
 
-`main.pdf` and `supplementary_material.pdf` mark revisions in blue; the clean wrappers suppress revision colour. All figures are native vector diagrams/charts with editable source. Compiled PDFs are delivery/build outputs rather than Git-tracked files. The current main manuscript has 14 pages and the supplement 13 pages; reconcile any private source changes and venue page requirements before submission.
+`main.pdf` and `supplementary_material.pdf` mark revisions in blue; the clean wrappers suppress revision colour. All figures are native vector diagrams/charts with editable source. Compiled PDFs are delivery/build outputs rather than Git-tracked files. The current main manuscript has 14 pages and the supplement 14 pages; reconcile any private source changes and venue page requirements before submission.
+
+The public-testnet table uses two panels at the manuscript's footnote size, rather than shrinking its text. Reference metadata have been checked against publisher/Crossref records. The acknowledgment identifies the actual AI assistance used for revision text, scripts and reconstructed figures.
 
 ## Remaining validation
+
+The planned expert protocol treats action classes as nominal. Its archived linear-weighted action statistic requires an amended, frozen analysis plan before new labels are collected; no protocol amendment or expert study has been completed.
 
 No independent expert annotation, new hosted-model inference, matched inference-time ablation, live rApp/A1/E2 integration or real operational-telemetry/noise validation was performed. The revised claims state these limits explicitly. Intended deliberative tasks still require task-specific deadline validation. Approval authentication, exact action binding, expiry, concurrent/replayed decisions, revocation and privileged approval need deployed gateway tests. The V2 export is inactive and does not establish those guarantees.
 

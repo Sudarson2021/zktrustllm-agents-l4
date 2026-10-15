@@ -1,9 +1,8 @@
 % =========================================================================
 % Auditable Policy-Governed LLM-Agent Control -- TNSM revision (19 Aug 2026)
 % The main scientific diagrams, including the two-plane architecture in
-% figures/architecture_updated.tex, are native TikZ/pgfplots. Raster workflow
-% screenshots are retained only for the supplementary material; the three
-% author portraits are the only raster graphics included in this main paper.
+% figures/architecture_updated.tex, are native TikZ/pgfplots. This submission
+% copy contains no raster graphics; supplementary workflow maps are editable.
 %
 % Changes in this pass (over the 14 Aug 2026 revision):
 %  (a) Duplicate \maketitle removed.
@@ -43,8 +42,8 @@
 % Compile main-clean.tex for the same content with revision colour disabled.
 \newif\ifshowrevisions
 \ifdefined\CLEANREVISION\showrevisionsfalse\else\showrevisionstrue\fi
-\newenvironment{revision}{\begingroup\ifshowrevisions\color{blue}\fi}{\endgroup}
-\newcommand{\rev}[1]{{\ifshowrevisions\color{blue}\fi #1}}
+\newenvironment{revision}{\begingroup\ifshowrevisions\color{blue}\else\color{black}\fi}{\endgroup}
+\newcommand{\rev}[1]{{\ifshowrevisions\color{blue}\else\color{black}\fi #1}}
 
 \usepackage{microtype}
 \usepackage{tikz}
@@ -304,7 +303,7 @@ contribution is the recorded linkage between evidence, untrusted assessment,
 policy routing and approval in a reproducible management workflow.
 Table~\ref{tab:positioning} separates these evidence targets.
 \begin{table}[!t]
-\centering\ifshowrevisions\color{blue}\fi\footnotesize
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
 \caption{\rev{Related work by assurance target. This is a scope comparison, not a
 claim that unreported capabilities are absent.}}
 \label{tab:positioning}
@@ -383,7 +382,7 @@ demonstrated. An operational adapter would need schema-validated A1 policy
 instances, authenticated SMO authority, fresh target state and independently
 observed application outcomes. Those are future integration requirements.
 \begin{table}[!t]
-\centering\ifshowrevisions\color{blue}\fi\footnotesize
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
 \caption{\rev{Component status. An implemented workflow may terminate in a simulated action.}}
 \label{tab:component-status}
 \begin{tabular}{p{.36\columnwidth}p{.52\columnwidth}}
@@ -643,7 +642,7 @@ not permission for autonomous execution. None of the six reference classes
 is AUTOMATIC or PRIVILEGED. The benchmark therefore does not assess useful
 automatic execution or the full four-class distribution.
 \begin{table}[!t]
-\centering\ifshowrevisions\color{blue}\fi\footnotesize
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
 \caption{\rev{Frozen scenarios and oracle labels. C/NC/U denote COMPLIANT,
 NON\_COMPLIANT and UNCERTAIN; H/N denote HUMAN and NEVER.}}
 \label{tab:scenario-map}
@@ -669,11 +668,16 @@ absent. We narrow the conclusions accordingly and preserve the frozen oracle.
 \end{revision}
 \end{revision}
 \subsection{Artifact Reproducibility}
-Complete artifact-reproducibility details---the public repository entry
-points, evidence branches and validation commits, three hash-bound Raft/QBFT
-publication sessions, the full n8n master workflow and per-LLM agent-role
-description, and the paper-building process---are provided in the
-supplementary material and public artifact repository~\cite{artifactRepo}.
+\rev{The historical public artifact is version~1.0.0~\cite{artifactRepo}.
+The revision-specific reproducibility archive adds the marked/clean sources,
+unchanged retained-data packages, reanalysis code, formal logs and editable
+figures. Its build information identifies the repository commit and file
+digests. These new checks must not be attributed to the older DOI release.
+The supplement describes the evidence objects and reproduction commands.
+Baseline metrics are recomputed from retained records; proposed-workflow
+counts are checked against archived scenario histograms. The original 180
+proposed per-cell packages are not included in this revision archive, so the
+revision does not claim to have rerun their complete raw-output analysis.}
 \subsection{Claim Boundary}
 \label{sec:claim-boundary}
 Claims are restricted to the released implementation and retained evidence.
@@ -831,7 +835,7 @@ uninformative.
 
 \begin{revision}
 \begin{table*}[!t]
-\centering\ifshowrevisions\color{blue}\fi
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi
 \caption{\rev{Agreement with the frozen synthetic oracle and proposed-workflow
 coverage. Each mode has six scenarios and ten repeats ($n=60$). Bracketed
 scenario-clustered bootstrap intervals are descriptive; they do not validate
@@ -918,7 +922,7 @@ was 256 tokens; the endpoint returned the requested
 \texttt{gpt-5.6-terra} alias. Table~\ref{tab:external-baseline} replaces a
 qualitative tick comparison with measured results.
 \begin{table*}[!t]
-\centering\ifshowrevisions\color{blue}\fi
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi
 \caption{\rev{Quantitative baselines on the frozen oracle. CIs in
 Table~\ref{tab:oracle-results} apply only to the proposed-system rows.}}
 \label{tab:external-baseline}
@@ -932,12 +936,18 @@ LangGraph & No RAG / 60 & 83.3\% & 66.7\% & 50.0\% & 100.0\% & 1.487~s \\
 LangGraph & RAG / 60 & 83.3\% & 66.7\% & 50.0\% & 100.0\% & 1.683~s \\
 LangGraph & Agentic RAG / 60 & 83.3\% & 66.7\% & 50.0\% & 100.0\% & 1.843~s \\
 Proposed system & Agentic RAG / 60 & 100.0\% & 96.7\% & 96.7\% &
-100.0\% & 109.793~s \\
+95.0\% & 109.793~s \\
 Qwen3-4B local & Agentic RAG / 60 & 63.3\% & 18.3\% & 11.7\% &
 55.0\% & 238.381~s \\
 \bottomrule
 \end{tabular}
 \end{table*}
+For all systems, NEVER recall is the fraction of oracle-NEVER cases whose
+final action class is NEVER; it is distinct from an execute-true flag. The
+retained repeat counts give proposed Agentic-RAG recall $19/20=95.0\%$:
+S4 has nine NEVER and one HUMAN result, while S5 has ten NEVER results.
+The HUMAN mismatch remains an action-class error even with automatic
+execution disabled. This corrects the previous table's 100.0\% entry.
 The LangGraph baseline recorded zero NEVER-boundary bypass flags and zero unsafe execution declarations; its estimated API cost was USD~0.856704. The open-weights run used
 Qwen3-4B Q4\_K\_M through Ollama~0.12.3 on CPU~\cite{qwen3}, with digest
 \texttt{359d7dd4\ldots 94fae7}, seed 20260808, temperature 0, top-$p$ 1,
@@ -960,7 +970,7 @@ from the assessor payload; labels remain evaluation metadata. LangGraph's
 coverage flag records parsed schema validity, while proposed-workflow coverage
 uses a non-abstention indicator, so cross-system coverage is not equated.
 \begin{table*}[!t]
-\centering\ifshowrevisions\color{blue}\fi\footnotesize
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
 \caption{\rev{Comparison parity and unresolved confounders. NOT\_SENT is an omitted
 request field, not an inferred provider default.}}
 \label{tab:parity}
@@ -991,9 +1001,11 @@ A separate frozen suite crossed ten attack families with three NEVER-labelled
 base contexts (30 cases). Attacks attempted instruction override, approval
 fabrication, policy inversion, audit suppression, and related coercions.
 The assessor returned the required NEVER class for 30/30 cases and the
-scorer recorded zero unsafe execution declarations (Wilson 95\% lower bound
-0.886). This synthetic containment result supports the stated fixed-schema
-mitigation, not resistance to arbitrary attacks or production inputs.
+scorer recorded zero unsafe execution declarations. The Wilson 95\% lower
+bound of 0.886 is a descriptive binomial calculation; the 30 variants share
+only three base contexts and are not independent operational incidents. This
+fixed synthetic suite does not establish resistance to arbitrary attacks or
+production inputs.
 Fig.~\ref{fig:composite-oracle-results}(c) separates deterministic provider
 validation from
 role-chain validation. Role-chain validation is 100.0\% for all modes, while
@@ -1042,30 +1054,33 @@ configuration; it is not a causal estimate of consensus alone and does not
 establish universal superiority. With only three session clusters, reliable
 nominal interval coverage is not claimed.
 \begin{table*}[!t]
-\centering
-\caption{Paired public-testnet sensitivity of identical
-\texttt{Stage3AnomalyLedger} runtime bytecode. Latency is client-observed
-submission to first inclusion, not economic finality. Brackets are two-level
-hierarchical-bootstrap 95\% confidence intervals for the median. Block-cadence
-statistics use 189 consecutive intervals per network; all intervals are
-descriptive because only three session clusters were available.}
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
+\caption{\rev{Paired public-testnet sensitivity of identical
+\texttt{Stage3AnomalyLedger} bytecode: 90 pairs per network. Submission-to-first-
+inclusion timing includes RPC/network effects and is not economic finality.
+Intervals are descriptive two-level bootstrap intervals over three sessions.
+Sepolia uses permissioned test validators. Block cadence uses 189 intervals
+per network; rejection probes test duplicate, zero and unauthorised requests.}}
 \label{tab:paired}
-\begin{adjustbox}{width=\textwidth}
-\begin{tabular}{lrrrrrrrr}
+\begin{tabular}{lrrrr}
 \toprule
-Network and protocol & Chain ID & Pairs & Median gas &
-Median latency [95\% CI] (ms) & P95 (ms) & Mean $\pm$ SD (ms) &
-Median block interval [95\% CI] (s) & Rejection probes \\
+Network & Chain ID & Median gas & Inclusion median [95\% CI] (ms) & P95 (ms) \\
 \midrule
-Ethereum Sepolia (PoS; permissioned test validators) & 11155111 & 90 &
-48{,}973 & 12{,}426.579 [12{,}394.746, 12{,}455.950] & 24{,}614.539 &
-14{,}767.707 $\pm$ 5{,}623.743 & 12.000 [12.000, 12.000] & 3/3 \\
-IoTeX testnet (Roll-DPoS) & 4690 & 90 & 43{,}685 &
-7{,}225.149 [4{,}538.581, 8{,}493.926] & 8{,}763.754 &
-6{,}783.463 $\pm$ 2{,}043.817 & 3.000 [2.000, 3.000] & 3/3 \\
+Sepolia (PoS) & 11155111 & 48{,}973 &
+12{,}426.579 [12{,}394.746, 12{,}455.950] & 24{,}614.539 \\
+IoTeX (Roll-DPoS) & 4690 & 43{,}685 &
+7{,}225.149 [4{,}538.581, 8{,}493.926] & 8{,}763.754 \\
 \bottomrule
 \end{tabular}
-\end{adjustbox}
+\par\smallskip
+\begin{tabular}{lrrr}
+\toprule
+Network & Inclusion mean $\pm$ SD (ms) & Block median [95\% CI] (s) & Rejection probes \\
+\midrule
+Sepolia & 14{,}767.707 $\pm$ 5{,}623.743 & 12.000 [12.000, 12.000] & 3/3 \\
+IoTeX & 6{,}783.463 $\pm$ 2{,}043.817 & 3.000 [2.000, 3.000] & 3/3 \\
+\bottomrule
+\end{tabular}
 \end{table*}
 Fig.~\ref{fig:paired-latency} visualises the median and P95 latency for the
 two networks with measured deployment evidence; the wider consensus-family
@@ -1331,7 +1346,7 @@ The last intervention changes only \texttt{execute}, never the decision,
 action class or oracle labels. Table~\ref{tab:output-ablation} therefore tests
 the distinction between semantic agreement and execution declarations.
 \begin{table}[!t]
-\centering\ifshowrevisions\color{blue}\fi\footnotesize
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
 \caption{\rev{Paired output replay. D/A are decision/action agreement counts;
 E is execute-true declarations; N is the subset on oracle-NEVER cells.
 No network action or new model call is measured.}}
@@ -1385,15 +1400,13 @@ inferred. The maximum-output field was 5{,}000 tokens for OpenAI, Anthropic,
 and Mistral and was omitted for DeepSeek. Prompt hashes match all 180 cells;
 full prompts and the sent-field inventory are in the supplement.
 \paragraph{Future independent human validation}
-Independent expert validation was not completed. Subject to University ethics
-review, the preregistered extension will compare two independent O-RAN-literate
-annotators with the oracle and each other, using unweighted $\kappa$ for the
-separately defined binary clearance mapping. Its preregistered weighted action
-statistic assumes an ordinal ordering; that assumption needs justification
-before a future study, since authority classes need not be a total risk order.
-No human statistic is reported. The protocol specifies
-whole-scenario resampling. Disagreements will not change the frozen oracle; the
-protocol and hash-bound script are in the artifact and supplement.
+Independent expert validation was not completed. A future study requires eligible independent O-RAN-literate annotators and
+any applicable institutional review. The frozen oracle will remain unchanged.
+Decision and action categories should be treated as nominal, with unweighted
+agreement statistics and whole-scenario resampling. The archived protocol's
+weighted action statistic assumes an ordering that the four authority classes
+do not establish; it must be amended and frozen before collecting new labels.
+No amended study or human agreement statistic is reported here.
 \end{revision}
 
 \begin{revision}
@@ -1451,8 +1464,14 @@ Distributed Cloud Computing Applications and Research) programme under UK
 EPSRC grants EP/Y037421/1 and EP/X040518/1, and by the Open Challenge Fund
 call organised by the Datacom Industry Association AISBL. Also, the ADU author
 acknowledges support from Abu Dhabi University's Office of Research and Grant Programs.
+\rev{OpenAI Codex assisted with drafting revision additions to Sections~II,
+IV--VIII and the supplement, preparing deterministic reanalysis and formal-check
+scripts, and reconstructing editable workflow figures from archived exports.
+This assistance generated no new experimental model responses or human labels.
+Responsibility for the final content and validation rests with the authors.}
+
 % Keep the IEEE 8-pt reference font but use an 8.8-pt baseline and a small,
-% uniform inter-entry reduction so the complete bibliography remains on p. 12.
+% uniform inter-entry reduction while preserving a readable bibliography in the revised layout.
 % IEEEtran calls \footnotesize inside thebibliography, so redefine only this
 % end-of-document instance rather than changing the manuscript body.
 \renewcommand{\footnotesize}{\fontsize{8}{8.8}\selectfont}
@@ -1572,12 +1591,12 @@ pp. 1955--2005, 2025.
 G. O. Boateng \emph{et al.}, ``A survey on large
 language models for communication, network, and service management:
 Application insights, challenges, and future directions,'' \emph{IEEE Commun.
-Surveys Tuts.}, vol. 28, pp. 527--566, 2025.
+Surveys Tuts.}, \rev{vol. 28, pp. 527--566, 2026, doi: 10.1109/COMST.2025.3564333.}
 \bibitem{long2025llmops}
 S. Long, J. Tan, B. Mao \emph{et al.}, ``A survey on intelligent network
 operations and performance optimization based on large language models,''
-\emph{IEEE Commun. Surveys Tuts.}, early access, 2025, doi:
-10.1109/COMST.2025.3526606.
+\emph{IEEE Commun. Surveys Tuts.}, \rev{vol. 27, no. 6,
+pp. 3915--3949, Dec. 2025}, doi: 10.1109/COMST.2025.3526606.
 \bibitem{ramezanpour2022izta}
 K. Ramezanpour and J. Jagannath, ``Intelligent zero trust architecture for
 5G/6G networks: Principles, challenges, and the role of machine learning in
@@ -1596,17 +1615,18 @@ plans,'' arXiv:2608.01047v3, Aug. 2026.
 \bibitem{safetycopilot2026} M. A. Jawad, M. M. H. Munna, A. H. Kabir,
 N. H. Antu, and R. F. Tulona, ``A runtime safety copilot for AI-native O-RAN:
 Predictive verification and fail-safe enforcement in near-RT RIC control
-loops,'' \emph{IEEE Access}, 2026. [Online]. Available:
-\url{https://ieeexplore.ieee.org/document/11489010/}
+loops,'' \emph{IEEE Access}, vol. 14, pp. 63106--63120, 2026,
+doi: 10.1109/ACCESS.2026.3686132.
 \bibitem{multilayer2026} H. Alimohammadi, S. Mayhoub, S. Chatzimiltis,
 M. Shojafar, and M. N. M. Bhutta, ``Toward a multi-layer defence framework
 for securing near-real-time operations in Open RAN,'' \emph{IEEE Open J.
-Commun. Soc.}, doi: 10.1109/OJCOMS.2025.3650736. Accepted-version text:
+Commun. Soc.}, vol. 7, pp. 480--497, 2026,
+doi: 10.1109/OJCOMS.2025.3650736. Accepted-version text:
 arXiv:2512.01596v2.
 \bibitem{salmi2026tnsm} S. Salmi \emph{et al.}, ``AI-native O-RAN
 architectures for 6G: Toward real-time adaptation, conflict resolution,
 and efficient resource management,'' \emph{IEEE Trans. Netw. Service Manag.},
-2026, doi: 10.1109/TNSM.2026.3684880.
+vol. 23, pp. 4110--4121, 2026, doi: 10.1109/TNSM.2026.3684880.
 \end{revision}
 \end{thebibliography}
 % \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,

@@ -38,8 +38,8 @@
 % Compile main-clean.tex for the same content with revision colour disabled.
 \newif\ifshowrevisions
 \ifdefined\CLEANREVISION\showrevisionsfalse\else\showrevisionstrue\fi
-\newenvironment{revision}{\begingroup\ifshowrevisions\color{blue}\fi}{\endgroup}
-\newcommand{\rev}[1]{{\ifshowrevisions\color{blue}\fi #1}}
+\newenvironment{revision}{\begingroup\ifshowrevisions\color{blue}\else\color{black}\fi}{\endgroup}
+\newcommand{\rev}[1]{{\ifshowrevisions\color{blue}\else\color{black}\fi #1}}
 
 \usepackage{microtype}
 \usepackage{tikz}
@@ -177,7 +177,7 @@ follows only this table and Section~\ref{sec:checklist} exercises the complete
 verification surface of the artifact.
 
 \begin{table*}[!t]
-\ifshowrevisions\color{blue}\fi
+\ifshowrevisions\color{blue}\else\color{black}\fi
 \centering
 \caption{Claim-to-supplement map. Each headline result of the main manuscript
 is bound to its execution protocol, artifact object, and falsifying check.
@@ -202,8 +202,10 @@ Run identifier, report hash, or the four hashes of the lineage fail to
 correspond. \\
 Semantic table, oracle-relative performance over 180 cells & \Esynthetic{} &
 \S\ref{sec:oracle-detail} &
-Frozen oracle, prompts, and per-cell evidence packages &
-Recomputing the metrics from the per-cell packages yields different rates. \\
+Frozen oracle, prompt provenance and retained summary histograms;
+original 180 per-cell packages absent from revision archive &
+Retained histograms yield different counts. Full raw-run recomputation
+requires the missing packages; see \S\ref{sec:major-revision-audit}. \\
 External LangGraph baseline over the same 180 cells & \Emeasured{} &
 \S\ref{sec:revision-experiments} &
 Hash-bound baseline records and manifest &
@@ -1140,7 +1142,7 @@ document the execution environment, retained denominators, and scientific
 boundary supporting each row.
 
 \begin{table*}[!t]
-\ifshowrevisions\color{blue}\fi
+\ifshowrevisions\color{blue}\else\color{black}\fi
 \centering
 \caption{Numerical evidence classes and their validation boundaries.}
 \label{tab:kpi-classes}
@@ -1292,17 +1294,17 @@ Agentic-RAG & 100.0 [100.0, 100.0] & 96.7 [93.3, 100.0] &
 \label{sec:future-human-validation}
 Independent human validation was not performed because two eligible,
 independent O-RAN-literate annotators were not available. No ethics reference,
-agreement statistic, or expert-verified claim is reported. A protocol has been
-fixed for a future extension, subject to the University's ethics
-self-assessment: the oracle remains immutable, disagreements are
-reported without adjudication, unweighted Cohen's $\kappa$ is used for the
-binary clearance decision, linear-weighted $\kappa$ for ordinal action class,
-and intervals resample complete scenarios. The three preregistered comparisons
-are oracle versus annotator~1, oracle versus annotator~2, and annotator~1 versus
-annotator~2. The analyzer is
-\artifactpath{scripts/l4/tnsm_revision/analyze_human_labels.py} (SHA-256
-\hashsplit{3540b6e3ef73d3cfca61656b163febb28}{c47812465c6768d43901549bc628db4});
-it rejects invalid or incomplete declarations and never rewrites the oracle.
+agreement statistic, or expert-verified claim is reported. \rev{The existing future-study protocol is retained as an archival object;
+its binary-clearance analysis uses unweighted Cohen's $\kappa$, while its
+weighted action statistic assumes an ordinal ordering. AUTOMATIC, HUMAN,
+PRIVILEGED and NEVER are authority categories, so an ordinal interpretation
+is not established here. Before collecting labels, an amended protocol should
+freeze nominal decision/action agreement and unweighted statistics, retain
+whole-scenario resampling, and report annotator disagreements without changing
+the frozen oracle. No amended registration or completed human study is claimed.}
+The archived analyser is
+\artifactpath{scripts/l4/tnsm_revision/analyze_human_labels.py}; the revision
+does not present its weighted action statistic as a validated method.
 
 \begin{revision}
 \subsection{Revision Experiments: External, Open-Weights, and Adversarial Baselines}
@@ -1325,11 +1327,11 @@ agreement and nine unsafe execute-true declarations on oracle-NEVER cells show w
 a reproducibility control rather than evidence of safety equivalence.
 
 \begin{table*}[!t]
-\ifshowrevisions\color{blue}\fi
+\ifshowrevisions\color{blue}\else\color{black}\fi
 \centering
 \caption{Quantitative revision baselines on the frozen oracle. Agreement and
 recall are percentages; latency is the median end-to-end model call.}
-\ifshowrevisions\color{blue}\fi
+\ifshowrevisions\color{blue}\else\color{black}\fi
 \label{tab:revision-baselines}
 \begin{adjustbox}{width=\textwidth}
 \begin{tabular}{L{4.0cm}rrrrrrr}
@@ -1552,7 +1554,7 @@ bounded, and absent evidence are reported separately, and no aggregate score
 is computed across them.
 
 
-\section{\rev{Major Revision Evidence Audit}}
+\section{\texorpdfstring{\rev{Major Revision Evidence Audit}}{Major Revision Evidence Audit}}
 \label{sec:major-revision-audit}
 \begin{revision}
 The revision reanalysis reads five retained archives without issuing a provider
@@ -1574,6 +1576,12 @@ with final-prediction \texttt{execute=true}. This is not a dispatch or actuator
 observation. Its broader counter counts declarations on any reference
 non-automatic case. On Qwen's 60 cells these counts are 9 and 38; LangGraph
 has zero on 180 cells. No baseline runner invokes an executor.
+The archived proposed-workflow histograms provide a separate consistency
+check: Agentic RAG has nine NEVER outcomes in S4 and ten in S5, yielding
+NEVER-class recall $19/20=95.0\%$, rather than the previous 100.0\% entry.
+No RAG and RAG give $0/20$ and $10/20$, respectively. These point counts are
+derived from the retained summary, not a new raw-output or inference rerun.
+
 
 The paired replay has three conditions: raw candidate, class-consistency guard
 and the same guard with execution disabled. The guard suppresses execute-true
@@ -1583,7 +1591,11 @@ execute-true count from 38 to zero and its NEVER-subset count from nine to zero,
 while decision agreement stays 38/60 and action agreement 11/60. LangGraph
 stays 150/180 and 120/180 with zero declarations. This limited ablation
 demonstrates metric separation, not a causal latency gain or a model upgrade.
-No new confidence interval is imposed on these six repeated scenarios.
+No new confidence interval is imposed on these six repeated scenarios. The original 180 proposed-workflow
+per-cell packages are absent from the supplied revision archive. The newly
+derived proposed recall is therefore a check of the retained scenario
+histograms, while baseline replay uses retained model records and responses.
+These evidence levels are not represented as equivalent raw-data coverage.
 
 \subsection{Formal predicates and sensitivity}
 For executed flag $e$, class $c$, human approval $h$, privileged approval $p$,
@@ -1641,7 +1653,7 @@ validations cannot be replaced by new wording or repeated calls on six cases.
 \scriptsize
 
 \bibitem{mainpaper}
-S. Karmaker, M. Shojafar, and H. S. Cruickshank, ``Auditable
+\rev{S. Karmaker, M. N. M. Bhutta, H. S. Cruickshank, and M. Shojafar}, ``Auditable
 policy-governed LLM-agent control for O-RAN edge security,'' main manuscript,
 2026.
 

@@ -95,6 +95,41 @@ def evaluate(records, transform):
         'actual_network_executions_measured':False,
     }
 
+def proposed_metrics_from_summary(summary, reference_by_scenario):
+    """Check published aggregate counts; do not claim a raw-output rerun.
+
+    Decisions are repeat-stable in this frozen summary, so joint agreement is
+    identifiable from the two marginals within each scenario. If that ceases
+    to hold, refuse to invent a joint count from marginal histograms.
+    """
+    result = {}
+    for mode, group in summary['by_mode'].items():
+        seen = set(); total = decision = action = joint = never_n = never_ok = 0
+        for row in group['repeat_consistency']:
+            sid = row['scenario_id']
+            if sid in seen: raise ValueError('duplicate proposed summary scenario')
+            seen.add(sid)
+            ref_d, ref_a = reference_by_scenario[sid]
+            n = row['repeats']; dc = row['decision_counts']; ac = row['action_counts']
+            if sum(dc.values()) != n or sum(ac.values()) != n:
+                raise ValueError('proposed summary histogram count mismatch')
+            if len(dc) != 1: raise ValueError('joint count unavailable from unstable decision marginals')
+            correct_d = dc.get(ref_d, 0); correct_a = ac.get(ref_a, 0)
+            total += n; decision += correct_d; action += correct_a
+            joint += correct_a if correct_d == n else 0
+            if ref_a == 'NEVER':
+                never_n += n; never_ok += ac.get('NEVER', 0)
+        if seen != set(reference_by_scenario) or total != group['cells']:
+            raise ValueError('proposed summary scenario/cell coverage mismatch')
+        metrics = group['metrics']
+        if decision != metrics['decision_accuracy']['numerator'] or action != metrics['enforced_action_accuracy']['numerator']:
+            raise ValueError('proposed summary agreement inconsistency')
+        result[mode] = {'cells':total, 'decision_agreement_count':decision,
+                        'action_agreement_count':action, 'joint_agreement_count':joint,
+                        'never_reference_count':never_n, 'never_class_correct_count':never_ok,
+                        'never_action_recall':never_ok/never_n if never_n else None}
+    return result
+
 def analyse(input_dir):
     packages={};source={}
     for key,name in ARCHIVES.items():
@@ -126,6 +161,9 @@ def analyse(input_dir):
         scenarios.append({'scenario_id':sid,'title':group[0]['scenario_title'],'configuration':json.loads(next(iter(configs))),
                           'oracle_decision':d,'oracle_action_class':a,'cells':len(group),'expert_verified':False,
                           'retrieval_chunk_counts_by_mode':{m:sorted({len(json.loads(r['scenario'])['retrieval_evidence']['chunks']) for r in group if r['retrieval_mode']==m}) for m in ['NO_RAG','RAG','AGENTIC_RAG']}})
+    proposed_summary = json.loads(packages['clustered']['oracle_clustered_statistics.json'])
+    proposed = proposed_metrics_from_summary(proposed_summary,
+        {s['scenario_id']:(s['oracle_decision'],s['oracle_action_class']) for s in scenarios})
     systems={}
     for key in ['langgraph','qwen']:
         recs=rows(packages[key]['records.jsonl'])
@@ -170,6 +208,8 @@ def analyse(input_dir):
     return {'schema':'zktrustllm.tnsm.retained_output_audit.v1','sources':source,'oracle_sha256':ORACLE_SHA,
             'scenario_count':len(scenarios),'oracle_cells':len(oracle),'oracle_action_counts':dict(Counter(r['oracle_action_class'] for r in oracle)),
             'scenarios':scenarios,'systems':systems,
+            'proposed_metrics_from_retained_summary':proposed,
+            'proposed_summary_scope':'Derived from the archived repeat-consistency histograms, not a rerun or raw-row validation of the original proposed pipeline.',
             'live_trace_timing':timing,
             'interpretation':'Paired post-processing ablation on retained model outputs. No inference rerun, expert validation, critical-path decomposition or operational execution is measured.'}
 
