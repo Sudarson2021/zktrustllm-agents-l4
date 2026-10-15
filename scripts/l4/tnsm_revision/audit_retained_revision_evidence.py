@@ -209,7 +209,7 @@ def analyse(input_dir):
             'scenario_count':len(scenarios),'oracle_cells':len(oracle),'oracle_action_counts':dict(Counter(r['oracle_action_class'] for r in oracle)),
             'scenarios':scenarios,'systems':systems,
             'proposed_metrics_from_retained_summary':proposed,
-            'proposed_summary_scope':'Derived from the archived repeat-consistency histograms, not a rerun or raw-row validation of the original proposed pipeline.',
+            'proposed_summary_scope':'This field is a summary-level cross-check. Run audit_recovered_proposed_evidence.py separately for the recovered 180-report raw-record audit, clustered-interval reproduction and phase timing.',
             'live_trace_timing':timing,
             'interpretation':'Paired post-processing ablation on retained model outputs. No inference rerun, expert validation, critical-path decomposition or operational execution is measured.'}
 

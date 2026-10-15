@@ -22,13 +22,13 @@
     },
     {
       "comment": "R1.4",
-      "location": "Main VII opening, p. 7; VII-A, p. 8; VII-J and Table XIII, p. 12; VII-K, p. 13.",
-      "completed_change": "Medians/P95 and task scope clarified; one trace decomposed without adding overlapping call time.",
+      "location": "Main VII opening, p. 7; VII-A, p. 8; VII-J and Table XIII, pp. 12\u201313; VII-K, p. 13.",
+      "completed_change": "Medians/P95 and task scope clarified; all 180 reports decomposed into disjoint intervals without adding overlapping call time.",
       "interpretation": "Intended deliberative tasks require independent deadline validation."
     },
     {
       "comment": "R1.5",
-      "location": "Main VII-C and Tables VIII\u2013IX, pp. 8\u201310; VII-J, p. 12; Supplement Major Revision Evidence Audit.",
+      "location": "Main VII-C and Tables VIII\u2013IX, pp. 8\u201310; VII-J, pp. 12\u201313; Supplement Major Revision Evidence Audit.",
       "completed_change": "Shared inputs and differing prompts, budgets, calls, governance, timing and dates exposed.",
       "interpretation": "Configured workflows support no causal framework or component comparison."
     },
@@ -58,7 +58,7 @@
     },
     {
       "comment": "R2.2",
-      "location": "Main VII-C/Table IX, p. 10; VII-J/Table XIII, p. 12; Supplement replay and timing definitions; retained_output_ablation.csv.",
+      "location": "Main VII-C/Table IX, p. 10; VII-J/Table XIII, pp. 12\u201313; Supplement replay and timing definitions; retained_output_ablation.csv.",
       "completed_change": "Paired retained-output replay added; unequal latency ratio qualified; matched inference still absent.",
       "interpretation": "Execution suppression preserves semantic errors; replay does not measure runtime overhead."
     },
@@ -70,7 +70,6 @@
     }
   ],
   "remaining_validation": [
-    "Original proposed-workflow 180 per-run reports/manifests for full raw reproducibility",
     "Independent expert annotations under an amended frozen nominal-category analysis plan",
     "Matched inference-time/component/framework experiment",
     "Live standards-conformant O-RAN integration and operational telemetry/noise validation",
@@ -79,17 +78,24 @@
   "new_hosted_model_calls": 0,
   "new_operational_network_actuation": false,
   "portal_submission_performed": false,
-  "submission_status": "MAJOR_REVISION_DRAFT_WITH_EXPLICIT_EVIDENCE_LIMITS",
+  "submission_status": "MAJOR_REVISION_DRAFT_ORIGINAL_RAW_REPORTS_VERIFIED",
   "accepted_camera_ready": false,
   "main_pages": 14,
   "supplement_pages": 14,
-  "python_tests": 38,
+  "python_tests": 43,
   "javascript_payload_cases": 14,
+  "original_proposed_reports_recovered": true,
+  "original_proposed_report_manifests_verified": 180,
+  "original_proposed_bound_file_hashes_verified": 3240,
+  "canonical_report_hashes_match_released_reference": 180,
+  "raw_agreement_and_clustered_intervals_reproduced": true,
+  "timing_population": 180,
   "proposed_agentic_never_recall": {
     "numerator": 19,
     "denominator": 20,
     "percent": 95,
-    "source": "retained repeat-stability histograms; not all original raw per-run packages"
+    "source": "original final-action records; cross-checked against retained histograms"
   },
-  "readiness_review": "SUBMISSION_READINESS.md"
+  "readiness_review": "SUBMISSION_READINESS.md",
+  "raw_evidence_verification": "RAW_EVIDENCE_VERIFICATION.md"
 }

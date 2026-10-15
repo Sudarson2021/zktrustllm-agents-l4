@@ -674,10 +674,14 @@ unchanged retained-data packages, reanalysis code, formal logs and editable
 figures. Its build information identifies the repository commit and file
 digests. These new checks must not be attributed to the older DOI release.
 The supplement describes the evidence objects and reproduction commands.
-Baseline metrics are recomputed from retained records; proposed-workflow
-counts are checked against archived scenario histograms. The original 180
-proposed per-cell packages are not included in this revision archive, so the
-revision does not claim to have rerun their complete raw-output analysis.}
+The revision includes all 180 recovered proposed-workflow report packages,
+with 180 manifests binding 3,240 evidence files, plus retained baseline
+records. Every recovered report's canonical hash matches its entry in the
+previously released frozen oracle export. Reanalysis reproduces the agreement
+counts, scenario-clustered intervals and indexed latency statistics without
+new inference. This establishes internal integrity and result consistency;
+it does not independently authenticate provider services or validate the
+synthetic oracle.}
 \subsection{Claim Boundary}
 \label{sec:claim-boundary}
 Claims are restricted to the released implementation and retained evidence.
@@ -944,7 +948,7 @@ Qwen3-4B local & Agentic RAG / 60 & 63.3\% & 18.3\% & 11.7\% &
 \end{table*}
 For all systems, NEVER recall is the fraction of oracle-NEVER cases whose
 final action class is NEVER; it is distinct from an execute-true flag. The
-retained repeat counts give proposed Agentic-RAG recall $19/20=95.0\%$:
+recovered raw reports and retained repeat counts give proposed Agentic-RAG recall $19/20=95.0\%$:
 S4 has nine NEVER and one HUMAN result, while S5 has ten NEVER results.
 The HUMAN mismatch remains an action-class error even with automatic
 execution disabled. This corrects the previous table's 100.0\% entry.
@@ -1371,16 +1375,15 @@ policy. The proposed workflow's original zero unsafe-automatic count is a
 reported gate outcome under its synthetic configuration, distinct from the
 baseline prediction flags and the single approved simulated write.
 
-One retained S2 trace permits a limited timing explanation. Its internal
-timestamps span 108.939~s: input to frozen retrieval, 4.380~s; retrieval to
-provider aggregate, 26.876~s; aggregate through the four-role chain,
-77.573~s; final reflection to report, 0.109~s. Parallel provider wall time is
-25.421~s, while summed provider calls are 42.896~s; these overlap and must not
-be added to the wall intervals. Summed role calls are 77.397~s. These values
-identify the expensive stages in that one trace, excluding subsequent human
-waiting; they do not decompose the 180-cell median or isolate a causal
-LangGraph/n8n difference. The 109.436~s n8n envelope includes additional
-orchestration outside the internal report timestamps.
+The recovered benchmark packages provide timestamp intervals
+for all 180 successful cells (60 per mode). The median aggregate-to-final-
+reflection phase is 57.698, 75.637 and 79.608~s for No~RAG, RAG and Agentic
+RAG, respectively; it spans the four-role chain and post-role processing.
+The supplement reports all disjoint phase medians and their timing boundary.
+Marginal phase medians do not sum to the median total. This population-level
+descriptive analysis explains where time is spent in the proposed workflow;
+it does not estimate a causal component cost or remove the LangGraph
+comparison confounders. No provider requests are repeated.
 \end{revision}
 
 \begin{revision}

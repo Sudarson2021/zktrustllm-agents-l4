@@ -50,7 +50,7 @@
       "never_reference_count": 20
     }
   },
-  "proposed_summary_scope": "Derived from the archived repeat-consistency histograms, not a rerun or raw-row validation of the original proposed pipeline.",
+  "proposed_summary_scope": "This field is a summary-level cross-check. Run audit_recovered_proposed_evidence.py separately for the recovered 180-report raw-record audit, clustered-interval reproduction and phase timing.",
   "scenario_count": 6,
   "scenarios": [
     {

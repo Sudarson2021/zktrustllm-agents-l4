@@ -19,5 +19,16 @@
   "ieeetran_class_origin": "https://ctan.org/pkg/ieeetran",
   "ieeetran_class_sha256": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7",
   "new_hosted_model_calls": 0,
-  "external_portal_modified": false
+  "external_portal_modified": false,
+  "recovered_original_evidence": {
+    "filename": "TNSM_12002_Original_Evidence_Recovery.tar.gz",
+    "sha256": "f842c0308d6e52904de71bb8886a044d733d474dde688ac906fbab0277ccb63d",
+    "bytes": 5574012,
+    "original_run_packages": 180,
+    "original_evidence_files": 3420,
+    "run_manifest_entries_verified": 3240,
+    "canonical_report_hashes_match_released_reference": 180,
+    "new_inference": false,
+    "independent_provider_authentication_established": false
+  }
 }

@@ -202,10 +202,9 @@ Run identifier, report hash, or the four hashes of the lineage fail to
 correspond. \\
 Semantic table, oracle-relative performance over 180 cells & \Esynthetic{} &
 \S\ref{sec:oracle-detail} &
-Frozen oracle, prompt provenance and retained summary histograms;
-original 180 per-cell packages absent from revision archive &
-Retained histograms yield different counts. Full raw-run recomputation
-requires the missing packages; see \S\ref{sec:major-revision-audit}. \\
+Frozen oracle, recovered 180 report packages, original manifests and retained summaries &
+Report hashes fail the released-reference join, or raw reanalysis yields
+different counts/intervals; see \S\ref{sec:major-revision-audit}. \\
 External LangGraph baseline over the same 180 cells & \Emeasured{} &
 \S\ref{sec:revision-experiments} &
 Hash-bound baseline records and manifest &
@@ -1557,8 +1556,8 @@ is computed across them.
 \section{\texorpdfstring{\rev{Major Revision Evidence Audit}}{Major Revision Evidence Audit}}
 \label{sec:major-revision-audit}
 \begin{revision}
-The revision reanalysis reads five retained archives without issuing a provider
-request or mutating the frozen data. Their internal manifests verify 5 oracle
+The revision reanalysis reads five retained archives and the recovered original
+R10 bundle without issuing a provider request or mutating the frozen data. Their internal manifests verify 5 oracle
 export, 547 LangGraph, 129 Qwen, 6 prompt-provenance and 4 clustered-statistics
 files. The canonical oracle digest remains
 \texttt{4854f1d4\ldots e1196c6c}. Every baseline row joins the oracle by cell
@@ -1566,6 +1565,17 @@ identifier, scenario hash and labels; every retained raw response matches its
 recorded canonical SHA-256 digest. All raw model outputs and original
 \texttt{unsafe\_execution} fields remain unchanged. The derived report records
 the legacy predicate and gives the corrected interpretation.
+
+The recovered bundle has SHA-256
+\texttt{f842c030\ldots 77ccb63d}. Its original release manifest and archive
+sidecars pass. All 180 run manifests verify 18 files each: 3,240 bound files
+plus 180 manifests, for 3,420 files. Canonical report hashes match the
+previously released frozen-reference hashes for all 180 cells. We also verify
+six component self-hashes per report, 720 assessor raw-response hashes and
+720 role raw-response hashes. The successful index, report metadata,
+retrieval content and prompt-provenance records join consistently. Internal
+integrity does not establish independent provider authenticity or physical
+telemetry truth.
 
 \subsection{Semantic labels and execution declarations}
 The frozen decision is three-valued (COMPLIANT, NON\_COMPLIANT, UNCERTAIN),
@@ -1576,11 +1586,11 @@ with final-prediction \texttt{execute=true}. This is not a dispatch or actuator
 observation. Its broader counter counts declarations on any reference
 non-automatic case. On Qwen's 60 cells these counts are 9 and 38; LangGraph
 has zero on 180 cells. No baseline runner invokes an executor.
-The archived proposed-workflow histograms provide a separate consistency
-check: Agentic RAG has nine NEVER outcomes in S4 and ten in S5, yielding
+The recovered proposed-workflow reports and archived histograms agree: Agentic RAG has nine NEVER outcomes in S4 and ten in S5, yielding
 NEVER-class recall $19/20=95.0\%$, rather than the previous 100.0\% entry.
 No RAG and RAG give $0/20$ and $10/20$, respectively. These point counts are
-derived from the retained summary, not a new raw-output or inference rerun.
+recomputed from the original final-action records and cross-checked against the
+retained summary. No new inference is performed.
 
 
 The paired replay has three conditions: raw candidate, class-consistency guard
@@ -1591,11 +1601,12 @@ execute-true count from 38 to zero and its NEVER-subset count from nine to zero,
 while decision agreement stays 38/60 and action agreement 11/60. LangGraph
 stays 150/180 and 120/180 with zero declarations. This limited ablation
 demonstrates metric separation, not a causal latency gain or a model upgrade.
-No new confidence interval is imposed on these six repeated scenarios. The original 180 proposed-workflow
-per-cell packages are absent from the supplied revision archive. The newly
-derived proposed recall is therefore a check of the retained scenario
-histograms, while baseline replay uses retained model records and responses.
-These evidence levels are not represented as equivalent raw-data coverage.
+The recovered raw decision/action records also reproduce the previously
+reported 20,000-replicate scenario-clustered intervals using the unchanged
+seed and whole-scenario resampling. The six-scenario generalisation boundary
+remains unchanged. Proposed-workflow timing comes from the original success
+index and report timestamps; the baseline latency comes from its assessor
+request timer. These timing estimands remain different.
 
 \subsection{Formal predicates and sensitivity}
 For executed flag $e$, class $c$, human approval $h$, privileged approval $p$,
@@ -1614,19 +1625,52 @@ negative controls establish sensitivity of those predicates to those mutations.
 They do not verify arbitrary code defects or deployed approval services.
 The finite model has no accepted-commitment history and does not check replay.
 
-\subsection{Timing definitions and one archived trace}
+\subsection{Timing definitions and recovered benchmark phases}
 The baseline's recorded latency surrounds its assessor request. The original
 180-cell proposed values describe returned-workflow durations. They differ in
 provider count, role calls, budgets, prompts, dates and governance; their ratio
-does not estimate n8n/LangGraph overhead. Per-stage logs for all 180 proposed
-cells are not present in this revision package, so no population decomposition
-is claimed. One S2 report has disjoint timestamp intervals of 4.380091~s
+does not estimate n8n/LangGraph overhead. The recovered reports now provide
+monotonic stage timestamps for all 180 successful cells.
+Table~\ref{tab:recovered-timing} summarises the four disjoint intervals,
+whose per-run sum equals the internal report duration. The index timer
+includes a median additional 0.082/0.081/0.080~s for No~RAG/RAG/Agentic RAG;
+it is retained as a separate measurement. The median per-run fraction in the
+aggregate-to-reflection phase is 73.4/76.5/75.4\%, respectively. That phase
+contains the role chain and its surrounding processing, rather than an
+isolated causal cost of model reasoning. Its P95 is 85.156/110.447/125.168~s.
+Sums of all four individual assessor-call durations are available for
+58/58/57 runs, respectively; missing call durations are not imputed. All
+phase statistics in Table~\ref{tab:recovered-timing} use 60 complete timestamp
+records per mode. Parallel assessor calls overlap and are never added to
+these wall intervals. Marginal stage medians do not sum to a median total.
+
+For comparison, the separate live S2 demonstration has disjoint intervals of 4.380091~s
 (input to retrieval), 26.876164~s (retrieval to aggregate), 77.572908~s
 (aggregate through role reflection), and 0.109483~s (reflection to report),
 totalling 108.938646~s. Its 25.421263~s parallel assessment interval overlaps
 42.896247~s of summed calls, and its summed role calls are 77.397133~s.
 The separate approval callback follows report completion. These observations
 explain that trace's duration without claiming a matched framework ablation.
+
+\begin{table*}[!t]
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
+\caption{Recovered benchmark timing: marginal medians in seconds, 60 cells
+per mode. The four phase intervals partition each internal report duration;
+the indexed timer is separate. These are descriptive recorded-workflow
+statistics, not matched inference-time ablations.}
+\label{tab:recovered-timing}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Mode & $n$ & Indexed & Report & \shortstack{Input to\\retrieval} &
+\shortstack{Retrieval to\\aggregate} & \shortstack{Aggregate to\\reflection} &
+\shortstack{Reflection to\\report} \\
+\midrule
+No RAG & 60 & 80.453 & 80.363 & 0.011 & 20.220 & 57.698 & 0.036 \\
+RAG & 60 & 100.152 & 100.058 & 0.394 & 24.197 & 75.637 & 0.036 \\
+Agentic RAG & 60 & 109.793 & 109.711 & 3.062 & 26.224 & 79.608 & 0.036 \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \subsection{Approval export repair and deployment boundary}
 The archived callback coerces \texttt{approved} through JavaScript
@@ -1640,7 +1684,10 @@ obligations and are not established by importing the export.
 
 \subsection{Reproduction and remaining validation}
 Run \artifactpath{scripts/l4/tnsm_revision/audit_retained_revision_evidence.py}
-for the archive audit and replay. Run
+for the baseline archive audit and replay. Run
+\artifactpath{scripts/l4/tnsm_revision/audit_recovered_proposed_evidence.py}
+for the recovered 180-report audit, raw metrics, clustered intervals and phase
+timing table. Both commands use retained records only. Run
 \artifactpath{scripts/l4/tnsm_revision/run_formal_revision_checks.py}
 with TLC~2.19's jar to reproduce the original, zero-input and mutation runs.
 The accompanying README gives exact commands, input hashes and tests. The

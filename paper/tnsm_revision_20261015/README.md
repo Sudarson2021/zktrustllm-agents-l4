@@ -9,7 +9,7 @@ The starting point is the TNSM artifact branch `tnsm-supervisor-revision-step1-2
 - Main IV-A/Table II distinguishes implemented, simulated, finite-model and future components. VI-D/Table IV documents all six author-designed cases and experimental policy rules.
 - Abstract, semantic table and Fig. 4 consistently report agreement with the frozen oracle. There are six scenarios, not 180 independent incidents. All reference action classes are HUMAN or NEVER.
 - VII-C/Table IX exposes the baseline differences: calls, prompts, budgets, sampling, timing boundaries, dates and governance. No causal framework comparison is claimed.
-- VII-J/Table XIII adds a paired retained-output replay, plus a timing decomposition of one archived S2 trace. This is not new inference or a measurement of component overhead.
+- VII-J/Table XIII adds a paired retained-output replay, plus a timing decomposition of all 180 benchmark reports and one separate archived S2 demonstration. This is not new inference or a measurement of component overhead.
 - V and the supplement specify six exact invariants, reproduce the original finite model, add a zero-input probe and retain three expected mutation counterexamples.
 - VII-A expands operator review and unverified deployment obligations. A separate inactive V2 callback export rejects string Boolean coercion; local payload tests are included.
 - Editable TikZ figures replace supplementary screenshots. Fig. S1 is a functional map generated from archived JSON, with a complete edge-level draw.io diagram and node inventory. It is not an AI-detector figure or execution proof.
@@ -19,7 +19,9 @@ The starting point is the TNSM artifact branch `tnsm-supervisor-revision-step1-2
 
 The proposed Agentic-RAG NEVER-class recall is **19/20 = 95.0%**, not the previous 100% entry. It is final-action-class recall, not the execution-flag rate. The audit reconstructs this count from preserved repeat-stability histograms and rejects unstable decision marginals that would make the joint count unidentified.
 
-The original 180 proposed-workflow per-run report/manifest packages have **not been recovered in this revision archive**. Proposed-workflow metrics are checked against retained aggregate/repeat-stability summaries, not independently recomputed from those missing raw packages. The raw LangGraph/Qwen baseline records and frozen reference are included. The historical DOI (10.5281/zenodo.21939774) is a versioned source snapshot; it must not be represented as containing these new revision scripts. A self-contained revision repository ZIP is supplied separately, pending public publication. No missing data are reconstructed or claimed as a new experiment.
+The original **180 proposed-workflow run packages have been recovered and independently reanalysed**. The immutable input `evidence/inputs/TNSM_12002_Original_Evidence_Recovery.tar.gz` has SHA-256 `f842c0308d6e52904de71bb8886a044d733d474dde688ac906fbab0277ccb63d`. The original release/sidecar checksums and all 180 run manifests pass: 3,240 bound evidence files plus 180 manifests. Every recovered canonical report hash joins the previously released frozen oracle export. Reanalysis reproduces decision/action agreement, 95% NEVER recall, coverage, clustered intervals and recorded latency statistics. This is internal integrity and retained-result reproducibility, not independent provider authentication or validation of oracle correctness.
+
+The historical DOI (10.5281/zenodo.21939774) remains a versioned source snapshot and does not include this newly recovered bundle or revision scripts. The full revision repository ZIP supplies both, pending public publication. No new inference or missing-record reconstruction was performed.
 
 The archived baseline `unsafe_execution` field means `oracle_action_class == NEVER and final_prediction.execute == true`. No executor is invoked by either baseline runner. Qwen's nine such flags are erroneous output declarations, not observed executions. The broader non-automatic-reference count is 38. A replay with execution disabled changes these counts to zero while leaving decision agreement 38/60 and action agreement 11/60. LangGraph remains 150/180 and 120/180, with zero declarations. Original fields are unchanged; corrected interpretations are derived separately.
 
@@ -33,13 +35,17 @@ Run from the repository root with Python 3.10+ and Node.js available:
 
 ```bash
 python3 scripts/l4/tnsm_revision/audit_retained_revision_evidence.py
+python3 scripts/l4/tnsm_revision/audit_recovered_proposed_evidence.py
 python3 scripts/l4/tnsm_revision/build_workflow_map.py
-python3 -m unittest discover -s test/l4/tnsm_revision -p test_major_revision_evidence.py -v
-python3 -m unittest discover -s test/l4/tnsm_revision -p test_revision_tools.py -v
+python3 -m unittest discover -s test/l4/tnsm_revision -p 'test_*.py' -v
 node test/l4/tnsm_revision/test_review_payload_v2.cjs
 ```
 
-The nine new evidence tests and 29 existing revision-tool tests pass, together with 14 callback cases. The archive audit rejects traversal and malformed/checksum-mismatched archives; validates all five internal manifests; joins 180 LangGraph and 60 Qwen records to the 180-cell frozen reference; verifies raw-response hashes; and reconstructs native guards before replay. It sends no provider requests and performs no actuation. Its outputs are `evidence/derived/retained_output_audit.json` and `retained_output_ablation.csv`.
+All 43 Python tests pass: 29 existing revision-tool, nine retained-evidence and five recovered-evidence tests, together with 14 callback cases. The archive audit rejects traversal and malformed/checksum-mismatched archives; validates all five internal manifests; joins 180 LangGraph and 60 Qwen records to the 180-cell frozen reference; verifies raw-response hashes; and reconstructs native guards before replay. It sends no provider requests and performs no actuation. Its outputs are `evidence/derived/retained_output_audit.json` and `retained_output_ablation.csv`.
+
+The recovered-evidence audit additionally verifies the nine-file recovery bundle, 37 portable-manifest entries, 20 analysis-manifest entries and 14 benchmark-manifest entries using explicit path mapping. It verifies every original report, retrieval bundle, embedded provider/role record, 720 assessor and 720 role raw-response hashes, metadata/index/reference joins and 180 prompt-provenance joins. It regenerates the unchanged 20,000-replicate whole-scenario intervals. Outputs are `recovered_proposed_audit.json`, `recovered_proposed_cells.csv` and `recovered_proposed_timing.csv`.
+
+All 180 reports provide disjoint timestamp intervals. Their aggregate-to-reflection phase medians are 57.698/75.637/79.608 s for No RAG/RAG/Agentic RAG; this phase contains the role chain and surrounding processing. Marginal phase medians do not sum to the median total. The original success-index timer is separate, and missing individual provider-call durations are not imputed. This remains descriptive stage attribution, not a matched framework/component ablation.
 
 The figure generator checks the frozen export's 54 nodes (45 computational and 9 documentation) and full computational-node membership. The editable draw.io file includes all 49 exported edges. The compact TikZ figure is a functional grouping and does not reproduce every graph edge.
 
