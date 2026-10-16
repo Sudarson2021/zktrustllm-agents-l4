@@ -302,7 +302,7 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     (args.output_dir / 'matched_inference_audit.json').write_text(json.dumps(report, indent=2) + '\n')
     with (args.output_dir / 'matched_inference_trials.csv').open('w', newline='') as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n"); writer.writeheader(); writer.writerows(rows)
     print(json.dumps({'archive_sha256': ARCHIVE_SHA, 'full_trials': report['full_trials'], 'full_calls': report['full_calls'],
                       'manifest_entries': report['manifest_entries'], 'independent_reproduction': True,
                       'invalid_node_categories': report['invalid_node_categories'],
