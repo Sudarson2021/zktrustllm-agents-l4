@@ -1,0 +1,52 @@
+# Final supervisor and reviewer alignment review
+
+TNSM-2026-12002 — checked 16 October 2026
+
+The three attached PDFs were checked against both original handwritten photographs and all eight Reviewer 1 and three Reviewer 2 comments. Their text and rendered pages matched the previously reviewed package. This pass makes further limited corrections to terminology, supplement navigation, table interpretation and response locations. All numerical experiment results and original evidence remain unchanged.
+
+The package is prepared for final coauthor review and major-revision resubmission. It is not an accepted camera-ready article. Every reviewer concern has a corresponding response, but not every requested validation study has been completed. In particular, the supervisor's requested causal latency ablation remains only partly fulfilled: retained-output replay and descriptive timing exist; a matched inference-time component study does not. Reviewer 2 explicitly permits a more qualified interpretation, which the response adopts.
+
+## Requirement alignment
+
+| Concern | Verified manuscript change and final location | Response and completion status |
+| --- | --- | --- |
+| 1 O-RAN realism and simulation metrics | Main IV-A/Table II, pp. 3–4; VI-D/Table IV, p. 6; VII-I, p. 12. Separates implemented governance, simulated ledger, finite model, configured impairments and intended interfaces. | R1.1–R1.2 explain scope. Operational telemetry and standards-conformant live rApp/A1/E2 validation remain absent. Addressed through explanation and narrower claims. |
+| 2 Scenarios and conflicting evidence | Main VI-D/Table IV, p. 6, and VII-B/Table VII, pp. 8–9. Six exact synthetic cases; experimental P-01–P-04 rules; S2/S4 conflict and S6 missing evidence; both reconciliation errors diagnosed. | R1.2 identifies author-designed cases and ten repeats per condition. No claim of 180 independent incidents or systematic operational noise/conflict validation. |
+| 3 Formal verification | Main V, pp. 4–5; Supplement S7.9, pp. 11–12, and S10.2, p. 13. Six predicates and seven state fields; 320 original and 480 probe states; three guard mutations detected. | R1.3 states bounded safety, including zero-input initialisation limits. No code-refinement, liveness, authentication, cryptographic-proof or deployment proof. Completed within that finite scope. |
+| 4 Near-RT applicability and latency | Main VII opening, p. 7, VII-J, pp. 12–13; Supplement S10.3/Table S15, pp. 13–14. Medians 80.453–109.793 s; Agentic-RAG P95 164.747 s; human waiting excluded. ETSI TS 103 982 V14.0.0 cited. | R1.4 excludes Near-RT and urgent inline response. Candidate deliberative tasks require deadline and freshness validation. Timing analysis is complete; no operational deadline guarantee. |
+| 5 LangGraph reproducibility and fairness | Main VII-C/Table IX, pp. 8–10; Supplement S6.2, p. 8, and S7.5, pp. 10–11. Shared inputs/scoring and different calls, prompts, budgets, sampling, dates, governance and timing are explicit. | R1.5/R2.2 interpret the 59.6 ratio as unequal configured workflows. Causal framework/component attribution is withdrawn. Matched inference remains incomplete. |
+| 6 Human oversight | Main VII-A/Fig. 3, pp. 7–8; Supplement S10.4, p. 14. Two paragraphs explain operator role, payload, review view and accountability, and proposed conflict/expiry behaviour. | R1.6 separates one approved simulated write from unverified authentication, exact binding, expiry, replay/conflict and privileged approval. Fourteen local payload cases pass; V2 export remains inactive. |
+| 7 Blockchain evidence | Main IV-C, p. 4, VI-F, pp. 6–7, and VII-E–H, pp. 10–12. Separates local hash chain, public-testnet first inclusion, evidence availability and AUTH_V2.2/proof boundaries. | R1.7 explains that inclusion is not finality or production reliability. The live external-chain field remains MISSING. No row-bound successful ZK verification is claimed. |
+| 8 Language and organization | Main Table II, p. 3; VII-B, p. 8; Fig. 4/Table VII, p. 9; VIII, pp. 13–14. Supplement headings now display the same Sx.y identifiers used by references. | R1.8/R2.3: residual broad safety wording is replaced by fail-closed routing or execution status. Typesetting and protocol wording are corrected. No scientific result changed. |
+| R2.1 Accuracy and O-RAN relevance | Abstract, VI-D, VII-B/Table VI/Fig. 4 and VIII. All claims use frozen-oracle agreement; Agentic-RAG NEVER recall remains corrected to 19/20 = 95%. | All 180 original report/manifests verify and retained metrics reproduce. This establishes internal integrity, not independent expert correctness or provider authentication. Narrower-claim option adopted. |
+| R2.2 Short ablation and latency gap | Main VII-J/Table XIII, pp. 12–13; Supplement S10.1/S10.3/Table S15, pp. 13–14. Retained Qwen declarations fall 38 to 0 while decision/action agreement stays 38/60 and 11/60. All 180 phase records are analysed. | Partially fulfilled experimentally. No matched inference-time ablation is available. Replay does not explain the 1.843 versus 109.793 s gap causally; the response explicitly qualifies interpretation. |
+| Former Table IV | The former semantic table is Table VI, p. 9. Only oracle decision agreement, action agreement and coverage remain. Timing is in Fig. 4(d); execution interpretation is separate. | R1.8 addresses simplification. The actual R2.3 separately addresses semantics versus execution. Supplement Table S14, p. 12, now labels output flags as NEVER declarations and defines them in its caption. |
+| Figure watermarks and labels | Figures in the marked main and supplement were visually checked; native vector diagrams/charts contain no embedded raster images. Captions, units, labels and legend associations are readable. | Presentation check complete for these files; no visible watermark observed. No claim about AI-detector performance or undetectability. |
+| Figure S1 provenance | Supplement S3, pp. 3–4, and Fig. S1, p. 4. Archived JSON, generator, 54-node inventory, 45 computational/9 documentation nodes and all 49 exported connections are identified. | The photograph concerns an AI-generated diagram and its n8n provenance; some words remain uncertain. The compact figure is a functional summary, not a detector result or new execution proof. AI assistance is disclosed. |
+| Editable diagrams | Native TikZ figure files and workflow_topology.drawio are retained in the source archive. The archived workflow remains authoritative for exact connections. | Completed for supplied diagrams. Editable sources accompany the revised PDFs. |
+
+## Additional corrections made in this pass
+
+- Replaced “safety conditional on abstention” and “preserves safety” with the actual observed routing or disabled-execution behaviour. Table VII now uses “Execution status”; Fig. 4 uses “fail-closed routing.”
+- The conclusion now separates proposed-workflow disabled automatic execution from LangGraph's zero execution declarations and states that neither establishes semantic correctness.
+- The conclusion now requires amending and freezing a nominal-category annotation protocol before independently assessing the frozen oracle, consistent with Main VII-K and Supplement S7.4.
+- Replaced the potentially misleading “production webhook” wording with “n8n webhook,” and “deployable workflow” with “configured workflow” where it described experimental software.
+- Supplement subsection headings now visibly match their Sx.y cross-references. The response now says Supplement S3 and gives verified supplement section/page locations.
+- Supplement Table S14 labels oracle-NEVER execute-true outputs as declarations and explicitly states that no executor is invoked. A stale sentence referring to Wilson intervals not present in that table was removed. The separately qualified injection-suite Wilson calculation remains unchanged.
+- Corrected “aggregate-to-final- reflection” and “large-language- model” typesetting and updated conclusion references to pp. 13–14.
+
+## Checks completed
+
+All 43 scientific revision Python tests and all 14 callback payload cases pass. All five formal checks meet their expected outcome: the two bounded models pass and all three deliberate mutations produce their specified invariant violations. The recovered-evidence audit verifies 180 manifests and 3,240 bound files, all 180 report/reference joins, 720 assessor and 720 role raw-response hashes, and retained metrics/clustered intervals. The original recovery-bundle SHA-256 remains f842c0308d6e52904de71bb8886a044d733d474dde688ac906fbab0277ccb63d.
+
+Four LaTeX builds contain no overfull boxes, unresolved references or critical warnings. Ordinary underfull justification warnings remain recorded in VALIDATION.json; they are not described as absent. The marked main and supplement each have 14 pages, and their clean counterparts have identical text and character coordinates. The response has seven pages. Changed manuscript pages, all supplementary pages and all response pages were visually checked; other manuscript pages match the previously inspected version pixel for pixel. No new hosted-model calls, expert labels or operational network actions were generated.
+
+## Remaining decisions before submission
+
+The authors must approve the final content, authorship/funding/disclosure text and reconciliation with any later private Overleaf edits. They must decide whether to submit the explicitly qualified R2.2 response or first complete the supervisor's requested matched inference-time study. Independent expert labels, operational telemetry/noise validation and deployed approval-service tests remain absent and are disclosed.
+
+Author terminal logs show that GitHub tag tnsm-artifact-v1.1.0 was published at commit 977a746e3b6f49ccb158b7dcd998c25872d729ec. This 16 October polishing pass is a later document state. It does not modify that published tag or confirm a new Zenodo DOI. Archive the approved updated documents as a new version and verify its actual DOI and contents before using that version in a revision-specific citation. Historical DOI 10.5281/zenodo.21939774 identifies v1.0.0 and remains a historical citation.
+
+Acceptance, supervisor approval and camera-ready status cannot be established by this audit. No journal submission was made.
+
+Primary control-loop source rechecked: ETSI TS 103 982 V14.0.0 (March 2026), §§5.3.1.2.3 and 5.3.2, https://www.etsi.org/deliver/etsi_ts/103900_103999/103982/14.00.00_60/ts_103982v140000p.pdf .

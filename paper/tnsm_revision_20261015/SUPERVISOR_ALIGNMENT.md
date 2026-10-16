@@ -1,6 +1,6 @@
 # Supervisor recommendation alignment
 
-Manuscript TNSM-2026-12002. Final alignment review prepared 15 October 2026.
+Manuscript TNSM-2026-12002. Final alignment review prepared 15 October 2026; rechecked and polished 16 October 2026.
 
 The revision addresses the reviewer comments through verified retained-data analysis, clearer implementation boundaries and narrower claims. It is suitable for final coauthor review as a major-revision package. The decision remains major revision; this is not an accepted camera-ready paper. The supervisor's request for an ablation explaining the latency gap is only partially fulfilled experimentally: paired output replay and descriptive timing are available, while a matched inference-time component experiment remains incomplete.
 
@@ -51,3 +51,7 @@ The original recovery bundle retains SHA-256 `f842c0308d6e52904de71bb8886a044d73
 The authors should reconcile any later private Overleaf edits, approve the final authorship/funding/disclosure text and decide whether the explicitly narrowed claims adequately address the remaining validation gaps. Publish the reviewed artifact version and then add its actual new DOI to the revision-specific citation. Preserve the original DOI wherever it identifies historical evidence. Acceptance and supervisor approval remain decisions for the editor, reviewers and coauthors.
 
 Primary source for control-loop timescales: ETSI TS 103 982 V14.0.0 (March 2026), sections 5.3.1.2.3 and 5.3.2, https://www.etsi.org/deliver/etsi_ts/103900_103999/103982/14.00.00_60/ts_103982v140000p.pdf .
+
+## Final check on 16 October 2026
+
+See FINAL_ALIGNMENT_REVIEW_20261016.md for the audit of the three attached PDFs, precise final page locations, additional terminology/Table S14/reference corrections, new verification results and the remaining matched inference-time gap. Supplement subsection headings now show their Sx.y cross-reference identifiers. Main VIII continues onto page 14. The updated response uses those locations. No numerical experiment result or original evidence was changed.

@@ -49,6 +49,8 @@
 
 \renewcommand{\thesection}{S\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+% Match visible subsection headings to numeric cross-references.
+\renewcommand{\thesubsectiondis}{\rev{\thesubsection.}}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\theequation}{S\arabic{equation}}
@@ -135,8 +137,9 @@ the execution protocol, the denominators, and the artifact binding.
 
 Three conventions are used throughout. First, denominators are never merged:
 a rate is always reported against the population it was computed over.
-Second, every quantitative statement carries one of the evidence-status tags
-defined in Section~\ref{sec:status}. Third, any field that a reviewer must
+\rev{Second, the claim and KPI maps assign evidence-status tags using the
+definitions in Section~\ref{sec:status}; the surrounding text states the
+corresponding denominators and limits.} Third, any field that a reviewer must
 record for themselves, rather than read from this document, is marked
 explicitly rather than pre-filled.
 
@@ -761,7 +764,7 @@ executions exist, not one.
 
 \subsection{Observed S2 Result}
 The archived execution used scenario S2 (DRB integrity disabled) in
-\texttt{AGENTIC\_RAG} mode. The production webhook returned HTTP~200, and n8n
+\texttt{AGENTIC\_RAG} mode. The \rev{n8n} webhook returned HTTP~200, and n8n
 recorded successful master execution \#1412 in 109.436\,s for run
 \artifactpath{d7c0e31b-fa9e-437b-87d2-acdeef4a6ba1}. The final report
 (\texttt{L4-N8N-JOURNAL-EVIDENCE-2.0}) records
@@ -1321,8 +1324,7 @@ pipeline against the same hash-pinned 180-cell oracle. All 180 calls returned
 HTTP~200. The request used \texttt{gpt-5.6-terra}, temperature 0, top-$p$ 1,
 and 256 maximum completion tokens. Table~\ref{tab:revision-baselines} reports
 the quantitative comparison that replaces a qualitative novelty tick table.
-Its Wilson intervals treat cells as binomial observations and therefore do
-not remove the six-scenario limitation.
+These point estimates do not remove the six-scenario limitation.
 
 The reproducibility run uses the open-weights Qwen3-4B model under
 Ollama~0.12.3 on the 60 Agentic-RAG cells. The exact Q4\_K\_M model digest is
@@ -1337,14 +1339,16 @@ a reproducibility control rather than evidence of safety equivalence.
 \ifshowrevisions\color{blue}\else\color{black}\fi
 \centering
 \caption{Quantitative revision baselines on the frozen oracle. Agreement and
-recall are percentages; latency is the median end-to-end model call.}
+recall are percentages; latency is the median assessor-call interval. NEVER
+declarations count execute-true outputs on oracle-NEVER cells; no executor
+is invoked.}
 \ifshowrevisions\color{blue}\else\color{black}\fi
 \label{tab:revision-baselines}
 \begin{adjustbox}{width=\textwidth}
 \begin{tabular}{L{4.0cm}rrrrrrr}
 \toprule
 System and population & $n$ & Decision & Action & Joint & NEVER recall &
-Unsafe flag & Assessor median \\
+\shortstack{NEVER\\declarations} & Assessor median \\
 \midrule
 LangGraph hosted baseline, all modes & 180 & 83.3 & 66.7 & 50.0 & 100.0 & 0 & 1.642\,s \\
 LangGraph No-RAG & 60 & 83.3 & 66.7 & 50.0 & 100.0 & 0 & 1.487\,s \\
@@ -1357,7 +1361,7 @@ Qwen3-4B Q4\_K\_M, Agentic-RAG & 60 & 63.3 & 18.3 & 11.7 & 55.0 & 9 & 238.381\,s
 \end{table*}
 
 The LangGraph run consumed 348{,}864 prompt and 13{,}248 completion tokens;
-the recorded API cost was USD~0.856704. It produced zero policy bypasses and
+the recorded API cost was USD~0.856704. It produced zero recorded boundary-bypass flags and
 zero unsafe execution declarations, but this oracle-relative result is not a claim of
 production safety.
 
@@ -1441,7 +1445,7 @@ cell return the same gas delta because the bytecode, input, and local EVM
 state are fixed; the repetition therefore evidences determinism rather than
 variance. The SHA-512 implementation is an experimental measurement instrument
 gated by the FIPS~180-4~\rev{\cite{fips}} empty-string and \texttt{abc} vectors, and is not the
-deployable path: the deployable workflow computes SHA-512 off chain and
+deployable path: the \rev{configured} workflow computes SHA-512 off chain and
 anchors the complete 64-byte digest through \texttt{HashCommitmentLedger}.
 Because SHA-256 has a standard EVM precompile and SHA-512 does not, the
 primary comparison anchors precomputed digests on both sides so that

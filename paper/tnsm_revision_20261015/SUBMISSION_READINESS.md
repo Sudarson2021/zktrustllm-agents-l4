@@ -1,4 +1,4 @@
-# Submission readiness review — 15 October 2026
+# Submission readiness review — 16 October 2026
 
 **Status: major-revision package with the original 180-run evidence recovered and verified.** The supplied decision remains major revision, with a 6 December 2026 deadline. No journal submission was performed.
 
@@ -25,7 +25,7 @@ The earlier missing-report caveats have been removed from the manuscript and res
 ## Remaining author and publication steps
 
 1. Reconcile the recovered source with any later private Overleaf edits and obtain final coauthor approval of text, author order, funding, references and disclosures. Verify author ORCIDs in the submission system. These confirmations are not represented as complete.
-2. Publish the reviewed revision artifact containing the recovered raw bundle and audit code at an accessible versioned location. The historical DOI release remains unchanged and does not contain these additions. The earlier GitHub branch-creation attempt returned HTTP 403; no remote revision branch or PR was created by this work. The delivered full repository ZIP, Git bundle and binary patch preserve the revision for publication.
+2. Publish the reviewed revision artifact containing the recovered raw bundle and audit code at an accessible versioned location. The historical DOI release remains unchanged and does not contain these additions. Author terminal logs show publication of GitHub tag tnsm-artifact-v1.1.0 at commit 977a746e3b6f49ccb158b7dcd998c25872d729ec. The 16 October wording and reference corrections are later changes and require a separately versioned archive. This review does not confirm a new Zenodo DOI or modify the existing published tag.
 3. Independent expert labels, matched inference-time ablation and production-derived telemetry/live A1/E2 integration remain unavailable. The revision uses the narrower-claim and qualified-interpretation options offered by R2.1–R2.2. Editorial acceptance of those options remains the reviewers' decision.
 4. Operational use requires approval-service authentication, exact action/evidence binding, expiry, replay/conflict handling, revocation and privileged-approval implementation and tests. The inactive callback export does not establish those guarantees.
 
@@ -37,3 +37,7 @@ Primary policies checked:
 
 - https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines
 - https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/guidelines-and-policies/submission-and-peer-review-policies/
+
+## Final polishing audit
+
+FINAL_ALIGNMENT_REVIEW_20261016.md records the latest requirement matrix, wording/table/reference corrections and rerun evidence/formal/regression checks. The decision remains major revision. No matched inference-time study, expert annotations, operational O-RAN validation or deployed approval-service verification was added. The response has verified final section/table/page locations and explicitly retains these limits.

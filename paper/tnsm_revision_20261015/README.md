@@ -82,3 +82,7 @@ The planned expert protocol treats action classes as nominal. Its archived linea
 No independent expert annotation, new hosted-model inference, matched inference-time ablation, live rApp/A1/E2 integration or real operational-telemetry/noise validation was performed. The revised claims state these limits explicitly. Intended deliberative tasks still require task-specific deadline validation. Approval authentication, exact action binding, expiry, concurrent/replayed decisions, revocation and privileged approval need deployed gateway tests. The V2 export is inactive and does not establish those guarantees.
 
 The authors should review the final source, references and response, reconcile later private Overleaf edits, and submit the marked manuscript and separate response by the decision letter's 6 December 2026 deadline. No journal-portal submission has been performed.
+
+## Final document review on 16 October 2026
+
+See FINAL_ALIGNMENT_REVIEW_20261016.md for the final audit and limited polishing of the three author-attached PDFs. It records the remaining matched inference-time gap. The updated main/supplement remain 14 pages each; the response is seven pages. The final update package includes marked/clean PDFs, the editable response, manuscript/figure source and an incremental patch. The published v1.1.0 tag remains unchanged; these later edits need a new approved archive version before a new DOI can be cited.

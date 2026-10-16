@@ -769,7 +769,7 @@ not an observed production property.
 \label{sec:live-run}
 To distinguish architectural intent from observed execution, the final-paper
 \rev{experimental} workflow was exercised as a live supervisor demonstration using
-scenario S2 (DRB integrity disabled) in AGENTIC\_RAG mode. The production
+scenario S2 (DRB integrity disabled) in AGENTIC\_RAG mode. The \rev{n8n}
 webhook returned HTTP 200, and n8n recorded successful master execution
 \#1412 in 109.436\,s for run
 \texttt{d7c0e31b-fa9e-437b-87d2-acdeef4a6ba1}, with a NON\_COMPLIANT
@@ -857,8 +857,8 @@ Agentic RAG & 100.0 [100.0, 100.0] & 96.7 [93.3, 100.0] & 83.3 [50.0, 100.0] \\
 RAG raises decision and enforced-action agreement to 83.3\%, with 66.7\%
 coverage and 33.3\% abstention. Agentic RAG reaches 100.0\% decision agreement,
 96.7\% enforced-action agreement, and 83.3\% coverage. Both retrieval modes
-achieve 100.0\% selective agreement on covered cells and 100.0\% safety
-conditional on abstention. Therefore, the gain is not obtained by forcing a
+achieve 100.0\% selective agreement on covered cells and 100.0\% fail-closed
+routing conditional on abstention. Therefore, the gain is not obtained by forcing a
 decision in every case: the workflow retains a measurable abstention channel
 and keeps abstaining cases fail-closed.
 Decisions were repeat-stable in all 18 scenario--mode groups; enforced actions
@@ -883,12 +883,11 @@ every operational objective.
 Table~\ref{tab:mismatch} diagnoses the two Agentic-RAG action-class
 mismatches. In S2 repeat 10, unsupported P-03 evidence was retained together
 with P-01, so deterministic reconciliation escalated HUMAN to NEVER. This
-error is over-restrictive and preserves safety because automatic execution
-remains disabled. In S4 repeat 5, exact P-03 evidence was not retained and the
+error is over-restrictive; automatic execution remains disabled. In S4 repeat 5, exact P-03 evidence was not retained and the
 final clauses became UNSPECIFIED, so reconciliation downgraded the model
 proposal from NEVER to HUMAN. Although this direction is under-restrictive
-relative to the oracle, HUMAN still requires explicit review and therefore
-remains fail-closed. These two cases explain the $58/60 = 96.7\%$ action
+relative to the oracle, the HUMAN route still withholds automatic execution
+in this benchmark. These two cases explain the $58/60 = 96.7\%$ action
 agreement while automatic execution remained disabled in this benchmark.
 \begin{table}[!t]
 \centering
@@ -898,7 +897,7 @@ agreement while automatic execution remained disabled in this benchmark.
 \begin{adjustbox}{width=\columnwidth}
 \begin{tabular}{p{1.2cm}p{1.7cm}p{2.6cm}p{2.6cm}}
 \toprule
-Cell & Oracle / enforced & Evidence-boundary cause & Safety outcome \\
+Cell & Oracle / enforced & Evidence-boundary cause & \rev{Execution status} \\
 \midrule
 S2, r10 & HUMAN / NEVER (over-restrictive) & Unsupported P-03 retained with
 P-01; reconciliation escalated the action. & OPA enforced NEVER; automatic
@@ -1280,7 +1279,7 @@ algorithm/input cell returned the same delta because the bytecode, input, and
 local EVM state were fixed. The reported \texttt{gasleft()} deltas are
 specific to Solidity 0.8.20, optimizer 200, \texttt{viaIR=true}, and the Paris
 EVM target. The pure-Solidity SHA-512 implementation is an experimental
-instrument only; the deployable workflow computes SHA-512 off chain and
+instrument only; the \rev{configured} workflow computes SHA-512 off chain and
 anchors its complete 64-byte digest.
 \begin{table}[!t]
 \centering
@@ -1374,8 +1373,7 @@ reported gate outcome under its synthetic configuration, distinct from the
 baseline prediction flags and the single approved simulated write.
 
 The recovered benchmark packages provide timestamp intervals
-for all 180 successful cells (60 per mode). The median aggregate-to-final-
-reflection phase is 57.698, 75.637 and 79.608~s for No~RAG, RAG and Agentic
+for all 180 successful cells (60 per mode). The median aggregate-to-reflection phase is 57.698, 75.637 and 79.608~s for No~RAG, RAG and Agentic
 RAG, respectively; it spans the four-role chain and post-role processing.
 The supplement reports all disjoint phase medians and their timing boundary.
 Marginal phase medians do not sum to the median total. This population-level
@@ -1413,8 +1411,8 @@ No amended study or human agreement statistic is reported here.
 \begin{revision}
 \section{Conclusion and Future Directions}
 \label{sec:conclusion}
-This paper addressed a practical governance question: how can large-language-
-model assistance be introduced into O-RAN security operations without allowing
+This paper addressed a practical governance question: how can large language model
+assistance be introduced into O-RAN security operations without allowing
 the model to become the enforcement authority? The proposed two-plane
 architecture separates observation and reasoning from deterministic policy,
 operator approval, and evidence services. A recommendation therefore remains a
@@ -1430,7 +1428,9 @@ score. Formal model checking covered all 320 states of the configured
 policy-gate abstraction and found no violation of six safety rules. On the
 frozen 180-case benchmark, the proposed workflow achieved 100.0\% decision
 agreement and 96.7\% action agreement, compared with 83.3\% and 66.7\% for the
-external LangGraph baseline; both reported zero unsafe automatic flags under their respective benchmark definitions. The local
+external LangGraph baseline. Automatic execution was disabled in the proposed
+benchmark; LangGraph returned no execute-true declarations. Neither outcome
+establishes semantic correctness. The local
 Qwen3-4B run shows that reproducible deployment alone does not guarantee
 oracle-conformant classification, and the 30-case injection suite supports only bounded
 containment claims. Across 90 matched transaction pairs, median inclusion time
@@ -1444,8 +1444,9 @@ The claims remain limited to the released artifacts, a synthetic frozen
 oracle, public testnets, local permissioned clusters, and simulated actuation.
 The study does not establish production O-RAN safety, semantic correctness of
 model output, or system-level zero-knowledge verification; the retained matrix
-supports no row-bound successful proof verification. Future work will validate
-the oracle with the preregistered independent-annotator protocol, add
+supports no row-bound successful proof verification. Future work will independently assess
+the frozen oracle after amending and freezing the nominal-category annotation
+protocol, add
 production-derived scenarios and multiple client/RPC vantage points, exercise
 arbitrary-Byzantine and adaptive multi-turn attacks, and implement row-bound
 proof/public-input binding. Standard A1 payloads, tighter SMO/Non-RT RIC
