@@ -1,0 +1,2322 @@
+from __future__ import annotations
+
+import asyncio
+import hashlib
+import json
+import math
+import os
+import re
+import sqlite3
+import time
+import uuid
+from collections import Counter
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Literal
+
+import fitz  # PyMuPDF
+import httpx
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field, ValidationError, field_validator
+
+APP_VERSION = "2.0.0"
+DATA_DIR = Path(os.getenv("L4_DATA_DIR", "/data"))
+STATE_DIR = DATA_DIR / "state"
+EVIDENCE_DIR = DATA_DIR / "evidence"
+STANDARDS_DIR = Path(os.getenv("L4_STANDARDS_DIR", "/standards"))
+DB_PATH = STATE_DIR / "l4_gateway.sqlite3"
+QDRANT_URL = os.getenv("QDRANT_URL", "http://qdrant:6333").rstrip("/")
+OPA_URL = os.getenv("OPA_URL", "http://opa:8181").rstrip("/")
+OPA_REQUIRED = os.getenv("OPA_REQUIRED", "true").lower() == "true"
+MINIMUM_AGREEMENT_RATE = float(os.getenv("MINIMUM_AGREEMENT_RATE", "0.75"))
+QDRANT_COLLECTION_LIVE = os.getenv("QDRANT_COLLECTION_LIVE", "l4_standards_live_v1")
+QDRANT_COLLECTION_MOCK = os.getenv("QDRANT_COLLECTION_MOCK", "l4_standards_mock_v1")
+OPENAI_EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-large")
+OPENAI_EMBEDDING_DIM = int(os.getenv("OPENAI_EMBEDDING_DIM", "3072"))
+MOCK_EMBEDDING_DIM = int(os.getenv("MOCK_EMBEDDING_DIM", "64"))
+TOP_K = int(os.getenv("RAG_TOP_K", "12"))
+RERANK_TOP_N = int(os.getenv("RERANK_TOP_N", "6"))
+RUN_TIMEOUT_SEC = int(os.getenv("RUN_TIMEOUT_SEC", "900"))
+MAX_REFLECTION_ITERATIONS = int(os.getenv("MAX_REFLECTION_ITERATIONS", "5"))
+ALLOW_MOCK_MODE = os.getenv("ALLOW_MOCK_MODE", "false").lower() == "true"
+EXECUTION_MODE = os.getenv("EXECUTION_MODE", "LIVE").upper()
+ALLOW_AUTOMATIC_ACTIONS = os.getenv("ALLOW_AUTOMATIC_ACTIONS", "false").lower() == "true"
+COHERE_RERANK_MODEL = os.getenv("COHERE_RERANK_MODEL", "rerank-v4.0-pro")
+REFLECTION_PROVIDER = os.getenv("REFLECTION_PROVIDER", "anthropic").lower()
+RAG_QUERY_PROVIDER = os.getenv("RAG_QUERY_PROVIDER", "openai").lower()
+
+PROVIDERS = ("openai", "anthropic", "deepseek", "mistral")
+ACTION_RANK = {"AUTOMATIC": 0, "HUMAN": 1, "PRIVILEGED": 2, "NEVER": 3}
+SEVERITY_RANK = {"LOW": 0, "MEDIUM": 1, "HIGH": 2, "CRITICAL": 3}
+FORBIDDEN_ACTION_TERMS = {
+    "disable authentication",
+    "disable integrity",
+    "disable encryption",
+    "delete audit",
+    "erase logs",
+    "bypass policy",
+    "share private key",
+    "exfiltrate",
+}
+SECURITY_TERMS = (
+    "cipher", "integrity", "encryption", "tls", "dtls", "authentication", "authorization",
+    "rbac", "drb", "o1", "a1", "e2", "smf", "amf", "near-rt ric", "non-rt ric", "xapp",
+    "rapp", "certificate", "key", "replay", "anchor", "proof", "policy",
+    "approval", "security profile", "zero trust",
+)
+
+STATE_DIR.mkdir(parents=True, exist_ok=True)
+EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+
+app = FastAPI(title="ZKTrustLLM-Agents L4 n8n Gateway", version=APP_VERSION)
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def canonical_json(value: Any) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def sha256_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def sha256_json(value: Any) -> str:
+    return sha256_text(canonical_json(value))
+
+
+def db() -> sqlite3.Connection:
+    conn = sqlite3.connect(DB_PATH, timeout=30, check_same_thread=False)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
+    return conn
+
+
+def init_db() -> None:
+    with db() as conn:
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS runs (
+                run_id TEXT PRIMARY KEY,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                started_monotonic REAL NOT NULL,
+                execution_mode TEXT NOT NULL,
+                scenario TEXT NOT NULL,
+                input_text TEXT NOT NULL,
+                input_hash TEXT NOT NULL,
+                metadata_json TEXT NOT NULL,
+                query_json TEXT,
+                retrieval_json TEXT,
+                aggregate_json TEXT,
+                reflection_json TEXT,
+                policy_json TEXT,
+                verification_json TEXT,
+                anchor_json TEXT,
+                status TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS provider_results (
+                run_id TEXT NOT NULL,
+                provider TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                result_json TEXT NOT NULL,
+                raw_response TEXT NOT NULL,
+                raw_hash TEXT NOT NULL,
+                parsed_hash TEXT NOT NULL,
+                PRIMARY KEY (run_id, provider),
+                FOREIGN KEY (run_id) REFERENCES runs(run_id) ON DELETE CASCADE
+            );
+            CREATE TABLE IF NOT EXISTS kb_jobs (
+                job_id TEXT PRIMARY KEY,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                mode TEXT NOT NULL,
+                scan_json TEXT,
+                extract_json TEXT,
+                chunks_json TEXT,
+                manifest_json TEXT,
+                status TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS kb_pages (
+                job_id TEXT NOT NULL,
+                document_id TEXT NOT NULL,
+                document_name TEXT NOT NULL,
+                document_hash TEXT NOT NULL,
+                page_number INTEGER NOT NULL,
+                page_text TEXT NOT NULL,
+                page_hash TEXT NOT NULL,
+                PRIMARY KEY (job_id, document_id, page_number)
+            );
+            CREATE TABLE IF NOT EXISTS kb_chunks (
+                chunk_id TEXT PRIMARY KEY,
+                job_id TEXT NOT NULL,
+                document_id TEXT NOT NULL,
+                document_name TEXT NOT NULL,
+                document_hash TEXT NOT NULL,
+                page_start INTEGER NOT NULL,
+                page_end INTEGER NOT NULL,
+                clause TEXT,
+                text TEXT NOT NULL,
+                chunk_hash TEXT NOT NULL,
+                metadata_json TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS hash_chain (
+                sequence INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id TEXT UNIQUE NOT NULL,
+                previous_hash TEXT NOT NULL,
+                record_hash TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                record_json TEXT NOT NULL
+            );
+            """
+        )
+
+
+init_db()
+
+
+class PrepareRequest(BaseModel):
+    config_text: str = Field(min_length=2, max_length=2_000_000)
+    scenario: str = Field(default="O-RAN security compliance", min_length=2, max_length=300)
+    retrieval_mode: Literal["NO_RAG", "RAG", "AGENTIC_RAG"] = "AGENTIC_RAG"
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class RunRef(BaseModel):
+    run_id: str
+
+
+class ProviderDispatch(BaseModel):
+    run_id: str
+    provider: Literal["openai", "anthropic", "deepseek", "mistral"] | None = None
+
+
+class Violation(BaseModel):
+    parameter: str = Field(min_length=1, max_length=200)
+    observed_value: Any = None
+    required_value: Any = None
+    document: str = Field(min_length=1, max_length=300)
+    clause: str = Field(min_length=1, max_length=100)
+    retrieved_chunk_id: str = Field(min_length=1, max_length=200)
+    severity: Literal["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    justification: str = Field(min_length=1, max_length=4000)
+
+
+class Assessment(BaseModel):
+    decision: Literal["COMPLIANT", "NON_COMPLIANT", "UNCERTAIN"]
+    violations: list[Violation] = Field(default_factory=list, max_length=30)
+    corrected_configuration_patch: str = Field(default="", max_length=40_000)
+    proposed_action: str = Field(default="", max_length=2000)
+    action_class: Literal["AUTOMATIC", "HUMAN", "PRIVILEGED", "NEVER"]
+    confidence: float = Field(ge=0.0, le=1.0)
+    claim_boundary_ok: bool
+    uncertainties: list[str] = Field(default_factory=list, max_length=30)
+
+    @field_validator("violations")
+    @classmethod
+    def decision_consistency(cls, value: list[Violation], info):
+        decision = info.data.get("decision")
+        if decision == "NON_COMPLIANT" and not value:
+            raise ValueError("NON_COMPLIANT requires at least one violation")
+        return value
+
+
+class KBJobRequest(BaseModel):
+    job_id: str | None = None
+
+
+class PreflightRequest(BaseModel):
+    live_smoke: bool = False
+
+
+def get_run(run_id: str) -> dict[str, Any]:
+    with db() as conn:
+        row = conn.execute("SELECT * FROM runs WHERE run_id=?", (run_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail=f"Unknown run_id: {run_id}")
+    data = dict(row)
+    for key in (
+        "metadata_json", "query_json", "retrieval_json", "aggregate_json", "reflection_json",
+        "policy_json", "verification_json", "anchor_json",
+    ):
+        if data.get(key):
+            data[key] = json.loads(data[key])
+    return data
+
+
+def update_run(run_id: str, *, status: str | None = None, **json_fields: Any) -> None:
+    sets = ["updated_at=?"]
+    values: list[Any] = [now_iso()]
+    for key, value in json_fields.items():
+        sets.append(f"{key}=?")
+        values.append(canonical_json(value) if value is not None else None)
+    if status is not None:
+        sets.append("status=?")
+        values.append(status)
+    values.append(run_id)
+    with db() as conn:
+        conn.execute(f"UPDATE runs SET {', '.join(sets)} WHERE run_id=?", values)
+
+
+def exact_model_config(provider: str) -> tuple[str, str]:
+    env = {
+        "openai": ("OPENAI_API_KEY", "OPENAI_MODEL"),
+        "anthropic": ("ANTHROPIC_API_KEY", "ANTHROPIC_MODEL"),
+        "deepseek": ("DEEPSEEK_API_KEY", "DEEPSEEK_MODEL"),
+        "mistral": ("MISTRAL_API_KEY", "MISTRAL_MODEL"),
+    }
+    key_name, model_name = env[provider]
+    return os.getenv(key_name, "").strip(), os.getenv(model_name, "").strip()
+
+
+def mock_embedding(text: str, dim: int = MOCK_EMBEDDING_DIM) -> list[float]:
+    # Deterministic feature hashing for plumbing tests only. Never reported as live embedding evidence.
+    vec = [0.0] * dim
+    tokens = re.findall(r"[A-Za-z0-9_.-]+", text.lower())
+    for token in tokens:
+        digest = hashlib.sha256(token.encode()).digest()
+        idx = int.from_bytes(digest[:4], "big") % dim
+        sign = 1.0 if digest[4] % 2 == 0 else -1.0
+        vec[idx] += sign
+    norm = math.sqrt(sum(v * v for v in vec)) or 1.0
+    return [v / norm for v in vec]
+
+
+async def openai_embedding(texts: list[str]) -> list[list[float]]:
+    api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        if ALLOW_MOCK_MODE and EXECUTION_MODE == "MOCK":
+            return [mock_embedding(t) for t in texts]
+        raise HTTPException(status_code=412, detail="OPENAI_API_KEY is required for live embeddings")
+    async with httpx.AsyncClient(timeout=120) as client:
+        response = await client.post(
+            "https://api.openai.com/v1/embeddings",
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json={"model": OPENAI_EMBEDDING_MODEL, "input": texts},
+        )
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"OpenAI embeddings failed: {response.status_code} {response.text[:500]}")
+    payload = response.json()
+    return [item["embedding"] for item in sorted(payload["data"], key=lambda x: x["index"])]
+
+
+async def qdrant_ensure_collection(collection: str, vector_size: int) -> None:
+    async with httpx.AsyncClient(timeout=30) as client:
+        get_resp = await client.get(f"{QDRANT_URL}/collections/{collection}")
+        if get_resp.status_code == 200:
+            existing = get_resp.json().get("result", {}).get("config", {}).get("params", {}).get("vectors", {})
+            size = existing.get("size") if isinstance(existing, dict) else None
+            if size and int(size) != vector_size:
+                raise HTTPException(status_code=409, detail=f"Qdrant collection {collection} has dimension {size}, expected {vector_size}")
+            return
+        create_resp = await client.put(
+            f"{QDRANT_URL}/collections/{collection}",
+            json={"vectors": {"size": vector_size, "distance": "Cosine"}},
+        )
+    if create_resp.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"Qdrant collection creation failed: {create_resp.text[:500]}")
+
+
+async def qdrant_upsert(collection: str, points: list[dict[str, Any]]) -> None:
+    async with httpx.AsyncClient(timeout=120) as client:
+        response = await client.put(
+            f"{QDRANT_URL}/collections/{collection}/points?wait=true",
+            json={"points": points},
+        )
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"Qdrant upsert failed: {response.text[:500]}")
+
+
+async def qdrant_search(collection: str, vector: list[float], limit: int) -> list[dict[str, Any]]:
+    # Qdrant's query endpoint is used to support current server versions while keeping the payload simple.
+    async with httpx.AsyncClient(timeout=60) as client:
+        response = await client.post(
+            f"{QDRANT_URL}/collections/{collection}/points/query",
+            json={"query": vector, "limit": limit, "with_payload": True},
+        )
+    if response.status_code >= 400:
+        # Compatibility fallback for older Qdrant releases.
+        async with httpx.AsyncClient(timeout=60) as client:
+            response = await client.post(
+                f"{QDRANT_URL}/collections/{collection}/points/search",
+                json={"vector": vector, "limit": limit, "with_payload": True},
+            )
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"Qdrant search failed: {response.text[:500]}")
+    result = response.json().get("result", [])
+    if isinstance(result, dict):
+        result = result.get("points", [])
+    return result
+
+
+def extract_json_object(text: str) -> dict[str, Any]:
+    cleaned = text.strip()
+    cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=re.I)
+    cleaned = re.sub(r"\s*```$", "", cleaned)
+    try:
+        value = json.loads(cleaned)
+        if isinstance(value, dict):
+            return value
+    except json.JSONDecodeError:
+        pass
+    start = cleaned.find("{")
+    if start < 0:
+        raise ValueError("No JSON object found")
+    depth = 0
+    in_string = False
+    escape = False
+    for idx in range(start, len(cleaned)):
+        char = cleaned[idx]
+        if in_string:
+            if escape:
+                escape = False
+            elif char == "\\":
+                escape = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                value = json.loads(cleaned[start: idx + 1])
+                if not isinstance(value, dict):
+                    raise ValueError("Parsed JSON is not an object")
+                return value
+    raise ValueError("Unterminated JSON object")
+
+
+def response_text(provider: str, payload: dict[str, Any]) -> str:
+    if provider == "openai":
+        if isinstance(payload.get("output_text"), str):
+            return payload["output_text"]
+        texts: list[str] = []
+        for output in payload.get("output", []):
+            for content in output.get("content", []):
+                text = content.get("text")
+                if isinstance(text, str):
+                    texts.append(text)
+        return "\n".join(texts)
+
+    if provider == "anthropic":
+        return "\n".join(
+            item.get("text", "")
+            for item in payload.get("content", [])
+            if item.get("type") == "text"
+        )
+
+    message = (
+        payload.get("choices", [{}])[0]
+        .get("message", {})
+    )
+
+    content = message.get("content")
+    if isinstance(content, str) and content.strip():
+        return content
+
+    reasoning = message.get("reasoning_content")
+    if (
+        provider == "deepseek"
+        and isinstance(reasoning, str)
+        and reasoning.strip()
+    ):
+        return reasoning
+
+    return ""
+
+
+def response_channel(
+    provider: str,
+    payload: dict[str, Any],
+) -> str:
+    if provider == "openai":
+        return "output_text"
+
+    if provider == "anthropic":
+        return "content"
+
+    message = (
+        payload.get("choices", [{}])[0]
+        .get("message", {})
+    )
+
+    content = message.get("content")
+    if isinstance(content, str) and content.strip():
+        return "content"
+
+    reasoning = message.get("reasoning_content")
+    if (
+        provider == "deepseek"
+        and isinstance(reasoning, str)
+        and reasoning.strip()
+    ):
+        return "reasoning_content_fallback"
+
+    return "empty"
+
+
+def parse_assessment_response(text: str) -> Assessment:
+    """Extract the last schema-valid Assessment object from provider text."""
+    first_error: Exception | None = None
+
+    try:
+        return Assessment.model_validate(
+            extract_json_object(text)
+        )
+    except (ValueError, ValidationError) as exc:
+        first_error = exc
+
+    decoder = json.JSONDecoder()
+    valid_assessments: list[Assessment] = []
+
+    for index, char in enumerate(text):
+        if char != "{":
+            continue
+
+        try:
+            candidate, _ = decoder.raw_decode(text[index:])
+        except json.JSONDecodeError:
+            continue
+
+        if not isinstance(candidate, dict):
+            continue
+
+        try:
+            valid_assessments.append(
+                Assessment.model_validate(candidate)
+            )
+        except ValidationError:
+            continue
+
+    if valid_assessments:
+        return valid_assessments[-1]
+
+    if first_error is not None:
+        raise first_error
+
+    raise ValueError("No schema-valid Assessment JSON object found")
+
+
+def usage_from_payload(provider: str, payload: dict[str, Any]) -> dict[str, int | None]:
+    usage = payload.get("usage") or {}
+    if provider == "anthropic":
+        return {"input_tokens": usage.get("input_tokens"), "output_tokens": usage.get("output_tokens")}
+    return {
+        "input_tokens": usage.get("prompt_tokens") or usage.get("input_tokens"),
+        "output_tokens": usage.get("completion_tokens") or usage.get("output_tokens"),
+    }
+
+
+def assessment_prompt(run: dict[str, Any]) -> tuple[str, str]:
+    retrieval = run.get("retrieval_json") or {}
+    chunks = retrieval.get("chunks", [])
+    retrieval_mode = (run.get("metadata_json") or {}).get("retrieval_mode", "AGENTIC_RAG")
+    if not chunks and retrieval_mode != "NO_RAG":
+        raise HTTPException(status_code=412, detail="Retrieval bundle is empty; ingest standards and retrieve before assessment")
+    compact_chunks = [
+        {
+            "chunk_id": c["chunk_id"],
+            "document": c["document"],
+            "clause": c.get("clause") or "UNSPECIFIED",
+            "page_start": c.get("page_start"),
+            "page_end": c.get("page_end"),
+            "text": c["text"],
+            "chunk_hash": c["chunk_hash"],
+        }
+        for c in chunks
+    ]
+    schema_example = {
+        "decision": "COMPLIANT | NON_COMPLIANT | UNCERTAIN",
+        "violations": [{
+            "parameter": "string", "observed_value": "any", "required_value": "any",
+            "document": "exact document name from retrieved chunk", "clause": "exact clause from retrieved chunk",
+            "retrieved_chunk_id": "exact chunk_id", "severity": "LOW | MEDIUM | HIGH | CRITICAL",
+            "justification": "brief evidence-grounded explanation",
+        }],
+        "corrected_configuration_patch": "JSON Merge Patch object encoded as a compact JSON string, or an empty string",
+        "proposed_action": "bounded proposed action",
+        "action_class": "AUTOMATIC | HUMAN | PRIVILEGED | NEVER",
+        "confidence": 0.0,
+        "claim_boundary_ok": True,
+        "uncertainties": [
+            "plain string only; never return an object or array"
+        ],
+    }
+    if retrieval_mode == "NO_RAG":
+        system = (
+            "You are an independent O-RAN security compliance assessor in a No-RAG baseline experiment. No standards "
+            "chunks are supplied. Do not invent clause numbers or claim standards grounding. Use UNAVAILABLE for document, "
+            "clause, and retrieved_chunk_id in any proposed violation. If the configuration alone is insufficient, return "
+            "UNCERTAIN. Do not claim production O-RAN validation. Return one JSON object only, with no Markdown. When remediation is justified, corrected_configuration_patch must be a valid JSON Merge Patch object encoded as a JSON string; otherwise use an empty string."
+        )
+    else:
+        system = (
+            "You are an independent O-RAN security compliance assessor in a proof-governed experiment. "
+            "Use only the supplied configuration and retrieved standards chunks. Do not invent clauses, document names, "
+            "requirements, measurements, proof results, deployment results, or network observations. Every violation must "
+            "reference an exact retrieved_chunk_id, document, and clause from the supplied bundle. If evidence is insufficient, "
+            "return UNCERTAIN. Do not claim production O-RAN validation. Return one JSON object only, with no Markdown. When remediation is justified, corrected_configuration_patch must be a valid JSON Merge Patch object encoded as a JSON string; otherwise use an empty string."
+        )
+    system += (
+        " The uncertainties field MUST be a JSON array containing plain "
+        "strings only; never return objects, maps, or nested arrays in "
+        "uncertainties. For every violation, copy document, clause, and "
+        "retrieved_chunk_id exactly from one supplied retrieved chunk. "
+        "The clause value must be only the short retrieved identifier, "
+        "such as P-07, 3.4, or UNSPECIFIED; never place a clause title, "
+        "sentence, or requirement text in the clause field."
+    )
+
+    user = canonical_json({
+        "scenario": run["scenario"],
+        "retrieval_mode": retrieval_mode,
+        "configuration": run["input_text"],
+        "input_hash": run["input_hash"],
+        "retrieval_bundle_hash": retrieval.get("bundle_hash"),
+        "retrieved_chunks": compact_chunks,
+        "required_output_schema": schema_example,
+    })
+    return system, user
+
+
+async def call_provider(provider: str, system: str, user: str, *, max_tokens: int = 5000) -> tuple[dict[str, Any], str, dict[str, Any]]:
+    api_key, model = exact_model_config(provider)
+    if EXECUTION_MODE == "MOCK":
+        if not ALLOW_MOCK_MODE:
+            raise HTTPException(status_code=412, detail="MOCK execution requested but ALLOW_MOCK_MODE=false")
+        raise RuntimeError("mock provider response must be generated by mock_assessment")
+    if not api_key or not model:
+        raise HTTPException(status_code=412, detail=f"Missing {provider} API key or model ID")
+
+    timeout = httpx.Timeout(180.0, connect=30.0)
+    async with httpx.AsyncClient(timeout=timeout) as client:
+        if provider == "openai":
+            url = "https://api.openai.com/v1/responses"
+            headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+            body = {
+                "model": model,
+                "instructions": system,
+                "input": user,
+                "max_output_tokens": max_tokens,
+            }
+        elif provider == "anthropic":
+            url = "https://api.anthropic.com/v1/messages"
+            headers = {
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "Content-Type": "application/json",
+            }
+            body = {"model": model, "max_tokens": max_tokens, "system": system, "messages": [{"role": "user", "content": user}]}
+        elif provider == "deepseek":
+            url = "https://api.deepseek.com/chat/completions"
+            headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+            body = {
+                "model": model,
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+                "stream": False,
+                "response_format": {"type": "json_object"},
+            }
+        elif provider == "mistral":
+            url = "https://api.mistral.ai/v1/chat/completions"
+            headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+            body = {
+                "model": model,
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+                "response_format": {"type": "json_object"},
+                "max_tokens": max_tokens,
+            }
+        else:
+            raise ValueError(provider)
+        started = time.perf_counter_ns()
+        response = await client.post(url, headers=headers, json=body)
+        ended = time.perf_counter_ns()
+    raw = response.text
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"{provider} call failed: {response.status_code} {raw[:800]}")
+    payload = response.json()
+    metadata = {
+        "provider": provider,
+        "model_id": model,
+        "provider_request_id": response.headers.get("request-id") or response.headers.get("x-request-id") or payload.get("id"),
+        "started_ns": started,
+        "ended_ns": ended,
+        "latency_ms": round((ended - started) / 1_000_000, 3),
+        "response_channel": response_channel(provider, payload),
+        **usage_from_payload(provider, payload),
+    }
+    return payload, raw, metadata
+
+
+def mock_assessment(provider: str, run: dict[str, Any]) -> tuple[Assessment, str, dict[str, Any]]:
+    retrieval = run.get("retrieval_json") or {}
+    chunks = retrieval.get("chunks", [])
+    no_rag = (retrieval.get("query") or {}).get("retrieval_mode") == "NO_RAG"
+    if not chunks and not no_rag:
+        raise HTTPException(status_code=412, detail="Mock assessment also requires a non-empty retrieval bundle")
+    first = chunks[0] if chunks else {"document": "UNAVAILABLE", "clause": "UNAVAILABLE", "chunk_id": "UNAVAILABLE"}
+    text_lower = run["input_text"].lower()
+    noncompliant = any(term in text_lower for term in ("drb_integrity=false", '"drb_integrity": false', "integrity: disabled", "tls_version: 1.0"))
+    if noncompliant:
+        obj = Assessment(
+            decision="NON_COMPLIANT",
+            violations=[Violation(
+                parameter="drb_integrity",
+                observed_value=False,
+                required_value="verify against cited requirement",
+                document=first["document"],
+                clause=first.get("clause") or "UNSPECIFIED",
+                retrieved_chunk_id=first["chunk_id"],
+                severity="HIGH",
+                justification="Mock plumbing result grounded only to the seeded retrieval chunk; not scientific model evidence.",
+            )],
+            corrected_configuration_patch='{"drb_integrity": true}',
+            proposed_action="Queue configuration correction for operator review",
+            action_class="HUMAN",
+            confidence=0.7,
+            claim_boundary_ok=True,
+            uncertainties=["MOCK_MODE: provider API not called"],
+        )
+    else:
+        obj = Assessment(
+            decision="UNCERTAIN",
+            violations=[],
+            corrected_configuration_patch="",
+            proposed_action="Request human review",
+            action_class="HUMAN",
+            confidence=0.5,
+            claim_boundary_ok=True,
+            uncertainties=["MOCK_MODE: provider API not called"],
+        )
+    raw = canonical_json(obj.model_dump())
+    metadata = {
+        "provider": provider,
+        "model_id": f"mock-{provider}",
+        "provider_request_id": f"mock-{uuid.uuid4()}",
+        "started_ns": time.perf_counter_ns(),
+        "ended_ns": time.perf_counter_ns(),
+        "latency_ms": 0.0,
+        "input_tokens": None,
+        "output_tokens": None,
+    }
+    return obj, raw, metadata
+
+
+def validate_assessment_against_bundle(assessment: Assessment, retrieval: dict[str, Any]) -> dict[str, Any]:
+    no_rag = (retrieval.get("query") or {}).get("retrieval_mode") == "NO_RAG"
+    chunks = {c["chunk_id"]: c for c in retrieval.get("chunks", [])}
+    errors: list[str] = []
+    if no_rag:
+        for idx, violation in enumerate(assessment.violations):
+            if any(value != "UNAVAILABLE" for value in (violation.document, violation.clause, violation.retrieved_chunk_id)):
+                errors.append(f"violation[{idx}] invented grounding in NO_RAG mode")
+        return {
+            "valid": not errors,
+            "grounding_valid": False,
+            "errors": errors,
+            "bundle_hash": retrieval.get("bundle_hash"),
+            "checked_at": now_iso(),
+        }
+    for idx, violation in enumerate(assessment.violations):
+        chunk = chunks.get(violation.retrieved_chunk_id)
+        if not chunk:
+            errors.append(f"violation[{idx}] references missing chunk_id")
+            continue
+        if violation.document != chunk.get("document"):
+            errors.append(f"violation[{idx}] document mismatch")
+        expected_clause = chunk.get("clause") or "UNSPECIFIED"
+        if violation.clause != expected_clause:
+            errors.append(f"violation[{idx}] clause mismatch")
+    if assessment.decision == "COMPLIANT" and assessment.violations:
+        errors.append("COMPLIANT output contains violations")
+    unsupported = [term for term in FORBIDDEN_ACTION_TERMS if term in assessment.proposed_action.lower()]
+    if unsupported and assessment.action_class != "NEVER":
+        errors.append("forbidden action language not classified as NEVER")
+    return {
+        "valid": not errors,
+        "grounding_valid": not errors,
+        "errors": errors,
+        "bundle_hash": retrieval.get("bundle_hash"),
+        "checked_at": now_iso(),
+    }
+
+
+async def cohere_rerank(query: str, docs: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], str]:
+    api_key = os.getenv("COHERE_API_KEY", "").strip()
+    if not api_key:
+        # Deterministic lexical fallback, explicitly labelled in evidence.
+        q_tokens = set(re.findall(r"[A-Za-z0-9_.-]+", query.lower()))
+        rescored = []
+        for doc in docs:
+            d_tokens = set(re.findall(r"[A-Za-z0-9_.-]+", doc["text"].lower()))
+            lexical = len(q_tokens & d_tokens) / max(1, len(q_tokens))
+            item = dict(doc)
+            item["rerank_score"] = round(lexical, 6)
+            rescored.append(item)
+        rescored.sort(key=lambda x: (x["rerank_score"], x.get("vector_score", 0)), reverse=True)
+        return rescored[:RERANK_TOP_N], "LEXICAL_FALLBACK"
+    async with httpx.AsyncClient(timeout=90) as client:
+        response = await client.post(
+            "https://api.cohere.com/v2/rerank",
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json={"model": COHERE_RERANK_MODEL, "query": query, "documents": [d["text"] for d in docs], "top_n": RERANK_TOP_N},
+        )
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"Cohere rerank failed: {response.status_code} {response.text[:500]}")
+    ranked = []
+    for result in response.json().get("results", []):
+        item = dict(docs[result["index"]])
+        item["rerank_score"] = result.get("relevance_score")
+        ranked.append(item)
+    return ranked, f"COHERE:{COHERE_RERANK_MODEL}"
+
+
+def scan_documents() -> list[dict[str, Any]]:
+    files = sorted([p for p in STANDARDS_DIR.rglob("*") if p.is_file() and p.suffix.lower() in {".pdf", ".txt", ".md"}])
+    output = []
+    for path in files:
+        content = path.read_bytes()
+        output.append({
+            "document_id": sha256_text(str(path.relative_to(STANDARDS_DIR)))[:24],
+            "name": path.name,
+            "relative_path": str(path.relative_to(STANDARDS_DIR)),
+            "sha256": hashlib.sha256(content).hexdigest(),
+            "size_bytes": len(content),
+            "suffix": path.suffix.lower(),
+        })
+    return output
+
+
+def clause_from_text(text: str) -> str | None:
+    patterns = [
+        r"(?im)^\s*(P-\d{2,3})\s*[—–-]",
+        r"(?im)^\s*(?:clause\s+)?(\d+(?:\.\d+){1,5}[A-Za-z]?)\s+",
+        r"(?im)^\s*(TS\s+\d+(?:\.\d+)+)\s*[-–:]",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if match:
+            return match.group(1).strip()
+    return None
+
+
+def chunk_text(text: str, *, max_chars: int = 1800, overlap: int = 250) -> list[str]:
+    normalized = re.sub(r"[ \t]+", " ", text.replace("\x00", " "))
+    normalized = re.sub(r"\n{3,}", "\n\n", normalized).strip()
+    if not normalized:
+        return []
+
+    # Preserve short operator-policy clauses as individually addressable
+    # chunks. This gives P-01...P-08 stable clause metadata.
+    policy_matches = list(
+        re.finditer(
+            r"(?im)^\s*(P-\d{2,3})\s*[—–-].*$",
+            normalized,
+        )
+    )
+
+    if policy_matches:
+        policy_chunks: list[str] = []
+
+        preamble = normalized[:policy_matches[0].start()].strip()
+        if preamble:
+            policy_chunks.append(preamble)
+
+        for index, match in enumerate(policy_matches):
+            end = (
+                policy_matches[index + 1].start()
+                if index + 1 < len(policy_matches)
+                else len(normalized)
+            )
+            section = normalized[match.start():end].strip()
+
+            if len(section) <= max_chars:
+                policy_chunks.append(section)
+                continue
+
+            start = 0
+            while start < len(section):
+                section_end = min(len(section), start + max_chars)
+                policy_chunks.append(section[start:section_end])
+                if section_end == len(section):
+                    break
+                start = max(0, section_end - overlap)
+
+        return policy_chunks
+
+    paragraphs = [p.strip() for p in normalized.split("\n\n") if p.strip()]
+    chunks: list[str] = []
+    current = ""
+    for para in paragraphs:
+        candidate = f"{current}\n\n{para}".strip() if current else para
+        if len(candidate) <= max_chars:
+            current = candidate
+            continue
+        if current:
+            chunks.append(current)
+        if len(para) <= max_chars:
+            current = para
+        else:
+            start = 0
+            while start < len(para):
+                end = min(len(para), start + max_chars)
+                chunks.append(para[start:end])
+                if end == len(para):
+                    break
+                start = max(0, end - overlap)
+            current = ""
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+async def evaluate_opa_policy(policy_input: dict[str, Any]) -> dict[str, Any]:
+    """Evaluate the version-controlled OPA/Rego action-ladder policy.
+
+    A transport or policy error is returned as explicit fail-closed evidence; it
+    is never silently converted into an AUTOMATIC decision.
+    """
+    started = time.perf_counter_ns()
+    try:
+        async with httpx.AsyncClient(timeout=15) as client:
+            response = await client.post(
+                f"{OPA_URL}/v1/data/zktrustllm/l4/result",
+                json={"input": policy_input},
+            )
+        ended = time.perf_counter_ns()
+        if response.status_code >= 400:
+            raise RuntimeError(f"OPA returned {response.status_code}: {response.text[:500]}")
+        payload = response.json()
+        result = payload.get("result")
+        if not isinstance(result, dict) or result.get("enforced_action_class") not in ACTION_RANK:
+            raise RuntimeError(f"OPA returned an invalid result: {payload}")
+        return {
+            "opa_verified": True,
+            "opa_url": OPA_URL,
+            "policy_input_hash": sha256_json(policy_input),
+            "policy_result": result,
+            "policy_result_hash": sha256_json(result),
+            "latency_ms": round((ended - started) / 1_000_000, 3),
+            "error": None,
+        }
+    except Exception as exc:
+        ended = time.perf_counter_ns()
+        return {
+            "opa_verified": False,
+            "opa_url": OPA_URL,
+            "policy_input_hash": sha256_json(policy_input),
+            "policy_result": {
+                "policy_engine": "Open Policy Agent",
+                "enforced_action_class": "HUMAN",
+                "reasons": ["OPA evaluation unavailable; fail-closed human review required"],
+                "automatic_candidate": False,
+            },
+            "policy_result_hash": None,
+            "latency_ms": round((ended - started) / 1_000_000, 3),
+            "error": str(exc),
+        }
+
+
+def load_optional_json(path_value: str) -> dict[str, Any]:
+    if not path_value:
+        return {"status": "NOT_CONFIGURED"}
+    path = Path(path_value)
+    if not path.is_absolute():
+        path = Path("/workspace") / path
+    if not path.exists():
+        return {"status": "MISSING", "path": str(path)}
+    content = path.read_text(errors="replace")
+    try:
+        parsed = json.loads(content)
+    except json.JSONDecodeError:
+        parsed = {"text_preview": content[:4000]}
+    return {"status": "PRESENT", "path": str(path), "sha256": sha256_text(content), "content": parsed}
+
+
+@app.get("/health")
+async def health() -> dict[str, Any]:
+    qdrant_ok = False
+    opa_ok = False
+    try:
+        async with httpx.AsyncClient(timeout=3) as client:
+            qdrant_ok = (await client.get(f"{QDRANT_URL}/healthz")).status_code < 400
+            opa_ok = (await client.get(f"{OPA_URL}/health")).status_code < 400
+    except Exception:
+        pass
+    return {
+        "ok": qdrant_ok and (opa_ok or not OPA_REQUIRED),
+        "app_version": APP_VERSION,
+        "execution_mode": EXECUTION_MODE,
+        "allow_mock_mode": ALLOW_MOCK_MODE,
+        "qdrant_ok": qdrant_ok,
+        "opa_ok": opa_ok,
+        "opa_required": OPA_REQUIRED,
+        "time": now_iso(),
+    }
+
+
+@app.post("/v1/preflight")
+async def preflight(request: PreflightRequest) -> dict[str, Any]:
+    checks: dict[str, Any] = {}
+    for provider in PROVIDERS:
+        key, model = exact_model_config(provider)
+        checks[provider] = {"key_present": bool(key), "model_id": model or None}
+    checks["openai_embedding"] = {
+        "key_present": bool(os.getenv("OPENAI_API_KEY", "").strip()),
+        "model_id": OPENAI_EMBEDDING_MODEL,
+    }
+    checks["cohere_rerank"] = {
+        "key_present": bool(os.getenv("COHERE_API_KEY", "").strip()),
+        "model_id": COHERE_RERANK_MODEL,
+        "fallback": "LEXICAL_FALLBACK" if not os.getenv("COHERE_API_KEY", "").strip() else None,
+    }
+    pricing_fields = {
+        provider: {
+            "input_per_mtok": os.getenv(f"{provider.upper()}_INPUT_PER_MTOK", "").strip(),
+            "output_per_mtok": os.getenv(f"{provider.upper()}_OUTPUT_PER_MTOK", "").strip(),
+        }
+        for provider in PROVIDERS
+    }
+    def valid_price(value: str) -> bool:
+        try:
+            return float(value) > 0
+        except (TypeError, ValueError):
+            return False
+    checks["pricing_snapshot"] = {
+        "complete": all(valid_price(v["input_per_mtok"]) and valid_price(v["output_per_mtok"]) for v in pricing_fields.values())
+                    and bool(os.getenv("PRICING_SNAPSHOT_DATE", "").strip())
+                    and bool(os.getenv("PRICING_CURRENCY", "").strip()),
+        "snapshot_date": os.getenv("PRICING_SNAPSHOT_DATE", "").strip() or None,
+        "currency": os.getenv("PRICING_CURRENCY", "").strip() or None,
+        "rates": pricing_fields,
+        "boundary": "Cost estimates use this user-frozen provider-dashboard snapshot; the gateway does not infer current prices.",
+    }
+    opa_probe = await evaluate_opa_policy({
+        "forbidden_action_detected": False,
+        "requested_action_class": "AUTOMATIC",
+        "decision": "COMPLIANT",
+        "valid_provider_count": 4,
+        "expected_provider_count": 4,
+        "retrieval_mode": "AGENTIC_RAG",
+        "agreement_rate": 1.0,
+        "minimum_agreement_rate": MINIMUM_AGREEMENT_RATE,
+        "automatic_execution_enabled": True,
+    })
+    checks["opa_policy"] = {
+        "required": OPA_REQUIRED,
+        "reachable_and_valid": opa_probe["opa_verified"],
+        "result": opa_probe["policy_result"],
+        "error": opa_probe["error"],
+    }
+    missing = [p for p in PROVIDERS if not checks[p]["key_present"] or not checks[p]["model_id"]]
+    if OPA_REQUIRED and not checks["opa_policy"]["reachable_and_valid"]:
+        missing.append("opa_policy")
+    smoke: dict[str, Any] = {}
+    if request.live_smoke:
+        if EXECUTION_MODE != "LIVE":
+            raise HTTPException(status_code=412, detail="live_smoke requires EXECUTION_MODE=LIVE")
+        system = "Return one JSON object only."
+        user = '{"task":"API connectivity smoke test","required":{"ok":true}}'
+        async def one(p: str):
+            try:
+                payload, raw, metadata = await call_provider(p, system, user, max_tokens=100)
+                return p, {"ok": True, "metadata": metadata, "raw_hash": sha256_text(raw), "text_preview": response_text(p, payload)[:200]}
+            except Exception as exc:
+                return p, {"ok": False, "error": str(exc)}
+        results = await asyncio.gather(*(one(p) for p in PROVIDERS))
+        smoke = dict(results)
+    return {
+        "ok": not missing and (not request.live_smoke or all(v.get("ok") for v in smoke.values())),
+        "execution_mode": EXECUTION_MODE,
+        "checks": checks,
+        "missing": missing,
+        "live_smoke": smoke,
+        "scientific_boundary": "MOCK_MODE is plumbing-only and must not be used for manuscript performance claims.",
+    }
+
+
+@app.post("/v1/runs/prepare")
+async def prepare(request: PrepareRequest) -> dict[str, Any]:
+    run_id = str(uuid.uuid4())
+    created = now_iso()
+    metadata = dict(request.metadata)
+    metadata["retrieval_mode"] = request.retrieval_mode
+    metadata.update({
+        "gateway_version": APP_VERSION,
+        "execution_mode": EXECUTION_MODE,
+        "model_ids": {p: exact_model_config(p)[1] or None for p in PROVIDERS},
+        "embedding_model": OPENAI_EMBEDDING_MODEL,
+        "cohere_rerank_model": COHERE_RERANK_MODEL if os.getenv("COHERE_API_KEY") else None,
+    })
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO runs(run_id,created_at,updated_at,started_monotonic,execution_mode,scenario,input_text,input_hash,metadata_json,status)
+               VALUES(?,?,?,?,?,?,?,?,?,?)""",
+            (run_id, created, created, time.monotonic(), EXECUTION_MODE, request.scenario, request.config_text,
+             sha256_text(request.config_text), canonical_json(metadata), "PREPARED"),
+        )
+    return {
+        "run_id": run_id,
+        "created_at": created,
+        "scenario": request.scenario,
+        "input_hash": sha256_text(request.config_text),
+        "execution_mode": EXECUTION_MODE,
+        "retrieval_mode": request.retrieval_mode,
+        "claim_boundary": "Configuration/static evidence assessment unless runtime evidence is explicitly supplied and hashed.",
+    }
+
+
+@app.post("/v1/runs/{run_id}/query")
+async def generate_query(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    text = run["input_text"]
+    metadata = run.get("metadata_json") or {}
+    retrieval_mode = metadata.get("retrieval_mode", "AGENTIC_RAG")
+    lowered = text.lower()
+    matched = sorted({term for term in SECURITY_TERMS if term in lowered})
+    identifiers = re.findall(r"\b(?:NEA\d|NIA\d|TLSv?\d(?:\.\d)?|TS\s*\d{2}\.\d{3}|drb_integrity|ciphering_algorithm|integrity_algorithm|mno_security_profile|security_profile|drb_integrity_required|operator_approval_present)\b", text, re.I)
+    base_query = "O-RAN 3GPP security compliance " + " ".join(matched + identifiers[:30])
+    query: dict[str, Any] = {
+        "retrieval_mode": retrieval_mode,
+        "query_text": base_query.strip(),
+        "queries": [base_query.strip()],
+        "matched_security_terms": matched,
+        "input_identifiers": identifiers[:30],
+        "generator": "DETERMINISTIC_BOUNDED_QUERY_GENERATOR_V1",
+        "generator_model_id": None,
+        "generator_raw_hash": None,
+        "query_hash": "",
+    }
+    if retrieval_mode == "NO_RAG":
+        query["query_text"] = ""
+        query["queries"] = []
+        query["generator"] = "NO_RAG"
+    elif retrieval_mode == "AGENTIC_RAG":
+        provider = RAG_QUERY_PROVIDER if RAG_QUERY_PROVIDER in PROVIDERS else "openai"
+        if EXECUTION_MODE == "MOCK":
+            query["generator"] = "MOCK_AGENTIC_QUERY_GENERATOR"
+        else:
+            system = (
+                "You are a bounded RAG query generator for O-RAN security compliance. Extract security-relevant parameters "
+                "from the supplied configuration and produce up to five concise standards-search queries. Do not state or "
+                "invent standards requirements, clause numbers, measurements, or compliance conclusions. Return JSON only."
+            )
+            user = canonical_json({
+                "configuration": text,
+                "required_schema": {"queries": ["string"], "security_parameters": ["string"]},
+            })
+            payload, raw, pmeta = await call_provider(provider, system, user, max_tokens=700)
+            try:
+                parsed = extract_json_object(response_text(provider, payload))
+                queries = [str(q).strip() for q in parsed.get("queries", []) if str(q).strip()][:5]
+                security_parameters = [str(q).strip() for q in parsed.get("security_parameters", []) if str(q).strip()][:30]
+                if not queries:
+                    raise ValueError("Agentic query generator returned no queries")
+                query.update({
+                    "query_text": " ".join(queries),
+                    "queries": queries,
+                    "agentic_security_parameters": security_parameters,
+                    "generator": f"AGENTIC:{provider}",
+                    "generator_model_id": pmeta.get("model_id"),
+                    "generator_request_id": pmeta.get("provider_request_id"),
+                    "generator_latency_ms": pmeta.get("latency_ms"),
+                    "generator_raw_hash": sha256_text(raw),
+                    "generator_prompt_hash": sha256_json({"system": system, "user": user}),
+                })
+            except Exception as exc:
+                # The deterministic query remains available, and the fallback is explicitly recorded.
+                query.update({
+                    "generator": "AGENTIC_FAILED_DETERMINISTIC_FALLBACK",
+                    "generator_error": str(exc),
+                    "generator_model_id": pmeta.get("model_id"),
+                    "generator_raw_hash": sha256_text(raw),
+                })
+    query["query_hash"] = sha256_json(query | {"query_hash": ""})
+    update_run(run_id, query_json=query, status="QUERY_READY")
+    return {"run_id": run_id, **query}
+
+
+@app.post("/v1/runs/{run_id}/retrieve")
+async def retrieve(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    query = run.get("query_json")
+    if not query:
+        raise HTTPException(status_code=412, detail="Generate query first")
+    if query.get("retrieval_mode") == "NO_RAG":
+        bundle = {
+            "query": query,
+            "collection": None,
+            "embedding_model": None,
+            "rerank_mode": "NO_RAG",
+            "chunks": [],
+            "created_at": now_iso(),
+            "grounding_available": False,
+        }
+        bundle["bundle_hash"] = sha256_json(bundle)
+        update_run(run_id, retrieval_json=bundle, status="RETRIEVAL_FROZEN")
+        run_dir = EVIDENCE_DIR / run_id
+        run_dir.mkdir(parents=True, exist_ok=True)
+        (run_dir / "retrieval_bundle.json").write_text(json.dumps(bundle, indent=2, ensure_ascii=False))
+        return {"run_id": run_id, **bundle}
+    vectors = await openai_embedding([query["query_text"]])
+    collection = QDRANT_COLLECTION_MOCK if EXECUTION_MODE == "MOCK" else QDRANT_COLLECTION_LIVE
+    points = await qdrant_search(collection, vectors[0], TOP_K)
+    docs: list[dict[str, Any]] = []
+    for point in points:
+        payload = point.get("payload", {})
+        docs.append({
+            "chunk_id": payload.get("chunk_id") or str(point.get("id")),
+            "document": payload.get("document_name", "UNKNOWN"),
+            "document_hash": payload.get("document_hash"),
+            "page_start": payload.get("page_start"),
+            "page_end": payload.get("page_end"),
+            "clause": payload.get("clause") or "UNSPECIFIED",
+            "text": payload.get("text", ""),
+            "chunk_hash": payload.get("chunk_hash"),
+            "vector_score": point.get("score"),
+        })
+    if not docs:
+        raise HTTPException(status_code=412, detail=f"No Qdrant results in {collection}; ingest standards first")
+    ranked, rerank_mode = await cohere_rerank(query["query_text"], docs)
+    bundle = {
+        "query": query,
+        "collection": collection,
+        "embedding_model": OPENAI_EMBEDDING_MODEL if EXECUTION_MODE == "LIVE" else "MOCK_FEATURE_HASH",
+        "rerank_mode": rerank_mode,
+        "chunks": ranked,
+        "created_at": now_iso(),
+        "grounding_available": True,
+    }
+    bundle["bundle_hash"] = sha256_json(bundle)
+    update_run(run_id, retrieval_json=bundle, status="RETRIEVAL_FROZEN")
+    run_dir = EVIDENCE_DIR / run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    (run_dir / "retrieval_bundle.json").write_text(json.dumps(bundle, indent=2, ensure_ascii=False))
+    return {"run_id": run_id, **bundle}
+
+
+@app.post("/v1/providers/{provider}/assess")
+async def assess(provider: str, request: ProviderDispatch) -> dict[str, Any]:
+    provider = provider.lower()
+    if provider not in PROVIDERS:
+        raise HTTPException(status_code=404, detail="Unknown provider")
+    run = get_run(request.run_id)
+    retrieval = run.get("retrieval_json")
+    if not retrieval:
+        raise HTTPException(status_code=412, detail="Retrieval bundle is not frozen")
+    system, user = assessment_prompt(run)
+    prompt_hash = sha256_json({"system": system, "user": user})
+    if EXECUTION_MODE == "MOCK":
+        assessment, raw, metadata = mock_assessment(provider, run)
+    else:
+        try:
+            payload, raw, metadata = await call_provider(provider, system, user)
+            text = response_text(provider, payload)
+        except Exception as exc:
+            raw = canonical_json({"provider": provider, "error": str(exc)})
+            failed = {
+                "provider": provider,
+                "model_id": exact_model_config(provider)[1] or None,
+                "valid_json": False,
+                "provider_call_succeeded": False,
+                "provider_error": str(exc),
+                "raw_response_hash": sha256_text(raw),
+                "prompt_hash": prompt_hash,
+                "latency_ms": None,
+                "created_at": now_iso(),
+                "execution_mode": EXECUTION_MODE,
+            }
+            parsed_hash = sha256_json(failed)
+            with db() as conn:
+                conn.execute(
+                    "INSERT OR REPLACE INTO provider_results(run_id,provider,created_at,result_json,raw_response,raw_hash,parsed_hash) VALUES(?,?,?,?,?,?,?)",
+                    (request.run_id, provider, now_iso(), canonical_json(failed), raw, sha256_text(raw), parsed_hash),
+                )
+            run_dir = EVIDENCE_DIR / request.run_id / "providers" / provider
+            run_dir.mkdir(parents=True, exist_ok=True)
+            (run_dir / "raw_response.txt").write_text(raw)
+            (run_dir / "result.json").write_text(json.dumps(failed, indent=2))
+            return {"run_id": request.run_id, **failed}
+        try:
+            assessment = parse_assessment_response(text)
+        except (ValueError, ValidationError) as exc:
+            # Invalid outputs are retained as evidence and fail closed; no silent repair is performed here.
+            invalid = {
+                "provider": provider,
+                "model_id": metadata.get("model_id"),
+                "valid_json": False,
+                "provider_call_succeeded": True,
+                "response_channel": metadata.get("response_channel"),
+                "validation_error": str(exc),
+                "raw_response_hash": sha256_text(raw),
+                "prompt_hash": prompt_hash,
+                "latency_ms": metadata.get("latency_ms"),
+                "created_at": now_iso(),
+            }
+            parsed_hash = sha256_json(invalid)
+            with db() as conn:
+                conn.execute(
+                    "INSERT OR REPLACE INTO provider_results(run_id,provider,created_at,result_json,raw_response,raw_hash,parsed_hash) VALUES(?,?,?,?,?,?,?)",
+                    (request.run_id, provider, now_iso(), canonical_json(invalid), raw, sha256_text(raw), parsed_hash),
+                )
+            run_dir = EVIDENCE_DIR / request.run_id / "providers" / provider
+            run_dir.mkdir(parents=True, exist_ok=True)
+            (run_dir / "raw_response.txt").write_text(raw)
+            (run_dir / "result.json").write_text(json.dumps(invalid, indent=2))
+            return {"run_id": request.run_id, **invalid}
+    deterministic_validation = validate_assessment_against_bundle(assessment, retrieval)
+    result = {
+        "provider": provider,
+        "model_id": metadata.get("model_id"),
+        "provider_request_id": metadata.get("provider_request_id"),
+        "valid_json": True,
+        "provider_call_succeeded": True,
+        "response_channel": metadata.get("response_channel"),
+        "assessment": assessment.model_dump(),
+        "deterministic_validation": deterministic_validation,
+        "retrieval_bundle_hash": retrieval.get("bundle_hash"),
+        "prompt_hash": prompt_hash,
+        "raw_response_hash": sha256_text(raw),
+        "parsed_response_hash": sha256_json(assessment.model_dump()),
+        "latency_ms": metadata.get("latency_ms"),
+        "provider_started_ns": metadata.get("started_ns"),
+        "provider_ended_ns": metadata.get("ended_ns"),
+        "input_tokens": metadata.get("input_tokens"),
+        "output_tokens": metadata.get("output_tokens"),
+        "created_at": now_iso(),
+        "execution_mode": EXECUTION_MODE,
+    }
+    with db() as conn:
+        conn.execute(
+            "INSERT OR REPLACE INTO provider_results(run_id,provider,created_at,result_json,raw_response,raw_hash,parsed_hash) VALUES(?,?,?,?,?,?,?)",
+            (request.run_id, provider, now_iso(), canonical_json(result), raw, result["raw_response_hash"], result["parsed_response_hash"]),
+        )
+    run_dir = EVIDENCE_DIR / request.run_id / "providers" / provider
+    run_dir.mkdir(parents=True, exist_ok=True)
+    (run_dir / "raw_response.txt").write_text(raw)
+    (run_dir / "result.json").write_text(json.dumps(result, indent=2, ensure_ascii=False))
+    return {"run_id": request.run_id, **result}
+
+
+@app.get("/v1/runs/{run_id}/status")
+async def run_status(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    with db() as conn:
+        rows = conn.execute("SELECT provider,result_json FROM provider_results WHERE run_id=?", (run_id,)).fetchall()
+    results = {row["provider"]: json.loads(row["result_json"]) for row in rows}
+    elapsed = max(0.0, time.monotonic() - float(run["started_monotonic"]))
+    complete = all(p in results for p in PROVIDERS)
+    timed_out = elapsed > RUN_TIMEOUT_SEC
+    return {
+        "run_id": run_id,
+        "providers_complete": sorted(results),
+        "provider_count": len(results),
+        "expected_provider_count": len(PROVIDERS),
+        "all_done": complete,
+        "timed_out": timed_out,
+        "elapsed_sec": round(elapsed, 3),
+        "continue_waiting": not complete and not timed_out,
+    }
+
+
+NEVER_ACTION_CLAUSES = frozenset({"P-03", "P-04", "P-05"})
+
+
+def reconcile_final_action_class(
+    final_assessment: dict[str, Any] | None,
+    aggregate_obj: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """
+    Reconcile action authority using only final retained evidence.
+
+    The independent-provider aggregate and model-produced action class
+    remain preserved for auditability. OPA consumes the reconciled class.
+    """
+    assessment = (
+        final_assessment
+        if isinstance(final_assessment, dict)
+        else {}
+    )
+    aggregate = (
+        aggregate_obj
+        if isinstance(aggregate_obj, dict)
+        else {}
+    )
+
+    violations = assessment.get("violations")
+    if not isinstance(violations, list):
+        violations = []
+
+    retained_clauses = sorted({
+        str(item.get("clause") or "UNSPECIFIED")
+        for item in violations
+        if isinstance(item, dict)
+    })
+
+    never_supporting_clauses = sorted(
+        set(retained_clauses).intersection(
+            NEVER_ACTION_CLAUSES
+        )
+    )
+
+    decision = (
+        assessment.get("decision")
+        or aggregate.get("consensus_decision")
+        or "UNCERTAIN"
+    )
+
+    model_action_class = (
+        assessment.get("action_class")
+        or aggregate.get("conservative_action_class")
+        or "HUMAN"
+    )
+
+    if never_supporting_clauses:
+        reconciled_action_class = "NEVER"
+        reason = (
+            "The final retained assessment contains a P-03, P-04 "
+            "or P-05 violation supporting the NEVER class."
+        )
+    elif decision == "COMPLIANT" and not retained_clauses:
+        reconciled_action_class = "AUTOMATIC"
+        reason = (
+            "The final decision is COMPLIANT and no violation remains. "
+            "This is only an automatic candidate; OPA and proof gates "
+            "still determine action admissibility."
+        )
+    elif decision == "UNCERTAIN":
+        reconciled_action_class = "HUMAN"
+        reason = "An UNCERTAIN decision requires human review."
+    elif decision == "NON_COMPLIANT":
+        reconciled_action_class = "HUMAN"
+        reason = (
+            "The final assessment is NON_COMPLIANT but contains no "
+            "retained P-03, P-04 or P-05 violation supporting NEVER."
+        )
+    else:
+        reconciled_action_class = "HUMAN"
+        reason = (
+            "The decision/action combination is not deterministically "
+            "admissible; the system fails closed to HUMAN."
+        )
+
+    reconciliation = {
+        "method": "DETERMINISTIC_POST_ROLE_RECONCILIATION_V1",
+        "decision": decision,
+        "model_action_class": model_action_class,
+        "reconciled_action_class": reconciled_action_class,
+        "retained_clauses": retained_clauses,
+        "never_supporting_clauses": never_supporting_clauses,
+        "reason": reason,
+    }
+
+    reconciliation["reconciliation_hash"] = sha256_json(
+        reconciliation
+    )
+
+    return reconciliation
+
+
+@app.post("/v1/runs/{run_id}/aggregate")
+async def aggregate(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    with db() as conn:
+        rows = conn.execute("SELECT provider,result_json FROM provider_results WHERE run_id=?", (run_id,)).fetchall()
+    results = {row["provider"]: json.loads(row["result_json"]) for row in rows}
+    missing = [p for p in PROVIDERS if p not in results]
+    valid_results = {
+        p: r for p, r in results.items()
+        if r.get("valid_json") and r.get("deterministic_validation", {}).get("valid") and r.get("assessment")
+    }
+    decisions = [r["assessment"]["decision"] for r in valid_results.values()]
+    decision_counts = Counter(decisions)
+    if missing or len(valid_results) < 3:
+        consensus_decision = "UNCERTAIN"
+    elif decision_counts:
+        top = decision_counts.most_common()
+        consensus_decision = top[0][0] if len(top) == 1 or top[0][1] > top[1][1] else "UNCERTAIN"
+    else:
+        consensus_decision = "UNCERTAIN"
+    action_classes = [r["assessment"]["action_class"] for r in valid_results.values()]
+    conservative_action = max(action_classes, key=lambda x: ACTION_RANK[x]) if action_classes else "HUMAN"
+    all_violations: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for provider, result in valid_results.items():
+        for violation in result["assessment"].get("violations", []):
+            key = (violation["retrieved_chunk_id"], violation["parameter"], violation["severity"])
+            item = all_violations.setdefault(key, {**violation, "supporting_providers": []})
+            item["supporting_providers"].append(provider)
+    latencies = [float(r.get("latency_ms") or 0) for r in results.values() if r.get("latency_ms") is not None]
+    starts = [r.get("provider_started_ns") for r in results.values() if r.get("provider_started_ns")]
+    ends = [r.get("provider_ended_ns") for r in results.values() if r.get("provider_ended_ns")]
+    parallel_wall_ms = round((max(ends) - min(starts)) / 1_000_000, 3) if starts and ends else None
+    sequential_sum_ms = round(sum(latencies), 3) if latencies else None
+    speedup = round(sequential_sum_ms / parallel_wall_ms, 4) if sequential_sum_ms and parallel_wall_ms and parallel_wall_ms > 0 else None
+    agreement = max(decision_counts.values()) / len(decisions) if decisions else 0.0
+    aggregate_obj = {
+        "run_id": run_id,
+        "consensus_decision": consensus_decision,
+        "decision_counts": dict(decision_counts),
+        "agreement_rate": round(agreement, 4),
+        "conservative_action_class": conservative_action,
+        "violations": list(all_violations.values()),
+        "valid_provider_count": len(valid_results),
+        "provider_count": len(results),
+        "missing_providers": missing,
+        "invalid_providers": sorted(set(results) - set(valid_results)),
+        "reflection_required": bool(missing or len(valid_results) < 4 or consensus_decision == "UNCERTAIN" or agreement < 0.75),
+        "parallel_wall_latency_ms": parallel_wall_ms,
+        "sequential_latency_sum_ms": sequential_sum_ms,
+        "parallel_speedup": speedup,
+        "retrieval_bundle_hash": (run.get("retrieval_json") or {}).get("bundle_hash"),
+        "created_at": now_iso(),
+        "execution_mode": EXECUTION_MODE,
+    }
+    aggregate_obj["aggregate_hash"] = sha256_json(aggregate_obj)
+    update_run(run_id, aggregate_json=aggregate_obj, status="AGGREGATED")
+    return aggregate_obj
+
+
+async def reflection_call(run: dict[str, Any], aggregate_obj: dict[str, Any], iteration: int) -> dict[str, Any]:
+    provider = REFLECTION_PROVIDER if REFLECTION_PROVIDER in PROVIDERS else "anthropic"
+    retrieval = run.get("retrieval_json") or {}
+    system = (
+        "You are a conservative reflection agent. Reconcile independent O-RAN compliance assessments using only the supplied "
+        "retrieved chunks and aggregate evidence. You must not introduce any new document, clause, chunk ID, measurement, proof "
+        "result, or deployment claim. If disagreement cannot be resolved, return UNCERTAIN and HUMAN. Return one JSON object only."
+    )
+    user = canonical_json({
+        "iteration": iteration,
+        "aggregate": aggregate_obj,
+        "allowed_chunks": [{"chunk_id": c["chunk_id"], "document": c["document"], "clause": c.get("clause") or "UNSPECIFIED", "text": c["text"]} for c in retrieval.get("chunks", [])],
+        "required_schema": Assessment.model_json_schema(),
+    })
+    if EXECUTION_MODE == "MOCK":
+        assessment, raw, metadata = mock_assessment(provider, run)
+        return {"provider": provider, "assessment": assessment, "raw": raw, "metadata": metadata}
+    payload, raw, metadata = await call_provider(provider, system, user)
+    assessment = Assessment.model_validate(extract_json_object(response_text(provider, payload)))
+    return {"provider": provider, "assessment": assessment, "raw": raw, "metadata": metadata}
+
+
+@app.post("/v1/runs/{run_id}/reflect")
+async def reflect(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    aggregate_obj = run.get("aggregate_json")
+    if not aggregate_obj:
+        raise HTTPException(status_code=412, detail="Aggregate first")
+    if not aggregate_obj.get("reflection_required"):
+        reflection = {
+            "run_id": run_id,
+            "performed": False,
+            "iterations": 0,
+            "converged": True,
+            "final_decision": aggregate_obj["consensus_decision"],
+            "final_action_class": aggregate_obj["conservative_action_class"],
+            "reason": "Deterministic consensus met the configured threshold.",
+        }
+        update_run(run_id, reflection_json=reflection, status="REFLECTION_COMPLETE")
+        return reflection
+    history: list[dict[str, Any]] = []
+    converged = False
+    final_assessment: Assessment | None = None
+    for iteration in range(1, MAX_REFLECTION_ITERATIONS + 1):
+        try:
+            outcome = await reflection_call(run, aggregate_obj, iteration)
+            assessment: Assessment = outcome["assessment"]
+            validation = validate_assessment_against_bundle(assessment, run.get("retrieval_json") or {})
+            history.append({
+                "iteration": iteration,
+                "provider": outcome["provider"],
+                "model_id": outcome["metadata"].get("model_id"),
+                "raw_hash": sha256_text(outcome["raw"]),
+                "parsed_hash": sha256_json(assessment.model_dump()),
+                "deterministic_validation": validation,
+                "decision": assessment.decision,
+                "action_class": assessment.action_class,
+                "latency_ms": outcome["metadata"].get("latency_ms"),
+            })
+            if validation["valid"]:
+                final_assessment = assessment
+                converged = True
+                break
+        except Exception as exc:
+            history.append({"iteration": iteration, "error": str(exc), "deterministic_validation": {"valid": False}})
+    reflection = {
+        "run_id": run_id,
+        "performed": True,
+        "iterations": len(history),
+        "converged": converged,
+        "history": history,
+        "final_assessment": final_assessment.model_dump() if final_assessment else None,
+        "final_decision": final_assessment.decision if final_assessment else "UNCERTAIN",
+        "final_action_class": final_assessment.action_class if final_assessment else "HUMAN",
+        "fail_closed": not converged,
+        "created_at": now_iso(),
+    }
+    reflection["reflection_hash"] = sha256_json(reflection)
+    update_run(run_id, reflection_json=reflection, status="REFLECTION_COMPLETE")
+    return reflection
+
+
+@app.post("/v1/runs/{run_id}/policy")
+async def policy(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    aggregate_obj = run.get("aggregate_json") or {}
+    reflection = run.get("reflection_json") or {}
+    final = reflection.get("final_assessment")
+    decision = final.get("decision") if final else aggregate_obj.get("consensus_decision", "UNCERTAIN")
+    proposed_action = final.get("proposed_action", "") if final else ""
+    action_reconciliation = reflection.get(
+        "action_reconciliation"
+    )
+
+    if not isinstance(action_reconciliation, dict):
+        action_reconciliation = reconcile_final_action_class(
+            final,
+            aggregate_obj,
+        )
+
+    requested_class = action_reconciliation[
+        "reconciled_action_class"
+    ]
+    if requested_class not in ACTION_RANK:
+        requested_class = "HUMAN"
+    policy_input = {
+        "run_id": run_id,
+        "decision": decision,
+        "proposed_action": proposed_action,
+        "requested_action_class": requested_class,
+        "action_reconciliation": action_reconciliation,
+        "forbidden_action_detected": any(term in proposed_action.lower() for term in FORBIDDEN_ACTION_TERMS),
+        "valid_provider_count": int(aggregate_obj.get("valid_provider_count", 0)),
+        "expected_provider_count": len(PROVIDERS),
+        "retrieval_mode": (run.get("metadata_json") or {}).get("retrieval_mode", "AGENTIC_RAG"),
+        "agreement_rate": float(aggregate_obj.get("agreement_rate", 0.0)),
+        "minimum_agreement_rate": MINIMUM_AGREEMENT_RATE,
+        "automatic_execution_enabled": ALLOW_AUTOMATIC_ACTIONS,
+    }
+    opa = await evaluate_opa_policy(policy_input)
+    result = opa["policy_result"]
+    action_class = result.get("enforced_action_class", "HUMAN")
+    if action_class not in ACTION_RANK:
+        action_class = "HUMAN"
+    if OPA_REQUIRED and not opa["opa_verified"]:
+        action_class = "HUMAN"
+    policy_obj = {
+        "run_id": run_id,
+        "decision": decision,
+        "requested_action_class": requested_class,
+        "action_reconciliation": action_reconciliation,
+        "enforced_action_class": action_class,
+        "automatic_execution_enabled": ALLOW_AUTOMATIC_ACTIONS,
+        "opa_required": OPA_REQUIRED,
+        "opa_verified": opa["opa_verified"],
+        "opa_evidence": opa,
+        "reasons": result.get("reasons") or ["OPA returned no reasons; fail-closed"],
+        "properties": {
+            "P1_never_actions_execution_authorized": False if action_class == "NEVER" else None,
+            "P2_human_actions_require_approval": action_class == "HUMAN",
+            "P3_privileged_actions_require_privileged_approval": action_class == "PRIVILEGED",
+            "P4_automatic_candidate_requires_opa_and_later_proof": action_class == "AUTOMATIC" and opa["opa_verified"],
+            "P5_anchor_invariants_checked_at_anchor_stage": True,
+        },
+        "created_at": now_iso(),
+    }
+    policy_obj["policy_hash"] = sha256_json(policy_obj)
+    update_run(run_id, policy_json=policy_obj, status="POLICY_GATED")
+    return policy_obj
+
+
+@app.post("/v1/runs/{run_id}/verify")
+async def verify(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    policy_obj = run.get("policy_json")
+    if not policy_obj:
+        raise HTTPException(status_code=412, detail="Run policy gate first")
+    auth = load_optional_json(os.getenv("AUTH_REPORT_PATH", ""))
+    tla = load_optional_json(os.getenv("TLA_REPORT_PATH", ""))
+    proverif = load_optional_json(os.getenv("PROVERIF_REPORT_PATH", ""))
+    proof_valid = False
+    auth_content = auth.get("content") if auth.get("status") == "PRESENT" else None
+    if isinstance(auth_content, dict):
+        proof_valid = bool(
+            auth_content.get("proof_valid") is True
+            and auth_content.get("verifier_contract_call_success") is True
+        )
+    semantic_status = "PROOF_VALID" if proof_valid else (
+        "BOUNDED_EVIDENCE_ONLY" if auth.get("status") == "PRESENT" else "NOT_CONFIGURED"
+    )
+    verification = {
+        "run_id": run_id,
+        "auth_v2_2": auth,
+        "tla_policy_model": tla,
+        "proverif": proverif,
+        "proof_valid": proof_valid,
+        "semantic_status": semantic_status,
+        "allowed_claim": "Proof validity" if proof_valid else "Artifact presence/timing or bounded smoke evidence only",
+        "automatic_action_admissible": (
+            proof_valid
+            and policy_obj["enforced_action_class"] == "AUTOMATIC"
+            and policy_obj.get("opa_verified") is True
+        ),
+        "created_at": now_iso(),
+    }
+    verification["verification_hash"] = sha256_json(verification)
+    update_run(run_id, verification_json=verification, status="VERIFIED_BOUNDED")
+    return verification
+
+
+@app.post("/v1/runs/{run_id}/anchor")
+async def anchor(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    required = ["retrieval_json", "aggregate_json", "reflection_json", "policy_json", "verification_json"]
+    missing = [field for field in required if not run.get(field)]
+    if missing:
+        raise HTTPException(status_code=412, detail=f"Cannot anchor; missing stages: {missing}")
+    with db() as conn:
+        previous = conn.execute("SELECT record_hash FROM hash_chain ORDER BY sequence DESC LIMIT 1").fetchone()
+        previous_hash = previous["record_hash"] if previous else "0" * 64
+        compact_record = {
+            "run_id": run_id,
+            "input_hash": run["input_hash"],
+            "retrieval_bundle_hash": run["retrieval_json"]["bundle_hash"],
+            "aggregate_hash": run["aggregate_json"]["aggregate_hash"],
+            "reflection_hash": run["reflection_json"].get("reflection_hash") or sha256_json(run["reflection_json"]),
+            "policy_hash": run["policy_json"]["policy_hash"],
+            "verification_hash": run["verification_json"]["verification_hash"],
+            "previous_hash": previous_hash,
+            "created_at": now_iso(),
+        }
+        record_hash = sha256_json(compact_record)
+        if record_hash == "0" * 64:
+            raise HTTPException(status_code=500, detail="Zero anchor invariant violated")
+        try:
+            conn.execute(
+                "INSERT INTO hash_chain(run_id,previous_hash,record_hash,created_at,record_json) VALUES(?,?,?,?,?)",
+                (run_id, previous_hash, record_hash, compact_record["created_at"], canonical_json(compact_record)),
+            )
+        except sqlite3.IntegrityError:
+            existing = conn.execute("SELECT * FROM hash_chain WHERE run_id=?", (run_id,)).fetchone()
+            return {"run_id": run_id, "replay_rejected": True, "existing_record_hash": existing["record_hash"]}
+    external = load_optional_json(os.getenv("ANCHOR_EVIDENCE_PATH", ""))
+    anchor_obj = {
+        "run_id": run_id,
+        "local_hash_chain": {
+            "previous_hash": previous_hash,
+            "record_hash": record_hash,
+            "zero_anchor_rejected": record_hash != "0" * 64,
+            "replay_protection": "UNIQUE run_id and hash-chain continuity",
+        },
+        "external_chain_evidence": external,
+        "claim_boundary": "Local hash-chain commitment unless an externally observable transaction record is explicitly attached.",
+        "created_at": now_iso(),
+    }
+    anchor_obj["anchor_hash"] = sha256_json(anchor_obj)
+    update_run(run_id, anchor_json=anchor_obj, status="ANCHORED")
+    return anchor_obj
+
+
+
+def load_persisted_journal_report(run_id: str) -> dict[str, Any] | None:
+    """Return the frozen V2 report without rewriting evidence."""
+    run_dir = EVIDENCE_DIR / run_id
+    report_path = run_dir / "final_report.json"
+
+    if not report_path.is_file():
+        return None
+
+    try:
+        report_obj = json.loads(
+            report_path.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        return None
+
+    if report_obj.get("run_id") != run_id:
+        return None
+
+    if (
+        report_obj.get("manifest_version")
+        != "L4-N8N-JOURNAL-EVIDENCE-2.0"
+    ):
+        return None
+
+    return {
+        **report_obj,
+        "evidence_directory": str(run_dir),
+        "report_path": str(report_path),
+    }
+
+
+@app.get("/v1/runs/{run_id}/report")
+async def report(run_id: str) -> dict[str, Any]:
+    persisted = load_persisted_journal_report(run_id)
+    if persisted is not None:
+        return persisted
+
+    run = get_run(run_id)
+    with db() as conn:
+        provider_rows = conn.execute("SELECT provider,result_json,raw_hash,parsed_hash FROM provider_results WHERE run_id=?", (run_id,)).fetchall()
+    providers = {row["provider"]: json.loads(row["result_json"]) for row in provider_rows}
+    final_report = {
+        "manifest_version": "L4-N8N-EVIDENCE-1.0",
+        "run_id": run_id,
+        "created_at": run["created_at"],
+        "reported_at": now_iso(),
+        "status": run["status"],
+        "execution_mode": run["execution_mode"],
+        "scenario": run["scenario"],
+        "input_hash": run["input_hash"],
+        "metadata": run["metadata_json"],
+        "query": run.get("query_json"),
+        "retrieval": run.get("retrieval_json"),
+        "providers": providers,
+        "aggregate": run.get("aggregate_json"),
+        "reflection": run.get("reflection_json"),
+        "policy": run.get("policy_json"),
+        "verification": run.get("verification_json"),
+        "anchor": run.get("anchor_json"),
+        "scientific_claim_boundary": {
+            "live_provider_evidence": run["execution_mode"] == "LIVE" and len(providers) == 4,
+            "raw_provider_hashes": all(p.get("raw_response_hash") for p in providers.values()) if providers else False,
+            "retrieval_mode": (run.get("metadata_json") or {}).get("retrieval_mode"),
+            "retrieval_grounding": bool((run.get("retrieval_json") or {}).get("grounding_available")),
+            "proof_validity": bool((run.get("verification_json") or {}).get("proof_valid")),
+            "production_oran_deployment": False,
+            "automatic_execution": bool((run.get("verification_json") or {}).get("automatic_action_admissible")),
+        },
+    }
+    final_report["report_hash"] = sha256_json(final_report)
+    run_dir = EVIDENCE_DIR / run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    report_path = run_dir / "final_report.json"
+    report_path.write_text(json.dumps(final_report, indent=2, ensure_ascii=False))
+    hashes = []
+    for path in sorted(run_dir.rglob("*")):
+        if path.is_file() and path.name != "SHA256SUMS.txt":
+            hashes.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.relative_to(run_dir)}")
+    (run_dir / "SHA256SUMS.txt").write_text("\n".join(hashes) + "\n")
+    return {**final_report, "evidence_directory": str(run_dir), "report_path": str(report_path)}
+
+
+@app.post("/v1/kb/scan")
+async def kb_scan(request: KBJobRequest) -> dict[str, Any]:
+    job_id = request.job_id or str(uuid.uuid4())
+    documents = scan_documents()
+    if not documents:
+        raise HTTPException(status_code=412, detail=f"No PDF/TXT/MD standards found under {STANDARDS_DIR}")
+    scan = {"job_id": job_id, "documents": documents, "document_count": len(documents), "standards_dir": str(STANDARDS_DIR), "created_at": now_iso()}
+    with db() as conn:
+        conn.execute(
+            "INSERT OR REPLACE INTO kb_jobs(job_id,created_at,updated_at,mode,scan_json,status) VALUES(?,?,?,?,?,?)",
+            (job_id, now_iso(), now_iso(), EXECUTION_MODE, canonical_json(scan), "SCANNED"),
+        )
+    return scan
+
+
+@app.post("/v1/kb/{job_id}/extract")
+async def kb_extract(job_id: str) -> dict[str, Any]:
+    with db() as conn:
+        row = conn.execute("SELECT scan_json FROM kb_jobs WHERE job_id=?", (job_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Unknown KB job")
+    scan = json.loads(row["scan_json"])
+    page_count = 0
+    with db() as conn:
+        conn.execute("DELETE FROM kb_pages WHERE job_id=?", (job_id,))
+        for doc in scan["documents"]:
+            path = STANDARDS_DIR / doc["relative_path"]
+            if path.suffix.lower() == ".pdf":
+                pdf = fitz.open(path)
+                pages = [(i + 1, pdf.load_page(i).get_text("text")) for i in range(pdf.page_count)]
+                pdf.close()
+            else:
+                pages = [(1, path.read_text(errors="replace"))]
+            for page_num, text in pages:
+                cleaned = re.sub(r"[ \t]+", " ", text.replace("\x00", " ")).strip()
+                if not cleaned:
+                    continue
+                conn.execute(
+                    "INSERT INTO kb_pages(job_id,document_id,document_name,document_hash,page_number,page_text,page_hash) VALUES(?,?,?,?,?,?,?)",
+                    (job_id, doc["document_id"], doc["name"], doc["sha256"], page_num, cleaned, sha256_text(cleaned)),
+                )
+                page_count += 1
+        extract = {"job_id": job_id, "page_count": page_count, "extractor": "PyMuPDF/text", "created_at": now_iso()}
+        conn.execute("UPDATE kb_jobs SET updated_at=?,extract_json=?,status=? WHERE job_id=?", (now_iso(), canonical_json(extract), "EXTRACTED", job_id))
+    return extract
+
+
+@app.post("/v1/kb/{job_id}/chunk")
+async def kb_chunk(job_id: str) -> dict[str, Any]:
+    with db() as conn:
+        pages = conn.execute("SELECT * FROM kb_pages WHERE job_id=? ORDER BY document_id,page_number", (job_id,)).fetchall()
+    if not pages:
+        raise HTTPException(status_code=412, detail="Extract pages first")
+    chunk_count = 0
+    with db() as conn:
+        conn.execute("DELETE FROM kb_chunks WHERE job_id=?", (job_id,))
+        for page in pages:
+            for local_idx, text in enumerate(chunk_text(page["page_text"])):
+                clause = clause_from_text(text) or "UNSPECIFIED"
+                chunk_hash = sha256_text(text)
+                chunk_id = f"{page['document_id']}-p{page['page_number']}-c{local_idx}-{chunk_hash[:10]}"
+                metadata = {
+                    "document_name": page["document_name"],
+                    "document_hash": page["document_hash"],
+                    "page_start": page["page_number"],
+                    "page_end": page["page_number"],
+                    "clause": clause,
+                    "chunk_hash": chunk_hash,
+                    "job_id": job_id,
+                }
+                conn.execute(
+                    "INSERT OR REPLACE INTO kb_chunks(chunk_id,job_id,document_id,document_name,document_hash,page_start,page_end,clause,text,chunk_hash,metadata_json) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+                    (chunk_id, job_id, page["document_id"], page["document_name"], page["document_hash"], page["page_number"], page["page_number"], clause, text, chunk_hash, canonical_json(metadata)),
+                )
+                chunk_count += 1
+        summary = {"job_id": job_id, "chunk_count": chunk_count, "max_chars": 1800, "overlap_chars": 250, "created_at": now_iso()}
+        conn.execute("UPDATE kb_jobs SET updated_at=?,chunks_json=?,status=? WHERE job_id=?", (now_iso(), canonical_json(summary), "CHUNKED", job_id))
+    return summary
+
+
+@app.post("/v1/kb/{job_id}/embed-store")
+async def kb_embed_store(job_id: str) -> dict[str, Any]:
+    with db() as conn:
+        rows = conn.execute("SELECT * FROM kb_chunks WHERE job_id=? ORDER BY chunk_id", (job_id,)).fetchall()
+    if not rows:
+        raise HTTPException(status_code=412, detail="Chunk documents first")
+    collection = QDRANT_COLLECTION_MOCK if EXECUTION_MODE == "MOCK" else QDRANT_COLLECTION_LIVE
+    vector_size = MOCK_EMBEDDING_DIM if EXECUTION_MODE == "MOCK" else OPENAI_EMBEDDING_DIM
+    await qdrant_ensure_collection(collection, vector_size)
+    batch_size = 64
+    stored = 0
+    for start in range(0, len(rows), batch_size):
+        batch = rows[start:start + batch_size]
+        vectors = await openai_embedding([row["text"] for row in batch])
+        points = []
+        for row, vector in zip(batch, vectors):
+            point_id = str(uuid.uuid5(uuid.NAMESPACE_URL, row["chunk_id"]))
+            points.append({
+                "id": point_id,
+                "vector": vector,
+                "payload": {
+                    "chunk_id": row["chunk_id"],
+                    "document_name": row["document_name"],
+                    "document_hash": row["document_hash"],
+                    "page_start": row["page_start"],
+                    "page_end": row["page_end"],
+                    "clause": row["clause"],
+                    "text": row["text"],
+                    "chunk_hash": row["chunk_hash"],
+                    "job_id": job_id,
+                },
+            })
+        await qdrant_upsert(collection, points)
+        stored += len(points)
+    manifest = {
+        "job_id": job_id,
+        "collection": collection,
+        "stored_chunks": stored,
+        "embedding_model": OPENAI_EMBEDDING_MODEL if EXECUTION_MODE == "LIVE" else "MOCK_FEATURE_HASH",
+        "embedding_dimension": vector_size,
+        "execution_mode": EXECUTION_MODE,
+        "created_at": now_iso(),
+    }
+    manifest["manifest_hash"] = sha256_json(manifest)
+    with db() as conn:
+        conn.execute("UPDATE kb_jobs SET updated_at=?,manifest_json=?,status=? WHERE job_id=?", (now_iso(), canonical_json(manifest), "STORED", job_id))
+    output_path = EVIDENCE_DIR / "kb_manifests"
+    output_path.mkdir(parents=True, exist_ok=True)
+    (output_path / f"{job_id}.json").write_text(json.dumps(manifest, indent=2))
+    return manifest
+
+
+@app.get("/v1/kb/{job_id}/manifest")
+async def kb_manifest(job_id: str) -> dict[str, Any]:
+    with db() as conn:
+        row = conn.execute("SELECT * FROM kb_jobs WHERE job_id=?", (job_id,)).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="Unknown KB job")
+    result = dict(row)
+    for key in ("scan_json", "extract_json", "chunks_json", "manifest_json"):
+        result[key] = json.loads(result[key]) if result.get(key) else None
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Journal v2: explicit four-role Stage F/F chain with raw-response provenance.
+# ---------------------------------------------------------------------------
+
+ROLE_ORDER = ("planner", "critic", "recovery", "arbiter")
+ROLE_PROVIDER = {
+    "planner": "openai",
+    "critic": "anthropic",
+    "recovery": "deepseek",
+    "arbiter": "mistral",
+}
+
+
+def init_role_db() -> None:
+    with db() as conn:
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS role_results (
+                run_id TEXT NOT NULL,
+                role TEXT NOT NULL,
+                provider TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                result_json TEXT NOT NULL,
+                raw_response TEXT NOT NULL,
+                raw_hash TEXT NOT NULL,
+                parsed_hash TEXT NOT NULL,
+                PRIMARY KEY (run_id, role),
+                FOREIGN KEY (run_id) REFERENCES runs(run_id) ON DELETE CASCADE
+            );
+            """
+        )
+
+
+init_role_db()
+
+
+class RoleDispatch(BaseModel):
+    run_id: str
+
+
+class RoleArtifact(BaseModel):
+    role: Literal["planner", "critic", "recovery", "arbiter"]
+    decision: Literal["COMPLIANT", "NON_COMPLIANT", "UNCERTAIN"]
+    violations: list[Violation] = Field(default_factory=list, max_length=30)
+    corrected_configuration_patch: str = Field(default="", max_length=40_000)
+    proposed_action: str = Field(default="", max_length=2000)
+    action_class: Literal["AUTOMATIC", "HUMAN", "PRIVILEGED", "NEVER"]
+    confidence: float = Field(ge=0.0, le=1.0)
+    claim_boundary_ok: bool
+    findings: list[str] = Field(default_factory=list, max_length=40)
+    needs_recovery: bool = False
+    uncertainties: list[str] = Field(default_factory=list, max_length=30)
+
+
+def role_artifact_to_assessment(artifact: RoleArtifact) -> Assessment:
+    if artifact.decision == "NON_COMPLIANT" and not artifact.violations:
+        raise ValueError("NON_COMPLIANT role output requires at least one cited violation")
+    return Assessment(
+        decision=artifact.decision,
+        violations=artifact.violations,
+        corrected_configuration_patch=artifact.corrected_configuration_patch,
+        proposed_action=artifact.proposed_action,
+        action_class=artifact.action_class,
+        confidence=artifact.confidence,
+        claim_boundary_ok=artifact.claim_boundary_ok,
+        uncertainties=artifact.uncertainties,
+    )
+
+
+def existing_role_results(run_id: str) -> dict[str, dict[str, Any]]:
+    with db() as conn:
+        rows = conn.execute(
+            "SELECT role,result_json FROM role_results WHERE run_id=?",
+            (run_id,),
+        ).fetchall()
+    return {row["role"]: json.loads(row["result_json"]) for row in rows}
+
+
+def role_prompt(role: str, run: dict[str, Any], previous: dict[str, dict[str, Any]]) -> tuple[str, str]:
+    retrieval = run.get("retrieval_json") or {}
+    chunks = retrieval.get("chunks", [])
+    compact_chunks = [
+        {
+            "chunk_id": c.get("chunk_id"),
+            "document": c.get("document"),
+            "clause": c.get("clause") or "UNSPECIFIED",
+            "page_start": c.get("page_start"),
+            "page_end": c.get("page_end"),
+            "text": c.get("text"),
+            "chunk_hash": c.get("chunk_hash"),
+        }
+        for c in chunks
+    ]
+    role_instruction = {
+        "planner": (
+            "Act as the GPT planning agent. Decompose the O-RAN compliance task, identify only evidence-supported "
+            "violations, and produce a bounded candidate decision and action. Do not perform final arbitration."
+        ),
+        "critic": (
+            "Act as the Claude evidence critic. Audit the planner and independent-provider consensus for unsupported "
+            "claims, invented clauses, unsafe action escalation, and evidence gaps. Return a corrected bounded view."
+        ),
+        "recovery": (
+            "Act as the DeepSeek recovery agent. Repair malformed, incomplete, unsupported, or unsafe intermediate "
+            "outputs. Preserve exact retrieved chunk identifiers and fail closed when evidence is insufficient."
+        ),
+        "arbiter": (
+            "Act as the Mistral verifier and arbiter. Resolve disagreement conservatively, enforce the four-class action "
+            "ladder, and emit the final evidence-grounded assessment. UNCERTAIN/HUMAN is preferred over invention. "
+            "NEVER is valid only when final retained violations include P-03, P-04, or P-05. P-01 or P-02 remediation "
+            "requires HUMAN handling. Do not retain an aggregate NEVER class after removing every NEVER-class violation."
+        ),
+    }[role]
+    system = (
+        role_instruction
+        + " Use only the supplied configuration, frozen retrieval bundle, independent-provider aggregate, and prior role artifacts. "
+        "Never invent a standards document, clause, chunk identifier, KPI measurement, proof result, chain result, or production "
+        "deployment claim. Every violation must cite an exact retrieved chunk. For every violation, copy the document, clause, and retrieved_chunk_id exactly from the selected retrieved chunk; clause must contain only the short retrieved identifier. The uncertainties field must contain plain strings only, never objects or nested arrays. Any remediation must use corrected_configuration_patch as a valid JSON Merge Patch object encoded as a JSON string; otherwise use an empty string. Return one JSON object only, without Markdown."
+    )
+    user = canonical_json(
+        {
+            "role": role,
+            "scenario": run["scenario"],
+            "retrieval_mode": (run.get("metadata_json") or {}).get("retrieval_mode", "AGENTIC_RAG"),
+            "configuration": run["input_text"],
+            "input_hash": run["input_hash"],
+            "retrieval_bundle_hash": retrieval.get("bundle_hash"),
+            "retrieved_chunks": compact_chunks,
+            "independent_provider_aggregate": run.get("aggregate_json"),
+            "prior_role_artifacts": previous,
+            "required_output_schema": RoleArtifact.model_json_schema(),
+        }
+    )
+    return system, user
+
+
+def mock_role_artifact(role: str, run: dict[str, Any]) -> RoleArtifact:
+    aggregate_obj = run.get("aggregate_json") or {}
+    decision = aggregate_obj.get("consensus_decision", "UNCERTAIN")
+    action_class = aggregate_obj.get("conservative_action_class", "HUMAN")
+    violations = aggregate_obj.get("violations") or []
+    parsed_violations: list[Violation] = []
+    for item in violations[:10]:
+        try:
+            parsed_violations.append(Violation.model_validate(item))
+        except Exception:
+            pass
+    if decision == "NON_COMPLIANT" and not parsed_violations:
+        decision = "UNCERTAIN"
+        action_class = "HUMAN"
+    return RoleArtifact(
+        role=role,
+        decision=decision,
+        violations=parsed_violations,
+        corrected_configuration_patch="",
+        proposed_action="Queue bounded operator review",
+        action_class=action_class if action_class in ACTION_RANK else "HUMAN",
+        confidence=0.5,
+        claim_boundary_ok=True,
+        findings=[f"Deterministic MOCK artifact for {role}; not live scientific evidence."],
+        needs_recovery=role in ("critic", "recovery") and decision == "UNCERTAIN",
+        uncertainties=["MOCK_MODE_NOT_PUBLISHABLE"],
+    )
+
+
+@app.post("/v1/runs/{run_id}/roles/{role}")
+async def execute_role(run_id: str, role: str, request: RoleDispatch) -> dict[str, Any]:
+    role = role.lower()
+    if request.run_id != run_id:
+        raise HTTPException(status_code=400, detail="run_id mismatch")
+    if role not in ROLE_ORDER:
+        raise HTTPException(status_code=404, detail="Unknown role")
+    run = get_run(run_id)
+    if not run.get("aggregate_json"):
+        raise HTTPException(status_code=412, detail="Independent-provider aggregate is required before the role chain")
+    previous = existing_role_results(run_id)
+    role_index = ROLE_ORDER.index(role)
+    required_previous = ROLE_ORDER[:role_index]
+    missing_previous = [name for name in required_previous if name not in previous]
+    if missing_previous:
+        raise HTTPException(status_code=412, detail=f"Missing prior roles: {missing_previous}")
+
+    provider = ROLE_PROVIDER[role]
+    system, user = role_prompt(role, run, previous)
+    prompt_hash = sha256_json({"system": system, "user": user})
+    if EXECUTION_MODE == "MOCK":
+        artifact = mock_role_artifact(role, run)
+        raw = canonical_json(artifact.model_dump())
+        metadata = {
+            "provider": provider,
+            "model_id": "MOCK",
+            "provider_request_id": None,
+            "latency_ms": 0.0,
+            "started_ns": time.perf_counter_ns(),
+            "ended_ns": time.perf_counter_ns(),
+            "input_tokens": None,
+            "output_tokens": None,
+        }
+    else:
+        payload, raw, metadata = await call_provider(provider, system, user, max_tokens=4500)
+        try:
+            artifact = RoleArtifact.model_validate(extract_json_object(response_text(provider, payload)))
+        except (ValueError, ValidationError) as exc:
+            failure = {
+                "run_id": run_id,
+                "role": role,
+                "provider": provider,
+                "model_id": metadata.get("model_id"),
+                "valid_json": False,
+                "provider_call_succeeded": True,
+                "validation_error": str(exc),
+                "prompt_hash": prompt_hash,
+                "raw_response_hash": sha256_text(raw),
+                "latency_ms": metadata.get("latency_ms"),
+                "created_at": now_iso(),
+                "execution_mode": EXECUTION_MODE,
+            }
+            parsed_hash = sha256_json(failure)
+            with db() as conn:
+                conn.execute(
+                    "INSERT OR REPLACE INTO role_results(run_id,role,provider,created_at,result_json,raw_response,raw_hash,parsed_hash) VALUES(?,?,?,?,?,?,?,?)",
+                    (run_id, role, provider, now_iso(), canonical_json(failure), raw, sha256_text(raw), parsed_hash),
+                )
+            role_dir = EVIDENCE_DIR / run_id / "roles" / role
+            role_dir.mkdir(parents=True, exist_ok=True)
+            (role_dir / "raw_response.txt").write_text(raw)
+            (role_dir / "result.json").write_text(json.dumps(failure, indent=2, ensure_ascii=False))
+            raise HTTPException(status_code=422, detail=f"{role} returned invalid structured output; evidence preserved")
+
+    if artifact.role != role:
+        raise HTTPException(status_code=422, detail=f"Role output mismatch: expected {role}, got {artifact.role}")
+    assessment = role_artifact_to_assessment(artifact)
+    deterministic_validation = validate_assessment_against_bundle(assessment, run.get("retrieval_json") or {})
+    result = {
+        "run_id": run_id,
+        "role": role,
+        "provider": provider,
+        "model_id": metadata.get("model_id"),
+        "provider_request_id": metadata.get("provider_request_id"),
+        "valid_json": True,
+        "provider_call_succeeded": True,
+        "artifact": artifact.model_dump(),
+        "deterministic_validation": deterministic_validation,
+        "prompt_hash": prompt_hash,
+        "raw_response_hash": sha256_text(raw),
+        "parsed_response_hash": sha256_json(artifact.model_dump()),
+        "latency_ms": metadata.get("latency_ms"),
+        "provider_started_ns": metadata.get("started_ns"),
+        "provider_ended_ns": metadata.get("ended_ns"),
+        "input_tokens": metadata.get("input_tokens"),
+        "output_tokens": metadata.get("output_tokens"),
+        "created_at": now_iso(),
+        "execution_mode": EXECUTION_MODE,
+    }
+    with db() as conn:
+        conn.execute(
+            "INSERT OR REPLACE INTO role_results(run_id,role,provider,created_at,result_json,raw_response,raw_hash,parsed_hash) VALUES(?,?,?,?,?,?,?,?)",
+            (run_id, role, provider, now_iso(), canonical_json(result), raw, result["raw_response_hash"], result["parsed_response_hash"]),
+        )
+    role_dir = EVIDENCE_DIR / run_id / "roles" / role
+    role_dir.mkdir(parents=True, exist_ok=True)
+    (role_dir / "raw_response.txt").write_text(raw)
+    (role_dir / "result.json").write_text(json.dumps(result, indent=2, ensure_ascii=False))
+    return result
+
+
+@app.post("/v1/runs/{run_id}/role-chain/finalize")
+async def finalize_role_chain(run_id: str) -> dict[str, Any]:
+    run = get_run(run_id)
+    results = existing_role_results(run_id)
+    missing = [role for role in ROLE_ORDER if role not in results]
+    if missing:
+        raise HTTPException(status_code=412, detail=f"Missing role results: {missing}")
+    invalid = [role for role, result in results.items() if not result.get("valid_json") or not result.get("deterministic_validation", {}).get("valid")]
+    arbiter_result = results.get("arbiter") or {}
+    arbiter_artifact = arbiter_result.get("artifact")
+    final_assessment = None
+    final_validation = {"valid": False, "errors": ["Arbiter artifact unavailable"]}
+    if arbiter_artifact:
+        try:
+            artifact = RoleArtifact.model_validate(arbiter_artifact)
+            final_assessment_obj = role_artifact_to_assessment(artifact)
+            final_validation = validate_assessment_against_bundle(final_assessment_obj, run.get("retrieval_json") or {})
+            if final_validation.get("valid"):
+                final_assessment = final_assessment_obj.model_dump()
+        except Exception as exc:
+            final_validation = {"valid": False, "errors": [str(exc)]}
+    latencies = [float(results[r].get("latency_ms") or 0) for r in ROLE_ORDER]
+    input_tokens = sum(int(results[r].get("input_tokens") or 0) for r in ROLE_ORDER)
+    output_tokens = sum(int(results[r].get("output_tokens") or 0) for r in ROLE_ORDER)
+    history = [
+        {
+            "step": index + 1,
+            "role": role,
+            "provider": results[role].get("provider"),
+            "model_id": results[role].get("model_id"),
+            "raw_response_hash": results[role].get("raw_response_hash"),
+            "parsed_response_hash": results[role].get("parsed_response_hash"),
+            "latency_ms": results[role].get("latency_ms"),
+            "input_tokens": results[role].get("input_tokens"),
+            "output_tokens": results[role].get("output_tokens"),
+            "deterministic_validation": results[role].get("deterministic_validation"),
+        }
+        for index, role in enumerate(ROLE_ORDER)
+    ]
+    converged = final_assessment is not None and not invalid
+    action_reconciliation = reconcile_final_action_class(
+        final_assessment,
+        run.get("aggregate_json") or {},
+    )
+
+    reflection = {
+        "run_id": run_id,
+        "performed": True,
+        "chain_mode": "GPT_PLANNER__CLAUDE_CRITIC__DEEPSEEK_RECOVERY__MISTRAL_ARBITER",
+        "iterations": len(ROLE_ORDER),
+        "converged": converged,
+        "history": history,
+        "invalid_roles": invalid,
+        "final_validation": final_validation,
+        "final_assessment": final_assessment,
+        "final_decision": final_assessment.get("decision") if final_assessment else "UNCERTAIN",
+        "model_action_class": action_reconciliation["model_action_class"],
+        "final_action_class": action_reconciliation["reconciled_action_class"],
+        "action_reconciliation": action_reconciliation,
+        "fail_closed": not converged,
+        "role_chain_latency_ms": round(sum(latencies), 3),
+        "role_chain_input_tokens": input_tokens,
+        "role_chain_output_tokens": output_tokens,
+        "raw_role_hash_coverage": sum(bool(results[r].get("raw_response_hash")) for r in ROLE_ORDER) / len(ROLE_ORDER),
+        "created_at": now_iso(),
+    }
+    reflection["reflection_hash"] = sha256_json(reflection)
+    update_run(run_id, reflection_json=reflection, status="ROLE_CHAIN_COMPLETE")
+    return reflection
+
+
+@app.get("/v1/runs/{run_id}/journal-report")
+async def journal_report(run_id: str) -> dict[str, Any]:
+    persisted = load_persisted_journal_report(run_id)
+    if persisted is not None:
+        return persisted
+
+    base = await report(run_id)
+    with db() as conn:
+        rows = conn.execute(
+            "SELECT role,result_json,raw_hash,parsed_hash FROM role_results WHERE run_id=?",
+            (run_id,),
+        ).fetchall()
+    roles = {row["role"]: json.loads(row["result_json"]) for row in rows}
+    enriched = {k: v for k, v in base.items() if k not in ("evidence_directory", "report_path", "report_hash")}
+    enriched["manifest_version"] = "L4-N8N-JOURNAL-EVIDENCE-2.0"
+    enriched["role_chain"] = roles
+    enriched.setdefault("scientific_claim_boundary", {})["raw_role_hashes"] = (
+        len(roles) == len(ROLE_ORDER) and all(roles.get(role, {}).get("raw_response_hash") for role in ROLE_ORDER)
+    )
+    enriched["scientific_claim_boundary"]["role_chain_complete"] = len(roles) == len(ROLE_ORDER)
+    enriched["report_hash"] = sha256_json(enriched)
+    run_dir = EVIDENCE_DIR / run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    report_path = run_dir / "final_report.json"
+    report_path.write_text(json.dumps(enriched, indent=2, ensure_ascii=False))
+    hashes = []
+    for path in sorted(run_dir.rglob("*")):
+        if path.is_file() and path.name != "SHA256SUMS.txt":
+            hashes.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.relative_to(run_dir)}")
+    (run_dir / "SHA256SUMS.txt").write_text("\n".join(hashes) + "\n")
+    return {**enriched, "evidence_directory": str(run_dir), "report_path": str(report_path)}
+
+# ZKTrustLLM-Agents L4 final paper-demo governed-action routes
+from action_router import router as governed_action_router
+app.include_router(governed_action_router)
