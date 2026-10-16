@@ -7,8 +7,8 @@ See the [revision documentation](paper/tnsm_revision_20261015/README.md)
 and [supervisor alignment](paper/tnsm_revision_20261015/SUPERVISOR_ALIGNMENT.md).
 
 This version includes the original recovered 180-run evidence and audit code.
-Independent expert validation, a matched inference-time ablation and live
-O-RAN integration remain incomplete.
+At the v1.1.0 release, independent expert validation, a matched inference-time
+ablation and live O-RAN integration remained incomplete.
 
 The version DOI for this release must be taken from its verified Zenodo record.
 
@@ -164,3 +164,15 @@ are inserted into the paper.
 ## Evidence classes
 
 The artifact separates direct runtime evidence, public-testnet evidence, configured profile evidence, reproducibility evidence, and claim-boundary evidence. Configured media-profile values must not be reported as packet-capture measurements.
+
+## Prepared matched-study revision: artifact v1.2.0
+
+The completed study and independent audit are documented in
+[the matched-study audit](paper/tnsm_revision_20261015/MATCHED_STUDY_AUDIT.md).
+It contains 240 fresh trials, 1,080 calls and preserved pilots/failures.
+The revised manuscript, supplement and response are in
+[submission/](paper/tnsm_revision_20261015/submission/).
+Latency contrasts are bounded common-harness results; semantic changes are mixed.
+Independent expert and live O-RAN validation remain absent.
+The v1.1.0 tag and historical DOI remain unchanged; this prepared version has
+no newly verified DOI or publication claim.

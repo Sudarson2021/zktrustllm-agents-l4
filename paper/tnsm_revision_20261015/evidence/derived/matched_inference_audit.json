@@ -1,0 +1,1121 @@
+{
+  "schema": "tnsm.independent_matched_audit.v1",
+  "archive_sha256": "7ea6792f45aa6663e98869e81626f69bb37c58c1c4de161691545c70780bdd95",
+  "protocol_sha256": "5e501822578b8c87537110d8e5d6ce22fc1d904a6f631721cc82d1b628cbba6e",
+  "manifest_entries": {
+    "pilot_01": 127,
+    "pilot_02": 128,
+    "full_01": 3723
+  },
+  "full_trials": 240,
+  "full_calls": 1080,
+  "oracle_scenarios": 6,
+  "live_api_inputs_are_synthetic": true,
+  "all_results_and_prespecified_intervals_reproduced": true,
+  "first_trial_start_utc": "2026-10-16T15:57:42.408331+00:00",
+  "last_trial_completed_utc": "2026-10-16T19:19:44.625799+00:00",
+  "journal_elapsed_seconds": 12122.217468,
+  "collector_environment": {
+    "python": "3.12.13",
+    "pydantic": "2.13.4",
+    "platform": "Linux-6.8.0-146-generic-x86_64-with-glibc2.41",
+    "models": {
+      "openai": "gpt-5.6-terra",
+      "anthropic": "claude-fable-5",
+      "deepseek": "deepseek-v4-pro",
+      "mistral": "mistral-medium-3-5"
+    },
+    "provider_configured": {
+      "openai": true,
+      "anthropic": true,
+      "deepseek": true,
+      "mistral": true
+    },
+    "gateway_image_id": "sha256:ba6633e538ac59e21b5a7765c73766a5cee66a31cff8bf1d534f436d76cfdb68",
+    "provider_availability_tested": false,
+    "provider_calls_made": 0
+  },
+  "variants": {
+    "A_ONE_NO_ROLES": {
+      "n": 60,
+      "decision_agreement_count": 52,
+      "pre_review_reconciled_action_agreement_count": 55,
+      "enforced_action_agreement_count": 59,
+      "oracle_never_denominator": 20,
+      "oracle_never_hits": 19,
+      "false_never_count": 0,
+      "valid_final_candidates": 59,
+      "http_complete_trials": 60,
+      "median_seconds": 4.2657581945,
+      "p95_seconds": 8.068977034649997,
+      "mean_stage_seconds": {
+        "assessment": 4.539797502833333,
+        "aggregation": 0.0019798634333333333,
+        "role_or_adapter": 3.86766e-05,
+        "governance": 3.51884e-05
+      },
+      "valid_nodes": 59,
+      "planned_nodes": 60,
+      "decision_confusion": {
+        "UNCERTAIN -> UNCERTAIN": 9,
+        "COMPLIANT -> UNCERTAIN": 6,
+        "NON_COMPLIANT -> NON_COMPLIANT": 39,
+        "COMPLIANT -> COMPLIANT": 4,
+        "NON_COMPLIANT -> UNCERTAIN": 1,
+        "UNCERTAIN -> NON_COMPLIANT": 1
+      },
+      "scenario_decision_agreement": {
+        "S1": 4,
+        "S2": 10,
+        "S3": 10,
+        "S4": 9,
+        "S5": 10,
+        "S6": 9
+      }
+    },
+    "B_FOUR_NO_ROLES": {
+      "n": 60,
+      "decision_agreement_count": 54,
+      "pre_review_reconciled_action_agreement_count": 51,
+      "enforced_action_agreement_count": 58,
+      "oracle_never_denominator": 20,
+      "oracle_never_hits": 18,
+      "false_never_count": 0,
+      "valid_final_candidates": 59,
+      "http_complete_trials": 60,
+      "median_seconds": 24.513968482499997,
+      "p95_seconds": 50.91589419735,
+      "mean_stage_seconds": {
+        "assessment": 28.112458474333334,
+        "aggregation": 0.0019244558833333334,
+        "role_or_adapter": 3.853645e-05,
+        "governance": 3.2574483333333335e-05
+      },
+      "valid_nodes": 219,
+      "planned_nodes": 240,
+      "decision_confusion": {
+        "UNCERTAIN -> UNCERTAIN": 8,
+        "COMPLIANT -> COMPLIANT": 7,
+        "NON_COMPLIANT -> NON_COMPLIANT": 39,
+        "COMPLIANT -> UNCERTAIN": 3,
+        "UNCERTAIN -> NON_COMPLIANT": 2,
+        "NON_COMPLIANT -> UNCERTAIN": 1
+      },
+      "scenario_decision_agreement": {
+        "S1": 7,
+        "S2": 10,
+        "S3": 10,
+        "S4": 9,
+        "S5": 10,
+        "S6": 8
+      }
+    },
+    "C_ONE_ROLES": {
+      "n": 60,
+      "decision_agreement_count": 52,
+      "pre_review_reconciled_action_agreement_count": 55,
+      "enforced_action_agreement_count": 59,
+      "oracle_never_denominator": 20,
+      "oracle_never_hits": 19,
+      "false_never_count": 0,
+      "valid_final_candidates": 60,
+      "http_complete_trials": 60,
+      "median_seconds": 67.514306691,
+      "p95_seconds": 93.99822225335,
+      "mean_stage_seconds": {
+        "assessment": 4.898126395966667,
+        "aggregation": 0.0019292517166666666,
+        "role_or_adapter": 62.83631975261667,
+        "governance": 4.200245e-05
+      },
+      "valid_nodes": 299,
+      "planned_nodes": 300,
+      "decision_confusion": {
+        "UNCERTAIN -> UNCERTAIN": 8,
+        "COMPLIANT -> UNCERTAIN": 6,
+        "NON_COMPLIANT -> NON_COMPLIANT": 40,
+        "COMPLIANT -> COMPLIANT": 4,
+        "UNCERTAIN -> NON_COMPLIANT": 2
+      },
+      "scenario_decision_agreement": {
+        "S1": 4,
+        "S2": 10,
+        "S3": 10,
+        "S4": 10,
+        "S5": 10,
+        "S6": 8
+      }
+    },
+    "D_FOUR_ROLES": {
+      "n": 60,
+      "decision_agreement_count": 59,
+      "pre_review_reconciled_action_agreement_count": 48,
+      "enforced_action_agreement_count": 58,
+      "oracle_never_denominator": 20,
+      "oracle_never_hits": 18,
+      "false_never_count": 0,
+      "valid_final_candidates": 59,
+      "http_complete_trials": 59,
+      "median_seconds": 93.14387229100001,
+      "p95_seconds": 130.989811595,
+      "mean_stage_seconds": {
+        "assessment": 25.7678221716,
+        "aggregation": 0.0019154520666666668,
+        "role_or_adapter": 71.85516143596666,
+        "governance": 4.170438333333333e-05
+      },
+      "valid_nodes": 458,
+      "planned_nodes": 480,
+      "decision_confusion": {
+        "UNCERTAIN -> UNCERTAIN": 10,
+        "COMPLIANT -> COMPLIANT": 10,
+        "NON_COMPLIANT -> NON_COMPLIANT": 39,
+        "NON_COMPLIANT -> UNCERTAIN": 1
+      },
+      "scenario_decision_agreement": {
+        "S1": 10,
+        "S2": 10,
+        "S3": 10,
+        "S4": 9,
+        "S5": 10,
+        "S6": 10
+      }
+    }
+  },
+  "paired_effects": {
+    "added_assessors_roles_off": {
+      "primary_n": 59,
+      "mean_paired_seconds": 23.621988144728814,
+      "descriptive_95_percent_cluster_interval": [
+        18.410337275183334,
+        28.73762724863333
+      ],
+      "post_hoc_all_final_valid_n": 57,
+      "post_hoc_all_final_valid_mean_seconds": 23.60081250036842,
+      "post_hoc_all_node_valid_n": 36,
+      "post_hoc_all_node_valid_mean_seconds": 23.35620902447222,
+      "post_hoc_strict_completion_n": 32,
+      "post_hoc_strict_completion_mean_seconds": 20.08358772709375
+    },
+    "added_assessors_roles_on": {
+      "primary_n": 59,
+      "mean_paired_seconds": 27.01654594464407,
+      "descriptive_95_percent_cluster_interval": [
+        24.753819509716667,
+        29.49141768188136
+      ],
+      "post_hoc_all_final_valid_n": 57,
+      "post_hoc_all_final_valid_mean_seconds": 26.844099806,
+      "post_hoc_all_node_valid_n": 36,
+      "post_hoc_all_node_valid_mean_seconds": 25.853832936055557,
+      "post_hoc_strict_completion_n": 32,
+      "post_hoc_strict_completion_mean_seconds": 24.045345927875
+    },
+    "role_chain_one_assessor": {
+      "primary_n": 59,
+      "mean_paired_seconds": 63.051753807152544,
+      "descriptive_95_percent_cluster_interval": [
+        58.923378129677964,
+        67.02969141086206
+      ],
+      "post_hoc_all_final_valid_n": 57,
+      "post_hoc_all_final_valid_mean_seconds": 62.43858657882456,
+      "post_hoc_all_node_valid_n": 36,
+      "post_hoc_all_node_valid_mean_seconds": 62.91748027036111,
+      "post_hoc_strict_completion_n": 32,
+      "post_hoc_strict_completion_mean_seconds": 62.42134705459375
+    },
+    "role_chain_four_assessors": {
+      "primary_n": 59,
+      "mean_paired_seconds": 66.4463116070678,
+      "descriptive_95_percent_cluster_interval": [
+        60.42657685346667,
+        72.88750118389655
+      ],
+      "post_hoc_all_final_valid_n": 57,
+      "post_hoc_all_final_valid_mean_seconds": 65.68187388445614,
+      "post_hoc_all_node_valid_n": 36,
+      "post_hoc_all_node_valid_mean_seconds": 65.41510418194444,
+      "post_hoc_strict_completion_n": 32,
+      "post_hoc_strict_completion_mean_seconds": 66.383105255375
+    },
+    "interaction": {
+      "primary_n": 59,
+      "mean_paired_seconds": 3.3945577999152543,
+      "descriptive_95_percent_cluster_interval": [
+        -0.6321001495420804,
+        7.55773321463793
+      ],
+      "post_hoc_all_final_valid_n": 57,
+      "post_hoc_all_final_valid_mean_seconds": 3.2432873056315787,
+      "post_hoc_all_node_valid_n": 36,
+      "post_hoc_all_node_valid_mean_seconds": 2.497623911583334,
+      "post_hoc_strict_completion_n": 32,
+      "post_hoc_strict_completion_mean_seconds": 3.96175820078125
+    }
+  },
+  "provider_response_audit": {
+    "anthropic": {
+      "calls": 240,
+      "http_200": 240,
+      "schema_valid": 207,
+      "reference_checks_valid": 207,
+      "stop_reasons": {
+        "end_turn": 207,
+        "refusal": 33
+      },
+      "service_tiers_observed": {
+        "standard": 239,
+        "MISSING": 1
+      },
+      "returned_models": [
+        "claude-fable-5"
+      ],
+      "system_fingerprints_present": 0,
+      "response_ids_present": 240,
+      "unique_response_ids": 240,
+      "reported_token_fields": {
+        "cache_creation.ephemeral_1h_input_tokens": {
+          "sum": 0,
+          "records_present": 240
+        },
+        "cache_creation.ephemeral_5m_input_tokens": {
+          "sum": 0,
+          "records_present": 240
+        },
+        "cache_creation_input_tokens": {
+          "sum": 0,
+          "records_present": 240
+        },
+        "cache_read_input_tokens": {
+          "sum": 0,
+          "records_present": 240
+        },
+        "input_tokens": {
+          "sum": 1181839,
+          "records_present": 240
+        },
+        "output_tokens": {
+          "sum": 273962,
+          "records_present": 240
+        },
+        "output_tokens_details.thinking_tokens": {
+          "sum": 54842,
+          "records_present": 209
+        }
+      }
+    },
+    "deepseek": {
+      "calls": 240,
+      "http_200": 240,
+      "schema_valid": 235,
+      "reference_checks_valid": 233,
+      "stop_reasons": {
+        "stop": 231,
+        "length": 9
+      },
+      "service_tiers_observed": {
+        "MISSING": 240
+      },
+      "returned_models": [
+        "deepseek-v4-pro"
+      ],
+      "system_fingerprints_present": 240,
+      "response_ids_present": 240,
+      "unique_response_ids": 240,
+      "reported_token_fields": {
+        "completion_tokens": {
+          "sum": 781084,
+          "records_present": 240
+        },
+        "completion_tokens_details.reasoning_tokens": {
+          "sum": 655105,
+          "records_present": 240
+        },
+        "prompt_cache_hit_tokens": {
+          "sum": 247552,
+          "records_present": 240
+        },
+        "prompt_cache_miss_tokens": {
+          "sum": 658621,
+          "records_present": 240
+        },
+        "prompt_tokens": {
+          "sum": 906173,
+          "records_present": 240
+        },
+        "prompt_tokens_details.cached_tokens": {
+          "sum": 247552,
+          "records_present": 240
+        },
+        "total_tokens": {
+          "sum": 1687257,
+          "records_present": 240
+        }
+      }
+    },
+    "mistral": {
+      "calls": 240,
+      "http_200": 239,
+      "schema_valid": 239,
+      "reference_checks_valid": 237,
+      "stop_reasons": {
+        "stop": 239,
+        "MISSING": 1
+      },
+      "service_tiers_observed": {
+        "standard": 239,
+        "MISSING": 1
+      },
+      "returned_models": [
+        "mistral-medium-3-5"
+      ],
+      "system_fingerprints_present": 0,
+      "response_ids_present": 239,
+      "unique_response_ids": 239,
+      "reported_token_fields": {
+        "completion_tokens": {
+          "sum": 140508,
+          "records_present": 239
+        },
+        "completion_tokens_details.reasoning_tokens": {
+          "sum": 0,
+          "records_present": 239
+        },
+        "prompt_tokens": {
+          "sum": 1057354,
+          "records_present": 239
+        },
+        "prompt_tokens_details.cached_tokens": {
+          "sum": 1552,
+          "records_present": 239
+        },
+        "total_tokens": {
+          "sum": 1197862,
+          "records_present": 239
+        }
+      }
+    },
+    "openai": {
+      "calls": 360,
+      "http_200": 360,
+      "schema_valid": 360,
+      "reference_checks_valid": 358,
+      "stop_reasons": {
+        "completed": 360
+      },
+      "service_tiers_observed": {
+        "default": 360
+      },
+      "returned_models": [
+        "gpt-5.6-terra"
+      ],
+      "system_fingerprints_present": 0,
+      "response_ids_present": 360,
+      "unique_response_ids": 360,
+      "reported_token_fields": {
+        "input_tokens": {
+          "sum": 1010925,
+          "records_present": 360
+        },
+        "input_tokens_details.cache_write_tokens": {
+          "sum": 539283,
+          "records_present": 360
+        },
+        "input_tokens_details.cached_tokens": {
+          "sum": 470562,
+          "records_present": 360
+        },
+        "output_tokens": {
+          "sum": 151517,
+          "records_present": 360
+        },
+        "output_tokens_details.reasoning_tokens": {
+          "sum": 55348,
+          "records_present": 360
+        },
+        "total_tokens": {
+          "sum": 1162442,
+          "records_present": 360
+        }
+      }
+    }
+  },
+  "invalid_nodes": [
+    {
+      "trial": "005_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "007_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "007_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "007_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "role_arbiter",
+      "provider": "mistral",
+      "http_status": null,
+      "stop_reason": null,
+      "category": "transport_failure",
+      "reference_errors": [],
+      "transport_error": "The read operation timed out"
+    },
+    {
+      "trial": "009_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S6",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "http_status": 200,
+      "stop_reason": "length",
+      "category": "schema_or_json_failure",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "009_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S6",
+      "node": "assessor_mistral",
+      "provider": "mistral",
+      "http_status": 200,
+      "stop_reason": "stop",
+      "category": "reference_check_failure",
+      "reference_errors": [
+        "violation[2] clause mismatch"
+      ],
+      "transport_error": null
+    },
+    {
+      "trial": "015_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "015_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "018_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S6",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "http_status": 200,
+      "stop_reason": "length",
+      "category": "schema_or_json_failure",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "020_A_ONE_NO_ROLES",
+      "variant": "A_ONE_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_openai",
+      "provider": "openai",
+      "http_status": 200,
+      "stop_reason": "completed",
+      "category": "reference_check_failure",
+      "reference_errors": [
+        "violation[1] clause mismatch"
+      ],
+      "transport_error": null
+    },
+    {
+      "trial": "020_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "020_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "020_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_openai",
+      "provider": "openai",
+      "http_status": 200,
+      "stop_reason": "completed",
+      "category": "reference_check_failure",
+      "reference_errors": [
+        "violation[1] clause mismatch"
+      ],
+      "transport_error": null
+    },
+    {
+      "trial": "021_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "021_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "022_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "022_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "024_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "024_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "025_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "025_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "027_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S1",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "http_status": 200,
+      "stop_reason": "length",
+      "category": "schema_or_json_failure",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "031_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "032_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S1",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "http_status": 200,
+      "stop_reason": "length",
+      "category": "schema_or_json_failure",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "038_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "038_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "041_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "041_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "043_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "043_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "045_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "046_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "046_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "049_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S1",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "http_status": 200,
+      "stop_reason": "length",
+      "category": "schema_or_json_failure",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "050_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "050_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "052_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "052_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S2",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "053_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S6",
+      "node": "assessor_mistral",
+      "provider": "mistral",
+      "http_status": 200,
+      "stop_reason": "stop",
+      "category": "reference_check_failure",
+      "reference_errors": [
+        "violation[2] references missing chunk_id"
+      ],
+      "transport_error": null
+    },
+    {
+      "trial": "057_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "058_C_ONE_ROLES",
+      "variant": "C_ONE_ROLES",
+      "scenario_id": "S4",
+      "node": "role_critic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "058_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "058_D_FOUR_ROLES",
+      "variant": "D_FOUR_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "http_status": 200,
+      "stop_reason": "stop",
+      "category": "reference_check_failure",
+      "reference_errors": [
+        "violation[0] references missing chunk_id"
+      ],
+      "transport_error": null
+    },
+    {
+      "trial": "058_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_anthropic",
+      "provider": "anthropic",
+      "http_status": 200,
+      "stop_reason": "refusal",
+      "category": "provider_refusal",
+      "reference_errors": [],
+      "transport_error": null
+    },
+    {
+      "trial": "058_B_FOUR_NO_ROLES",
+      "variant": "B_FOUR_NO_ROLES",
+      "scenario_id": "S4",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "http_status": 200,
+      "stop_reason": "stop",
+      "category": "reference_check_failure",
+      "reference_errors": [
+        "violation[0] references missing chunk_id"
+      ],
+      "transport_error": null
+    }
+  ],
+  "invalid_node_categories": {
+    "provider_refusal": 33,
+    "transport_failure": 1,
+    "schema_or_json_failure": 5,
+    "reference_check_failure": 6
+  },
+  "truncated_nodes": [
+    {
+      "trial": "001_B_FOUR_NO_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "reasoning_channel_fallback": true
+    },
+    {
+      "trial": "004_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "reasoning_channel_fallback": true
+    },
+    {
+      "trial": "009_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": false,
+      "reasoning_channel_fallback": false
+    },
+    {
+      "trial": "014_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "reasoning_channel_fallback": true
+    },
+    {
+      "trial": "016_B_FOUR_NO_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "reasoning_channel_fallback": true
+    },
+    {
+      "trial": "018_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": false,
+      "reasoning_channel_fallback": true
+    },
+    {
+      "trial": "027_B_FOUR_NO_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": false,
+      "reasoning_channel_fallback": false
+    },
+    {
+      "trial": "032_B_FOUR_NO_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": false,
+      "reasoning_channel_fallback": false
+    },
+    {
+      "trial": "049_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": false,
+      "reasoning_channel_fallback": true
+    }
+  ],
+  "reasoning_fallback_nodes": [
+    {
+      "trial": "001_B_FOUR_NO_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "stop_reason": "length"
+    },
+    {
+      "trial": "004_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "stop_reason": "length"
+    },
+    {
+      "trial": "014_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "stop_reason": "length"
+    },
+    {
+      "trial": "016_B_FOUR_NO_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": true,
+      "stop_reason": "length"
+    },
+    {
+      "trial": "018_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": false,
+      "stop_reason": "length"
+    },
+    {
+      "trial": "049_D_FOUR_ROLES",
+      "node": "assessor_deepseek",
+      "provider": "deepseek",
+      "valid": false,
+      "stop_reason": "length"
+    }
+  ],
+  "response_hashes_verified": 1080,
+  "excluded_primary_blocks": [
+    7
+  ],
+  "post_hoc_selection_warning": "Validity-selected subsets are outcome-dependent descriptive sensitivities, not replacements for the prespecified HTTP-complete population. They neither repair outputs nor preserve the full target population.",
+  "original_analysis_flag_boundary": "Minimum completeness/provenance gate only; not independent provider authentication, semantic correctness, expert validation, operational safety, coauthor approval or acceptance.",
+  "validation_boundary": "Reference checks establish identifier equality and selected action-language rules, not semantic entailment of a citation.",
+  "scientific_scope": "New common-harness component-block comparison on six author-designed scenarios. Count and provider diversity change together; whole-chain effect only. No framework-overhead estimate or retrospective decomposition of historical latency. No O-RAN actuation; execution disabled by design."
+}

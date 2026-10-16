@@ -1,0 +1,205 @@
+\begin{revision}
+\section{Matched Inference-Time Study and Response Audit}
+\label{sec:matched-supp}
+\subsection{Population, protocol and execution history}
+The new experiment is conditional on the 60 Agentic-RAG cells of the frozen
+180-cell reference: six author-designed scenarios, ten repeats each. It
+makes real API requests with synthetic scenario inputs; ``live API'' does
+not mean live O-RAN telemetry or actuation. Oracle labels are excluded from
+model-facing payloads and are used only for scoring. Each of 60 matched
+blocks crosses one/four assessors with absence/presence of a four-role
+chain, giving 240 trials and 1,080 calls (600 assessor, 480 role).
+Main Table~XIV identifies A--D and reports all trial-level outcomes.
+
+The full protocol was frozen before inference on the author's computer;
+its SHA-256 was recorded before the run. This is an internal prospective
+record, not an externally timestamped preregistration. The journal spans
+15:57:42.408331--19:19:44.625799 UTC on 16 October 2026, with 240 started and
+240 completed trials and no interrupted or replacement trials. Pilot~01
+(eight trials, 36 calls) retained eight Mistral HTTP~429 outcomes, two
+Anthropic refusals and one DeepSeek recovery truncation. Following account
+activation, pilot~02 used an amended 8,192-token role cap rather than 4,500;
+assessor caps stayed 5,000. Its eight final candidates were valid and all
+calls HTTP~200, but four Anthropic refusals remained. The amendment was
+recorded before pilot~02 inference. The full run uses pilot~02's caps and
+unchanged code. Neither pilot is pooled into the full analysis. The
+requested full-run output-cap sum, 6,932,160 tokens, is a maximum-request
+sum, not observed usage or a dollar budget.
+
+\subsection{Environment and source correspondence}
+The collector uses Python~3.12.13, Pydantic~2.13.4 and Linux
+6.8.0-146-generic, x86\_64, glibc~2.41. A separate container reuses the
+running gateway's image, with read-only code and isolated new result storage.
+Only allowlisted model settings and credentials are passed privately; no
+original service state is mounted or modified. The launcher does not call
+gateway routes. The full protocol binds the image, input, gateway reference
+and four harness files. Pure prompt, schema, parser, validation and
+reconciliation definitions are extracted from the hash-checked gateway
+source; the application itself is not imported.
+
+Requested aliases are \texttt{gpt-5.6-terra}, \texttt{claude-fable-5},
+\texttt{deepseek-v4-pro} and \texttt{mistral-medium-3-5}. Returned model fields
+match the requested aliases wherever present. OpenAI has 360 calls, each
+other provider 240. Response IDs are present and unique within provider for
+360/240/240/239 records, respectively. Only DeepSeek supplies a system
+fingerprint: the same value is present in all 240 responses. The Mistral
+timeout supplies neither model identity nor usage. Returned IDs and local
+hashes support internal correspondence; they are not signed provider
+attestations, immutable weight snapshots or independent authentication of
+historical service execution. Missing fingerprint fields stay missing.
+Sampling, seed, reasoning, service-tier and cache-control request fields
+are omitted; no provider defaults are inferred. Observed service tiers and
+usage are retained separately in the audit JSON.
+
+\subsection{Matching and declared common adaptations}
+Each condition makes fresh calls. The OpenAI assessor request body is
+identical across all four conditions within a block; corresponding B/D
+requests for the other three providers are also identical. Input/evidence,
+aliases, templates and caps match. Outputs are neither shared nor replayed.
+Role prompts use the same templates, but their aggregate and prior-role
+contexts depend on the condition and fresh responses.
+
+The common aggregation rule uses configured count $N$, requiring at least
+$\lceil0.75N\rceil$ schema/reference-valid assessments and 0.75 agreement
+among valid assessments. Otherwise it returns UNCERTAIN; violations are
+retained only for NON\_COMPLIANT consensus. This is an explicit adaptation
+of the original fixed-four-provider aggregator. The role-free adapter
+constructs the source Assessment schema from that aggregate. Role conditions
+attempt all four roles, even after an invalid intermediate output, unlike
+historical routes that can abort. OpenAI adds \texttt{store=false}; DeepSeek
+receives an explicit output cap, unlike the historical omitted field.
+These declared changes are applied consistently within the new study.
+The common reconciliation is followed by an administrative review-only
+guard: NEVER remains NEVER and other classes become HUMAN; execution is
+always false. It does not run live OPA, verification, anchoring or approval.
+
+Blocks are shuffled with seed 20261016. Four Williams sequences balance
+condition position and first-order carryover; every condition occupies every
+position 15 times. A one-second inter-trial pause is outside the timer.
+One attempt per node, a 180~s timeout, no automatic retries and no resumption
+are used. Balance does not eliminate time-varying load, caching, service
+routing or model-alias drift. Number and provider diversity change together;
+whole-chain effects do not isolate individual roles. D is not the full
+production workflow.
+
+\subsection{Timing population and prespecified contrasts}
+The timer starts immediately before assessment-prompt construction and ends
+after reconciliation and the review-only guard. Assessment, aggregation,
+role-chain/adapter and governance phases partition each measured duration.
+Parallel assessor times overlap; only their wall interval enters the total.
+Node request/result and aggregation persistence are included. Startup,
+retrieval generation, final trial/index/manifest persistence, human waiting
+and anchoring are excluded. This is decision-ready harness time, not a full
+O-RAN response deadline.
+
+All 60 trials per condition enter median and R7 P95 descriptions, including
+failure paths. Primary paired means require all four trials and every
+planned HTTP response~200 in a block, retaining refusals and invalid
+outputs as prespecified. Block~7 alone is excluded, leaving 59 blocks in
+all six scenario clusters. It contains the S4 repeat-10 D arbiter read
+timeout. HTTP~200 is transport completion, not valid inference. The primary
+complete-case contrasts condition on this outcome; prespecification does
+not remove possible selection bias relative to all attempted blocks.
+Contrasts are B--A, D--C, C--A, D--B and interaction
+$(D-B)-(C-A)$. The main table reports mean paired differences, not
+differences between marginal medians. Percentile intervals use 20,000
+whole-scenario bootstrap resamples (seed 20261016), retaining paired repeats
+within sampled scenarios. Six designed clusters do not support reliable
+nominal coverage, population generalisation or significance claims.
+Marginal phase medians are not summed. The derived CSV retains all trial
+totals and the audit JSON includes disjoint phase means.
+
+\subsection{Semantic agreement, reference checking and failures}
+All outcome scores use the unchanged author oracle. For A/B/C/D, decision
+agreement is 52/54/52/59 out of 60; pre-review reconciled action agreement
+is 55/51/55/48; post-guard action agreement is 59/58/59/58. NEVER hits are
+19/18/19/18 out of 20 and false NEVER counts are zero. All labels are HUMAN
+or NEVER. The review-only guard can correct a model's excessive authority
+without correcting its decision, so high post-guard agreement is not
+independent semantic evidence. There is no uniform improvement: D has
+better decision agreement but lower NEVER recall and lower pre-review
+action agreement than A. Execution is disabled by design and supplies no
+new measured deployment-safety result.
+\input{matched_nodes_table}
+\input{matched_sensitivity_table}
+\input{matched_usage_table}
+
+The source's reference validator checks chunk/document/clause equality,
+COMPLIANT-with-violations inconsistency and selected forbidden-action
+language. These are syntactic/reference checks, not evidence entailment or
+independent oracle validation. Of 1,080 nodes, 1,035 pass both schema and
+reference checks. The 45 failures comprise 33 Anthropic refusals, five
+DeepSeek JSON/schema failures, six identifier/reference failures (two each
+from OpenAI, DeepSeek and Mistral) and one Mistral read timeout. Anthropic
+refusals occur at B assessor (17), D assessor (15) and C critic (1), in S2
+(16) and S4 (17). They are recorded outcomes, not attributed to insufficient
+credit. Provider billing was not independently audited.
+
+Nine DeepSeek assessor responses terminate with \texttt{length} at the
+5,000-token cap. The frozen parser uses final content when nonempty and
+otherwise falls back to \texttt{reasoning\_content}, extracting the last
+schema-valid JSON object. Six length-terminated records use that fallback;
+four pass the frozen checks (001\_B, 004\_D, 014\_D, 016\_B) and two fail
+(018\_D, 049\_D). The other three truncated records have partial final text
+and fail. Thus four truncated, reasoning-channel objects participate in
+prespecified results; they must not be described as clean final-text
+completions. No response is repaired or replaced and no private reasoning
+text is quoted here. Every case is indexed in the audit JSON.
+
+Three final candidates are invalid: 007\_D (Anthropic refusal and Mistral
+arbiter timeout, six/eight valid nodes), 020\_A (an OpenAI clause-reference
+mismatch), and 058\_B (Anthropic refusal and a DeepSeek missing-chunk
+reference, two/four valid nodes). All are S4 and retain UNCERTAIN/HUMAN
+fallback with execution false. D's other NEVER miss, 020\_D, has the correct
+NON\_COMPLIANT decision but an UNSPECIFIED clause; reconciliation retains
+HUMAN rather than the oracle's NEVER. It is an action-class miss despite
+non-execution. These cases remain in per-condition counts and durations.
+
+\subsection{Post hoc completion sensitivities}
+After inspecting failures, we computed three descriptive subsets: all four
+final candidates valid (57 blocks), all node outputs passing schema/reference
+checks (36), and all nodes passing with neither refusal, length termination
+nor reasoning-channel fallback (32). Table~\ref{tab:matched-sensitivity}
+shows the paired means. These outcome-selected subsets are post hoc, have
+no inferential coverage claim and do not replace the 59-block prespecified
+population. Their similar positive latency increments support a limited
+robustness observation; they do not repair invalid outputs, establish
+selection-free effects or demonstrate semantic benefits.
+
+\subsection{Usage and reproducibility}
+Usage is reported as returned metadata, not an invoice or externally
+verified charge. Input/cached/write/reasoning subfields are not summed twice;
+reasoning is already included in output/completion tokens. One Mistral usage
+record is missing and is not imputed as zero. Cache hits and hidden provider
+scheduling may affect duration despite request matching. No billed-dollar
+claim is derived without account-level billing records.
+
+The uploaded archive SHA-256 is
+\hashsplit{7ea6792f45aa6663e98869e81626f69b}{b37c58c1c4de161691545c70780bdd95}.
+The full protocol SHA-256 is
+\hashsplit{5e501822578b8c87537110d8e5d6ce22}{fc1d904a6f631721cc82d1b628cbba6e}.
+The image, source/input and harness hashes remain in the protocol.
+The original archive is included unchanged in the revision evidence inputs.
+Its pilot~01, pilot~02 and full manifests verify 127, 128 and 3,723 entries,
+respectively; all 1,080 decoded raw-response hashes match. Hashes establish
+internal integrity, not independent origin authentication or oracle truth.
+The frozen analyzer exactly reproduces the packaged JSON. A separate offline
+implementation independently recomputes counts, R7 quantiles, pairing,
+bootstrap intervals and response metadata, without importing the runner or
+calling providers. Independent reanalysis used Pydantic~2.13.5 rather than
+the collector's 2.13.4; collection identity stays unchanged.
+
+Run \artifactpath{scripts/l4/tnsm_revision/audit_matched_inference_evidence.py}
+from the repository root. It creates
+\artifactpath{evidence/derived/matched_inference_audit.json} and
+\artifactpath{evidence/derived/matched_inference_trials.csv} under the paper
+directory. The reproducibility guide also gives safe archive extraction and
+the frozen analyzer command. The machine field
+\artifactpath{publication_eligible_for_bounded_full_study} is a minimum
+completeness/provenance gate only. It does not certify scientific validity,
+provider authentication, coauthor approval or journal acceptance.
+Independent expert labels, production-derived/noisy telemetry, deployed
+approval-service verification and standards-conformant O-RAN integration
+remain unavailable. This experiment neither estimates n8n/LangGraph overhead
+nor retrospectively decomposes their unequal historical latency ratio.
+\end{revision}

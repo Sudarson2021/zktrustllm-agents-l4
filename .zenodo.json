@@ -1,9 +1,9 @@
 {
   "title": "Reproducibility Artifact for Auditable Policy-Governed LLM-Agent Control for O-RAN Edge Security",
-  "description": "Frozen reproducibility artifact for the IEEE TNSM manuscript \"Auditable Policy-Governed LLM-Agent Control for O-RAN Edge Security.\" It contains the frozen synthetic-policy oracle, external LangGraph and open-weights baselines, prompt-injection experiment, analysis scripts, hash manifests, and manuscript-support evidence. The artifact does not claim production O-RAN actuation, completed independent human validation, or successful row-bound zero-knowledge verification across the retained 240-row matrix. Version 1.1.0 contains the TNSM-2026-12002 major-revision sources, three R1 PDFs, original recovered 180-run evidence, audit scripts, corrected oracle-relative metrics, retained-output replay, descriptive phase timing, and supervisor/reviewer alignment. Independent expert validation, a matched inference-time ablation and live O-RAN integration remain incomplete. This artifact supports a major revision.",
+  "description": "Frozen reproducibility artifact for the IEEE TNSM manuscript \"Auditable Policy-Governed LLM-Agent Control for O-RAN Edge Security.\" It contains the frozen synthetic-policy oracle, external LangGraph and open-weights baselines, prompt-injection experiment, analysis scripts, hash manifests, and manuscript-support evidence. The artifact does not claim production O-RAN actuation, completed independent human validation, or successful row-bound zero-knowledge verification across the retained 240-row matrix. Prepared version 1.2.0 contains the TNSM-2026-12002 R1 sources and PDFs, original recovered 180-run evidence, and a new 240-trial, 1080-call common-harness inference-block study. It preserves both pilots, failures and parser limitations, with independent offline audit, descriptive six-scenario intervals and reproducible tables. Semantic changes are mixed. The historical LangGraph latency ratio remains confounded; independent expert validation and live O-RAN integration remain unavailable. This metadata prepares a new artifact version and does not assert that a new DOI has been issued.",
   "upload_type": "software",
   "license": "mit",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "access_right": "open",
   "language": "eng",
   "creators": [

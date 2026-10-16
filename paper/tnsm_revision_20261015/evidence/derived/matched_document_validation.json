@@ -1,0 +1,56 @@
+{
+  "TNSM_12002_Manuscript_Marked": {
+    "pages": 16,
+    "sha256": "ae3bbe585bb77f8aee7695542058603baf268f88855f2229e48a322e481e7a5f",
+    "page_boundary_violations": [],
+    "clean_text_and_positions_identical": true
+  },
+  "TNSM_12002_Manuscript_Clean": {
+    "pages": 16,
+    "sha256": "14fe8e9dbfc0a3bf55fe9872f78cc31fd42d4299ff1e90dfcccc3fb6e16f4628",
+    "page_boundary_violations": []
+  },
+  "TNSM_12002_Supplement_Marked": {
+    "pages": 17,
+    "sha256": "e10dfe5f857f7280b66fc93b7a46a2d0fc36a30421c98c19350b4a74bf7e75d7",
+    "page_boundary_violations": [],
+    "clean_text_and_positions_identical": true
+  },
+  "TNSM_12002_Supplement_Clean": {
+    "pages": 17,
+    "sha256": "4bd0ce3041056d638d4008f11571766e3c50fd2a57e8f9feca0f0475533aaafc",
+    "page_boundary_violations": []
+  },
+  "TNSM_12002_R1_Response_to_Reviewers": {
+    "pages": 6,
+    "sha256": "96d275a72f90a0229804d1ca6b93dac5be29a95f3d183948295acfb8dbe99946",
+    "page_boundary_violations": []
+  },
+  "main": {
+    "overfull_boxes": 0,
+    "undefined_references": 0
+  },
+  "main-clean": {
+    "overfull_boxes": 0,
+    "undefined_references": 0
+  },
+  "supplementary_material": {
+    "overfull_boxes": 0,
+    "undefined_references": 0
+  },
+  "supplementary-clean": {
+    "overfull_boxes": 0,
+    "undefined_references": 0
+  },
+  "tests": {
+    "existing_revision_python": 43,
+    "new_independent_audit_python": 4,
+    "matched_harness_python": 25,
+    "python_total": 72,
+    "callback_valid_cases": 2,
+    "callback_malformed_cases": 12,
+    "all_passed": true
+  },
+  "inspection": "All marked pages reviewed as contact sheets; changed dense main/supplement pages and the rebuilt response inspected at readable scale. No visible watermark or clipped text in inspected renders.",
+  "original_matched_archive_sha256": "7ea6792f45aa6663e98869e81626f69bb37c58c1c4de161691545c70780bdd95"
+}

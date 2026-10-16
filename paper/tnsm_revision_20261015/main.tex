@@ -101,24 +101,25 @@ h.cruickshank@surrey.ac.uk).}%
 \begin{abstract}
 \begin{revision}
 Open Radio Access Network (O-RAN) security management can use large language
-models to assess evidence, but their recommendations require external authority
-and a reproducible audit trail. Our framework treats model outputs as
-proposals, separates deterministic policy from orchestration, and records
-evidence and operator approval. TLC checks six invariants over 320 reachable
-states of a finite policy-gate abstraction. On six synthetic scenarios crossed
-with three retrieval modes and ten repeats, the proposed Agentic-RAG workflow
-has 100.0\% decision agreement and 96.7\% action-class agreement with a frozen
-experimental oracle; the single-assessor LangGraph configuration has 83.3\%
-and 66.7\%, respectively. The workflows differ in prompts, provider calls,
-request budgets and governance, preventing component-level attribution. A
-retained-output ablation shows that suppressing execution declarations can
-leave semantic agreement unchanged. Median decision durations of
-80.453--109.793~s restrict intended use to deliberative management, subject to
-task-specific deadline validation. Public-testnet anchoring measures first
-inclusion, while one live approval demonstration writes only to a simulated
-ledger. The evidence supports auditable governance under these experimental
-conditions; it establishes neither independently validated O-RAN correctness
-nor production deployment safety.
+models to assess evidence, but recommendations require external authority
+and an audit trail. Our framework separates model proposals, deterministic
+policy, operator approval and evidence recording. TLC checks six invariants
+over 320 reachable states of a finite policy-gate abstraction. On six
+synthetic scenarios crossed with three retrieval modes and ten repeats,
+the proposed Agentic-RAG workflow has 100.0\% decision agreement and 96.7\%
+action-class agreement with a frozen oracle; a single-assessor LangGraph
+configuration has 83.3\% and 66.7\%. Those historical workflows are confounded.
+A new common-harness study makes 1,080 API calls across 240 trials, crossing
+one/four assessors with absence/presence of a four-role chain. On 59
+HTTP-complete matched blocks, adding assessors costs 23.622--27.017~s and
+adding roles costs 63.052--66.446~s in mean paired duration. Decision gains
+are not uniform, and refusal, truncation and validation failures remain
+reported. This study does not decompose the historical latency gap.
+Original median durations of 80.453--109.793~s restrict intended use to
+deliberative management subject to deadline validation. Testnet evidence
+measures first inclusion; one approved demonstration writes only to a
+simulated ledger. Independent oracle validation and operational O-RAN
+safety remain unestablished.
 \end{revision}
 \end{abstract}
 
@@ -217,7 +218,12 @@ Keccak-256/SHA-256/SHA-512 hash-primitive microbenchmark.
 \item \emph{Frozen semantic evaluation and live governance:} a 180-cell
 oracle benchmark with scenario-clustered intervals, an external LangGraph
 baseline, a local Qwen3-4B run, a 30-case prompt-injection suite, and a live
-HUMAN-gated execution backed by an append-only 233-attempt index.
+HUMAN-gated simulated execution backed by an append-only 233-attempt index.
+\item \rev{\emph{Matched inference-block study:} 240 fresh trials crossing
+one/four assessors and absence/presence of four sequential roles, with
+prespecified pairing, retained failures and descriptive six-scenario
+intervals. This estimates configured block effects, not historical
+framework overhead.}
 \end{itemize}
 \subsection{Organization}
 Sections~\ref{sec:related}--\ref{sec:formal} position the work, define the
@@ -990,8 +996,10 @@ Runtime conditions & Recorded July provider aliases; no immutable snapshots & Au
 \end{table*}
 Consequently, 109.793/1.843 $\simeq59.6$ is a ratio of reported medians across
 configured workflows, not framework overhead or a causal gain from any one
-mechanism. Matched inference-time ablation is unavailable; output replay
-below isolates only deterministic post-processing. The related 240-row
+mechanism. The new study in Section~\ref{sec:matched-inference} compares
+inference blocks under a common harness; it does not retrospectively match
+these historical workflows. Output replay below isolates deterministic
+post-processing. The related 240-row
 impairment/profile study is a different workload and cannot explain this gap.
 \end{revision}
 \end{revision}
@@ -1379,8 +1387,10 @@ The supplement reports all disjoint phase medians and their timing boundary.
 Marginal phase medians do not sum to the median total. This population-level
 descriptive analysis explains where time is spent in the proposed workflow;
 it does not estimate a causal component cost or remove the LangGraph
-comparison confounders. No provider requests are repeated.
+comparison confounders. This analysis replays retained records only.
 \end{revision}
+
+\input{matched_inference_main}
 
 \begin{revision}
 \subsection{Scientific Interpretation and Limitations}
@@ -1390,7 +1400,12 @@ configured impairment profiles must not be combined into one system score.
 The configured LangGraph comparison does not isolate the latency cost of
 provider diversity, agent roles or governance; the Qwen3-4B result
 shows that local reproducibility alone does not guarantee oracle-conformant classification.
-The prompt-injection suite tests only 30 synthetic variants.
+The new matched study estimates the configured assessor-set and whole-chain
+contrasts conditional on fixed retrieval, provider endpoints and six cases;
+it does not isolate individual roles or provider count from provider identity.
+Its review-only guard makes non-execution inevitable. Refusals, truncations,
+parser fallbacks and missing provider fingerprints limit interpretation
+(Supplement~S11). The prompt-injection suite tests only 30 synthetic variants.
 The R10 endpoints used the recorded aliases \texttt{gpt-5.6-terra},
 \texttt{claude-fable-5}, \texttt{deepseek-v4-pro}, and
 \texttt{mistral-medium-3-5} on 16 July 2026; immutable provider snapshots were
@@ -1438,7 +1453,13 @@ was 12.427~s on Sepolia and 7.225~s on IoTeX, while the live n8n workflow wrote
 only to a simulated ledger after explicit human approval. These configured workflows differ simultaneously in reasoning, request budgets
 and governance. The replay ablation separates execution declarations from
 semantic agreement; the 80.5--109.8~s median durations do not isolate a
-framework or component cost.
+framework or component cost. The separate 240-trial common-harness study
+finds positive mean latency increments for both the configured assessor-set
+and whole-role-chain factors. Its classification changes are mixed: the
+four-assessor role condition has 59/60 decision agreement but 18/20 NEVER
+recall, versus 52/60 and 19/20 for the single-assessor role-free condition.
+It does not establish a uniform semantic benefit or explain the historical
+LangGraph ratio.
 
 The claims remain limited to the released artifacts, a synthetic frozen
 oracle, public testnets, local permissioned clusters, and simulated actuation.
@@ -1468,8 +1489,11 @@ call organised by the Datacom Industry Association AISBL. Also, the ADU author
 acknowledges support from Abu Dhabi University's Office of Research and Grant Programs.
 \rev{OpenAI Codex assisted with drafting revision additions to Sections~II,
 IV--VIII and the supplement, preparing deterministic reanalysis and formal-check
-scripts, and reconstructing editable workflow figures from archived exports.
-This assistance generated no new experimental model responses or human labels.
+scripts, preparing the matched-study harness and response audit, and
+reconstructing editable workflow figures from archived exports. The author
+executed the matched study against hosted APIs; their returned responses
+are retained as experimental data, rather than generated or repaired by the
+revision assistant. No independent human labels were created.
 Responsibility for the final content and validation rests with the authors.}
 
 % Keep the IEEE 8-pt reference font but use an 8.8-pt baseline and a small,

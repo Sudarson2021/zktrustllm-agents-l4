@@ -44,5 +44,15 @@
       }
     ],
     "scope": "Visual reading of legible instructions; Figure S1 note concerns AI-generated diagram provenance. Individual unclear words are not asserted as exact transcription."
+  },
+  "matched_study": {
+    "author_uploaded_archive": "evidence/inputs/TNSM_12002_Matched_Ablation_Evidence_20261016T194059Z.tar.gz",
+    "sha256": "7ea6792f45aa6663e98869e81626f69bb37c58c1c4de161691545c70780bdd95",
+    "full_protocol_sha256": "5e501822578b8c87537110d8e5d6ce22fc1d904a6f631721cc82d1b628cbba6e",
+    "published_base_commit": "977a746e3b6f49ccb158b7dcd998c25872d729ec",
+    "prior_document_review_commit": "e1578ead9ccd3ea1971a421361c4836e5bcccf15",
+    "frozen_harness_source_commit": "2287b1dd3b4f1e0328a57a3febbe4fbf3d18b16e",
+    "study_audit": "MATCHED_STUDY_AUDIT.md",
+    "provider_origin_independently_authenticated": false
   }
 }

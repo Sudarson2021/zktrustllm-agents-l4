@@ -14,7 +14,7 @@ The starting point is the TNSM artifact branch `tnsm-supervisor-revision-step1-2
 - VII-A expands operator review and unverified deployment obligations. A separate inactive V2 callback export rejects string Boolean coercion; local payload tests are included.
 - Editable TikZ figures replace supplementary screenshots. Fig. S1 is a functional map generated from archived JSON, with a complete edge-level draw.io diagram and node inventory. It is not an AI-detector figure or execution proof.
 - `RESPONSE_TO_REVIEWERS.md` answers all eight R1 and three R2 comments. The supervisor's former Table IV request is distinct from R2.3, which concerns safety versus semantics.
-- `SUPERVISOR_ALIGNMENT.md` maps the original photographed instructions to exact manuscript changes and response positions. It identifies the remaining matched inference-time ablation gap explicitly. Supplement III now explains Figure S1's JSON/generator provenance and disclosed AI assistance; the operational-timescale paragraph cites ETSI TS 103 982 V14.0.0.
+- `SUPERVISOR_ALIGNMENT.md` maps the original photographed instructions to exact manuscript changes and response positions. It now identifies the completed matched inference-block study and the remaining independent-expert/live-deployment limits. Supplement III now explains Figure S1's JSON/generator provenance and disclosed AI assistance; the operational-timescale paragraph cites ETSI TS 103 982 V14.0.0.
 
 ## Important corrections
 
@@ -22,7 +22,7 @@ The proposed Agentic-RAG NEVER-class recall is **19/20 = 95.0%**, not the previo
 
 The original **180 proposed-workflow run packages have been recovered and independently reanalysed**. The immutable input `evidence/inputs/TNSM_12002_Original_Evidence_Recovery.tar.gz` has SHA-256 `f842c0308d6e52904de71bb8886a044d733d474dde688ac906fbab0277ccb63d`. The original release/sidecar checksums and all 180 run manifests pass: 3,240 bound evidence files plus 180 manifests. Every recovered canonical report hash joins the previously released frozen oracle export. Reanalysis reproduces decision/action agreement, 95% NEVER recall, coverage, clustered intervals and recorded latency statistics. This is internal integrity and retained-result reproducibility, not independent provider authentication or validation of oracle correctness.
 
-The historical DOI (10.5281/zenodo.21939774) remains a versioned source snapshot and does not include this newly recovered bundle or revision scripts. The full revision repository ZIP supplies both, pending public publication. No new inference or missing-record reconstruction was performed.
+The historical DOI (10.5281/zenodo.21939774) remains a versioned source snapshot and does not include this newly recovered bundle or revision scripts. The full revision repository ZIP supplies both, pending public publication. Recovery did not reconstruct missing records or rerun historical requests. A separate, newly collected inference study is documented below.
 
 The archived baseline `unsafe_execution` field means `oracle_action_class == NEVER and final_prediction.execute == true`. No executor is invoked by either baseline runner. Qwen's nine such flags are erroneous output declarations, not observed executions. The broader non-automatic-reference count is 38. A replay with execution disabled changes these counts to zero while leaving decision agreement 38/60 and action agreement 11/60. LangGraph remains 150/180 and 120/180, with zero declarations. Original fields are unchanged; corrected interpretations are derived separately.
 
@@ -42,7 +42,7 @@ python3 -m unittest discover -s test/l4/tnsm_revision -p 'test_*.py' -v
 node test/l4/tnsm_revision/test_review_payload_v2.cjs
 ```
 
-All 43 Python tests pass: 29 existing revision-tool, nine retained-evidence and five recovered-evidence tests, together with 14 callback cases. The archive audit rejects traversal and malformed/checksum-mismatched archives; validates all five internal manifests; joins 180 LangGraph and 60 Qwen records to the 180-cell frozen reference; verifies raw-response hashes; and reconstructs native guards before replay. It sends no provider requests and performs no actuation. Its outputs are `evidence/derived/retained_output_audit.json` and `retained_output_ablation.csv`.
+The completed checks comprise 47 revision/audit Python tests, 25 isolated matched-harness tests and 14 callback cases. The original 43 tests are supplemented by four independent matched-audit regressions. The archive audit rejects traversal and malformed/checksum-mismatched archives; validates all five internal manifests; joins 180 LangGraph and 60 Qwen records to the 180-cell frozen reference; verifies raw-response hashes; and reconstructs native guards before replay. It sends no provider requests and performs no actuation. Its outputs are `evidence/derived/retained_output_audit.json` and `retained_output_ablation.csv`.
 
 The recovered-evidence audit additionally verifies the nine-file recovery bundle, 37 portable-manifest entries, 20 analysis-manifest entries and 14 benchmark-manifest entries using explicit path mapping. It verifies every original report, retrieval bundle, embedded provider/role record, 720 assessor and 720 role raw-response hashes, metadata/index/reference joins and 180 prompt-provenance joins. It regenerates the unchanged 20,000-replicate whole-scenario intervals. Outputs are `recovered_proposed_audit.json`, `recovered_proposed_cells.csv` and `recovered_proposed_timing.csv`.
 
@@ -71,7 +71,7 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error supplementary_material.tex
 latexmk -pdf -interaction=nonstopmode -halt-on-error supplementary-clean.tex
 ```
 
-`main.pdf` and `supplementary_material.pdf` mark revisions in blue; the clean wrappers suppress revision colour. All figures are native vector diagrams/charts with editable source. Compiled PDFs are delivery/build outputs rather than Git-tracked files. The current main manuscript has 14 pages and the supplement 14 pages; reconcile any private source changes and venue page requirements before submission.
+`main.pdf` and `supplementary_material.pdf` mark revisions in blue; the clean wrappers suppress revision colour. All figures are native vector diagrams/charts with editable source. The submission directory contains the three current marked PDFs and their checksums. Clean counterparts are included in the delivery package. The current main manuscript has 16 pages and the supplement 17 pages; reconcile any private source changes before submission.
 
 The public-testnet table uses two panels at the manuscript's footnote size, rather than shrinking its text. Reference metadata have been checked against publisher/Crossref records. The acknowledgment identifies the actual AI assistance used for revision text, scripts and reconstructed figures.
 
@@ -79,10 +79,20 @@ The public-testnet table uses two panels at the manuscript's footnote size, rath
 
 The planned expert protocol treats action classes as nominal. Its archived linear-weighted action statistic requires an amended, frozen analysis plan before new labels are collected; no protocol amendment or expert study has been completed.
 
-No independent expert annotation, new hosted-model inference, matched inference-time ablation, live rApp/A1/E2 integration or real operational-telemetry/noise validation was performed. The revised claims state these limits explicitly. Intended deliberative tasks still require task-specific deadline validation. Approval authentication, exact action binding, expiry, concurrent/replayed decisions, revocation and privileged approval need deployed gateway tests. The V2 export is inactive and does not establish those guarantees.
+The matched inference-block study is complete; independent expert annotation, live rApp/A1/E2 integration and real operational-telemetry/noise validation remain absent. The revised claims state these limits explicitly. Intended deliberative tasks still require task-specific deadline validation. Approval authentication, exact action binding, expiry, concurrent/replayed decisions, revocation and privileged approval need deployed gateway tests. The V2 export is inactive and does not establish those guarantees.
 
 The authors should review the final source, references and response, reconcile later private Overleaf edits, and submit the marked manuscript and separate response by the decision letter's 6 December 2026 deadline. No journal-portal submission has been performed.
 
-## Final document review on 16 October 2026
+## New matched inference study: 16 October 2026
 
-See FINAL_ALIGNMENT_REVIEW_20261016.md for the final audit and limited polishing of the three author-attached PDFs. It records the remaining matched inference-time gap. The updated main/supplement remain 14 pages each; the response is seven pages. The final update package includes marked/clean PDFs, the editable response, manuscript/figure source and an incremental patch. The published v1.1.0 tag remains unchanged; these later edits need a new approved archive version before a new DOI can be cited.
+See `MATCHED_STUDY_AUDIT.md` and `MATCHED_STUDY_REPRODUCIBILITY.md`. The unchanged author archive supplies 240 trials and 1,080 calls. Its SHA-256 is `7ea6792f45aa6663e98869e81626f69bb37c58c1c4de161691545c70780bdd95`. The frozen analyzer reproduces exactly; an independent audit verifies manifests, matching, counts, quantiles, pairing and descriptive bootstrap intervals. New main VII-K/Tables XIV–XV and Supplement S11/Tables S16–S18 report the measured contrasts, mixed semantic results, 33 refusals, nine length terminations, six reference failures and one timeout. Four length-terminated reasoning-channel fallback objects were accepted by the frozen parser and are explicitly disclosed.
+
+```bash
+python3 scripts/l4/tnsm_revision/audit_matched_inference_evidence.py
+python3 scripts/l4/tnsm_revision/build_matched_inference_tables.py
+python3 -m unittest discover -s test/l4/tnsm_revision/matched_ablation -p 'test_*.py' -v
+```
+
+These commands make no provider requests. Do not change a frozen protocol or reuse a completed run name. Pilot results stay separate. The new study is a common-harness inference-block comparison, not a full n8n/LangGraph or operational O-RAN experiment.
+
+The earlier `FINAL_ALIGNMENT_REVIEW_20261016.md` records a review before these new observations. The current `SUBMISSION_READINESS.md` supersedes its document counts and remaining-ablation status. The published v1.1.0 tag at `977a746e3b6f49ccb158b7dcd998c25872d729ec` remains unchanged. This later work is prepared for a separately versioned artifact; no new DOI or remote publication is asserted.

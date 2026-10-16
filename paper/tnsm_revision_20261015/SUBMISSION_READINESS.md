@@ -1,43 +1,47 @@
-# Submission readiness review — 16 October 2026
+# Submission readiness — after the completed matched study
 
-**Status: major-revision package with the original 180-run evidence recovered and verified.** The supplied decision remains major revision, with a 6 December 2026 deadline. No journal submission was performed.
+Prepared 16 October 2026 for TNSM-2026-12002. **Status: major revision R1 for final coauthor review.** No journal submission, acceptance or new DOI publication is represented as complete. The decision letter gives 6 December 2026 as the revision deadline.
 
-## Resolved evidence issue
+## Completed scientific work
 
-The author's original recovery bundle matches the SHA-256 recorded on their computer. All 180 run manifests verify 3,240 bound files. The archive contains 3,420 files in total, including the 180 manifests. Every canonical report hash matches the corresponding previously released frozen-reference record. Raw reanalysis reproduces decision/action agreement, coverage, NEVER recall, scenario-clustered intervals and indexed median/P95 latency. Details, hashes and reproduction commands are in **RAW_EVIDENCE_VERIFICATION.md** and `evidence/derived/recovered_proposed_audit.json`.
+The original 180 proposed-workflow packages remain recovered and verified: 180 manifests, 3,240 bound files and exact joins to the released reference. Agentic-RAG NEVER recall is 19/20 = 95%. Raw scores, clustered intervals and indexed timings reproduce. The original bundle remains unchanged.
 
-The earlier missing-report caveats have been removed from the manuscript and response. The original data remain unchanged. This recovery is archival verification, not a new inference experiment.
+The previously missing matched inference-block study is now complete. Its original uploaded archive has SHA-256 `7ea6792f45aa6663e98869e81626f69bb37c58c1c4de161691545c70780bdd95`; the full protocol has SHA-256 `5e501822578b8c87537110d8e5d6ce22fc1d904a6f631721cc82d1b628cbba6e`. The frozen analyzer reproduces its complete packaged JSON exactly. A separate offline implementation independently verifies matching, manifest/response hashes, scoring, timer partitions, quantiles, paired effects and descriptive scenario-bootstrap intervals. No new paid calls were made for reanalysis.
 
-## Completed corrections and checks
+The full study contains 240 trials and 1,080 calls; pilots are preserved separately. Primary contrasts use 59 HTTP-complete matched blocks with one timeout exclusion, while marginal summaries retain all 60 trials per condition. Added-assessor mean increments are 23.622/27.017 s and whole-role-chain increments 63.052/66.446 s. Results are mixed semantically: D decision agreement is 59/60, but NEVER recall is 18/20 versus A's 19/20; pre-review action agreement also decreases. Six designed clusters support descriptive intervals only.
 
-- Agentic-RAG NEVER recall is **19/20 = 95%**, independently recomputed from final-action records and cross-checked against retained histograms.
-- Main VI-E and supplementary Table S1/S10 describe the recovered reports and their reference joins. Main VII-J and new supplementary Table S15 analyse disjoint timestamp intervals for all 180 benchmark reports, with 60 records per mode.
-- Semantic agreement, policy routing, output declarations and the single observed simulated write remain explicitly separate. The unequal LangGraph latency ratio is not presented as a causal component/framework effect.
-- Original 320-state and zero-input 480-state formal checks, including three expected mutation counterexamples, remain bounded finite-model evidence. Their source/log hashes are preserved.
-- Tables, bibliography metadata, nominal-category future-study interpretation, AI-assistance disclosure and editable workflow maps are consistent across the marked and clean manuscripts.
-- Four PDF builds: main **14 pages**, supplement **14 pages**. Clean counterparts have identical text and character positions. Final pages and rendered Word documents inspected.
-- **43 Python tests**: 29 existing revision-tool, nine retained-evidence and five recovered-evidence tests. **14 callback payload cases**: two valid and twelve malformed inputs. The callback V2 export remains inactive.
-- All eight Reviewer 1 and three Reviewer 2 comments have a point-by-point response. R2.3 concerns semantics versus execution safety; the supervisor's old Table IV instruction is separate.
-- Both original supervisor photographs were visually inspected. `SUPERVISOR_ALIGNMENT.md` supplies the requested concern/change/response mapping. The Figure S1 note concerns an AI-generated diagram: Supplement III now explicitly identifies its archived JSON, generator, 54-node inventory, functional grouping and complete 49-connection topology. AI assistance is disclosed. Near-RT/Non-RT timescales now cite ETSI TS 103 982 V14.0.0; remaining semantic-safety wording was corrected.
-- Figure 7's hash legend is explicitly associated with panel (a). The supplement now carries the same descriptive Wilson-bound caveat as the main text, including the shared three-context limitation. Existing technical references are linked in the relevant prose for traceability; no new experimental results were introduced by these edits.
-- The supervisor's requested latency ablation remains only partially fulfilled experimentally: retained-output replay and all-180 descriptive phase timing are complete; a matched inference-time component experiment is not. The response uses R2.2's qualified-interpretation alternative without claiming that replay measures framework overhead.
+The audit retains 33 Anthropic refusals, nine DeepSeek length terminations, six reference failures and one timeout. Four truncated reasoning-channel objects were accepted by the frozen parser and are explicitly disclosed. Those categories overlap; they must not be added as disjoint failures. The 45 invalid nodes are 33 refusals + five JSON/schema failures + six reference failures + one timeout. Post hoc completion subsets are outcome-selected sensitivities, not replacements for the prespecified population. No failed output is repaired or replaced.
 
-## Remaining author and publication steps
+## Document alignment and verified layout
 
-1. Reconcile the recovered source with any later private Overleaf edits and obtain final coauthor approval of text, author order, funding, references and disclosures. Verify author ORCIDs in the submission system. These confirmations are not represented as complete.
-2. Publish the reviewed revision artifact containing the recovered raw bundle and audit code at an accessible versioned location. The historical DOI release remains unchanged and does not contain these additions. Author terminal logs show publication of GitHub tag tnsm-artifact-v1.1.0 at commit 977a746e3b6f49ccb158b7dcd998c25872d729ec. The 16 October wording and reference corrections are later changes and require a separately versioned archive. This review does not confirm a new Zenodo DOI or modify the existing published tag.
-3. Independent expert labels, matched inference-time ablation and production-derived telemetry/live A1/E2 integration remain unavailable. The revision uses the narrower-claim and qualified-interpretation options offered by R2.1–R2.2. Editorial acceptance of those options remains the reviewers' decision.
-4. Operational use requires approval-service authentication, exact action/evidence binding, expiry, replay/conflict handling, revocation and privileged-approval implementation and tests. The inactive callback export does not establish those guarantees.
+| Document | Final pages | New study location |
+| --- | ---: | --- |
+| Marked main manuscript | 16 | VII-K, pp. 13–14; Tables XIV–XV, p. 14 |
+| Marked supplement | 17 | S11, pp. 14–17; S16, p. 15; S17–S18, p. 16 |
+| Point-by-point response | 6 | Associate Editor, R1.4–R1.5, R2.1–R2.3; particularly R2.2 |
 
-## Journal checks
+Clean main/supplement counterparts have identical text and character positions. Four LaTeX builds have no overfull boxes or undefined references. All marked pages were inspected as contact sheets; dense changed pages and the response were inspected at readable scale. No visible watermark or clipped text was found in the inspected renders. The approximately 188-word abstract is within the author-page 75–200-word requirement. The main fits the stated 16-page maximum without reducing body text size.
 
-The TNSM author page states a 75–200-word abstract and a 16-page maximum including figures, references and biographies. The main manuscript is 14 pages with an approximately 175-word abstract. The cover-letter draft identifies the ICC Workshops predecessor and journal extensions. No camera-ready acceptance is implied.
+All 72 Python checks passed: 43 original revision/evidence tests, four new independent-audit tests and 25 isolated matched-harness tests. The 14 callback payload cases also passed (two valid, twelve malformed). Earlier finite-model and mutation evidence is unchanged; the new common harness does not extend those formal guarantees. `evidence/derived/matched_document_validation.json` records build/test results and PDF hashes.
 
-Primary policies checked:
+The response addresses all eight R1 and three R2 comments. `SUPERVISOR_ALIGNMENT.md` maps all supervisor recommendations, including the separate former Table IV and Figure S1 requests. Figure S1 is a code-derived editable workflow summary, not an AI-detector result. The AI-assistance acknowledgment now also discloses harness/audit assistance and identifies author-executed hosted calls as the source of new response data.
 
-- https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines
-- https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/guidelines-and-policies/submission-and-peer-review-policies/
+## Claims that remain bounded
 
-## Final polishing audit
+- The new study changes configured provider count/diversity together and adds/removes the whole role chain. It cannot isolate individual roles, provider count independently of identity or n8n/LangGraph overhead. The historical 109.793/1.843 ratio stays confounded.
+- The new timer excludes retrieval generation, startup, final index/manifest writes, human waiting and anchoring. It is not an O-RAN response deadline.
+- The common review-only guard imposes zero execution; it is not a new measured deployment-safety achievement. Semantic scores, pre-review action, post-guard routing, reference validity, HTTP completion and actual simulated actuation remain distinct.
+- Checksum consistency and returned IDs do not independently authenticate provider execution or validate the author oracle. Fingerprints/immutable snapshots are missing for most providers. No invoice-based dollar cost is claimed.
+- Independent expert annotation, production-derived/noisy telemetry, live rApp/A1/E2 integration and deployed approval authentication/binding/expiry/replay/conflict/revocation/privileged tests remain unavailable. They are limitations/future work, not claimed completed work.
 
-FINAL_ALIGNMENT_REVIEW_20261016.md records the latest requirement matrix, wording/table/reference corrections and rerun evidence/formal/regression checks. The decision remains major revision. No matched inference-time study, expert annotations, operational O-RAN validation or deployed approval-service verification was added. The response has verified final section/table/page locations and explicitly retains these limits.
+## Remaining author/publication actions
+
+1. Reconcile this source with any later private Overleaf edits and obtain coauthor approval of science, author order, affiliations, funding, citations and disclosure. No such approval is fabricated.
+2. Publish a separately versioned GitHub/Zenodo artifact containing the raw study, audit code and updated PDFs. The existing v1.1.0 tag at `977a746e3b6f49ccb158b7dcd998c25872d729ec` and historical version DOI `10.5281/zenodo.21939774` remain unchanged. Prepared v1.2.0 metadata does not create a DOI. Verify the actual new record and archived files before citing it.
+3. Upload the marked manuscript, supplement and separate response through the journal portal before the decision-letter deadline; inspect submission files and confirmation. This audit performs no portal submission.
+
+The earlier `FINAL_ALIGNMENT_REVIEW_20261016.md` is a historical review before this experiment. This record and `MATCHED_STUDY_AUDIT.md` supersede its missing-ablation and document-count statements. The editor/reviewers determine whether the bounded evidence and narrowed claims suffice; acceptance cannot be guaranteed.
+
+Primary author policy checked: https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines
+
+The primary paired means condition on all-node HTTP completion. This selection is prespecified but can still bias contrasts relative to all attempted blocks; only the conditional complete-case estimand is claimed. The protocol flag `synthetic=false` denotes actual API returns rather than mock records, while all scenario inputs remain synthetic.

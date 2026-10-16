@@ -1,0 +1,14 @@
+\begin{table*}[!t]
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
+\caption{\rev{Returned full-study usage metadata. Thinking/reasoning is a subset of output/completion, not an extra chargeable total; missing subfields are not zero-imputed. The Mistral timeout has no usage record. No invoice-based cost is claimed.}}
+\label{tab:matched-usage}
+\begin{tabular}{lrrrr}
+\toprule Provider & Usage records/calls & Input/prompt tokens & Output/completion tokens & Reported thinking/reasoning subset \\
+\midrule
+Openai & 360/360 & 1,010,925 & 151,517 & 55,348 (360 records) \\
+Anthropic & 240/240 & 1,181,839 & 273,962 & 54,842 (209 records) \\
+Deepseek & 240/240 & 906,173 & 781,084 & 655,105 (240 records) \\
+Mistral & 239/240 & 1,057,354 & 140,508 & 0 (239 records) \\
+\bottomrule
+\end{tabular}
+\end{table*}

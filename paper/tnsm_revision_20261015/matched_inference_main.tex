@@ -1,0 +1,73 @@
+% New measured study; frozen evidence and independent audit are unchanged.
+\begin{revision}
+\subsection{Matched Inference-Time Component Study}
+\label{sec:matched-inference}
+\paragraph{Design and estimand}
+On 16 October 2026 we ran a new $2\times2$ study on the 60 frozen
+Agentic-RAG cells (six synthetic scenarios, ten repeats). Each matched block
+uses one input and retrieval bundle, with fresh outputs in all four
+conditions: A, one OpenAI assessor and no roles; B, four parallel assessors
+and no roles; C, one assessor and four sequential roles; D, four parallel
+assessors and the same roles. The roles are planner (OpenAI), critic
+(Anthropic), recovery (DeepSeek) and arbiter (Mistral). These 240 trials make
+1,080 calls. Shared assessor requests are identical within blocks; role
+context depends on fresh prior outputs. The assessor factor changes both
+number and provider identity, and the role factor changes the whole chain.
+D is an inference condition, not the full proposed system.
+
+The protocol was frozen before the full run, after two separate pilots.
+It pins source/input/code hashes, aliases, image, order and analysis rules.
+Output caps are 5,000 per assessor and 8,192 per role, with a 180~s request
+timeout and one attempt per call. Shuffled blocks and Williams sequences
+balance each condition across four positions (15 times each). The common
+aggregator requires at least $\lceil0.75N\rceil$ valid assessors and 0.75
+agreement among valid outputs for configured count $N$; otherwise it returns
+UNCERTAIN. This declared adaptation avoids penalising the one-assessor
+condition merely for omitting three providers. All conditions use the same
+source-pinned reconciliation and a review-only guard: preserve NEVER,
+otherwise HUMAN, always \texttt{execute=false}. No OPA service, proof,
+operator approval, ledger or RAN action is invoked.
+
+\paragraph{Timing and analysis}
+Decision-ready time starts before prompt construction and ends after the
+common guard. It includes parallel assessment wall time, aggregation,
+roles/adapter, governance and intermediate node-file persistence; it excludes
+retrieval generation, startup, final index/manifest writes, human waiting
+and anchoring. The four stage intervals are disjoint. Prespecified paired
+means use the 59 blocks with every planned HTTP response 200; block~7 is
+excluded for a Mistral read timeout. HTTP completion does not imply a valid
+or correct output. These contrasts condition on transport completion;
+selection can bias them relative to all attempted blocks. Table~\ref{tab:matched-conditions} retains all 60 trials
+per condition, including failures. Table~\ref{tab:matched-effects} uses
+20,000 whole-scenario bootstrap draws; with six designed clusters, its 95\%
+percentile intervals are descriptive, not reliable nominal-coverage or
+general-O-RAN inference. Pilot records are not pooled.
+\input{matched_conditions_table}
+\input{matched_effects_table}
+
+\paragraph{Results and limits}
+Adding the configured assessor set costs 23.622~s without roles and
+27.017~s with roles in paired mean duration. Adding the role chain costs
+63.052~s with one assessor and 66.446~s with four. The interaction estimate
+is 3.395~s; its interval does not establish absence of interaction.
+Semantic changes are mixed: C has the same decision agreement as A;
+D improves decision agreement but has lower NEVER recall (18/20 versus
+19/20) and lower pre-review action agreement (48/60 versus 55/60).
+The common HUMAN guard raises final action agreement in these non-automatic
+reference cases; it is not evidence of semantic understanding.
+
+Of 1,080 node calls, 1,079 return HTTP~200 and 1,035 pass the source's schema
+and reference checks. The 45 invalid nodes comprise 33 Anthropic refusals,
+five JSON/schema failures, six reference-check failures and one timeout.
+Reference checks validate cited identifiers and selected action-language
+rules, not entailment. Nine DeepSeek responses end with \texttt{length};
+four are nevertheless accepted through the frozen parser's
+\texttt{reasoning\_content} fallback when final text is empty. These are
+retained, not repaired. Supplement~S11 reports the full failure audit and
+post hoc validity/completion sensitivities, explicitly selected after
+observing outputs. Zero executions are imposed by the common guard.
+This study supports bounded component-block latency contrasts; it neither
+measures n8n/LangGraph overhead nor decomposes their historical gap,
+authenticates provider-side execution, validates the oracle independently,
+or establishes operational O-RAN safety.
+\end{revision}

@@ -1,0 +1,15 @@
+\begin{table}[!t]
+\centering\ifshowrevisions\color{blue}\else\color{black}\fi\footnotesize
+\caption{\rev{Node-response audit. Schema validity and combined schema/reference validity are checks on returned structure and cited identifiers, not semantic correctness.}}
+\label{tab:matched-nodes}
+\begin{tabular}{lrrrr}
+\toprule Provider & Calls & HTTP 200 & Schema & Combined \\
+\midrule
+Anthropic & 240 & 240 & 207 & 207 \\
+Deepseek & 240 & 240 & 235 & 233 \\
+Mistral & 240 & 239 & 239 & 237 \\
+Openai & 360 & 360 & 360 & 358 \\
+\midrule Total & 1,080 & 1,079 & 1,041 & 1,035 \\
+\bottomrule
+\end{tabular}
+\end{table}
