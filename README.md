@@ -1,3 +1,17 @@
+## TNSM-2026-12002 major revision: artifact v1.1.0
+
+The R1 manuscript, supplement and reviewer response are in
+[submission/](paper/tnsm_revision_20261015/submission/).
+
+See the [revision documentation](paper/tnsm_revision_20261015/README.md)
+and [supervisor alignment](paper/tnsm_revision_20261015/SUPERVISOR_ALIGNMENT.md).
+
+This version includes the original recovered 180-run evidence and audit code.
+Independent expert validation, a matched inference-time ablation and live
+O-RAN integration remain incomplete.
+
+The version DOI for this release must be taken from its verified Zenodo record.
+
 # ZKTrustLLM-Agents L4
 
 ## TNSM major revision of 15 October 2026
