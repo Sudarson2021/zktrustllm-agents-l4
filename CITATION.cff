@@ -6,6 +6,8 @@ abstract: >-
   Frozen reproducibility artifact containing the synthetic-policy oracle,
   external LangGraph and open-weights baselines, prompt-injection experiment,
   analysis scripts, hash manifests, and manuscript-support evidence.
+  Version 1.2.0 also retains the recovered 180-run records and the new
+  240-trial, 1080-call matched inference-block study, including failures.
 authors:
   - family-names: Karmaker
     given-names: Sudarson
@@ -19,9 +21,9 @@ authors:
 repository-code: "https://github.com/Sudarson2021/zktrustllm-agents-l4"
 url: "https://github.com/Sudarson2021/zktrustllm-agents-l4"
 license: MIT
-version: 1.0.0
-doi: 10.5281/zenodo.21939774
-date-released: 2026-08-14
+version: 1.2.0
+doi: 10.5281/zenodo.23425828
+date-released: 2026-10-16
 keywords:
   - O-RAN
   - agentic AI

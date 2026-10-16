@@ -48,10 +48,14 @@ We retain the output replay and all-180 historical timing analysis and add the c
 
 The original recovery bundle retains SHA-256 `f842c0308d6e52904de71bb8886a044d733d474dde688ac906fbab0277ccb63d`. All 180 manifests verify 3,240 bound files; canonical reports match the earlier frozen export, and raw reanalysis reproduces the retained results. The new study adds 1,080 author-executed API calls on synthetic inputs. No independent expert labels or operational network actions were added. Its unchanged archive has SHA-256 `7ea6792f45aa6663e98869e81626f69bb37c58c1c4de161691545c70780bdd95`.
 
-The authors should reconcile any later private Overleaf edits, approve the final authorship/funding/disclosure text and decide whether the explicitly narrowed claims adequately address the remaining validation gaps. Publish the reviewed artifact version and then add its actual new DOI to the revision-specific citation. Preserve the original DOI wherever it identifies historical evidence. Acceptance and supervisor approval remain decisions for the editor, reviewers and coauthors.
+The authors should reconcile any later private Overleaf edits, approve the final authorship/funding/disclosure text and decide whether the explicitly narrowed claims adequately address the remaining validation gaps. The experiment snapshot is now archived as v1.2.0, DOI 10.5281/zenodo.23425828, with all 1,648 source files verified by the author against commit f0a0e6f. This subsequent document update cites that archive and preserves the historical DOI where appropriate. Acceptance and supervisor approval remain decisions for the editor, reviewers and coauthors.
 
 Primary source for control-loop timescales: ETSI TS 103 982 V14.0.0 (March 2026), sections 5.3.1.2.3 and 5.3.2, https://www.etsi.org/deliver/etsi_ts/103900_103999/103982/14.00.00_60/ts_103982v140000p.pdf .
 
 ## Updated check after the full matched study
 
 The earlier `FINAL_ALIGNMENT_REVIEW_20261016.md` is retained as a historical review before this new experiment. `MATCHED_STUDY_AUDIT.md` records the later study, failure audit and reproducible limitations; `SUBMISSION_READINESS.md` records final rebuilt-document checks. Remaining gaps are independent expert labels, operational O-RAN/telemetry and deployed approval-service verification. The decision remains major revision, subject to coauthor review and the editor's assessment.
+
+## Verified publication and remembered supervisor review
+
+`PUBLICATION_VERIFICATION.md` records the actual new DOI and the author's full archive comparison. The remembered July 18 supervisor demonstration is a single simulated-action approval under a generic reviewer identifier; it supplies no independent scenario labels. This does not change the independent-expert limitation or the coauthor-approval requirement.

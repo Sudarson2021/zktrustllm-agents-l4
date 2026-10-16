@@ -674,20 +674,22 @@ absent. We narrow the conclusions accordingly and preserve the frozen oracle.
 \end{revision}
 \end{revision}
 \subsection{Artifact Reproducibility}
-\rev{The historical public artifact is version~1.0.0~\cite{artifactRepo}.
-The revision-specific reproducibility archive adds the marked/clean sources,
-unchanged retained-data packages, reanalysis code, formal logs and editable
-figures. Its build information identifies the repository commit and file
-digests. These new checks must not be attributed to the older DOI release.
-The supplement describes the evidence objects and reproduction commands.
-The revision includes all 180 recovered proposed-workflow report packages,
-with 180 manifests binding 3,240 evidence files, plus retained baseline
-records. Every recovered report's canonical hash matches its entry in the
-previously released frozen oracle export. Reanalysis reproduces the agreement
-counts, scenario-clustered intervals and indexed latency statistics without
-new inference. This establishes internal integrity and result consistency;
-it does not independently authenticate provider services or validate the
-synthetic oracle.}
+\rev{The released experiment artifact, version~1.2.0~\cite{artifactRepo},
+archives code, prompts, retained data, reanalysis scripts, formal logs and
+editable figures at Git commit \texttt{f0a0e6f}. The author compared the
+Zenodo source archive with all 1,648 tracked files of that published commit;
+all matched, including the original recovery bundle, the new matched-study
+bundle and the three archived R1 PDFs. The final submission documents add
+the verified archive citation. Historical version~1.0.0 remains identified
+by DOI 10.5281/zenodo.21939774.
+The artifact includes all 180 recovered proposed-workflow report packages,
+with 180 manifests binding 3,240 evidence files, plus retained baselines and
+the new 240-trial, 1,080-call study. Every recovered report's canonical hash
+matches the previously released frozen oracle export. Reanalysis reproduces
+agreement, scenario-clustered intervals and indexed latency without new
+inference. These checks establish internal correspondence and consistency,
+not independent provider authentication or validation of the synthetic
+oracle. The supplement gives reproduction commands.}
 \subsection{Claim Boundary}
 \label{sec:claim-boundary}
 Claims are restricted to the released implementation and retained evidence.
@@ -1473,14 +1475,6 @@ arbitrary-Byzantine and adaptive multi-turn attacks, and implement row-bound
 proof/public-input binding. Standard A1 payloads, tighter SMO/Non-RT RIC
 integration, and lower latency can then support fail-closed operator pilots.
 \end{revision}
-% \section*{Data and Artifact Availability}
-% Source code, workflows, machine-readable measurements, prompts, validation
-% scripts, and SHA-256 manifests are available at
-% \url{https://github.com/Sudarson2021/zktrustllm-agents-l4}. The frozen
-% version~1.0.0 release is archived on Zenodo under DOI
-% 10.5281/zenodo.21939774~\cite{artifactRepo}. Public testnet transaction
-% identifiers permit independent receipt checks. API credentials, provider-side
-% logs, and personal data are not distributed.
 \section*{Acknowledgment}
 This work is supported by the CHEDDAR (Communications Hub for Empowering
 Distributed Cloud Computing Applications and Research) programme under UK
@@ -1577,9 +1571,10 @@ IoTeX Foundation, ``Roll-DPoS consensus,'' 2025. [Online]. Available:
 IoTeX Foundation, ``RPC endpoints: IoTeX mainnet and testnet,'' 2026.
 [Online]. Available: \url{https://docs.iotex.io/}
 \bibitem{artifactRepo}
-S. Karmaker, M. Shojafar, and H. S. Cruickshank, ``Reproducibility artifact
+\rev{S. Karmaker, M. Shojafar, and H. S. Cruickshank, ``Reproducibility artifact
 for auditable policy-governed LLM-agent control for O-RAN edge security,''
-Zenodo, version 1.0.0, Aug. 14, 2026, doi: 10.5281/zenodo.21939774.
+Zenodo, version 1.2.0, 2026, doi:
+\url{10.5281/zenodo.23425828}.}
 \bibitem{ongaro2014raft}
 D. Ongaro and J. Ousterhout, ``In search of an understandable consensus
 algorithm,'' in \emph{Proc. USENIX Annu. Tech. Conf. (ATC)}, 2014,

@@ -54,5 +54,29 @@
     "frozen_harness_source_commit": "2287b1dd3b4f1e0328a57a3febbe4fbf3d18b16e",
     "study_audit": "MATCHED_STUDY_AUDIT.md",
     "provider_origin_independently_authenticated": false
+  },
+  "published_experiment_archive": {
+    "schema": "tnsm.artifact_publication_verification.v1",
+    "date": "2026-10-16",
+    "version": "1.2.0",
+    "doi": "10.5281/zenodo.23425828",
+    "concept_doi": "10.5281/zenodo.21939773",
+    "zenodo_record_id": 23425828,
+    "github_release": "https://github.com/Sudarson2021/zktrustllm-agents-l4/releases/tag/tnsm-artifact-v1.2.0",
+    "archived_git_commit": "f0a0e6fee0fc3b70b4c6520abeae6b9f637ffdf5",
+    "zenodo_archive_file_key": "Sudarson2021/zktrustllm-agents-l4-tnsm-artifact-v1.2.0.zip",
+    "download_bytes": 34969945,
+    "download_sha256": "204512d3717d0599996c5f6e03bd21fb34425e51c14485364ef7d2917316f4f2",
+    "zenodo_reported_transfer_checksum_passed": true,
+    "tracked_files_compared": 1648,
+    "both_evidence_bundles_match": true,
+    "three_archived_submission_pdfs_match": true,
+    "original_evidence_sha256": "f842c0308d6e52904de71bb8886a044d733d474dde688ac906fbab0277ccb63d",
+    "matched_evidence_sha256": "7ea6792f45aa6663e98869e81626f69bb37c58c1c4de161691545c70780bdd95",
+    "verification_provenance": "Author-executed commands on clws00176 and their pasted terminal outputs in this revision session. The assistant did not independently download the Zenodo ZIP.",
+    "new_document_scope": "Later citation/publication-status update; scientific measurements and archived source snapshot remain identified by the above commit.",
+    "independent_expert_validation": false,
+    "live_oran_validation": false,
+    "provider_origin_independently_authenticated": false
   }
 }

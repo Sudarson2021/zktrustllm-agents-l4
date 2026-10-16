@@ -1,0 +1,70 @@
+{
+  "scope": "Verified DOI citation and publication-status update after published f0a0e6f; scientific measurements and executable sources unchanged.",
+  "artifact_doi": "10.5281/zenodo.23425828",
+  "archived_experiment_commit": "f0a0e6fee0fc3b70b4c6520abeae6b9f637ffdf5",
+  "pdfs": {
+    "TNSM_12002_Manuscript_Marked": {
+      "pages": 16,
+      "sha256": "e78c6f7692d06b0ceb951eecefc7fe43bf7fcd111e95a25f840a9e4823bd57a6",
+      "doi_pages": [
+        15
+      ],
+      "page_boundary_violations": [],
+      "clean_text_and_positions_identical": true
+    },
+    "TNSM_12002_Manuscript_Clean": {
+      "pages": 16,
+      "sha256": "80f1ef968b74d14c80c920b1d1d6ae89d1f60291dce0ee735329c3ba33a77323",
+      "doi_pages": [
+        15
+      ],
+      "page_boundary_violations": []
+    },
+    "TNSM_12002_Supplement_Marked": {
+      "pages": 17,
+      "sha256": "9e9db8b15c0e353776740c4c8266188b9a7c1428aace086f731252757c304e63",
+      "doi_pages": [
+        17
+      ],
+      "page_boundary_violations": [],
+      "clean_text_and_positions_identical": true
+    },
+    "TNSM_12002_Supplement_Clean": {
+      "pages": 17,
+      "sha256": "e2fe6b9a8536293478af8d414cd08634f4f382d03615f890bc79b9a7ebf8baea",
+      "doi_pages": [
+        17
+      ],
+      "page_boundary_violations": []
+    },
+    "TNSM_12002_R1_Response_to_Reviewers": {
+      "pages": 6,
+      "sha256": "b6a8084c8911271b0e57f2b37e8412d251a5e7ce9246c2cacb2f76368029129d",
+      "doi_pages": [
+        1
+      ],
+      "page_boundary_violations": []
+    }
+  },
+  "latex": {
+    "main": {
+      "overfull_boxes": 0,
+      "undefined_references_or_citations": 0
+    },
+    "main-clean": {
+      "overfull_boxes": 0,
+      "undefined_references_or_citations": 0
+    },
+    "supplementary_material": {
+      "overfull_boxes": 0,
+      "undefined_references_or_citations": 0
+    },
+    "supplementary-clean": {
+      "overfull_boxes": 0,
+      "undefined_references_or_citations": 0
+    }
+  },
+  "scientific_data_code_and_main_result_tables_unchanged": true,
+  "previous_validation": "72 Python tests and 14 callback cases passed on published matched-study source; user independently repeated the checks. No executable source changed in this citation-only update.",
+  "visual_inspection": "All pages of marked main/supplement/response inspected as rendered contact sheets. DOI-bearing main reference page, full artifact-reproducibility paragraph, supplementary final page and response opening inspected at readable scale. No visible watermark, clipped text or DOI overflow found in those renders. Marked/clean text and positions are identical."
+}

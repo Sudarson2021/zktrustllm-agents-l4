@@ -165,7 +165,7 @@ are inserted into the paper.
 
 The artifact separates direct runtime evidence, public-testnet evidence, configured profile evidence, reproducibility evidence, and claim-boundary evidence. Configured media-profile values must not be reported as packet-capture measurements.
 
-## Prepared matched-study revision: artifact v1.2.0
+## Published matched-study artifact v1.2.0
 
 The completed study and independent audit are documented in
 [the matched-study audit](paper/tnsm_revision_20261015/MATCHED_STUDY_AUDIT.md).
@@ -174,5 +174,7 @@ The revised manuscript, supplement and response are in
 [submission/](paper/tnsm_revision_20261015/submission/).
 Latency contrasts are bounded common-harness results; semantic changes are mixed.
 Independent expert and live O-RAN validation remain absent.
-The v1.1.0 tag and historical DOI remain unchanged; this prepared version has
-no newly verified DOI or publication claim.
+The verified experiment archive is [Zenodo v1.2.0](https://doi.org/10.5281/zenodo.23425828),
+at commit `f0a0e6f`. The author verified all 1,648 archived tracked files.
+Later submission documents add this DOI citation; the publication verification
+record identifies their scope.

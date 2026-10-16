@@ -2,7 +2,7 @@
 
 Manuscript TNSM-2026-12002 — revision prepared 16 October 2026
 
-Blue-marked and clean manuscripts accompany this major revision. The original 180-run evidence has been recovered and audited. A new 240-trial, 1,080-call matched inference-block study is complete and independently reanalysed from retained records. Independent expert annotation and live O-RAN deployment remain unavailable; the corresponding claims are narrowed.
+Code and evidence are archived in Zenodo v1.2.0 (https://doi.org/10.5281/zenodo.23425828). The original 180-run evidence has been recovered and audited. A new 240-trial, 1,080-call matched inference-block study is complete and independently reanalysed from retained records. Independent expert annotation and live O-RAN deployment remain unavailable; the corresponding claims are narrowed.
 
 ## Associate Editor
 

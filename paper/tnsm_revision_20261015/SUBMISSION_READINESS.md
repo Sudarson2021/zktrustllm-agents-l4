@@ -1,6 +1,6 @@
 # Submission readiness — after the completed matched study
 
-Prepared 16 October 2026 for TNSM-2026-12002. **Status: major revision R1 for final coauthor review.** No journal submission, acceptance or new DOI publication is represented as complete. The decision letter gives 6 December 2026 as the revision deadline.
+Prepared 16 October 2026 for TNSM-2026-12002. **Status: major revision R1 for final coauthor review.** GitHub/Zenodo publication of the experiment archive is complete; journal submission and acceptance are not represented as complete. The decision letter gives 6 December 2026 as the revision deadline.
 
 ## Completed scientific work
 
@@ -22,7 +22,7 @@ The audit retains 33 Anthropic refusals, nine DeepSeek length terminations, six 
 
 Clean main/supplement counterparts have identical text and character positions. Four LaTeX builds have no overfull boxes or undefined references. All marked pages were inspected as contact sheets; dense changed pages and the response were inspected at readable scale. No visible watermark or clipped text was found in the inspected renders. The approximately 188-word abstract is within the author-page 75–200-word requirement. The main fits the stated 16-page maximum without reducing body text size.
 
-All 72 Python checks passed: 43 original revision/evidence tests, four new independent-audit tests and 25 isolated matched-harness tests. The 14 callback payload cases also passed (two valid, twelve malformed). Earlier finite-model and mutation evidence is unchanged; the new common harness does not extend those formal guarantees. `evidence/derived/matched_document_validation.json` records build/test results and PDF hashes.
+All 72 Python checks passed: 43 original revision/evidence tests, four new independent-audit tests and 25 isolated matched-harness tests. The 14 callback payload cases also passed (two valid, twelve malformed). Earlier finite-model and mutation evidence is unchanged; the new common harness does not extend those formal guarantees. `evidence/derived/doi_document_validation.json` records the final DOI-update build checks and PDF hashes; the earlier matched-study validation file remains the pre-DOI build record.
 
 The response addresses all eight R1 and three R2 comments. `SUPERVISOR_ALIGNMENT.md` maps all supervisor recommendations, including the separate former Table IV and Figure S1 requests. Figure S1 is a code-derived editable workflow summary, not an AI-detector result. The AI-assistance acknowledgment now also discloses harness/audit assistance and identifies author-executed hosted calls as the source of new response data.
 
@@ -37,7 +37,7 @@ The response addresses all eight R1 and three R2 comments. `SUPERVISOR_ALIGNMENT
 ## Remaining author/publication actions
 
 1. Reconcile this source with any later private Overleaf edits and obtain coauthor approval of science, author order, affiliations, funding, citations and disclosure. No such approval is fabricated.
-2. Publish a separately versioned GitHub/Zenodo artifact containing the raw study, audit code and updated PDFs. The existing v1.1.0 tag at `977a746e3b6f49ccb158b7dcd998c25872d729ec` and historical version DOI `10.5281/zenodo.21939774` remain unchanged. Prepared v1.2.0 metadata does not create a DOI. Verify the actual new record and archived files before citing it.
+2. Completed: GitHub v1.2.0 and Zenodo DOI `10.5281/zenodo.23425828`, at commit `f0a0e6fee0fc3b70b4c6520abeae6b9f637ffdf5`. The author verified all 1,648 archived files, including both original evidence bundles and three R1 PDFs. The later final-document commit adds this verified citation. `PUBLICATION_VERIFICATION.md` records the distinction and the author-terminal source of verification.
 3. Upload the marked manuscript, supplement and separate response through the journal portal before the decision-letter deadline; inspect submission files and confirmation. This audit performs no portal submission.
 
 The earlier `FINAL_ALIGNMENT_REVIEW_20261016.md` is a historical review before this experiment. This record and `MATCHED_STUDY_AUDIT.md` supersede its missing-ablation and document-count statements. The editor/reviewers determine whether the bounded evidence and narrowed claims suffice; acceptance cannot be guaranteed.

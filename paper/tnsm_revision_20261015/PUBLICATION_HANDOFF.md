@@ -1,3 +1,11 @@
+# Publication completed; final citation update
+
+GitHub v1.2.0 and Zenodo DOI **10.5281/zenodo.23425828** are now verified. The author compared all 1,648 archived files against published commit `f0a0e6fee0fc3b70b4c6520abeae6b9f637ffdf5`; both evidence bundles and three archived PDFs match. See `PUBLICATION_VERIFICATION.md`.
+
+The instructions below are retained as the prepublication handoff and have already been completed. Do not repeat the tag/release creation or create a duplicate deposit. The subsequent documentation revision only updates citations and publication status.
+
+---
+
 # Import and publish the prepared matched-study revision
 
 This is a new prepared v1.2.0. The old v1.1.0 release/tag and DOI identify a historical snapshot and are not overwritten. The package contains the final five PDFs, all tracked repository source/evidence, a Git bundle, an Overleaf source ZIP and checksums. No journal or remote publication has been performed in this audit.
